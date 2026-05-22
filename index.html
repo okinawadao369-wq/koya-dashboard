@@ -2170,4 +2170,11 @@ function closeSidebar(){
   document.getElementById('sidebar-overlay').classList.remove('show');
 }
 // Close sidebar when nav item clicked on mobile
-do
+document.querySelectorAll('.nav-item').forEach(function(el){
+    el.addEventListener('click', function(){
+          if(window.innerWidth <= 768) closeSidebar();
+    });
+});
+</script>
+</body>body>
+</html>html>
