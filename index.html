@@ -565,6 +565,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="sec-title">軍人・軍属マーケット</div>
     <div class="sec-sub">等級別給与・消費心理・ターゲット層戦略 — DFAS 2026年公式データ</div>
 
+    <!-- E4 KPI Cards -->
+    <div class="cards" id="e4-kpi-cards">
+      <div class="card"><div class="c-lbl">E-4 推計人口（沖縄）</div><div class="c-val teal" id="e4-pop">6,900人</div><div class="c-sub">SOFA家族帯同層 推計</div></div>
+      <div class="card"><div class="c-lbl">E-4 月収合計（USD）</div><div class="c-val gold" id="e4-income">$4,800/mo</div><div class="c-sub">基本給＋OHA＋COLA</div></div>
+      <div class="card"><div class="c-lbl">E-4 OHA（沖縄・扶養あり）</div><div class="c-val blue" id="e4-oha">$1,850/mo</div><div class="c-sub">＝¥293,000 住宅手当</div></div>
+      <div class="card"><div class="c-lbl">E-4 月間市場ポテンシャル</div><div class="c-val green" id="e4-market">--</div><div class="c-sub">4Dエコー換算 全商圏</div></div>
+      <div class="card"><div class="c-lbl">E-4 価格許容度</div><div class="c-val gold">68%</div><div class="c-sub">米国比プレミアム許容</div></div>
+      <div class="card"><div class="c-lbl">FTC 最重要ターゲット</div><div class="c-val teal">★ E-4</div><div class="c-sub">出産・育児開始期 消費ピーク</div></div>
+    </div>
+
     <div class="box">
       <div class="box-title">5. ターゲット層別 消費心理プロファイル</div>
       <div class="seg-grid" id="mil-seg-grid"></div>
@@ -948,8 +958,8 @@ var FRED_SERIES = [
 ];
 
 var MOCK = {
-  DEXJPUS:158.92, FEDFUNDS:5.33, UNRATE:4.2, CPIAUCSL:3.7, CPIFABSL:3.2,
-  AHETPI:37.41, DGS10:4.45, T10YIE:2.35, UMCSENT:67.8, GS2:4.88, DCOILWTICO:78.3
+  DEXJPUS:158.92, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:4.0, CPIFABSL:3.8,
+  AHETPI:32.23, DGS10:4.42, T10YIE:2.28, UMCSENT:65.4, GS2:4.05, DCOILWTICO:76.8
 };
 
 // State
@@ -1114,7 +1124,7 @@ function mockHistory(base,v,n,byMonth){
 function getMock(){
   return {
     fxH:mockHistory(158.92,2,14,false),
-    ffH:mockHistory(5.33,0.05,12,true),
+    ffH:mockHistory(3.64,0.02,12,true),
     urH:mockHistory(4.2,0.2,12,true),
     cpiH:mockHistory(315,1,14,true)
   };
@@ -1131,6 +1141,10 @@ function applyData(data,isMock){
   S.ahe=data.fredVals&&data.fredVals.AHETPI?data.fredVals.AHETPI:37.41;
   S.fredVals=data.fredVals||{};
   S.signal=calcSig(S.fx,S.ur);
+  // Set fredLive BEFORE updateOverviewCards so the count displays correctly
+  var liveCount=isMock?0:Object.keys(S.fredVals).length;
+  S.fredLive=liveCount;
+  document.getElementById('fred-pill').textContent='FRED '+liveCount+'/11';
   updateSig();
   updateOverviewCards();
   if(RD.overview) renderOverview();
@@ -1139,9 +1153,6 @@ function applyData(data,isMock){
   if(RD.fred) renderFred();
   var now=new Date();
   document.getElementById('last-upd').textContent=now.toLocaleTimeString('ja-JP')+(isMock?' [mock]':'');
-  var liveCount=isMock?0:Object.keys(S.fredVals).length;
-  S.fredLive=liveCount;
-  document.getElementById('fred-pill').textContent='FRED '+liveCount+'/11';
   document.getElementById('mock-pill').style.display=isMock?'':'none';
   document.getElementById('lo').style.display='none';
 }
@@ -1183,7 +1194,7 @@ function renderOverview(){
   if(S.ffH.length) mkLine('c-ff',S.ffH.map(function(d){return d.date.slice(0,7);}),S.ffH.map(function(d){return d.value;}),'#F4C842');
   if(S.urH.length) mkLine('c-ur',S.urH.map(function(d){return d.date.slice(0,7);}),S.urH.map(function(d){return d.value;}),'#FF4D6A');
   // Gauge
-  var fx=S.fx||158.92; var ur=S.ur||4.2; var ff=S.ff||5.33; var cpi=S.cpi||3.7;
+  var fx=S.fx||158.92; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
   var score=60;
   if(fx>155) score+=15; else if(fx>148) score+=10; else if(fx>140) score+=5;
   if(ur<4) score+=12; else if(ur<5) score+=8; else if(ur<6) score+=4;
@@ -1279,7 +1290,7 @@ function runSim(){
   var area=AREAS[S.curArea];
   var inputJPY=parseFloat(document.getElementById('price-input').value)||20000;
   var fx=S.fx||158.92;
-  var ahe=S.ahe||37.41; var cpi=S.cpi||3.7;
+  var ahe=S.ahe||32.23; var cpi=S.cpi||4.0;
 
   // CPI補正（全計算に適用）
   var cpiAdj=1+cpi/100;
@@ -1519,6 +1530,21 @@ function renderMil(){
       +'<div class="area-note">'+a.note+'</div></div>';
   });
   document.getElementById('mil-area-grid').innerHTML=aHtml;
+  // E4 market potential (dynamic)
+  var e4Seg = SEGS.find(function(s){ return s.id==='E4'; });
+  var e4OHA = OHA_RANKS && OHA_RANKS.find(function(r){ return r.id==='E4'; });
+  if(e4Seg) {
+    var fx=S.fx||158.92;
+    var totalMkt=0;
+    AREAS.forEach(function(a){ totalMkt += 3.0 * Math.round(80000*a.pct/100) * 20000 / 1000000; });
+    var e4mkt = (totalMkt * (e4Seg.prem/100)).toFixed(1);
+    document.getElementById('e4-market').textContent = e4mkt + '百万円/月';
+    document.getElementById('e4-income').textContent = '$' + e4Seg.monthly.toLocaleString() + '/mo';
+    if(e4OHA) {
+      var ohaJpy = Math.round(e4OHA.rentUsd * fx);
+      document.getElementById('e4-oha').textContent = '$' + e4OHA.rentUsd + '/mo';
+    }
+  }
 }
 
 // ════════════════════════════════════════════════
@@ -1526,11 +1552,13 @@ function renderMil(){
 // ════════════════════════════════════════════════
 function renderFred(){
   RD.fred=true;
-  var fx=S.fx||158.92; var ff=S.ff||5.33; var ur=S.ur||4.2;
+  var fx=S.fx||158.92; var ff=S.ff||3.64; var ur=S.ur||4.3;
+  // Sync FRED_SERIES val from S.fredVals
+  FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=new Date().toISOString().slice(0,10); });
   // FRED grid
   var html='';
   FRED_SERIES.forEach(function(f){
-    var val=S.fredVals[f.id]||MOCK[f.id];
+    var val=f.val||S.fredVals[f.id]||MOCK[f.id];
     var dispVal=val?+(val).toFixed(2):'—';
     html+='<div class="fred-card"><div class="fred-id">'+f.id+'</div><div class="fred-name">'+f.name+'</div>'
       +'<div class="fred-val" style="color:'+f.color+'">'+dispVal+'<span style="font-size:9px;color:var(--muted)"> '+f.unit+'</span></div>'
@@ -1546,10 +1574,10 @@ function renderFred(){
   FRED_SERIES.forEach(function(f){
     var val=S.fredVals[f.id]||MOCK[f.id];
     tbody+='<tr><td class="mono" style="color:var(--muted)">'+f.id+'</td><td style="font-weight:600">'+f.name+'</td>'
-      +'<td class="mono" style="color:'+f.color+';font-weight:700">'+(val?+(val).toFixed(2):'—')+'</td>'
+      +'<td class="mono" style="color:'+f.color+';font-weight:700">'+(val?+(+val).toFixed(2):'—')+'</td>'
       +'<td style="font-size:9px;color:var(--muted)">'+f.unit+'</td>'
-      +'<td class="mono" style="font-size:9px">'+new Date().toISOString().slice(0,10)+'</td>'
-      +'<td style="font-size:9px;color:var(--muted)">'+(S.isMock?'Mock/Fallback':'FRED API')+'</td></tr>';
+      +'<td class="mono" style="font-size:9px">'+f.date+'</td>'
+      +'<td style="font-size:9px;color:'+(S.isMock?'var(--muted)':'var(--teal)')+'">'+(S.isMock?'Mock/Fallback':'FRED Live')+'</td></tr>';
   });
   document.getElementById('fred-tbody').innerHTML=tbody;
 }
@@ -1595,8 +1623,16 @@ function loadFresh(){
     if(!anyReal){
       var m=getMock(); data=m; data.fredVals=MOCK; applyData(data,true); return;
     }
+    // Sync live history latest values → fredVals
+    if(res[0]&&res[0].length){ var fxArr=res[0].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['DEXJPUS']=fxArr[fxArr.length-1].value; }
+    if(res[1]&&res[1].length){ var ffArr=res[1].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['FEDFUNDS']=ffArr[ffArr.length-1].value; }
+    if(res[2]&&res[2].length){ var urArr=res[2].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['UNRATE']=urArr[urArr.length-1].value; }
+    if(res[3]&&res[3].length){
+      var cpiArr=res[3].slice().sort(function(a,b){return a.date>b.date?1:-1;});
+      if(cpiArr.length>=13){ fredVals['CPIAUCSL']=+(((cpiArr[0].value-cpiArr[12].value)/cpiArr[12].value*100).toFixed(2)); }
+    }
     data={fxH:res[0]||[],ffH:res[1]||[],urH:res[2]||[],cpiH:res[3]||[],fredVals:fredVals};
-    // Fill mock for missing FRED vals
+    // Fill mock for remaining missing FRED vals
     series.forEach(function(s){ if(!fredVals[s]) fredVals[s]=MOCK[s]; });
     data.fredVals=fredVals;
     cacheSet(data); applyData(data,false);
@@ -2134,12 +2170,4 @@ function closeSidebar(){
   document.getElementById('sidebar-overlay').classList.remove('show');
 }
 // Close sidebar when nav item clicked on mobile
-document.querySelectorAll('.nav-item').forEach(function(n){
-  n.addEventListener('click',function(){
-    if(window.innerWidth<=768) closeSidebar();
-  });
-});
-
-</script>
-</body>
-</html>
+do
