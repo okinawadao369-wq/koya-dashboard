@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="KOYA AI">
+<meta name="theme-color" content="#070E1A">
+<meta name="description" content="KOYA AI 価格心理インテリジェンス — 沖縄米軍・軍属マーケット分析ダッシュボード">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KOYA AI v2 — 沖縄米軍マーケットインテリジェンス [スタッフ共有版]</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070E1A;--bg2:#0D1B2E;--bg3:#0F2340;--bg4:#162d4a;
+  --teal:#00D4AA;--teal2:#00B894;--gold:#F4C842;--red:#FF4D6A;--green:#4ADE80;--blue:#60A5FA;--purple:#A78BFA;
+  --text:#E8F0FE;--muted:#8899B0;--border:#1A2E4A;--sidebar:250px;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;display:flex;min-height:100vh;overflow:hidden}
+#sidebar{width:var(--sidebar);min-width:var(--sidebar);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow-y:auto;flex-shrink:0}
+.logo{padding:16px;border-bottom:1px solid var(--border)}
+.logo-title{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:2px}
+.logo-sub{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.4}
+#sig{margin:12px;padding:10px 8px;border-radius:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;cursor:default}
+.sig-go{background:rgba(0,212,170,.2);border:1px solid var(--teal);color:var(--teal)}
+.sig-watch{background:rgba(244,200,66,.2);border:1px solid var(--gold);color:var(--gold)}
+.sig-hold{background:rgba(136,153,176,.15);border:1px solid var(--muted);color:var(--muted)}
+.nav-sec{padding:10px 0}
+.nav-lbl{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;padding:0 14px 6px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;font-size:12px;font-weight:500;color:var(--muted);transition:all .2s;border-left:2px solid transparent;user-select:none}
+.nav-item:hover{color:var(--text);background:rgba(0,212,170,.06)}
+.nav-item.active{color:var(--teal);background:rgba(0,212,170,.1);border-left-color:var(--teal)}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.sfoot{padding:12px 14px;margin-top:auto;border-top:1px solid var(--border)}
+.sfoot .lbl{font-size:9px;color:var(--muted)}
+.sfoot .val{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);margin-top:2px}
+.fred-status{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.fred-pill{font-size:9px;padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace}
+.pill-live{background:rgba(0,212,170,.2);color:var(--teal)}
+.pill-mock{background:rgba(244,200,66,.2);color:var(--gold)}
+#main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+#topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid var(--border);background:var(--bg2);gap:12px;flex-wrap:wrap}
+#tab-heading{font-size:13px;font-weight:700;white-space:nowrap}
+.topbar-r{display:flex;align-items:center;gap:10px}
+#clock{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
+.btn{background:rgba(0,212,170,.15);border:1px solid var(--teal);color:var(--teal);padding:5px 12px;border-radius:5px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .2s}
+.btn:hover{background:rgba(0,212,170,.3)}
+.btn-sm{font-size:10px;padding:3px 8px}
+#content{flex:1;overflow-y:auto;padding:20px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:18px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;transition:border-color .2s}
+.card:hover{border-color:var(--bg4)}
+.c-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.c-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--teal)}
+.c-val.gold{color:var(--gold)}.c-val.red{color:var(--red)}.c-val.blue{color:var(--blue)}.c-val.purple{color:var(--purple)}
+.c-sub{font-size:9px;color:var(--muted);margin-top:3px}
+.c-chg{font-size:10px;font-family:'JetBrains Mono',monospace;margin-top:3px}
+.up{color:var(--green)}.dn{color:var(--red)}
+/* Boxes */
+.box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:16px}
+.box-title{font-size:12px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.box-title .badge{font-size:9px;padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;background:rgba(0,212,170,.15);color:var(--teal);font-weight:400}
+.chart-wrap{position:relative}
+/* Grid */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g2-1{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.g1-2{display:grid;grid-template-columns:1fr 2fr;gap:14px}
+@media(max-width:1000px){.g2,.g3,.g2-1,.g1-2{grid-template-columns:1fr}}
+/* Table */
+.tbl{width:100%;border-collapse:collapse;font-size:11px}
+.tbl th{background:var(--bg3);color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:1px;padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:7px 10px;border-bottom:1px solid rgba(26,46,74,.4);color:var(--text)}
+.tbl tr:hover td{background:rgba(0,212,170,.03)}
+.mono{font-family:'JetBrains Mono',monospace}
+/* Section */
+.sec-title{font-size:15px;font-weight:700;margin-bottom:3px}
+.sec-sub{font-size:11px;color:var(--muted);margin-bottom:16px}
+/* Loading */
+#lo{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lo-txt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);margin-top:12px;letter-spacing:2px}
+/* Segment cards */
+.seg-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+@media(max-width:1100px){.seg-grid{grid-template-columns:repeat(3,1fr)}}
+.seg-card{background:var(--bg2);border:2px solid var(--border);border-radius:8px;padding:10px;cursor:pointer;transition:all .2s;text-align:center}
+.seg-card:hover{border-color:var(--teal)}
+.seg-card.active{border-color:var(--teal);background:rgba(0,212,170,.08)}
+.seg-grade{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--teal)}
+.seg-sub{font-size:9px;color:var(--muted);margin-top:2px}
+.seg-income{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);margin-top:6px}
+.seg-bars{margin-top:8px}
+.seg-bar-row{display:flex;align-items:center;gap:4px;margin-top:4px;font-size:8px;color:var(--muted)}
+.seg-bar-track{flex:1;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.seg-bar-fill{height:100%;border-radius:2px;transition:width .5s}
+/* Cat filter */
+.cat-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.cat-btn{font-size:10px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.cat-btn:hover{border-color:var(--teal);color:var(--teal)}
+.cat-btn.active{background:rgba(0,212,170,.15);border-color:var(--teal);color:var(--teal)}
+/* Gauge */
+.gauge-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center}
+.gauge-val{position:absolute;bottom:10px;text-align:center}
+.gauge-num{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--teal)}
+.gauge-lbl{font-size:9px;color:var(--muted);margin-top:2px}
+/* Geo cards */
+.geo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:14px}
+.geo-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px}
+.geo-name{font-size:9px;color:var(--muted);margin-bottom:6px;line-height:1.3}
+.geo-val{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700}
+.geo-bar{height:3px;background:var(--bg3);border-radius:2px;margin-top:6px;overflow:hidden}
+.geo-bar-fill{height:100%;border-radius:2px;transition:width .5s}
+/* Area cards */
+.area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:900px){.area-grid{grid-template-columns:1fr 1fr}}
+.area-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px;border-left:3px solid}
+.area-name{font-size:11px;font-weight:700;margin-bottom:4px}
+.area-pct{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;margin-bottom:4px}
+.area-base{font-size:9px;color:var(--muted);margin-bottom:4px}
+.area-note{font-size:9px;color:var(--muted);line-height:1.4}
+/* Sim output */
+.sim-out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:900px){.sim-out{grid-template-columns:1fr}}
+.sim-item{background:var(--bg3);border-radius:8px;padding:12px}
+.sim-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.sim-val{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--teal)}
+.sim-val.gold{color:var(--gold)}.sim-val.green{color:var(--green)}.sim-val.red{color:var(--red)}
+.sim-note{font-size:9px;color:var(--muted);margin-top:3px}
+/* Score bar */
+.score-track{height:12px;background:var(--bg3);border-radius:6px;overflow:hidden;margin:10px 0}
+.score-fill{height:100%;border-radius:6px;transition:width .5s}
+/* Pay badge */
+.pbadge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.e-badge{background:rgba(0,212,170,.15);color:var(--teal)}
+.o-badge{background:rgba(244,200,66,.15);color:var(--gold)}
+.w-badge{background:rgba(160,100,255,.15);color:var(--purple)}
+/* FRED status */
+.fred-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:14px}
+.fred-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px}
+.fred-id{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:4px}
+.fred-name{font-size:10px;font-weight:600;color:var(--text);margin-bottom:4px}
+.fred-val{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--teal)}
+.fred-src{font-size:8px;color:var(--muted);margin-top:3px}
+/* impact row */
+.impact-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(26,46,74,.5);font-size:11px}
+.impact-val{font-family:'JetBrains Mono',monospace;font-weight:700}
+/* scrollbar */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--teal)}
+/* Note */
+.note{font-size:10px;color:var(--muted);line-height:1.6;padding:10px;background:rgba(0,0,0,.2);border-radius:6px;margin-top:10px}
+/* Score label */
+.score-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;margin-left:8px}
+
+/* ════ MOBILE RESPONSIVE ════════════════════════════════════════════════ */
+
+/* Hamburger button - hidden on desktop */
+#menu-btn{display:none;position:fixed;top:10px;left:10px;z-index:10001;
+  background:var(--bg2);border:1px solid var(--border);color:var(--teal);
+  width:42px;height:42px;border-radius:8px;font-size:18px;cursor:pointer;
+  align-items:center;justify-content:center}
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998}
+
+/* Share banner */
+#share-banner{display:none;position:sticky;top:0;z-index:500;
+  background:linear-gradient(90deg,rgba(0,212,170,.15),rgba(96,165,250,.1));
+  border-bottom:1px solid rgba(0,212,170,.3);
+  padding:.5rem 1rem;font-size:.75rem;color:var(--teal);text-align:center}
+
+@media(max-width:768px){
+  /* Show hamburger & banner */
+  #menu-btn{display:flex}
+  #share-banner{display:block}
+
+  /* Body layout */
+  body{overflow:auto !important;display:block !important}
+
+  /* Sidebar becomes a slide-in drawer */
+  #sidebar{
+    position:fixed;left:-260px;top:0;bottom:0;width:260px !important;min-width:260px !important;
+    z-index:9999;transition:left .25s ease;box-shadow:4px 0 20px rgba(0,0,0,.5);
+    overflow-y:auto
+  }
+  #sidebar.open{left:0}
+  #sidebar-overlay.show{display:block}
+
+  /* Main content takes full width */
+  #main{width:100% !important;margin-left:0 !important;padding:50px 12px 20px !important;
+    overflow-y:auto !important;height:auto !important;min-height:100vh}
+
+  /* Grids → single column */
+  .g2,.g3,.g2-1,.g1-2{grid-template-columns:1fr !important}
+
+  /* Cards */
+  .cards{grid-template-columns:repeat(2,1fr) !important}
+  .card{padding:10px 8px}
+  .c-val{font-size:14px !important}
+  .c-lbl{font-size:9px}
+
+  /* Segment cards */
+  .seg-grid{grid-template-columns:1fr 1fr !important}
+  .seg-card{padding:8px}
+  .seg-grade{font-size:10px}
+
+  /* Tables → horizontal scroll */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table.tbl{min-width:500px}
+  .tbl th,.tbl td{padding:6px 8px;font-size:10px}
+
+  /* Charts */
+  .chart-wrap{height:180px !important}
+
+  /* Nav items - bigger touch target */
+  .nav-item{padding:10px 16px !important;font-size:12px !important;min-height:44px;display:flex;align-items:center}
+
+  /* Box */
+  .box{padding:12px}
+  .box-title{font-size:11px}
+
+  /* Sim out */
+  .sim-out{grid-template-columns:1fr 1fr !important}
+
+  /* Section titles */
+  .sec-title{font-size:13px}
+  .sec-sub{font-size:10px}
+
+  /* Selects/inputs - larger touch targets */
+  select,input[type=number]{
+    min-height:44px !important;font-size:14px !important;
+    padding:.5rem .8rem !important;width:100% !important
+  }
+  button{min-height:44px !important;font-size:14px !important;width:100% !important}
+
+  /* Geo cards */
+  .geo-grid{grid-template-columns:1fr 1fr !important}
+  .area-grid{grid-template-columns:1fr !important}
+
+  /* Top bar */
+  #topbar{padding:8px 12px 8px 56px !important}
+  #tab-heading{font-size:11px !important}
+
+  /* H-tab buttons */
+  .h-tab-btn{font-size:.7rem !important;padding:.3rem .5rem !important}
+
+  /* Unified housing panel controls - stack vertically */
+  #h-unified-box > div:nth-child(2){flex-direction:column !important}
+
+  /* Note boxes */
+  .note{font-size:10px;padding:8px 10px}
+
+  /* Score track */
+  .score-track{height:8px}
+
+  /* Fred grid */
+  .fred-grid{grid-template-columns:1fr 1fr !important}
+}
+
+@media(max-width:420px){
+  .cards{grid-template-columns:1fr !important}
+  .sim-out{grid-template-columns:1fr !important}
+  .seg-grid{grid-template-columns:1fr !important}
+  .geo-grid{grid-template-columns:1fr !important}
+  .h-tab-btn{font-size:.65rem !important;padding:.25rem .4rem !important}
+}
+/* ════════════════════════════════════════════════════════════════════════ */
+</style>
+</head>
+<body>
+<div id="lo">
+  <div class="spinner"></div>
+  <div class="lo-txt">KOYA AI INTELLIGENCE v2</div>
+  <div style="font-size:10px;color:var(--muted);margin-top:6px">FRED API + 価格心理 + 地政学 読み込み中...</div>
+</div>
+
+<nav id="sidebar">
+  <div class="logo">
+    <div class="logo-title">KOYA AI v2</div>
+    <div class="logo-sub">沖縄米軍・軍属<br>マーケットインテリジェンス</div><div style="margin-top:8px;font-size:9px;color:rgba(0,212,170,.6);line-height:1.5">📤 スタッフ共有版<br>Googleドライブ等で共有</div>
+  </div>
+  <div id="sig" class="sig-hold">&#9644; 読み込み中...</div>
+  <div class="nav-sec">
+    <div class="nav-lbl">Intelligence</div>
+    <div class="nav-item active" data-tab="overview"><span class="nav-dot"></span>市場概況</div>
+    <div class="nav-item" data-tab="sim"><span class="nav-dot"></span>価格心理シミュレーター</div>
+    <div class="nav-item" data-tab="geo"><span class="nav-dot"></span>地政学インテリジェンス</div>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-lbl">Market Data</div>
+    <div class="nav-item" data-tab="biz"><span class="nav-dot"></span>業種別価格分析</div>
+    <div class="nav-item" data-tab="mil"><span class="nav-dot"></span>軍人・軍属マーケット</div>
+    <div class="nav-item" data-tab="fred"><span class="nav-dot"></span>FRED経済データ</div>
+    <div class="nav-item" data-tab="housing"><span class="nav-dot"></span>住宅心理モジュール</div>
+  </div>
+  <div class="sfoot">
+    <div class="lbl">Last update</div>
+    <div class="val" id="last-upd">—</div>
+    <div class="fred-status">
+      <span class="fred-pill pill-live" id="fred-pill">FRED —/11</span>
+      <span class="fred-pill" id="mock-pill" style="display:none;background:rgba(244,200,66,.2);color:var(--gold)">MOCK</span>
+    </div>
+    <div style="font-size:9px;color:var(--muted);margin-top:6px">SOFA市場: ~80,000人</div>
+  </div>
+</nav>
+
+<div id="main">
+  <div id="topbar">
+    <div id="tab-heading">市場概況 — AI価格心理インテリジェンス</div>
+    <div class="topbar-r">
+      <div id="clock">—</div>
+      <button class="btn btn-sm" id="ref-btn">&#8635; FRED更新</button>
+    </div>
+  </div>
+  <div id="content">
+
+  <!-- ── TAB 1: 市場概況 ── -->
+  <div id="tab-overview" class="tab-panel active">
+    <div class="sec-title">市場概況 — リアルタイムシグナル</div>
+    <div class="sec-sub">FRED経済データ・地政学スコア・購買市場温度を統合した経営判断ダッシュボード</div>
+    <div class="cards">
+      <div class="card">
+        <div class="c-lbl">USD/JPY (FRED Live)</div>
+        <div class="c-val" id="ov-fx">—</div>
+        <div class="c-chg" id="ov-fxchg">読み込み中...</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">FF金利 (FEDFUNDS)</div>
+        <div class="c-val gold" id="ov-ff">—</div>
+        <div class="c-sub">Federal Funds Rate</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">米国失業率 (UNRATE)</div>
+        <div class="c-val" id="ov-ur">—</div>
+        <div class="c-sub">Labor Market</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">米国平均時給</div>
+        <div class="c-val blue" id="ov-ahe">—</div>
+        <div class="c-sub">FRED AHETPI</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">CPI前年比</div>
+        <div class="c-val" id="ov-cpi">—</div>
+        <div class="c-sub">Consumer Price Index</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">SOFA市場規模</div>
+        <div class="c-val gold">~80,000</div>
+        <div class="c-sub">沖縄米軍関係者総数</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">年間購買力推計</div>
+        <div class="c-val gold">$3.2B</div>
+        <div class="c-sub">Kadena公表値ベース</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">地政学インパクト</div>
+        <div class="c-val purple" id="ov-geo">+7.5%</div>
+        <div class="c-sub">推奨価格への上乗せ</div>
+      </div>
+    </div>
+
+    <div class="g2-1">
+      <div class="box">
+        <div class="box-title">USD/JPY 日次推移 <span class="badge" id="fx-src-badge">FRED</span></div>
+        <div class="chart-wrap" style="height:200px"><canvas id="c-fx"></canvas></div>
+      </div>
+      <div class="box" style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <div class="box-title" style="margin-bottom:4px">購買市場温度</div>
+        <div class="gauge-wrap">
+          <canvas id="c-gauge" width="180" height="100"></canvas>
+          <div class="gauge-val">
+            <div class="gauge-num" id="gauge-num">—</div>
+            <div class="gauge-lbl" id="gauge-lbl">計算中</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="box">
+        <div class="box-title">FF金利推移 (12ヶ月)</div>
+        <div class="chart-wrap" style="height:160px"><canvas id="c-ff"></canvas></div>
+      </div>
+      <div class="box">
+        <div class="box-title">失業率推移 (12ヶ月)</div>
+        <div class="chart-wrap" style="height:160px"><canvas id="c-ur"></canvas></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">エリア別 商圏シェア — 沖縄SOFA市場</div>
+      <div class="g1-2" style="align-items:center">
+        <div class="chart-wrap" style="height:200px"><canvas id="c-area-donut"></canvas></div>
+        <div class="area-grid" id="area-cards"></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">本日の自動分析メモ <span class="badge">AI Rule-Based</span></div>
+      <div id="auto-memo" style="font-size:11px;line-height:1.8;color:var(--text)">分析中...</div>
+      <div class="note">本ダッシュボードはFRED経済データ・推計モデルを用いたマーケティング意思決定支援ツールです。地政学スコアはGDELT統計・報道・公開情報にもとづく推計値です。</div>
+    </div>
+  </div>
+
+  <!-- ── TAB 2: 価格心理シミュレーター ── -->
+  <div id="tab-sim" class="tab-panel">
+    <div class="sec-title">価格心理シミュレーター</div>
+    <div class="sec-sub">業種・ターゲット層・商圏エリアを選択し、FREDライブデータで米国単価アンカーと推奨価格帯をリアルタイム計算</div>
+
+    <div class="g2">
+      <div class="box">
+        <div class="box-title">1. 業種選択</div>
+        <div class="cat-filter" id="cat-filter"></div>
+        <select id="btype-sel" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:6px;font-size:11px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:10px"></select>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px" id="btype-desc">業種を選択してください</div>
+      </div>
+      <div class="box">
+        <div class="box-title">2. 入力価格 / 為替</div>
+        <div style="margin-bottom:10px">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">沖縄価格 (円)</div>
+          <input type="number" id="price-input" value="20000" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--teal);padding:8px;border-radius:6px;font-size:16px;font-family:'JetBrains Mono',monospace;outline:none">
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <div style="flex:1">
+            <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">USD/JPY (自動)</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--gold)" id="fx-display">—</div>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">商圏エリア</div>
+            <select id="area-sel" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px;border-radius:6px;font-size:10px;outline:none"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">3. ターゲット層選択</div>
+      <div class="seg-grid" id="seg-cards"></div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">4. 価格心理診断 — リアルタイム計算結果 <span class="badge" id="sim-source">FRED Live</span></div>
+      <div class="sim-out" id="sim-out"></div>
+      <div style="margin-bottom:8px">
+        <div style="display:flex;align-items:center;margin-bottom:4px">
+          <span style="font-size:10px;color:var(--muted)">購買意欲スコア</span>
+          <span class="score-badge" id="score-badge" style="background:rgba(0,212,170,.2);color:var(--teal)">—</span>
+        </div>
+        <div class="score-track">
+          <div class="score-fill" id="score-fill" style="width:0%;background:var(--teal)"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--muted)"><span>0 割高</span><span>50 普通</span><span>100 非常に強い</span></div>
+      </div>
+      <div id="sim-memo" style="font-size:11px;line-height:1.7;color:var(--text);margin-top:10px;padding:10px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--teal)">業種・ターゲット層を選択すると診断が表示されます</div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">価格比較チャート — 米国アンカー vs FTC価格 (USD換算)</div>
+      <div class="chart-wrap" style="height:240px"><canvas id="c-sim-bar"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ── TAB 3: 地政学インテリジェンス ── -->
+  <div id="tab-geo" class="tab-panel">
+    <div class="sec-title">地政学インテリジェンス</div>
+    <div class="sec-sub">GDELT・公開報道・推計モデルを統合した地政学・安全保障スコアと価格心理への影響分析</div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="c-lbl">推計価格心理インパクト</div>
+        <div class="c-val gold">+7.5%</div>
+        <div class="c-sub">推奨価格帯への上乗せ</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">購買市場温度 寄与</div>
+        <div class="c-val">+9.3pt</div>
+        <div class="c-sub">地政学・ニュース合算</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">戦略需要 寄与</div>
+        <div class="c-val blue">+12.8pt</div>
+        <div class="c-sub">東アジア緊張・前方展開</div>
+      </div>
+      <div class="card">
+        <div class="c-lbl">総合地政学リスク</div>
+        <div class="c-val gold">75</div>
+        <div class="c-sub">/ 100スコア</div>
+      </div>
+    </div>
+
+    <div class="geo-grid" id="geo-cards"></div>
+
+    <div class="g2">
+      <div class="box">
+        <div class="box-title">地政学7指数レーダーチャート</div>
+        <div class="chart-wrap" style="height:280px"><canvas id="c-radar"></canvas></div>
+      </div>
+      <div class="box">
+        <div class="box-title">価格心理への影響経路</div>
+        <div id="geo-impact"></div>
+        <div class="box-title" style="margin-top:14px">GDELT品質・データ状態</div>
+        <div style="font-size:10px;line-height:1.8;color:var(--muted)">
+          地政学スコアは <strong style="color:var(--teal)">GDELT cache + fallback</strong> 運用中<br>
+          記事分類合計: <strong style="color:var(--text)">598件</strong><br>
+          リスク語: <strong style="color:var(--red)">60件</strong> / ポジティブ語: <strong style="color:var(--green)">7件</strong><br>
+          地政学リスク: 75 / 東アジア緊張: 78<br>
+          米軍前方展開: 87 / 沖縄基地関連: 80
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">指数別詳細テーブル <span class="badge">推計モデル</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="geo-table">
+        <thead><tr><th>指数</th><th>スコア</th><th>トレンド</th><th>FTC価格心理への影響</th><th>データ源</th></tr></thead>
+        <tbody id="geo-tbody"></tbody>
+      </table></div>
+      <div class="note">地政学スコアは安全保障判断ではなく、米軍家族向け需要環境の補助指標です。推奨価格帯・購買市場温度・戦略需要スコアへ連動します。</div>
+    </div>
+  </div>
+
+  <!-- ── TAB 4: 業種別価格分析 ── -->
+  <div id="tab-biz" class="tab-panel">
+    <div class="sec-title">業種別価格分析</div>
+    <div class="sec-sub">米国単価アンカー（FRED時給・CPI補正済）→ 沖縄有効価格帯 — 21業種フル対応</div>
+
+    <div class="cat-filter" id="biz-filter"></div>
+
+    <div class="box">
+      <div class="box-title">業種別 年間市場規模推計 (USD Million) <span class="badge">SOFA ~80,000人</span></div>
+      <div class="chart-wrap" style="height:320px"><canvas id="c-biz-bar"></canvas></div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">業種別 米国単価→沖縄有効価格帯 <span class="badge" id="biz-count">21業種</span></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead>
+          <tr>
+            <th>業種</th><th>カテゴリ</th>
+            <th>米国単価 (USD)</th>
+            <th>円換算アンカー</th>
+            <th>FTC参考価格</th>
+            <th>推奨価格帯</th>
+            <th>割安感</th>
+            <th>年間市場 (M$)</th>
+          </tr>
+        </thead>
+        <tbody id="biz-tbody"></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ── TAB 5: 軍人マーケット ── -->
+  <div id="tab-mil" class="tab-panel">
+    <div class="sec-title">軍人・軍属マーケット</div>
+    <div class="sec-sub">等級別給与・消費心理・ターゲット層戦略 — DFAS 2026年公式データ</div>
+
+    <div class="box">
+      <div class="box-title">5. ターゲット層別 消費心理プロファイル</div>
+      <div class="seg-grid" id="mil-seg-grid"></div>
+    </div>
+
+    <div class="g2">
+      <div class="box">
+        <div class="box-title">給与等級別 月収 (USD) <span class="badge">DFAS 2026</span></div>
+        <div class="chart-wrap" style="height:280px"><canvas id="c-pay"></canvas></div>
+      </div>
+      <div class="box">
+        <div class="box-title">等級別 詳細データ</div>
+        <div class="tbl-wrap"><table class="tbl">
+          <thead><tr><th>等級</th><th>役職</th><th>基本給</th><th>OHA</th><th>COLA</th><th>月計</th></tr></thead>
+          <tbody id="pay-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">6. エリア別 ターゲット商圏（推計モデル）</div>
+      <div class="area-grid" id="mil-area-grid"></div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">米国単価補正が大きい業種 <span class="badge">FRED時給・CPI補正</span></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>業種</th><th>米国時給影響度</th><th>CPI補正率</th><th>補正後単価変化</th><th>FTCへの影響</th></tr></thead>
+        <tbody>
+          <tr><td>FamilyTreeOki｜産後・新生児ケア</td><td class="mono" style="color:var(--teal)">高</td><td class="mono">+3.8%</td><td class="mono" style="color:var(--gold)">+$8/h</td><td>専門性プレミアムで有利</td></tr>
+          <tr><td>美容｜鍼灸・ウェルネス60分</td><td class="mono" style="color:var(--teal)">高</td><td class="mono">+3.8%</td><td class="mono" style="color:var(--gold)">+$6/h</td><td>ウェルネス需要増が追い風</td></tr>
+          <tr><td>生活｜通訳・行政同行</td><td class="mono" style="color:var(--teal)">高</td><td class="mono">+3.8%</td><td class="mono" style="color:var(--gold)">+$4/h</td><td>英語対応希少性でプレミアム</td></tr>
+          <tr><td>体験｜家族/ニューボーン写真</td><td class="mono" style="color:var(--gold)">中</td><td class="mono">+3.2%</td><td class="mono" style="color:var(--gold)">+$15</td><td>記念需要は価格感度低い</td></tr>
+          <tr><td>飲食｜プレミアムディナー/記念日</td><td class="mono" style="color:var(--gold)">中</td><td class="mono">+3.2%</td><td class="mono" style="color:var(--gold)">+$8</td><td>外食CPI上昇が割安感強化</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ── TAB 6: FRED経済データ ── -->
+  <div id="tab-fred" class="tab-panel">
+    <div class="sec-title">FRED経済データ</div>
+    <div class="sec-sub">Federal Reserve Economic Data — 11系列自動取得 (4時間キャッシュ)</div>
+
+    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr))">
+      <div class="card"><div class="c-lbl">FRED Live</div><div class="c-val" id="fred-live-count">—/11</div><div class="c-sub">取得成功系列数</div></div>
+      <div class="card"><div class="c-lbl">キャッシュTTL</div><div class="c-val blue">4h</div><div class="c-sub">自動更新間隔</div></div>
+      <div class="card"><div class="c-lbl">USD/JPY</div><div class="c-val" id="f-fx">—</div><div class="c-sub">DEXJPUS</div></div>
+      <div class="card"><div class="c-lbl">FF金利</div><div class="c-val gold" id="f-ff">—</div><div class="c-sub">FEDFUNDS</div></div>
+      <div class="card"><div class="c-lbl">失業率</div><div class="c-val" id="f-ur">—</div><div class="c-sub">UNRATE</div></div>
+      <div class="card"><div class="c-lbl">平均時給</div><div class="c-val blue" id="f-ahe">—</div><div class="c-sub">AHETPI</div></div>
+    </div>
+
+    <div class="fred-grid" id="fred-grid"></div>
+
+    <div class="g3">
+      <div class="box">
+        <div class="box-title">FF金利推移</div>
+        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-ff"></canvas></div>
+      </div>
+      <div class="box">
+        <div class="box-title">失業率推移</div>
+        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-ur"></canvas></div>
+      </div>
+      <div class="box">
+        <div class="box-title">CPI推移</div>
+        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-cpi"></canvas></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">FRED全系列データテーブル</div>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>系列ID</th><th>指標名</th><th>最新値</th><th>単位</th><th>観測日</th><th>ソース</th></tr></thead>
+        <tbody id="fred-tbody"></tbody>
+      </table></div>
+    </div>
+
+    <div class="note">
+      公開URL運用ではFRED APIキーはVercel環境変数に置き、/api/fred サーバー側プロキシ経由で取得します。本ダッシュボードではcorsproxy.io / allorigins.win経由でフロントからFRED APIに接続します。
+    </div>
+  </div>
+
+
+  <div id="tab-housing" class="tab-panel">
+    <div class="sec-title">米軍住宅心理モジュール</div>
+    <div class="sec-sub">OHA/BAH予算 × 沖縄物件 × 住宅満足度 → 外部消費余力スコア</div>
+
+    <!-- KPI Cards -->
+    <div class="cards" id="h-kpi-cards" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">
+      <div class="card"><div class="c-lbl">OHA最高額(月)</div><div class="c-val gold" id="h-oha-max">¥579,000</div><div class="c-sub">O-6以上・光熱費込</div></div>
+      <div class="card"><div class="c-lbl">主力層OHA(月)</div><div class="c-val" id="h-oha-main">¥412,000</div><div class="c-sub">E-5/O-1/O-2</div></div>
+      <div class="card"><div class="c-lbl">沖縄3BR平均家賃</div><div class="c-val blue" id="h-avg-rent">¥325,000</div><div class="c-sub">4物件平均</div></div>
+      <div class="card"><div class="c-lbl">OHA余力(主力)</div><div class="c-val green" id="h-surplus">+¥87,000</div><div class="c-sub">OHA − 家賃実勢</div></div>
+      <div class="card"><div class="c-lbl">坪単価(最安)</div><div class="c-val" id="h-tsubo-min">¥6,932/坪</div><div class="c-sub">庭付き3BR中部</div></div>
+      <div class="card"><div class="c-lbl">住宅心理スコア(最高)</div><div class="c-val green" id="h-psych-max">—</div><div class="c-sub">全ランク×物件</div></div>
+      <div class="card"><div class="c-lbl">消費余力ブースト(最高)</div><div class="c-val gold" id="h-boost-max">—</div><div class="c-sub">購買スコア乗数</div></div>
+      <div class="card"><div class="c-lbl">公式3BR基準</div><div class="c-val blue">151㎡</div><div class="c-sub">1,630 sqft (米軍標準)</div></div>
+    </div>
+
+
+    <!-- ══ 統合インタラクティブ住宅分析パネル ══ -->
+    <div class="box" id="h-unified-box" style="margin-top:1.5rem;border:1px solid rgba(52,211,153,.2)">
+      <div class="box-title">🏠 住宅×ランク 統合インタラクティブ分析 <span id="h-rank-badge" style="font-size:.7rem;padding:.2rem .6rem;border-radius:4px;background:rgba(52,211,153,.2);color:#34D399;font-weight:600;margin-left:.5rem"></span></div>
+
+      <!-- Controls -->
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+        <div>
+          <div style="font-size:.7rem;color:var(--dim);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.5px">階級・ランク</div>
+          <select id="h-rank-sel" onchange="updateHousingAnalysis()" style="background:var(--bg3);color:var(--fg);border:1px solid var(--border);padding:.4rem .8rem;border-radius:6px;font-size:.82rem;cursor:pointer;min-width:200px">
+            <option value="0">E-1〜E-3 扶養あり</option>
+            <option value="1" selected>E-4 扶養あり ★重要</option>
+            <option value="2">E-5 / O-1 / O-2 扶養あり</option>
+            <option value="3">E-6〜E-8 / O-3 扶養あり</option>
+            <option value="4">E-9 / O-4〜O-5 / GS上位</option>
+            <option value="5">O-6以上 / Executive</option>
+          </select>
+        </div>
+        <div>
+          <div style="font-size:.7rem;color:var(--dim);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.5px">物件</div>
+          <select id="h-prop-sel" onchange="updateHousingAnalysis()" style="background:var(--bg3);color:var(--fg);border:1px solid var(--border);padding:.4rem .8rem;border-radius:6px;font-size:.82rem;cursor:pointer;min-width:180px">
+            <option value="0">Kadena近郊 3BR</option>
+            <option value="1" selected>庭付き3BR 沖縄中部</option>
+            <option value="2">Rycom近く 3BR</option>
+            <option value="3">読谷/北谷 広め3BR</option>
+          </select>
+        </div>
+        <div>
+          <div style="font-size:.7rem;color:var(--dim);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.5px">商圏エリア</div>
+          <select id="h-area-sel" onchange="updateHousingAnalysis()" style="background:var(--bg3);color:var(--fg);border:1px solid var(--border);padding:.4rem .8rem;border-radius:6px;font-size:.82rem;cursor:pointer;min-width:160px">
+            <option value="0">嘉手納・北谷・読谷</option>
+            <option value="1">宜野湾・ライカム</option>
+            <option value="2">うるま・金武</option>
+            <option value="3">浦添・牧港・那覇</option>
+            <option value="4">名護・辺野古</option>
+            <option value="5">恩納・北谷海岸</option>
+          </select>
+        </div>
+        <button onclick="updateHousingAnalysis()" style="background:#34D399;color:#000;border:none;padding:.45rem 1.2rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.85rem;height:36px">▶ 分析実行</button>
+      </div>
+
+      <!-- Result Cards (6) -->
+      <div id="h-analysis-result" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.6rem;margin-bottom:1rem"></div>
+
+      <!-- Diagnosis -->
+      <div id="h-diagnosis" style="background:rgba(0,212,170,.06);border-left:3px solid var(--green);padding:.9rem 1rem;border-radius:0 8px 8px 0;font-size:.83rem;line-height:1.75;margin-bottom:1.2rem"></div>
+
+      <!-- Tab Navigation -->
+      <div style="display:flex;gap:.4rem;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:.6rem">
+        <button class="h-tab-btn active" data-htab="income" onclick="switchHTab(this)" style="background:rgba(52,211,153,.15);color:#34D399;border:1px solid rgba(52,211,153,.3);padding:.3rem .8rem;border-radius:6px;font-size:.78rem;cursor:pointer;font-weight:600">💰 月収内訳</button>
+        <button class="h-tab-btn" data-htab="services" onclick="switchHTab(this)" style="background:var(--bg3);color:var(--dim);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;font-size:.78rem;cursor:pointer">🎯 推奨サービス</button>
+        <button class="h-tab-btn" data-htab="props" onclick="switchHTab(this)" style="background:var(--bg3);color:var(--dim);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;font-size:.78rem;cursor:pointer">🏠 物件マッチング</button>
+        <button class="h-tab-btn" data-htab="area" onclick="switchHTab(this)" style="background:var(--bg3);color:var(--dim);border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;font-size:.78rem;cursor:pointer">📊 エリア別消費</button>
+      </div>
+
+      <!-- Tab: 月収内訳 -->
+      <div id="htab-income" class="h-tab-panel">
+        <div class="g2">
+          <div>
+            <div style="font-size:.78rem;color:var(--dim);margin-bottom:.5rem">月間収入シミュレーション（扶養あり）</div>
+            <div class="tbl-wrap"><table class="tbl"><thead><tr><th>項目</th><th>USD/月</th><th>円換算</th><th>備考</th></tr></thead>
+            <tbody id="h-income-tbody"></tbody></table></div>
+          </div>
+          <div>
+            <div style="font-size:.78rem;color:var(--dim);margin-bottom:.5rem">消費余力の内訳</div>
+            <div id="h-spend-breakdown"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: 推奨サービス -->
+      <div id="htab-services" class="h-tab-panel" style="display:none">
+        <div style="font-size:.78rem;color:var(--dim);margin-bottom:.5rem">このランクに最適なFamilyTreeOkiサービス（優先度順）</div>
+        <div id="h-service-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.6rem"></div>
+      </div>
+
+      <!-- Tab: 物件マッチング -->
+      <div id="htab-props" class="h-tab-panel" style="display:none">
+        <div style="font-size:.78rem;color:var(--dim);margin-bottom:.5rem">選択ランクのOHA基準で沖縄4物件を自動スコアリング</div>
+        <div id="h-prop-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.75rem"></div>
+      </div>
+
+      <!-- Tab: エリア別消費 -->
+      <div id="htab-area" class="h-tab-panel" style="display:none">
+        <div style="font-size:.78rem;color:var(--dim);margin-bottom:.5rem">選択ランク × 商圏エリア別 月間消費ポテンシャル（百万円）</div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-area-market"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Charts row 1 -->
+    <div class="g2" style="margin-top:1.5rem">
+      <div class="box">
+        <div class="box-title">家賃比較：OHA予算 vs 沖縄実勢(円)</div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-rent"></canvas></div>
+      </div>
+      <div class="box">
+        <div class="box-title">坪単価比較(円/坪)</div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-tsubo"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Charts row 2 -->
+    <div class="g2" style="margin-top:1.5rem">
+      <div class="box">
+        <div class="box-title">OHA vs BAH (本土) 比較 — 主要ランク(USD)</div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-oha-bah"></canvas></div>
+      </div>
+      <div class="box">
+        <div class="box-title">住宅面積適合スコア（公式151㎡比）</div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-size"></canvas></div>
+      </div>
+    </div>
+
+    <!-- OHA Rank Table -->
+    <div class="box" style="margin-top:1.5rem">
+      <div class="box-title">OHA階級別予算表（扶養あり・沖縄基準・2025年）</div>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>階級</th><th>家賃OHA(USD)</th><th>光熱費(USD)</th><th>合計(USD)</th><th>家賃OHA(円)</th><th>合計(円)</th><th>推奨面積(㎡)</th><th>推奨坪数</th><th>実勢相場(円)</th></tr></thead>
+        <tbody id="h-oha-tbody"></tbody>
+      </table></div>
+    </div>
+
+    <!-- Full Property Comparator -->
+    <div class="box" style="margin-top:1.5rem">
+      <div class="box-title">物件比較テーブル（沖縄・本土・米国）</div>
+      <div style="overflow-x:auto">
+      <div class="tbl-wrap"><table class="tbl" id="h-prop-table">
+        <thead><tr><th>物件</th><th>エリア</th><th>BR</th><th>面積(㎡)</th><th>坪数</th><th>家賃(円)</th><th>家賃(USD)</th><th>坪単価(円)</th><th>基地まで(分)</th><th>P</th><th>ペット</th><th>英語</th><th>備考</th></tr></thead>
+        <tbody id="h-prop-tbody"></tbody>
+      </table></div>
+      </div>
+    </div>
+
+    <!-- Military Size Standards -->
+    <div class="box" style="margin-top:1.5rem">
+      <div class="box-title">米軍公式住宅面積基準（扶養あり）</div>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>階級</th><th>寝室数</th><th>面積(sqft)</th><th>面積(㎡)</th><th>面積(坪)</th></tr></thead>
+        <tbody id="h-std-tbody"></tbody>
+      </table></div>
+    </div>
+
+    <!-- Housing Strategy Cards -->
+    <div class="box" style="margin-top:1.5rem">
+      <div class="box-title">住宅満足度 × 消費余力 戦略カード</div>
+      <div id="h-strategy-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:.75rem"></div>
+    </div>
+
+    <div class="note" style="margin-top:1rem">
+      OHA（海外住居手当）は給与と切り離された機関的予算であり、家賃支払い後の余力が外部消費に直結します。住宅心理スコアが高いほど、軍人・軍属家族のFamilyTreeOki等プレミアムサービスへの支出意欲が高まります。データ: DoD OHA率表2025年版・沖縄不動産市況・FRED。
+    </div>
+  </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+// ════════════════════════════════════════════════
+// CONSTANTS & DATA
+// ════════════════════════════════════════════════
+var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
+var CACHE_KEY = 'koya_v7';
+var CACHE_TTL = 4 * 60 * 60 * 1000;
+var SOFA = 80000;
+
+var TAB_TITLES = {
+  overview:'市場概況 — AI価格心理インテリジェンス',
+  sim:'価格心理シミュレーター',
+  geo:'地政学インテリジェンス',
+  biz:'業種別価格分析',
+  mil:'軍人・軍属マーケット',
+  fred:'FRED経済データ',
+  housing:'米軍住宅心理モジュール — OHA/BAH・面積・家賃'
+};
+
+var AREAS = [
+  {name:'嘉手納・北谷・沖縄市・読谷',pct:38,bases:'Kadena AB / Torii / Foster',note:'最重要商圏。ドル所得・家族帯同・外食消費が厚い。',color:'#00D4AA'},
+  {name:'宜野湾・北中城・ライカム',   pct:24,bases:'MCAS Futenma / Camp Foster',note:'海兵隊ファミリーと大型商業導線。口コミ導線が強い。',color:'#F4C842'},
+  {name:'うるま・金武・ハンセン',     pct:18,bases:'Camp Hansen / Courtney',note:'若年・単身比率が上がる。エントリー価格・夜間需要。',color:'#4ADE80'},
+  {name:'浦添・牧港・那覇',           pct:7, bases:'Camp Kinser / Naha',note:'都市型消費。予約型・週末型・美容/外食に向く。',color:'#60A5FA'},
+  {name:'名護東海岸・シュワブ・辺野古',pct:8,bases:'Camp Schwab / Henoko',note:'距離課題あり。出張型・週末型・パッケージが重要。',color:'#FF4D6A'},
+  {name:'恩納・北谷海岸・観光導線',   pct:5, bases:'Leisure / PCS memory',note:'家族写真・記念品・沖縄体験に強い。',color:'#A78BFA'}
+];
+
+var SEGS = [
+  {id:'E1E3',label:'E-1〜E-3',sub:'若年・価格敏感',monthly:3200,sens:1.4,prem:52,color:'#60A5FA',e4pop:0,
+   desc:'低単価・即決・友人紹介。飲食、車、娯楽、低価格体験に反応。SNSシェア層として口コミ起点になりやすい。'},
+  {id:'E4',label:'E-4',sub:'兵長・家族移行期 ★',monthly:4800,sens:1.2,prem:68,color:'#34D399',e4pop:6900,
+   desc:'【FamilyTreeOki最重要ターゲット】妊娠・出産・育児開始期に重なる消費ピーク層。4Dエコー・産後ケア・ニューボーン写真への支出意欲が最も高い。OHA余力ありで体験型サービスに積極的。'},
+  {id:'E4E6',label:'E-5〜E-6',sub:'中堅ファミリー',monthly:5100,sens:0.95,prem:86,color:'#00D4AA',e4pop:0,
+   desc:'妊婦、乳幼児、家族写真、外食、記念体験の中心層。FamilyTreeOkiの主戦場。月次消費が最も厚い。'},
+  {id:'E7E9',label:'E-7〜E-9',sub:'シニアNCO',monthly:5800,sens:0.7,prem:91,color:'#F4C842',e4pop:0,
+   desc:'価格より信頼・評判・紹介・プライバシー重視。高単価パッケージへの反応が良い。'},
+  {id:'O1O4',label:'O-1〜O-4',sub:'士官層',monthly:7500,sens:0.5,prem:95,color:'#A78BFA',e4pop:0,
+   desc:'高LTV。家族向け、写真、産前産後、ウェルネス、教育に強い。'},
+  {id:'DODGS',label:'DoD/GS',sub:'軍属・民間',monthly:6200,sens:0.6,prem:93,color:'#FF7F50',e4pop:0,
+   desc:'民間消費に近い意思決定。品質・レビュー・英語導線・予約の簡単さが重要。'}
+];
+
+var BTYPE = {
+  ft_2d:  {label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:80, usHigh:150,ftcDef:12000,monthlyPerPerson:2.5,note:'Private 1-hour session'},
+  ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:156,usHigh:275,ftcDef:20000,monthlyPerPerson:3.0,note:'Private 1-hour memory session'},
+  ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:108,usHigh:168,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)'},
+  ft_med: {label:'FamilyTreeOki｜産後・新生児ケア',  cat:'ftc',usLow:210,usHigh:390,ftcDef:35000,monthlyPerPerson:2.0,note:'医療系乳児・産後ケア'},
+  cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:5,  usHigh:8,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当'},
+  lunch:  {label:'飲食｜カジュアルランチ',           cat:'food',usLow:15, usHigh:25, ftcDef:1500, monthlyPerPerson:40, note:'ランチ1食'},
+  dinner: {label:'飲食｜ファミリーディナー',         cat:'food',usLow:60, usHigh:120,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分'},
+  premium:{label:'飲食｜プレミアムディナー/記念日',  cat:'food',usLow:120,usHigh:250,ftcDef:18000,monthlyPerPerson:5,  note:'2名記念日コース'},
+  house:  {label:'生活｜ハウスクリーニング',         cat:'life',usLow:150,usHigh:300,ftcDef:20000,monthlyPerPerson:2,  note:'3LDK相当'},
+  car:    {label:'生活｜車内外クリーニング',         cat:'life',usLow:100,usHigh:250,ftcDef:12000,monthlyPerPerson:3,  note:'フルディテール'},
+  pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:20, usHigh:35, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問'},
+  trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行'},
+  hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:120,usHigh:200,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー'},
+  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:80, usHigh:150,ftcDef:7000, monthlyPerPerson:12,note:'60分全身'},
+  acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:100,usHigh:180,ftcDef:8000, monthlyPerPerson:8, note:'60分セッション'},
+  hbeat:  {label:'小売｜Heartbeat Animal記念品',    cat:'retail',usLow:40, usHigh:80, ftcDef:5500, monthlyPerPerson:1.5,note:'ベビー胎動記念品'},
+  baby:   {label:'小売｜ベビー/マタニティ用品',     cat:'retail',usLow:30, usHigh:100,ftcDef:6000, monthlyPerPerson:10, note:'消耗品含むセット'},
+  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:200,usHigh:500,ftcDef:25000,monthlyPerPerson:1,  note:'フルセッション'},
+  mini:   {label:'体験｜ミニフォトセッション',       cat:'exp',usLow:100,usHigh:200,ftcDef:12000,monthlyPerPerson:2,  note:'30分ミニ'},
+  tour:   {label:'体験｜半日ツアー/アクティビティ', cat:'exp',usLow:80, usHigh:150,ftcDef:9000, monthlyPerPerson:3,  note:'沖縄体験'},
+  lesson: {label:'教育｜語学/子どもレッスン',       cat:'edu',usLow:50, usHigh:100,ftcDef:5000, monthlyPerPerson:6,  note:'60分レッスン'}
+};
+
+var CAT_LABELS = {
+  ftc:'FamilyTreeOki固定',food:'飲食業',life:'生活サービス',
+  beauty:'美容・ウェルネス',retail:'小売・ギフト',exp:'体験・写真',edu:'教育・その他'
+};
+
+var PAY = [
+  {g:'E-1',t:'二等兵',  b:2407,h:1100,a:460},
+  {g:'E-2',t:'一等兵',  b:2694,h:1100,a:460},
+  {g:'E-3',t:'上等兵',  b:2835,h:1200,a:460},
+  {g:'E-4',t:'兵長',    b:3138,h:1200,a:460},
+  {g:'E-5',t:'軍曹',    b:3420,h:1350,a:460},
+  {g:'E-6',t:'一等軍曹',b:3740,h:1400,a:460},
+  {g:'E-7',t:'上級軍曹',b:4320,h:1500,a:460},
+  {g:'W-1',t:'准尉1',   b:3399,h:1600,a:460},
+  {g:'W-2',t:'准尉2',   b:3831,h:1700,a:460},
+  {g:'O-1',t:'少尉',    b:3637,h:1800,a:460},
+  {g:'O-2',t:'中尉',    b:4188,h:2000,a:460},
+  {g:'O-3',t:'大尉',    b:4861,h:2200,a:460},
+  {g:'O-4',t:'少佐',    b:5520,h:2400,a:460}
+];
+
+var GEO = [
+  {key:'forward', label:'米軍前方展開指数',val:87,trend:'↑',color:'#00D4AA',
+   desc:'USFJ統合司令部化、12th MLR配備、前方展開ニュース量を合成。高いほどSOFA需要が安定する。',
+   impact:'需要安定・消費意欲維持に寄与。高付加価値サービス需要を下支え。',src:'GDELT+公開報道'},
+  {key:'defense', label:'国防予算/PDI指数',val:75,trend:'↑',color:'#4ADE80',
+   desc:'DoD予算、Pacific Deterrence Initiative、議会承認動向を合成。',
+   impact:'軍人家族の雇用安定期待が消費余力に寄与。',src:'DoD公開予算+GDELT'},
+  {key:'first',   label:'第一列島線地政学',val:82,trend:'→',color:'#F4C842',
+   desc:'大国政治・海洋障壁・第一列島線前方拠点性。沖縄の戦略的重要度を数値化。',
+   impact:'米軍プレゼンス長期化シグナル。中長期の商圏安定根拠。',src:'地政学推計モデル'},
+  {key:'okinawa', label:'沖縄関係安定度',val:68,trend:'→',color:'#60A5FA',
+   desc:'USFJ/沖縄の対話・共同パトロール・基地関連ニュース摩擦を合成。',
+   impact:'地元摩擦が少ないほどSOFA層の外出・消費が活発化。',src:'GDELT+沖縄報道'},
+  {key:'taiwan',  label:'台湾・東アジア緊張',val:78,trend:'↑',color:'#A78BFA',
+   desc:'台湾海峡、北朝鮮、インド太平洋ニュース量・緊張語を合成。',
+   impact:'緊張高まりはドル高・部隊増強につながり、短期的にSOFA消費を押し上げる場合も。',src:'GDELT+Al Jazeera'},
+  {key:'rebase',  label:'基地再編リスク',val:45,trend:'↓',color:'#FF4D6A',
+   desc:'グアム移転進捗・部隊削減ニュース。商圏には慎重材料（ドラッグ）。',
+   impact:'高いほど将来人口減少リスク。中長期の商圏縮小に注意が必要。',src:'DoD+GDELT'},
+  {key:'usstress',label:'米国政治経済ストレス',val:62,trend:'→',color:'#FF7F50',
+   desc:'FRED金利・CPI・消費者心理とGDELT市場/政治ニュースを合成。',
+   impact:'ストレス高いほど本国のドル安定に不安。円安が「安全資産」化する局面も。',src:'FRED+GDELT'}
+];
+
+var FRED_SERIES = [
+  {id:'DEXJPUS',  name:'USD/JPY',         unit:'',    color:'#00D4AA', val:null, date:'—'},
+  {id:'FEDFUNDS', name:'FF金利',           unit:'%',   color:'#F4C842', val:null, date:'—'},
+  {id:'UNRATE',   name:'失業率',           unit:'%',   color:'#FF4D6A', val:null, date:'—'},
+  {id:'CPIAUCSL', name:'CPI (総合)',       unit:'YoY%',color:'#60A5FA', val:null, date:'—'},
+  {id:'CPIFABSL', name:'外食CPI',         unit:'YoY%',color:'#4ADE80', val:null, date:'—'},
+  {id:'AHETPI',   name:'平均時給',         unit:'$/h', color:'#A78BFA', val:null, date:'—'},
+  {id:'DGS10',    name:'10年国債',         unit:'%',   color:'#FF7F50', val:null, date:'—'},
+  {id:'T10YIE',   name:'10年インフレ期待', unit:'%',   color:'#F472B6', val:null, date:'—'},
+  {id:'UMCSENT',  name:'消費者信頼感',     unit:'',    color:'#34D399', val:null, date:'—'},
+  {id:'GS2',      name:'2年国債',          unit:'%',   color:'#FCD34D', val:null, date:'—'},
+  {id:'DCOILWTICO',name:'原油価格',        unit:'$/bbl',color:'#6EE7B7',val:null, date:'—'}
+];
+
+var MOCK = {
+  DEXJPUS:158.92, FEDFUNDS:5.33, UNRATE:4.2, CPIAUCSL:3.7, CPIFABSL:3.2,
+  AHETPI:37.41, DGS10:4.45, T10YIE:2.35, UMCSENT:67.8, GS2:4.88, DCOILWTICO:78.3
+};
+
+// State
+var S = {
+  fx:null,ff:null,ur:null,cpi:null,ahe:null,
+  fxH:[],ffH:[],urH:[],cpiH:[],
+  fredVals:{},signal:'HOLD',isMock:false,fredLive:0,
+  curSeg:'E4',curBtype:'ft_4d',curArea:0,curCat:'all'
+};
+var CH = {};
+var RD = {overview:false,sim:false,geo:false,biz:false,mil:false,fred:false,housing:false};
+
+// ════════════════════════════════════════════════
+// CLOCK
+// ════════════════════════════════════════════════
+function tick(){
+  var n=new Date();
+  document.getElementById('clock').textContent=
+    n.toLocaleString('ja-JP',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+setInterval(tick,1000); tick();
+
+// ════════════════════════════════════════════════
+// CHART DEFAULTS
+// ════════════════════════════════════════════════
+Chart.defaults.color='#8899B0';
+Chart.defaults.borderColor='#1A2E4A';
+Chart.defaults.font.family="'DM Sans',sans-serif";
+Chart.defaults.plugins.legend.display=false;
+
+function mkLine(id,labels,data,color){
+  var el=document.getElementById(id); if(!el) return;
+  if(CH[id]){CH[id].destroy();}
+  CH[id]=new Chart(el,{
+    type:'line',
+    data:{labels:labels,datasets:[{data:data,borderColor:color,backgroundColor:color+'18',
+      borderWidth:2,pointRadius:2,pointBackgroundColor:color,fill:true,tension:0.35}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{x:{ticks:{maxRotation:45,font:{size:8}},grid:{color:'#1A2E4A33'}},
+              y:{ticks:{font:{size:9}},grid:{color:'#1A2E4A44'}}}}
+  });
+}
+
+function mkBar(id,labels,datasets,opts){
+  var el=document.getElementById(id); if(!el) return;
+  if(CH[id]){CH[id].destroy();}
+  var defs={responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:datasets.length>1,labels:{font:{size:10},boxWidth:10}}},
+    scales:{x:{grid:{color:'#1A2E4A33'}},y:{grid:{color:'#1A2E4A44'}}}};
+  if(opts){ for(var k in opts){ defs[k]=opts[k]; }}
+  CH[id]=new Chart(el,{type:'bar',data:{labels:labels,datasets:datasets},options:defs});
+}
+
+function mkRadar(id,labels,data){
+  var el=document.getElementById(id); if(!el) return;
+  if(CH[id]){CH[id].destroy();}
+  CH[id]=new Chart(el,{
+    type:'radar',
+    data:{labels:labels,datasets:[{
+      data:data,borderColor:'#00D4AA',backgroundColor:'rgba(0,212,170,0.15)',
+      borderWidth:2,pointBackgroundColor:'#00D4AA',pointRadius:4,
+      pointHoverBackgroundColor:'#fff'
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{r:{
+        angleLines:{color:'#1A2E4A'},
+        grid:{color:'#1A2E4A66'},
+        pointLabels:{font:{size:9},color:'#8899B0'},
+        ticks:{display:false},
+        min:0,max:100
+      }}}
+  });
+}
+
+function mkDoughnut(id,labels,data,colors){
+  var el=document.getElementById(id); if(!el) return;
+  if(CH[id]){CH[id].destroy();}
+  CH[id]=new Chart(el,{
+    type:'doughnut',
+    data:{labels:labels,datasets:[{data:data,backgroundColor:colors,borderColor:'#0D1B2E',borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+      plugins:{legend:{display:true,position:'right',labels:{font:{size:9},boxWidth:10,padding:8}}}}
+  });
+}
+
+// Gauge (doughnut half)
+function drawGauge(score, label){
+  var canvas=document.getElementById('c-gauge');
+  if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,180,100);
+  var cx=90,cy=95,r=75,lw=14;
+  // Background arc
+  ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,0);
+  ctx.strokeStyle='#1A2E4A'; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
+  // Value arc
+  var angle=Math.PI*(score/100);
+  var col=score>75?'#00D4AA':score>50?'#F4C842':'#FF4D6A';
+  ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,Math.PI+angle);
+  ctx.strokeStyle=col; ctx.lineWidth=lw; ctx.stroke();
+  // Center text
+  var numEl=document.getElementById('gauge-num');
+  var lblEl=document.getElementById('gauge-lbl');
+  if(numEl){ numEl.textContent=score; numEl.style.color=col; }
+  if(lblEl){ lblEl.textContent=label; }
+}
+
+// ════════════════════════════════════════════════
+// FRED API
+// ════════════════════════════════════════════════
+function fredFetch(sid,limit){
+  limit=limit||14;
+  var url='https://api.stlouisfed.org/fred/series/observations?series_id='+sid+'&api_key='+FRED_KEY+'&limit='+limit+'&sort_order=desc&file_type=json';
+  var enc=encodeURIComponent(url);
+  var proxies=['https://corsproxy.io/?'+enc,'https://api.allorigins.win/raw?url='+enc];
+  function tryOne(i){
+    if(i>=proxies.length) return Promise.resolve(null);
+    var ctrl=new AbortController(); var tmr=setTimeout(function(){ctrl.abort();},8000);
+    return fetch(proxies[i],{signal:ctrl.signal})
+      .then(function(r){clearTimeout(tmr); if(!r.ok) throw 0; return r.json();})
+      .then(function(j){
+        if(!j||!j.observations) return null;
+        return j.observations.filter(function(o){return o.value!=='.'&&o.value!=='';}).map(function(o){return{date:o.date,value:parseFloat(o.value)};});
+      })
+      .catch(function(){clearTimeout(tmr); return tryOne(i+1);});
+  }
+  return tryOne(0);
+}
+
+function cacheGet(){
+  try{var r=localStorage.getItem(CACHE_KEY); if(!r) return null; var o=JSON.parse(r); if(Date.now()-o.ts>CACHE_TTL) return null; return o.data;}catch(e){return null;}
+}
+function cacheSet(d){
+  try{localStorage.setItem(CACHE_KEY,JSON.stringify({ts:Date.now(),data:d}));}catch(e){}
+}
+
+function sortAsc(a){return (a||[]).slice().sort(function(x,y){return x.date<y.date?-1:1;});}
+
+function calcYoY(arr){
+  if(!arr||arr.length<13) return null;
+  var cur=arr[arr.length-1].value; var prev=arr[arr.length-13].value;
+  return +((cur-prev)/prev*100).toFixed(2);
+}
+
+function calcSig(fx,ur){
+  if(fx===null||ur===null) return 'HOLD';
+  if(fx>148&&ur<5) return 'GO'; if(fx>140) return 'WATCH'; return 'HOLD';
+}
+
+function mockHistory(base,v,n,byMonth){
+  var a=[]; var today=new Date();
+  for(var i=n-1;i>=0;i--){
+    var d=new Date(today);
+    if(byMonth) d.setMonth(d.getMonth()-i); else d.setDate(d.getDate()-i);
+    a.push({date:d.toISOString().slice(0,10),value:+(base+(Math.random()-0.5)*v*2).toFixed(3)});
+  }
+  return a;
+}
+
+function getMock(){
+  return {
+    fxH:mockHistory(158.92,2,14,false),
+    ffH:mockHistory(5.33,0.05,12,true),
+    urH:mockHistory(4.2,0.2,12,true),
+    cpiH:mockHistory(315,1,14,true)
+  };
+}
+
+function applyData(data,isMock){
+  S.fxH=sortAsc(data.fxH); S.ffH=sortAsc(data.ffH);
+  S.urH=sortAsc(data.urH); S.cpiH=sortAsc(data.cpiH);
+  S.isMock=!!isMock;
+  S.fx=S.fxH.length?S.fxH[S.fxH.length-1].value:null;
+  S.ff=S.ffH.length?S.ffH[S.ffH.length-1].value:null;
+  S.ur=S.urH.length?S.urH[S.urH.length-1].value:null;
+  var cpiYoY=calcYoY(S.cpiH); S.cpi=cpiYoY!==null?cpiYoY:3.7;
+  S.ahe=data.fredVals&&data.fredVals.AHETPI?data.fredVals.AHETPI:37.41;
+  S.fredVals=data.fredVals||{};
+  S.signal=calcSig(S.fx,S.ur);
+  updateSig();
+  updateOverviewCards();
+  if(RD.overview) renderOverview();
+  if(RD.sim) runSim();
+  if(RD.biz) renderBiz();
+  if(RD.fred) renderFred();
+  var now=new Date();
+  document.getElementById('last-upd').textContent=now.toLocaleTimeString('ja-JP')+(isMock?' [mock]':'');
+  var liveCount=isMock?0:Object.keys(S.fredVals).length;
+  S.fredLive=liveCount;
+  document.getElementById('fred-pill').textContent='FRED '+liveCount+'/11';
+  document.getElementById('mock-pill').style.display=isMock?'':'none';
+  document.getElementById('lo').style.display='none';
+}
+
+function updateSig(){
+  var b=document.getElementById('sig');
+  if(S.signal==='GO'){b.className='sig-go';b.textContent='▶ GO — 積極展開フェーズ';}
+  else if(S.signal==='WATCH'){b.className='sig-watch';b.textContent='◎ WATCH — 準備・監視フェーズ';}
+  else{b.className='sig-hold';b.textContent='▬ HOLD — 現状維持フェーズ';}
+}
+
+function updateOverviewCards(){
+  var fx=S.fx; var ff=S.ff; var ur=S.ur;
+  document.getElementById('ov-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
+  document.getElementById('ov-ff').textContent=ff!==null?ff.toFixed(2)+'%':'--';
+  document.getElementById('ov-ur').textContent=ur!==null?ur.toFixed(1)+'%':'--';
+  document.getElementById('ov-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'$37.41';
+  document.getElementById('ov-cpi').textContent=S.cpi?S.cpi.toFixed(1)+'%':'3.7%';
+  document.getElementById('fx-display').textContent=fx!==null?fx.toFixed(2):'158.92';
+  document.getElementById('f-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
+  document.getElementById('f-ff').textContent=ff!==null?ff.toFixed(2)+'%':'--';
+  document.getElementById('f-ur').textContent=ur!==null?ur.toFixed(1)+'%':'--';
+  document.getElementById('f-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'--';
+  document.getElementById('fred-live-count').textContent=S.fredLive+'/11';
+  if(S.fxH.length>=2){
+    var chg=S.fxH[S.fxH.length-1].value-S.fxH[S.fxH.length-2].value;
+    var el=document.getElementById('ov-fxchg');
+    el.textContent=(chg>=0?'+':'')+chg.toFixed(2)+' (前日比)';
+    el.className='c-chg '+(chg>=0?'up':'dn');
+  }
+}
+
+// ════════════════════════════════════════════════
+// RENDER: OVERVIEW
+// ════════════════════════════════════════════════
+function renderOverview(){
+  RD.overview=true;
+  if(S.fxH.length) mkLine('c-fx',S.fxH.map(function(d){return d.date.slice(5);}),S.fxH.map(function(d){return d.value;}),'#00D4AA');
+  if(S.ffH.length) mkLine('c-ff',S.ffH.map(function(d){return d.date.slice(0,7);}),S.ffH.map(function(d){return d.value;}),'#F4C842');
+  if(S.urH.length) mkLine('c-ur',S.urH.map(function(d){return d.date.slice(0,7);}),S.urH.map(function(d){return d.value;}),'#FF4D6A');
+  // Gauge
+  var fx=S.fx||158.92; var ur=S.ur||4.2; var ff=S.ff||5.33; var cpi=S.cpi||3.7;
+  var score=60;
+  if(fx>155) score+=15; else if(fx>148) score+=10; else if(fx>140) score+=5;
+  if(ur<4) score+=12; else if(ur<5) score+=8; else if(ur<6) score+=4;
+  if(ff>4) score+=5;
+  score+=9; // geo impact base
+  score=Math.min(100,Math.round(score));
+  var lbl=score>80?'Strong':score>65?'Good':score>50?'Moderate':'Weak';
+  drawGauge(score,lbl);
+  // Area donut
+  mkDoughnut('c-area-donut',AREAS.map(function(a){return a.name.split('・')[0];}),AREAS.map(function(a){return a.pct;}),AREAS.map(function(a){return a.color;}));
+  // Area cards
+  var html='';
+  AREAS.forEach(function(a){
+    html+='<div class="area-card" style="border-left-color:'+a.color+'"><div class="area-name" style="color:'+a.color+'">'+a.name+'</div><div class="area-pct" style="color:'+a.color+'">'+a.pct+'%</div><div class="area-base">'+a.bases+'</div><div class="area-note">'+a.note+'</div></div>';
+  });
+  document.getElementById('area-cards').innerHTML=html;
+  // Auto memo
+  var sig=S.signal; var memo='';
+  if(sig==='GO') memo='<strong style="color:#00D4AA">▶ GO シグナル点灯中</strong> — USD/JPY '+fx.toFixed(2)+'（高水準）×失業率'+ur.toFixed(1)+'%（低水準）により、SOFA層の購買意欲は最高水準。FamilyTreeOkiへの積極マーケティング（英語SNS・基地内広告・口コミ促進）を推奨。上位パッケージ・記念日プランの前面訴求が有効。地政学インパクト+7.5%が推奨価格帯を上乗せ中。';
+  else if(sig==='WATCH') memo='<strong style="color:#F4C842">◎ WATCH シグナル</strong> — USD/JPY '+fx.toFixed(2)+'（やや高水準）。積極展開の準備フェーズ。英語対応強化、プロモーション素材整備、SOFA向けSNS運用を開始する好機。推奨価格帯は米国比で依然大幅割安。地政学インパクト+7.5%を訴求材料に。';
+  else memo='<strong style="color:#8899B0">▬ HOLD シグナル</strong> — 現状維持フェーズ。既存顧客のリテンション強化と英語対応品質向上に注力。経済指標の改善を週次モニタリング。コスト最適化を実施。';
+  document.getElementById('auto-memo').innerHTML=memo;
+}
+
+// ════════════════════════════════════════════════
+// RENDER: SIMULATOR
+// ════════════════════════════════════════════════
+function buildSimUI(){
+  // Cat filter
+  var catHtml='<button class="cat-btn active" data-cat="all">全て</button>';
+  Object.keys(CAT_LABELS).forEach(function(k){
+    catHtml+='<button class="cat-btn" data-cat="'+k+'">'+CAT_LABELS[k]+'</button>';
+  });
+  document.getElementById('cat-filter').innerHTML=catHtml;
+  document.querySelectorAll('#cat-filter .cat-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#cat-filter .cat-btn').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active'); S.curCat=b.dataset.cat; updateBtypeSelect(); runSim();
+    });
+  });
+  // Segment cards
+  var segHtml='';
+  SEGS.forEach(function(sg){
+    var active=sg.id===S.curSeg?' active':'';
+    segHtml+='<div class="seg-card'+active+'" data-seg="'+sg.id+'">'
+      +'<div class="seg-grade" style="color:'+sg.color+'">'+sg.label+'</div>'
+      +'<div class="seg-sub">'+sg.sub+'</div>'
+      +'<div class="seg-income">$'+sg.monthly.toLocaleString()+'/mo</div>'
+      +'<div class="seg-bars">'
+      +'<div class="seg-bar-row"><span style="width:40px">感度</span><div class="seg-bar-track"><div class="seg-bar-fill" style="width:'+Math.round(sg.sens/1.5*100)+'%;background:'+sg.color+'"></div></div><span>'+sg.sens+'</span></div>'
+      +'<div class="seg-bar-row"><span style="width:40px">P許容</span><div class="seg-bar-track"><div class="seg-bar-fill" style="width:'+sg.prem+'%;background:'+sg.color+'"></div></div><span>'+sg.prem+'%</span></div>'
+      +'</div></div>';
+  });
+  document.getElementById('seg-cards').innerHTML=segHtml;
+  document.querySelectorAll('.seg-card').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('.seg-card').forEach(function(x){x.classList.remove('active');});
+      c.classList.add('active'); S.curSeg=c.dataset.seg; runSim();
+    });
+  });
+  // Area selector
+  var aHtml='';
+  AREAS.forEach(function(a,i){ aHtml+='<option value="'+i+'">'+a.name+'</option>'; });
+  document.getElementById('area-sel').innerHTML=aHtml;
+  document.getElementById('area-sel').addEventListener('change',function(){ S.curArea=parseInt(this.value); runSim(); });
+  // Btype select
+  updateBtypeSelect();
+  document.getElementById('btype-sel').addEventListener('change',function(){ S.curBtype=this.value; runSim(); });
+  document.getElementById('price-input').addEventListener('input',runSim);
+  runSim();
+}
+
+function updateBtypeSelect(){
+  var cat=S.curCat;
+  var sel=document.getElementById('btype-sel');
+  var html='';
+  Object.keys(BTYPE).forEach(function(k){
+    var bt=BTYPE[k];
+    if(cat==='all'||bt.cat===cat){
+      html+='<option value="'+k+'"'+(k===S.curBtype?' selected':'')+'>'+bt.label+'</option>';
+    }
+  });
+  sel.innerHTML=html;
+  S.curBtype=sel.value;
+}
+
+function runSim(){
+  var btKey=document.getElementById('btype-sel').value;
+  S.curBtype=btKey;
+  var bt=BTYPE[btKey]; if(!bt) return;
+  var seg=null; SEGS.forEach(function(s){ if(s.id===S.curSeg) seg=s; });
+  if(!seg) seg=SEGS[1];
+  var area=AREAS[S.curArea];
+  var inputJPY=parseFloat(document.getElementById('price-input').value)||20000;
+  var fx=S.fx||158.92;
+  var ahe=S.ahe||37.41; var cpi=S.cpi||3.7;
+
+  // CPI補正（全計算に適用）
+  var cpiAdj=1+cpi/100;
+  var recLow =Math.round(bt.usLow *fx*0.60*1.075*cpiAdj);
+  var recHigh=Math.round(bt.usHigh*fx*0.85*1.075*cpiAdj*(0.8+seg.prem/100*0.3));
+  var usMid  =(bt.usLow+bt.usHigh)/2*cpiAdj;
+  var usAnchorJPY=Math.round(usMid*fx);
+  var inputUSD=inputJPY/fx;
+
+  // 値上げ余地（推奨帯上限 − 入力価格）
+  var priceHeadroom=recHigh-inputJPY;
+  var valueRatio=usAnchorJPY/inputJPY;
+
+  // 購買意欲スコア
+  var score=50;
+  if(valueRatio>2.0) score=95;
+  else if(valueRatio>1.5) score=85;
+  else if(valueRatio>1.2) score=72;
+  else if(valueRatio>1.0) score=58;
+  else if(valueRatio>0.85) score=38;
+  else score=22;
+  score=Math.round(score*(0.85+area.pct/100*0.4)*(0.9+seg.prem/100*0.2));
+
+  // OHAブースト（住宅モジュールが初期化済みなら使用）
+  var housingBoost=1.0;
+  if(typeof hBoost==='function'&&typeof OHA_RANKS!=='undefined'&&typeof OKI_PROPS!=='undefined'){
+    try{
+      var hrank=OHA_RANKS[1]; var hprop=OKI_PROPS[1]; // E5/O1/O2 × 庭付き3BR
+      var hs=hPsychScore(hprop,hrank);
+      var hg=hAllowanceGap(hprop,hrank);
+      housingBoost=hBoost(hs,hg,fx);
+    }catch(e){}
+  }
+  score=Math.min(100,Math.round(score*housingBoost));
+
+  var scoreLabel=score>=85?'非常に強い':score>=70?'強い':score>=55?'良好':score>=40?'普通':score>=25?'弱い':'割高';
+  var scoreColor=score>=70?'#00D4AA':score>=50?'#F4C842':'#FF4D6A';
+
+  // 月間市場ポテンシャル (万円) = 件数/人/月 × 商圏人口 × 単価
+  var marketPop=Math.round(SOFA*area.pct/100);
+  var monthlyMktJpy=Math.round(bt.monthlyPerPerson*marketPop*inputJPY/10000)/100; // 百万円
+
+  // OHAブースト後推奨上限
+  var recHighBoosted=Math.round(recHigh*housingBoost);
+
+  // 経営推奨アクション
+  var action,actionColor;
+  if(priceHeadroom>20000&&score>=70){ action='✅ 値上げ余地あり — 積極的値上げ推奨'; actionColor='#00D4AA'; }
+  else if(priceHeadroom>0&&score>=55){ action='💡 適正価格帯 — パッケージ強化で単価UP'; actionColor='#4ADE80'; }
+  else if(priceHeadroom>=0&&score>=40){ action='⚠️ 現状維持 — 訴求強化が先'; actionColor='#F4C842'; }
+  else if(priceHeadroom<0&&score>=55){ action='📦 パッケージ見直し — 単価下げかオプション整理'; actionColor='#FF7F50'; }
+  else{ action='🔴 価格再設計 — ターゲット・業種の見直しも検討'; actionColor='#FF4D6A'; }
+
+  // 9-card output
+  var outHtml=
+    '<div class="sim-item"><div class="sim-lbl">米国単価アンカー(CPI補正済)</div><div class="sim-val gold">$'+bt.usLow+'〜$'+bt.usHigh+'</div><div class="sim-note">CPI×'+cpiAdj.toFixed(3)+' / AHE $'+ahe.toFixed(2)+'/h</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">入力価格 ドル換算</div><div class="sim-val">$'+inputUSD.toFixed(0)+'</div><div class="sim-note">¥'+inputJPY.toLocaleString()+' ÷ '+fx.toFixed(2)+'</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">沖縄推奨価格帯(CPI込)</div><div class="sim-val green">¥'+recLow.toLocaleString()+'〜¥'+recHigh.toLocaleString()+'</div><div class="sim-note">地政学+7.5% / セグメント補正済</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">米国アンカー 円換算</div><div class="sim-val">¥'+usAnchorJPY.toLocaleString()+'</div><div class="sim-note">米国中央値×'+fx.toFixed(1)+' (CPI補正後)</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">値上げ余地(推奨帯上限比)</div><div class="sim-val '+(priceHeadroom>=0?'green':'red')+'">'+(priceHeadroom>=0?'+':'')+' ¥'+priceHeadroom.toLocaleString()+'</div><div class="sim-note">'+(priceHeadroom>=0?'推奨上限まで値上げ可':'推奨帯を超過・価格見直し')+'</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">割安率(US比)</div><div class="sim-val gold">'+valueRatio.toFixed(2)+'x</div><div class="sim-note">米国の'+valueRatio.toFixed(1)+'倍のサービスが沖縄で</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">月間市場ポテンシャル</div><div class="sim-val blue">'+monthlyMktJpy.toFixed(1)+'百万円</div><div class="sim-note">'+area.name.split('・')[0]+' '+marketPop.toLocaleString()+'人×'+bt.monthlyPerPerson+'件/月</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">OHAブースト後推奨上限</div><div class="sim-val gold">¥'+recHighBoosted.toLocaleString()+'</div><div class="sim-note">住宅余力係数×'+housingBoost.toFixed(2)+'適用</div></div>'
+   +'<div class="sim-item" style="border-left:2px solid '+actionColor+'"><div class="sim-lbl">経営推奨アクション</div><div class="sim-val" style="font-size:11px;color:'+actionColor+'">'+action+'</div><div class="sim-note">購買スコア '+score+'/100</div></div>';
+  document.getElementById('sim-out').innerHTML=outHtml;
+
+  // score bar
+  document.getElementById('score-badge').textContent=score+' — '+scoreLabel;
+  document.getElementById('score-badge').style.background='rgba('+(scoreColor==='#00D4AA'?'0,212,170':scoreColor==='#F4C842'?'244,200,66':'255,77,106')+',0.2)';
+  document.getElementById('score-badge').style.color=scoreColor;
+  document.getElementById('score-fill').style.width=score+'%';
+  document.getElementById('score-fill').style.background=scoreColor;
+
+  // Detailed memo
+  var memo='<strong style="color:'+scoreColor+'">購買意欲: '+scoreLabel+'（'+score+'/100）</strong>';
+  memo+=' <span style="font-size:9px;color:var(--muted)">OHAブースト×'+housingBoost.toFixed(2)+'適用</span><br>';
+  memo+='【'+seg.label+' '+seg.sub+'】'+seg.desc+'<br>';
+  memo+='<span style="color:var(--muted)">USD/JPY '+fx.toFixed(2)+'</span> — 米国相場(CPI補正)の円換算は ¥'+usAnchorJPY.toLocaleString()+'。';
+  if(valueRatio>1.5){
+    memo+='入力価格 ¥'+inputJPY.toLocaleString()+' は米国比 <strong>'+valueRatio.toFixed(1)+'倍割安</strong>。';
+    if(priceHeadroom>0) memo+='推奨帯上限(¥'+recHigh.toLocaleString()+')まで <strong>¥'+priceHeadroom.toLocaleString()+'の値上げ余地</strong>あり。';
+  } else if(valueRatio>1.0){
+    memo+='入力価格は米国比で割安（'+valueRatio.toFixed(2)+'x）。';
+    memo+='「米国の'+valueRatio.toFixed(1)+'倍高いサービスを沖縄価格で」を訴求材料に。';
+  } else {
+    memo+='入力価格は米国比でやや割高（'+valueRatio.toFixed(2)+'x）。';
+    memo+='ターゲット層の価格感度（'+seg.sens+'）を考慮したパッケージ設計を推奨。';
+  }
+  memo+='<br>月間市場ポテンシャル: <strong>'+monthlyMktJpy.toFixed(1)+'百万円</strong>（'+area.name.split('・')[0]+'商圏・利用頻度'+bt.monthlyPerPerson+'件/月基準）';
+  memo+='<br><strong style="color:'+actionColor+'">▶ 経営判断: '+action+'</strong>';
+  document.getElementById('sim-memo').innerHTML=memo;
+
+  document.getElementById('sim-source').textContent=S.isMock?'Mock Data':'FRED Live';
+  document.getElementById('btype-desc').textContent=bt.note+' — '+CAT_LABELS[bt.cat];
+  // Sim bar chart
+  var compKeys=['ft_4d','ft_2d','hair','massage','photo','dinner'];
+  var cxfx=fx;
+  var cLabels=compKeys.map(function(k){return BTYPE[k]?BTYPE[k].label.split('｜')[1]:k;});
+  var cUS=compKeys.map(function(k){return BTYPE[k]?(BTYPE[k].usLow+BTYPE[k].usHigh)/2:0;});
+  var cFTC=compKeys.map(function(k){return BTYPE[k]?Math.round(BTYPE[k].ftcDef/cxfx):0;});
+  mkBar('c-sim-bar',cLabels,[
+    {label:'米国単価 (USD)',data:cUS,backgroundColor:'rgba(136,153,176,0.5)',borderColor:'#8899B0',borderWidth:1},
+    {label:'FTC価格 (USD換算)',data:cFTC,backgroundColor:'rgba(0,212,170,0.5)',borderColor:'#00D4AA',borderWidth:1}
+  ],{plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:10}}}});
+}
+
+// ════════════════════════════════════════════════
+// RENDER: GEO
+// ════════════════════════════════════════════════
+function renderGeo(){
+  if(RD.geo) return; RD.geo=true;
+  var html='';
+  GEO.forEach(function(g){
+    html+='<div class="geo-card"><div class="geo-name">'+g.label+'</div>'
+      +'<div class="geo-val" style="color:'+g.color+'">'+g.val+'<span style="font-size:11px;margin-left:4px">'+g.trend+'</span></div>'
+      +'<div class="geo-bar"><div class="geo-bar-fill" style="width:'+g.val+'%;background:'+g.color+'"></div></div></div>';
+  });
+  document.getElementById('geo-cards').innerHTML=html;
+  // Radar
+  mkRadar('c-radar',GEO.map(function(g){return g.label;}),GEO.map(function(g){return g.val;}));
+  // Impact
+  var impHtml='<div class="impact-row"><span style="color:var(--muted)">推奨価格帯への上乗せ</span><span class="impact-val" style="color:var(--teal)">+2.0%</span></div>'
+    +'<div class="impact-row"><span style="color:var(--muted)">購買市場温度への寄与</span><span class="impact-val" style="color:var(--gold)">+9.3pt</span></div>'
+    +'<div class="impact-row"><span style="color:var(--muted)">戦略需要への寄与</span><span class="impact-val" style="color:var(--blue)">+12.8pt</span></div>'
+    +'<div class="impact-row"><span style="color:var(--muted)">総合価格心理インパクト</span><span class="impact-val" style="color:var(--purple)">+7.5%</span></div>';
+  document.getElementById('geo-impact').innerHTML=impHtml;
+  // Table
+  document.getElementById('geo-tbody').innerHTML=GEO.map(function(g){
+    var barPct=g.val+'%';
+    return '<tr><td style="font-weight:600;font-size:10px">'+g.label+'</td>'
+      +'<td><span style="font-family:monospace;font-weight:700;color:'+g.color+'">'+g.val+'</span> / 100</td>'
+      +'<td style="color:'+g.color+'">'+g.trend+'</td>'
+      +'<td style="font-size:10px;color:var(--muted)">'+g.impact+'</td>'
+      +'<td style="font-size:9px;color:var(--muted)">'+g.src+'</td></tr>';
+  }).join('');
+}
+
+// ════════════════════════════════════════════════
+// RENDER: BIZ
+// ════════════════════════════════════════════════
+function buildBizFilter(){
+  var html='<button class="cat-btn active" data-cat="all">全て (21)</button>';
+  Object.keys(CAT_LABELS).forEach(function(k){
+    html+='<button class="cat-btn" data-cat="'+k+'">'+CAT_LABELS[k]+'</button>';
+  });
+  document.getElementById('biz-filter').innerHTML=html;
+  document.querySelectorAll('#biz-filter .cat-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#biz-filter .cat-btn').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active'); renderBiz(b.dataset.cat);
+    });
+  });
+}
+
+function renderBiz(cat){
+  cat=cat||'all';
+  var fx=S.fx||158.92; var cpi=S.cpi||3.7;
+  var catColors={'ftc':'#00D4AA','food':'#F4C842','life':'#4ADE80','beauty':'#A78BFA','retail':'#60A5FA','exp':'#FF7F50','edu':'#F472B6'};
+  var filtered=Object.keys(BTYPE).filter(function(k){ return cat==='all'||BTYPE[k].cat===cat; });
+  document.getElementById('biz-count').textContent=filtered.length+'業種';
+  // Bar chart
+  var bcLabels=filtered.map(function(k){return BTYPE[k].label.split('｜')[1]||BTYPE[k].label;});
+  var bcData=filtered.map(function(k){return +((BTYPE[k].monthlyPerPerson*SOFA/1000000).toFixed(2));});
+  var bcColors=filtered.map(function(k){return catColors[BTYPE[k].cat]||'#8899B0';});
+  mkBar('c-biz-bar',bcLabels,[{label:'年間市場規模 (USD Million)',data:bcData,backgroundColor:bcColors,borderWidth:0}],{indexAxis:'y',plugins:{legend:{display:false}}});
+  // Table
+  var html=filtered.map(function(k){
+    var bt=BTYPE[k];
+    var cpiAdj=1+cpi/100;
+    var usLowCur=Math.round(bt.usLow*cpiAdj);
+    var usHiCur=Math.round(bt.usHigh*cpiAdj);
+    var anchorLow=Math.round(usLowCur*fx);
+    var anchorHi=Math.round(usHiCur*fx);
+    var recLow=Math.round(anchorLow*0.62);
+    var recHi=Math.round(anchorHi*0.85);
+    var valueRatio=+((usHiCur+usLowCur)/2/(bt.ftcDef/fx)).toFixed(1);
+    var mktM=+((bt.monthlyPerPerson*SOFA/1000000).toFixed(2));
+    var catLbl=CAT_LABELS[bt.cat]||bt.cat;
+    return '<tr>'
+      +'<td style="font-size:10px;font-weight:600">'+bt.label+'</td>'
+      +'<td><span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(0,212,170,.1);color:'+catColors[bt.cat]+'">'+catLbl+'</span></td>'
+      +'<td class="mono" style="color:var(--muted)">$'+bt.usLow+'〜$'+bt.usHigh+'</td>'
+      +'<td class="mono">¥'+anchorLow.toLocaleString()+'〜¥'+anchorHi.toLocaleString()+'</td>'
+      +'<td class="mono" style="color:var(--teal)">¥'+bt.ftcDef.toLocaleString()+'</td>'
+      +'<td class="mono" style="color:var(--green)">¥'+recLow.toLocaleString()+'〜¥'+recHi.toLocaleString()+'</td>'
+      +'<td class="mono" style="color:var(--gold)">'+valueRatio+'x</td>'
+      +'<td class="mono" style="color:var(--gold)">$'+mktM+'M</td>'
+      +'</tr>';
+  }).join('');
+  document.getElementById('biz-tbody').innerHTML=html;
+}
+
+// ════════════════════════════════════════════════
+// RENDER: MILITARY
+// ════════════════════════════════════════════════
+function renderMil(){
+  if(RD.mil) return; RD.mil=true;
+  // Seg cards
+  var html='';
+  SEGS.forEach(function(sg){
+    html+='<div class="seg-card" style="border-color:'+sg.color+'22;cursor:default">'
+      +'<div class="seg-grade" style="color:'+sg.color+'">'+sg.label+'</div>'
+      +'<div class="seg-sub">'+sg.sub+'</div>'
+      +'<div class="seg-income">$'+sg.monthly.toLocaleString()+'/mo</div>'
+      +'<div class="seg-bars">'
+      +'<div class="seg-bar-row"><span style="width:40px">感度</span><div class="seg-bar-track"><div class="seg-bar-fill" style="width:'+Math.round(sg.sens/1.5*100)+'%;background:'+sg.color+'"></div></div><span>'+sg.sens+'</span></div>'
+      +'<div class="seg-bar-row"><span style="width:40px">P許容</span><div class="seg-bar-track"><div class="seg-bar-fill" style="width:'+sg.prem+'%;background:'+sg.color+'"></div></div><span>'+sg.prem+'%</span></div>'
+      +'</div>'
+      +'<div style="font-size:9px;color:var(--muted);margin-top:8px;line-height:1.4">'+sg.desc+'</div>'
+      +'</div>';
+  });
+  document.getElementById('mil-seg-grid').innerHTML=html;
+  // Pay chart
+  var colors=['#00D4AA','#F4C842','#FF4D6A'];
+  mkBar('c-pay',PAY.map(function(p){return p.g;}),[
+    {label:'基本給',data:PAY.map(function(p){return p.b;}),backgroundColor:'rgba(0,212,170,0.6)',borderColor:'#00D4AA',borderWidth:1},
+    {label:'OHA', data:PAY.map(function(p){return p.h;}),backgroundColor:'rgba(244,200,66,0.5)',borderColor:'#F4C842',borderWidth:1},
+    {label:'COLA',data:PAY.map(function(p){return p.a;}),backgroundColor:'rgba(255,77,106,0.4)',borderColor:'#FF4D6A',borderWidth:1}
+  ],{plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:10}}},
+     scales:{x:{stacked:true,grid:{color:'#1A2E4A33'}},y:{stacked:true,grid:{color:'#1A2E4A44'}}}});
+  // Pay table
+  document.getElementById('pay-tbody').innerHTML=PAY.map(function(p){
+    var t=p.g.charAt(0); var cls=t==='E'?'e-badge':t==='O'?'o-badge':'w-badge';
+    var tot=p.b+p.h+p.a;
+    return '<tr><td><span class="pbadge '+cls+'">'+p.g+'</span></td><td>'+p.t+'</td>'
+      +'<td class="mono">$'+p.b.toLocaleString()+'</td><td class="mono">$'+p.h.toLocaleString()+'</td>'
+      +'<td class="mono">$'+p.a.toLocaleString()+'</td>'
+      +'<td class="mono" style="color:#00D4AA;font-weight:700">$'+tot.toLocaleString()+'</td></tr>';
+  }).join('');
+  // Area grid
+  var aHtml='';
+  AREAS.forEach(function(a){
+    aHtml+='<div class="area-card" style="border-left-color:'+a.color+'">'
+      +'<div class="area-name" style="color:'+a.color+'">'+a.name+'</div>'
+      +'<div class="area-pct" style="color:'+a.color+'">'+a.pct+'%</div>'
+      +'<div class="area-base">'+a.bases+'</div>'
+      +'<div class="area-note">'+a.note+'</div></div>';
+  });
+  document.getElementById('mil-area-grid').innerHTML=aHtml;
+}
+
+// ════════════════════════════════════════════════
+// RENDER: FRED
+// ════════════════════════════════════════════════
+function renderFred(){
+  RD.fred=true;
+  var fx=S.fx||158.92; var ff=S.ff||5.33; var ur=S.ur||4.2;
+  // FRED grid
+  var html='';
+  FRED_SERIES.forEach(function(f){
+    var val=S.fredVals[f.id]||MOCK[f.id];
+    var dispVal=val?+(val).toFixed(2):'—';
+    html+='<div class="fred-card"><div class="fred-id">'+f.id+'</div><div class="fred-name">'+f.name+'</div>'
+      +'<div class="fred-val" style="color:'+f.color+'">'+dispVal+'<span style="font-size:9px;color:var(--muted)"> '+f.unit+'</span></div>'
+      +'<div class="fred-src">'+(S.isMock?'mock':'live')+'</div></div>';
+  });
+  document.getElementById('fred-grid').innerHTML=html;
+  // Charts
+  if(S.ffH.length) mkLine('c-fred-ff',S.ffH.map(function(d){return d.date.slice(0,7);}),S.ffH.map(function(d){return d.value;}),'#F4C842');
+  if(S.urH.length) mkLine('c-fred-ur',S.urH.map(function(d){return d.date.slice(0,7);}),S.urH.map(function(d){return d.value;}),'#FF4D6A');
+  if(S.cpiH.length) mkLine('c-fred-cpi',S.cpiH.map(function(d){return d.date.slice(0,7);}),S.cpiH.map(function(d){return d.value;}),'#60A5FA');
+  // Table
+  var tbody='';
+  FRED_SERIES.forEach(function(f){
+    var val=S.fredVals[f.id]||MOCK[f.id];
+    tbody+='<tr><td class="mono" style="color:var(--muted)">'+f.id+'</td><td style="font-weight:600">'+f.name+'</td>'
+      +'<td class="mono" style="color:'+f.color+';font-weight:700">'+(val?+(val).toFixed(2):'—')+'</td>'
+      +'<td style="font-size:9px;color:var(--muted)">'+f.unit+'</td>'
+      +'<td class="mono" style="font-size:9px">'+new Date().toISOString().slice(0,10)+'</td>'
+      +'<td style="font-size:9px;color:var(--muted)">'+(S.isMock?'Mock/Fallback':'FRED API')+'</td></tr>';
+  });
+  document.getElementById('fred-tbody').innerHTML=tbody;
+}
+
+// ════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════
+document.querySelectorAll('.nav-item').forEach(function(n){
+  n.addEventListener('click',function(){
+    var id=n.dataset.tab;
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+    document.querySelectorAll('.nav-item').forEach(function(x){x.classList.remove('active');});
+    document.getElementById('tab-'+id).classList.add('active');
+    n.classList.add('active');
+    document.getElementById('tab-heading').textContent=TAB_TITLES[id]||id;
+    if(id==='overview'&&!RD.overview) renderOverview();
+    if(id==='sim'&&!RD.sim){ RD.sim=true; buildSimUI(); }
+    if(id==='geo') renderGeo();
+    if(id==='biz'&&!RD.biz){ RD.biz=true; buildBizFilter(); renderBiz('all'); }
+    if(id==='mil') renderMil();
+    if(id==='fred') renderFred();
+    if(id==='housing'&&!RD.housing){ RD.housing=true; renderHousing(); }
+  });
+});
+
+// ════════════════════════════════════════════════
+// DATA LOAD
+// ════════════════════════════════════════════════
+function loadFresh(){
+  document.getElementById('lo').style.display='flex';
+  try{localStorage.removeItem(CACHE_KEY);}catch(e){}
+  RD={overview:false,sim:false,geo:false,biz:false,mil:false,fred:false};
+  var series=['DEXJPUS','FEDFUNDS','UNRATE','CPIAUCSL','CPIFABSL','AHETPI','DGS10','T10YIE','UMCSENT','GS2','DCOILWTICO'];
+  Promise.all([
+    fredFetch('DEXJPUS',14),fredFetch('FEDFUNDS',12),
+    fredFetch('UNRATE',14),fredFetch('CPIAUCSL',14),
+    fredFetch('AHETPI',1)
+  ]).then(function(res){
+    var anyReal=res[0]||res[1]||res[2]||res[3];
+    var fredVals={};
+    if(res[4]&&res[4].length){ fredVals['AHETPI']=res[4][0].value; }
+    var data;
+    if(!anyReal){
+      var m=getMock(); data=m; data.fredVals=MOCK; applyData(data,true); return;
+    }
+    data={fxH:res[0]||[],ffH:res[1]||[],urH:res[2]||[],cpiH:res[3]||[],fredVals:fredVals};
+    // Fill mock for missing FRED vals
+    series.forEach(function(s){ if(!fredVals[s]) fredVals[s]=MOCK[s]; });
+    data.fredVals=fredVals;
+    cacheSet(data); applyData(data,false);
+  }).catch(function(){
+    var m=getMock(); m.fredVals=MOCK; applyData(m,true);
+  });
+}
+
+document.getElementById('ref-btn').addEventListener('click',loadFresh);
+
+(function init(){
+  var cached=cacheGet();
+  if(cached){ applyData(cached,false); renderOverview(); return; }
+  loadFresh();
+  setTimeout(function(){ if(document.getElementById('lo').style.display!=='none'){ var m=getMock(); m.fredVals=MOCK; applyData(m,true); renderOverview(); }},3500);
+})();
+
+// ════════════════════════════════════════════════
+// 住宅心理モジュール — Housing Psychology Module
+// ════════════════════════════════════════════════
+
+var OHA_RANKS = [
+  {id:'E1E3',label:'E-1〜E-3 扶養あり',rentUsd:1799,utilUsd:661,totalUsd:2460,rentJpy:284800,totalJpy:389000,sqmRange:[100,130],tsuboRange:[30,39],practicalJpy:[180000,280000],psych:'価格感度高め。OHA範囲内で家族支出を管理。飲食・生活サービスへの反応が強い。'},
+  {id:'E4',label:'E-4 扶養あり ★重要',rentUsd:1850,utilUsd:661,totalUsd:2511,rentJpy:293000,totalJpy:405000,sqmRange:[110,145],tsuboRange:[33,44],practicalJpy:[200000,293000],psych:'【FamilyTreeOki最重要ターゲット】出産・育児開始期。OHA余力でプレミアム体験・記念サービスへの支出意欲が高い。'},
+  {id:'E5O1O2',label:'E-5 / O-1 / O-2 扶養あり',rentUsd:1943,utilUsd:661,totalUsd:2604,rentJpy:307600,totalJpy:412000,sqmRange:[120,150],tsuboRange:[36,45],practicalJpy:[220000,310000],psych:'FamilyTreeOki主力層。3BR、子ども、基地アクセス、英語対応を重視。'},
+  {id:'E6E8O3',label:'E-6〜E-8 / O-3 扶養あり',rentUsd:2105,utilUsd:661,totalUsd:2766,rentJpy:333200,totalJpy:438000,sqmRange:[140,170],tsuboRange:[42,51],practicalJpy:[260000,333000],psych:'プレミアム支出が可能。広さ、静かさ、駐車場、ペット可を重視。'},
+  {id:'E9O4O5GS',label:'E-9 / O-4〜O-5 / GS上位',rentUsd:2500,utilUsd:661,totalUsd:3161,rentJpy:395800,totalJpy:500000,sqmRange:[160,215],tsuboRange:[48,65],practicalJpy:[350000,450000],psych:'高単価サービスに反応。プライバシー、学校、地域を重視。'},
+  {id:'O6EXEC',label:'O-6以上 / Executive',rentUsd:3000,utilUsd:661,totalUsd:3661,rentJpy:474900,totalJpy:579000,sqmRange:[200,260],tsuboRange:[60,79],practicalJpy:[450000,600000],psych:'プレミアム住宅。眺望、庭、セキュリティを重視。'}
+];
+
+var OKI_PROPS = [
+  {id:'kadena3br',label:'Kadena近郊 3BR',area:'嘉手納近郊',br:3,sqft:1385,sqm:128.7,tsubo:38.9,rentJpy:300000,rentUsd:1895,perTsuboJpy:7708,distMin:15,parking:2,pet:false,eng:true,humid:true,routeScore:70,note:'便利だが米軍公式3BR基準151㎡よりやや小さめ'},
+  {id:'yard3br',label:'庭付き3BR 沖縄中部',area:'沖縄中部',br:3,sqft:1540,sqm:143.1,tsubo:43.3,rentJpy:300000,rentUsd:1895,perTsuboJpy:6932,distMin:15,parking:2,pet:true,eng:true,humid:true,routeScore:82,note:'140㎡超で米軍感覚に近い。E5/O1/O2〜E6/O3向け'},
+  {id:'rycom3br',label:'Rycom近く 3BR',area:'Rycom近く',br:3,sqft:1070,sqm:99.4,tsubo:30.1,rentJpy:300000,rentUsd:1895,perTsuboJpy:9977,distMin:20,parking:2,pet:false,eng:true,humid:true,routeScore:78,note:'面積は小さめ。立地・利便性で補う必要あり'},
+  {id:'yomitan3br',label:'読谷/北谷 広め3BR',area:'読谷/北谷',br:3,sqft:1780,sqm:165.4,tsubo:50.0,rentJpy:400000,rentUsd:2527,perTsuboJpy:7996,distMin:25,parking:2,pet:true,eng:true,humid:true,routeScore:80,note:'170㎡近く、E6/O3以上向け'}
+];
+
+var JPN_PROPS = [
+  {id:'tokyo3br',label:'東京 3BR (横田近郊)',area:'東京/横田',br:3,sqft:900,sqm:83.6,tsubo:25.3,rentJpy:350000,rentUsd:2214,perTsuboJpy:13834,distMin:30,parking:1,pet:false,eng:false,humid:false,routeScore:55,note:'本土は面積比で割高'},
+  {id:'kanagawa3br',label:'神奈川 3BR (横須賀近郊)',area:'横須賀近郊',br:3,sqft:980,sqm:91.0,tsubo:27.5,rentJpy:280000,rentUsd:1771,perTsuboJpy:10181,distMin:20,parking:1,pet:false,eng:false,humid:false,routeScore:65,note:'海軍基地アクセス良好'},
+  {id:'aomori3br',label:'青森 3BR (三沢近郊)',area:'三沢近郊',br:3,sqft:1200,sqm:111.5,tsubo:33.7,rentJpy:130000,rentUsd:822,perTsuboJpy:3858,distMin:15,parking:2,pet:true,eng:false,humid:false,routeScore:60,note:'価格は安いが都市サービスは限定的'}
+];
+
+var US_PROPS = [
+  {id:'usva3br',label:'バージニア 3BR (Pentagon近郊)',area:'Pentagon近郊',br:3,sqft:1600,sqm:148.6,tsubo:44.9,rentJpy:380000,rentUsd:2404,perTsuboJpy:8464,distMin:25,parking:2,pet:true,eng:true,humid:false,routeScore:85,note:'BAH基準の参照値'},
+  {id:'ussd3br',label:'サンディエゴ 3BR (Miramar近郊)',area:'Miramar近郊',br:3,sqft:1450,sqm:134.7,tsubo:40.7,rentJpy:360000,rentUsd:2278,perTsuboJpy:8848,distMin:20,parking:2,pet:true,eng:true,humid:false,routeScore:88,note:'海軍/海兵隊 主力基地'},
+  {id:'usnc3br',label:'ノースカロライナ 3BR (Bragg近郊)',area:'Ft.Bragg近郊',br:3,sqft:1800,sqm:167.2,tsubo:50.6,rentJpy:190000,rentUsd:1202,perTsuboJpy:3755,distMin:15,parking:2,pet:true,eng:true,humid:true,routeScore:72,note:'陸軍主力基地・コスパ高'}
+];
+
+var BAH_COMPARE = [
+  {rank:'E-1〜E-3',ohaUsd:1799,bahUsd:1280,label:'E1-3'},
+  {rank:'E-4',ohaUsd:1850,bahUsd:1350,label:'E-4'},
+  {rank:'E-5/O-1/O-2',ohaUsd:1943,bahUsd:1580,label:'E5/O1/2'},
+  {rank:'E-6/O-3',ohaUsd:2105,bahUsd:1820,label:'E6/O3'},
+  {rank:'E-9/O-5',ohaUsd:2500,bahUsd:2200,label:'E9/O5'},
+  {rank:'O-6+',ohaUsd:3000,bahUsd:2600,label:'O6+'}
+];
+
+var HOUSING_STRATEGIES = [
+  {title:'OHA余力最大化型',icon:'💰',tag:'消費余力↑',color:'#00D4AA',desc:'OHA予算内・低家賃物件を選択し、差額を外部消費に充当。E-4〜E-6層の飲食・サービス支出が活発化。FamilyTreeOkiへの誘導に最適。',boost:'+8〜12%'},
+  {title:'面積満足型',icon:'🏠',tag:'居住満足度↑',color:'#60A5FA',desc:'151㎡基準に近い広さを確保し、ストレスゼロ。家族の活動性が高まり、体験・教育・ウェルネス消費が増加。',boost:'+4〜8%'},
+  {title:'基地近接型',icon:'📍',tag:'利便性↑',color:'#F4C842',desc:'15分圏内の物件で通勤ストレスを排除。余暇時間が増え、家族サービスへの参加頻度が上昇。',boost:'+3〜6%'},
+  {title:'高ランクプレミアム型',icon:'⭐',tag:'高単価向け',color:'#A78BFA',desc:'O-4以上はOHA予算が豊富。プレミアム物件でも余力が残り、1回あたり単価の高いサービス（写真・ウェルネス・記念体験）に積極支出。',boost:'+6〜10%'},
+  {title:'複合ニーズ型',icon:'👨‍👩‍👧',tag:'ファミリー全需要',color:'#FF7F50',desc:'3BR・ペット可・英語対応・駐車2台の物件は住宅心理スコア最高水準。ファミリー消費の全カテゴリが活性化し、FamilyTreeOkiの複数サービス同時利用につながる。',boost:'+10〜15%'}
+];
+
+var MIL_SIZE_STANDARDS = [
+  {rank:'E-1〜E-6（扶養あり）',br:3,sqft:1630,sqm:151,tsubo:45.7},
+  {rank:'E-7〜E-9（扶養あり）',br:3,sqft:1800,sqm:167,tsubo:50.6},
+  {rank:'O-1〜O-3（扶養あり）',br:3,sqft:1630,sqm:151,tsubo:45.7},
+  {rank:'O-4〜O-6（扶養あり）',br:4,sqft:2100,sqm:195,tsubo:59.1},
+  {rank:'O-7以上',br:4,sqft:2400,sqm:223,tsubo:67.5}
+];
+
+// ── Calculation Engine ──────────────────────────────────────────────────────
+
+function hSizeFit(sqm){
+  var ratio = sqm / 151;
+  if(ratio >= 1.0) return 100;
+  if(ratio >= 0.90) return 90;
+  if(ratio >= 0.75) return 75;
+  if(ratio >= 0.60) return 55;
+  return 35;
+}
+
+function hAllowanceGap(prop, rank){
+  return rank.rentUsd - prop.rentUsd;
+}
+
+function hPsychScore(prop, rank){
+  var gapUsd = hAllowanceGap(prop, rank);
+  // allowance score
+  var aScore = gapUsd >= 300 ? 100 : gapUsd >= 0 ? 88 : gapUsd >= -200 ? 65 : 40;
+  // size fit
+  var sScore = hSizeFit(prop.sqm);
+  // unit price
+  var up = prop.perTsuboJpy;
+  var uScore = up <= 7000 ? 95 : up <= 8500 ? 85 : up <= 10000 ? 72 : up <= 12000 ? 58 : 42;
+  // distance
+  var d = prop.distMin;
+  var dScore = d <= 10 ? 100 : d <= 15 ? 90 : d <= 25 ? 75 : d <= 35 ? 58 : 40;
+  // bedroom
+  var bScore = prop.br >= 4 ? 95 : prop.br === 3 ? 88 : prop.br === 2 ? 60 : 35;
+  // parking
+  var pScore = prop.parking >= 2 ? 100 : prop.parking === 1 ? 65 : 30;
+  // options
+  var oScore = (prop.pet ? 20 : 0) + (prop.eng ? 25 : 0) + (prop.humid ? 20 : 0) + Math.min(prop.routeScore, 35);
+
+  var final = aScore*0.26 + sScore*0.20 + uScore*0.14 + dScore*0.14 + bScore*0.10 + pScore*0.08 + oScore*0.08;
+  return Math.round(Math.min(100, final));
+}
+
+function hBoost(score, gapUsd, fx){
+  var boost = 1.0;
+  if(score >= 85) boost += 0.08;
+  else if(score >= 70) boost += 0.04;
+  else if(score < 55) boost -= 0.05;
+  if(gapUsd >= 300) boost += 0.04;
+  else if(gapUsd < -200) boost -= 0.08;
+  if(fx >= 160) boost += 0.06;
+  else if(fx >= 150) boost += 0.03;
+  else if(fx < 140) boost -= 0.04;
+  return Math.min(1.20, Math.max(0.85, boost));
+}
+
+function scoreColor(s){ return s >= 80 ? 'var(--green)' : s >= 60 ? 'var(--gold)' : 'var(--red)'; }
+
+// ── Render Housing ──────────────────────────────────────────────────────────
+
+function renderHousing(){
+  // OHA Table
+  var tbody = document.getElementById('h-oha-tbody');
+  if(tbody){
+    tbody.innerHTML = OHA_RANKS.map(function(r){
+      return '<tr><td>'+r.label+'</td><td>$'+r.rentUsd.toLocaleString()+'</td><td>$'+r.utilUsd+'</td><td>$'+r.totalUsd.toLocaleString()+'</td><td>¥'+r.rentJpy.toLocaleString()+'</td><td>¥'+r.totalJpy.toLocaleString()+'</td><td>'+r.sqmRange[0]+'〜'+r.sqmRange[1]+'㎡</td><td>'+r.tsuboRange[0]+'〜'+r.tsuboRange[1]+'坪</td><td>¥'+r.practicalJpy[0].toLocaleString()+'〜¥'+r.practicalJpy[1].toLocaleString()+'</td></tr>';
+    }).join('');
+  }
+
+  // Property Table (all 10)
+  var allProps = OKI_PROPS.concat(JPN_PROPS).concat(US_PROPS);
+  var ptbody = document.getElementById('h-prop-tbody');
+  if(ptbody){
+    ptbody.innerHTML = allProps.map(function(p){
+      var bg = OKI_PROPS.indexOf(p) >= 0 ? 'rgba(0,212,170,.05)' : JPN_PROPS.indexOf(p) >= 0 ? 'rgba(96,165,250,.05)' : 'rgba(244,200,66,.05)';
+      return '<tr style="background:'+bg+'"><td>'+p.label+'</td><td>'+p.area+'</td><td>'+p.br+'BR</td><td>'+p.sqm+'㎡</td><td>'+p.tsubo+'坪</td><td>¥'+p.rentJpy.toLocaleString()+'</td><td>$'+p.rentUsd.toLocaleString()+'</td><td>¥'+p.perTsuboJpy.toLocaleString()+'</td><td>'+p.distMin+'分</td><td>'+p.parking+'台</td><td>'+(p.pet?'✓':'—')+'</td><td>'+(p.eng?'✓':'—')+'</td><td style="font-size:.75rem;color:var(--dim)">'+p.note+'</td></tr>';
+    }).join('');
+  }
+
+  // Size Standards Table
+  var stbody = document.getElementById('h-std-tbody');
+  if(stbody){
+    stbody.innerHTML = MIL_SIZE_STANDARDS.map(function(s){
+      return '<tr><td>'+s.rank+'</td><td>'+s.br+'BR</td><td>'+s.sqft.toLocaleString()+' sqft</td><td>'+s.sqm+'㎡</td><td>'+s.tsubo+'坪</td></tr>';
+    }).join('');
+  }
+
+  // Strategy Cards
+  var sc = document.getElementById('h-strategy-cards');
+  if(sc){
+    sc.innerHTML = HOUSING_STRATEGIES.map(function(s){
+      return '<div class="box" style="border-left:3px solid '+s.color+';padding:1rem"><div style="font-size:1.1rem;font-weight:700;margin-bottom:.3rem">'+s.icon+' '+s.title+'</div><div style="font-size:.7rem;background:'+s.color+'22;color:'+s.color+';display:inline-block;padding:.2rem .5rem;border-radius:4px;margin-bottom:.5rem">'+s.tag+'</div><div style="font-size:.82rem;line-height:1.65;color:var(--dim)">'+s.desc+'</div><div style="margin-top:.6rem;font-size:.8rem;font-weight:600;color:'+s.color+'">消費余力ブースト: '+s.boost+'</div></div>';
+    }).join('');
+  }
+
+  // Charts
+  setTimeout(function(){
+    // Chart 1: Rent comparison
+    var ohaRentJpy = OHA_RANKS.map(function(r){ return r.rentJpy; });
+    var ohaLabels = OHA_RANKS.map(function(r){ return r.label.replace(' 扶養あり',''); });
+    var propRents = OKI_PROPS.map(function(p){ return p.rentJpy; });
+    var propLabels = OKI_PROPS.map(function(p){ return p.label; });
+    mkBar('c-h-rent',
+      ohaLabels,
+      [{label:'OHA家賃手当(円)',data:ohaRentJpy,backgroundColor:'rgba(0,212,170,.6)',borderColor:'#00D4AA',borderWidth:1}],
+      {indexAxis:'y',plugins:{legend:{labels:{color:'#aaa',font:{size:10}}}},scales:{x:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}}}}
+    );
+
+    // Chart 2: Tsubo price
+    mkBar('c-h-tsubo',
+      propLabels,
+      [{label:'坪単価(円/坪)',data:OKI_PROPS.map(function(p){return p.perTsuboJpy;}),backgroundColor:['rgba(0,212,170,.7)','rgba(96,165,250,.7)','rgba(244,200,66,.7)','rgba(167,139,250,.7)'],borderWidth:1}],
+      {indexAxis:'y',plugins:{legend:{labels:{color:'#aaa',font:{size:10}}}},scales:{x:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}}}}
+    );
+
+    // Chart 3: OHA vs BAH
+    mkBar('c-h-oha-bah',
+      BAH_COMPARE.map(function(b){return b.label;}),
+      [
+        {label:'OHA(海外)',data:BAH_COMPARE.map(function(b){return b.ohaUsd;}),backgroundColor:'rgba(0,212,170,.6)',borderColor:'#00D4AA',borderWidth:1},
+        {label:'BAH(本土)',data:BAH_COMPARE.map(function(b){return b.bahUsd;}),backgroundColor:'rgba(244,200,66,.5)',borderColor:'#F4C842',borderWidth:1}
+      ],
+      {plugins:{legend:{labels:{color:'#aaa',font:{size:10}}}},scales:{x:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}}}}
+    );
+
+    // Chart 4: Size fit score for OKI props across ranks
+    var mainRank = OHA_RANKS[1]; // E5/O1/O2
+    var sizeScores = OKI_PROPS.map(function(p){ return hSizeFit(p.sqm); });
+    mkBar('c-h-size',
+      OKI_PROPS.map(function(p){return p.label;}),
+      [{label:'面積適合スコア(E5/O1/O2基準)',data:sizeScores,backgroundColor:sizeScores.map(function(s){return s>=80?'rgba(0,212,170,.7)':s>=60?'rgba(244,200,66,.7)':'rgba(255,77,106,.7)';}),borderWidth:1}],
+      {indexAxis:'y',plugins:{legend:{labels:{color:'#aaa',font:{size:10}}}},scales:{x:{max:100,ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}}}}
+    );
+
+    // Compute KPI max values
+    var bestScore = 0; var bestBoost = 0.85;
+    var fx = window._GSTATE && window._GSTATE.fx ? window._GSTATE.fx : 155;
+    OKI_PROPS.forEach(function(p){
+      OHA_RANKS.forEach(function(r){
+        var s = hPsychScore(p,r);
+        var g = hAllowanceGap(p,r);
+        var b = hBoost(s,g,fx);
+        if(s>bestScore) bestScore=s;
+        if(b>bestBoost) bestBoost=b;
+      });
+    });
+    var pmax = document.getElementById('h-psych-max');
+    var bmax = document.getElementById('h-boost-max');
+    if(pmax){ pmax.textContent=bestScore+'点'; pmax.style.color=scoreColor(bestScore); }
+    if(bmax){ bmax.textContent='×'+bestBoost.toFixed(2); bmax.style.color='var(--gold)'; }
+
+    // Initial analysis
+    updateHousingAnalysis();
+  }, 150);
+}
+
+// ── Per-rank income data ───────────────────────────────────────────────────
+var RANK_INCOME_DATA = {
+  0:[  // E1-E3
+    {item:'基本給',usd:2694,note:'E-3 2025年度'},
+    {item:'OHA 家賃手当',usd:1799,note:'扶養あり・沖縄'},
+    {item:'OHA 光熱費',usd:661,note:'固定額'},
+    {item:'BAS(食費手当)',usd:460,note:''},
+    {item:'COLA(生活費調整)',usd:180,note:'沖縄海外COLA'},
+    {item:'月間総収入',usd:5794,bold:true},
+    {item:'OHA支出(家賃想定)',usd:-2200,red:true,note:'実勢平均'},
+    {item:'可処分(推定)',usd:2394,bold:true,green:true,note:'税・保険控除後'}
+  ],
+  1:[  // E-4 ★
+    {item:'基本給',usd:3138,note:'E-4 2025年度'},
+    {item:'OHA 家賃手当',usd:1850,note:'扶養あり・沖縄'},
+    {item:'OHA 光熱費',usd:661,note:'固定額'},
+    {item:'BAS(食費手当)',usd:460,note:''},
+    {item:'COLA(生活費調整)',usd:220,note:'沖縄海外COLA'},
+    {item:'月間総収入',usd:6329,bold:true},
+    {item:'OHA支出(家賃想定)',usd:-2250,red:true,note:'中部3BR実勢'},
+    {item:'可処分(推定)',usd:3079,bold:true,green:true,note:'税・保険控除後'}
+  ],
+  2:[  // E5/O1/O2
+    {item:'基本給',usd:3700,note:'E-5/O-2平均'},
+    {item:'OHA 家賃手当',usd:1943,note:'扶養あり・沖縄'},
+    {item:'OHA 光熱費',usd:661,note:'固定額'},
+    {item:'BAS(食費手当)',usd:460,note:''},
+    {item:'COLA(生活費調整)',usd:250,note:'沖縄海外COLA'},
+    {item:'月間総収入',usd:7014,bold:true},
+    {item:'OHA支出(家賃想定)',usd:-2400,red:true,note:'推奨帯中央値'},
+    {item:'可処分(推定)',usd:3414,bold:true,green:true,note:'税・保険控除後'}
+  ],
+  3:[  // E6/O3
+    {item:'基本給',usd:4200,note:'E-6/O-3平均'},
+    {item:'OHA 家賃手当',usd:2105,note:'扶養あり・沖縄'},
+    {item:'OHA 光熱費',usd:661,note:'固定額'},
+    {item:'BAS(食費手当)',usd:460,note:''},
+    {item:'COLA(生活費調整)',usd:280,note:'沖縄海外COLA'},
+    {item:'月間総収入',usd:7706,bold:true},
+    {item:'OHA支出(家賃想定)',usd:-2700,red:true,note:'推奨帯中央値'},
+    {item:'可処分(推定)',usd:3806,bold:true,green:true,note:'税・保険控除後'}
+  ],
+  4:[  // E9/O5/GS
+    {item:'基本給',usd:5200,note:'E-9/O-5平均'},
+    {item:'OHA 家賃手当',usd:2500,note:'扶養あり・沖縄'},
+    {item:'OHA 光熱費',usd:661,note:'固定額'},
+    {item:'BAS(食費手当)',usd:460,note:''},
+    {item:'COLA(生活費調整)',usd:350,note:'沖縄海外COLA'},
+    {item:'月間総収入',usd:9171,bold:true},
+    {item:'OHA支出(家賃想定)',usd:-3500,red:true,note:'推奨帯中央値'},
+    {item:'可処分(推定)',usd:4871,bold:true,green:true,note:'税・保険控除後'}
+  ],
+  5:[  // O6+
+    {item:'基本給',usd:7000,note:'O-6平均'},
+    {item:'OHA 家賃手当',usd:3000,note:'扶養あり・沖縄'},
+    {item:'OHA 光熱費',usd:661,note:'固定額'},
+    {item:'BAS(食費手当)',usd:460,note:''},
+    {item:'COLA(生活費調整)',usd:450,note:'沖縄海外COLA'},
+    {item:'月間総収入',usd:11571,bold:true},
+    {item:'OHA支出(家賃想定)',usd:-5000,red:true,note:'推奨帯中央値'},
+    {item:'可処分(推定)',usd:6271,bold:true,green:true,note:'税・保険控除後'}
+  ]
+};
+
+// Per-rank service recommendations
+var RANK_SERVICES_DATA = {
+  0:[  // E1-E3
+    {icon:'🍔',svc:'飲食｜カジュアルランチ',price:'¥1,500',freq:'月40回相当',why:'低単価・高頻度。飲食での接点作りが最優先。'},
+    {icon:'🚗',svc:'生活｜車内外クリーニング',price:'¥12,000',freq:'月3回',why:'自動車保有率高く即決率が高い。'},
+    {icon:'🧸',svc:'小売｜ベビー/マタニティ用品',price:'¥6,000',freq:'月10回',why:'若年層にも妊娠開始あり。エントリー層の入口。'},
+    {icon:'🎭',svc:'体験｜半日ツアー/沖縄体験',price:'¥9,000',freq:'月3回',why:'友人グループ単位での参加。口コミ起点に。'},
+    {icon:'☕',svc:'飲食｜カフェ/ラテ',price:'¥700',freq:'月80回',why:'毎日の習慣購入。基地周辺で集客可能。'}
+  ],
+  1:[  // E-4 ★最重要
+    {icon:'🫃',svc:'FamilyTreeOki｜4Dエコー記念',price:'¥20,000',freq:'妊娠中1〜2回',why:'出産前最大イベント。SNS共有率高く口コミ起点に。★最優先'},
+    {icon:'👶',svc:'FamilyTreeOki｜ニューボーン写真',price:'¥25,000',freq:'出産後1回',why:'家族記念として祖父母へのシェアで拡散。高LTV。'},
+    {icon:'🩺',svc:'FamilyTreeOki｜産後・新生児ケア',price:'¥35,000',freq:'産後1〜2回',why:'孤独な育児環境での専門ケアへの需要が非常に高い。'},
+    {icon:'🧸',svc:'FamilyTreeOki｜ベビーシッター',price:'¥18,000',freq:'月2〜4回',why:'夫婦時間・外出支援。高リピート購買。'},
+    {icon:'💆',svc:'美容｜マッサージ/産前ケア',price:'¥7,000',freq:'月1〜2回',why:'妊娠中〜産後の身体ケア。継続利用につながりやすい。'}
+  ],
+  2:[  // E5/O1/O2
+    {icon:'📸',svc:'体験｜家族/ニューボーン写真',price:'¥25,000',freq:'年1〜2回',why:'ファミリー記念写真の定番。FTC主力サービス。'},
+    {icon:'🫃',svc:'FamilyTreeOki｜4Dエコー記念',price:'¥20,000',freq:'妊娠中',why:'E-5昇進後に2人目出産が多い時期。継続ターゲット。'},
+    {icon:'🏠',svc:'生活｜ハウスクリーニング',price:'¥20,000',freq:'月2回',why:'広い住宅で需要大。収入増で外注化が進む。'},
+    {icon:'🍽',svc:'飲食｜ファミリーディナー',price:'¥8,000',freq:'月20回',why:'家族外食の主力。記念日・週末に集中。'},
+    {icon:'💆',svc:'美容｜女性カット/カラー',price:'¥12,000',freq:'月8回',why:'英語対応美容室需要。定期来店が見込める。'}
+  ],
+  3:[  // E6/O3
+    {icon:'📸',svc:'体験｜家族/ニューボーン写真',price:'¥25,000',freq:'年1回',why:'上位パッケージへのアップセル機会。'},
+    {icon:'🍽',svc:'飲食｜プレミアムディナー',price:'¥18,000',freq:'月5回',why:'記念日・昇進祝い。高単価に抵抗少ない。'},
+    {icon:'🏠',svc:'生活｜ハウスクリーニング',price:'¥20,000',freq:'月2回',why:'広い住宅・共働きで外注ニーズ高い。'},
+    {icon:'💆',svc:'美容｜鍼灸・ウェルネス60分',price:'¥8,000',freq:'月8回',why:'健康・ウェルネスへの投資意識が高い層。'},
+    {icon:'🎓',svc:'教育｜語学/子どもレッスン',price:'¥5,000',freq:'月6回',why:'子どもの英語/日本語教育への投資意欲。'}
+  ],
+  4:[  // E9/O5
+    {icon:'🍽',svc:'飲食｜プレミアムディナー',price:'¥18,000',freq:'月5回',why:'価格より体験・品質・プライバシーを重視。'},
+    {icon:'📸',svc:'体験｜家族写真(プレミアム)',price:'¥25,000',freq:'年1〜2回',why:'高単価パッケージへの誘導が効果的。'},
+    {icon:'💆',svc:'美容｜鍼灸・ウェルネス',price:'¥8,000',freq:'月8回',why:'ストレスケアへの関心が高い。紹介導線が重要。'},
+    {icon:'🎓',svc:'教育｜子どもレッスン',price:'¥5,000',freq:'月6回',why:'子どもの教育投資に積極的。'},
+    {icon:'🐾',svc:'生活｜ペットシッター',price:'¥3,000',freq:'月5回',why:'大型物件+ペット可=ペット保有率高い。'}
+  ],
+  5:[  // O6+
+    {icon:'🍽',svc:'飲食｜プレミアムディナー',price:'¥18,000',freq:'月5回',why:'接待・記念日。最高単価を受け入れる層。'},
+    {icon:'📸',svc:'体験｜家族写真(最上位P)',price:'¥30,000+',freq:'年1〜2回',why:'プレミアムパッケージ。眺望・ロケーション指定。'},
+    {icon:'💆',svc:'美容｜全身ウェルネスコース',price:'¥15,000',freq:'月4回',why:'プライバシーと専門性を最重視。'},
+    {icon:'🏠',svc:'生活｜ハウスクリーニング(大)',price:'¥30,000',freq:'月2回',why:'200㎡超の広い住宅。プレミアム価格帯で受注。'},
+    {icon:'🎓',svc:'教育｜バイリンガル教育',price:'¥10,000',freq:'月6回',why:'子どもの国際教育に最も積極的な層。'}
+  ]
+};
+
+function switchHTab(btn){
+  document.querySelectorAll('.h-tab-btn').forEach(function(b){
+    b.style.background='var(--bg3)'; b.style.color='var(--dim)'; b.style.borderColor='var(--border)';
+  });
+  btn.style.background='rgba(52,211,153,.15)'; btn.style.color='#34D399'; btn.style.borderColor='rgba(52,211,153,.3)';
+  document.querySelectorAll('.h-tab-panel').forEach(function(p){ p.style.display='none'; });
+  var tab=btn.dataset.htab;
+  var panel=document.getElementById('htab-'+tab);
+  if(panel) panel.style.display='block';
+  // if area tab, re-draw chart
+  if(tab==='area') renderAreaChart();
+}
+
+var _H_AREA_CHART = null;
+function renderAreaChart(){
+  var ri=parseInt(document.getElementById('h-rank-sel').value);
+  var rank=OHA_RANKS[ri];
+  var fx=S.fx||158.92;
+  var incRow=RANK_INCOME_DATA[ri]; var disp=0;
+  if(incRow){ var last=incRow[incRow.length-1]; disp=last.usd||3000; }
+  var data=AREAS.map(function(a){
+    var pop=Math.round(SOFA*a.pct/100);
+    var rankFrac = ri===1?0.15 : ri===0?0.12 : ri===2?0.18 : ri===3?0.14 : ri===4?0.10 : 0.05;
+    var popRank=Math.round(pop*rankFrac);
+    var depRate = ri===1?0.40 : ri===0?0.25 : ri===2?0.65 : ri===3?0.72 : ri===4?0.78 : 0.85;
+    var families=Math.round(popRank*depRate);
+    // monthly spend = 8% of disposable × families
+    var monthlyMil=Math.round(families*disp*0.08*fx/1000000*10)/10;
+    return {area:a.name.split('・')[0], val:monthlyMil, color:a.color};
+  });
+  var ctx=document.getElementById('c-h-area-market');
+  if(!ctx) return;
+  if(_H_AREA_CHART){ try{_H_AREA_CHART.destroy();}catch(e){} _H_AREA_CHART=null; }
+  _H_AREA_CHART=new Chart(ctx,{type:'bar',data:{
+    labels:data.map(function(d){return d.area;}),
+    datasets:[{label:'月間消費ポテンシャル(百万円)',
+      data:data.map(function(d){return d.val;}),
+      backgroundColor:data.map(function(d){return d.color+'99';}),
+      borderColor:data.map(function(d){return d.color;}),
+      borderWidth:1}]
+  },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#aaa',font:{size:10}}}},
+    scales:{x:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}},
+            y:{ticks:{color:'#aaa',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}}}}});
+}
+
+function updateHousingAnalysis(){
+  var ri=parseInt(document.getElementById('h-rank-sel').value);
+  var pi=parseInt(document.getElementById('h-prop-sel').value);
+  var ai=parseInt((document.getElementById('h-area-sel')||{value:'0'}).value)||0;
+  var rank=OHA_RANKS[ri];
+  var prop=OKI_PROPS[pi];
+  var fx=S.fx||158.92;
+  var score=hPsychScore(prop,rank);
+  var gapUsd=hAllowanceGap(prop,rank);
+  var gapJpy=rank.rentJpy-prop.rentJpy;
+  var boost=hBoost(score,gapUsd,fx);
+  var area=AREAS[ai];
+
+  // ── Rank badge ──────────────────────────────────────────────────
+  var badge=document.getElementById('h-rank-badge');
+  if(badge){
+    var isE4=(ri===1);
+    badge.textContent=isE4?'★ E-4 最重要ターゲット':rank.label;
+    badge.style.background=isE4?'rgba(52,211,153,.25)':'rgba(96,165,250,.15)';
+    badge.style.color=isE4?'#34D399':'#60A5FA';
+  }
+
+  // ── box border highlight for E-4 ─────────────────────────────────
+  var box=document.getElementById('h-unified-box');
+  if(box) box.style.borderColor=ri===1?'rgba(52,211,153,.4)':'rgba(52,211,153,.15)';
+
+  // ── Result cards ─────────────────────────────────────────────────
+  var rec=score>=80&&gapUsd>=0?'✅ 強推奨':score>=60?'⚠️ 条件付き':'❌ 非推奨';
+  var cards=[
+    {l:'住宅心理スコア',v:score+'点',c:scoreColor(score)},
+    {l:'OHA余力(USD)',v:(gapUsd>=0?'+':'')+'$'+gapUsd,c:gapUsd>=0?'var(--green)':'var(--red)'},
+    {l:'OHA余力(円)',v:(gapJpy>=0?'+':'')+' ¥'+Math.abs(gapJpy).toLocaleString(),c:gapJpy>=0?'var(--green)':'var(--red)'},
+    {l:'消費余力ブースト',v:'×'+boost.toFixed(2),c:'var(--gold)'},
+    {l:'面積適合スコア',v:hSizeFit(prop.sqm)+'点',c:scoreColor(hSizeFit(prop.sqm))},
+    {l:'推奨評価',v:rec,c:score>=80&&gapUsd>=0?'var(--green)':score>=60?'var(--gold)':'var(--red)'}
+  ];
+  var res=document.getElementById('h-analysis-result');
+  if(res) res.innerHTML=cards.map(function(item){
+    return '<div class="card"><div class="c-lbl">'+item.l+'</div><div class="c-val" style="color:'+item.c+'">'+item.v+'</div></div>';
+  }).join('');
+
+  // ── Diagnosis text ────────────────────────────────────────────────
+  var diag=document.getElementById('h-diagnosis');
+  if(diag) diag.innerHTML=generateHousingDiagnosis(rank,prop,score,gapUsd,gapJpy,boost,ri);
+
+  // ── Tab: 月収内訳 ────────────────────────────────────────────────
+  var incData=RANK_INCOME_DATA[ri]||RANK_INCOME_DATA[1];
+  var tb=document.getElementById('h-income-tbody');
+  if(tb) tb.innerHTML=incData.map(function(r){
+    var col=r.bold&&r.green?'color:#34D399':r.bold?'color:#F4C842':r.red?'color:#FF4D6A':'';
+    var fw=r.bold?'font-weight:700':'';
+    var usdVal=r.usd<0?'-$'+Math.abs(r.usd).toLocaleString():'$'+r.usd.toLocaleString();
+    var jpyVal=r.usd<0?'-¥'+Math.round(Math.abs(r.usd)*fx).toLocaleString():'¥'+Math.round(r.usd*fx).toLocaleString();
+    return '<tr style="'+fw+'"><td style="'+col+'">'+r.item+'</td>'
+      +'<td style="font-family:monospace;'+col+'">'+usdVal+'</td>'
+      +'<td style="font-family:monospace;'+col+'">'+jpyVal+'</td>'
+      +'<td style="font-size:.73rem;color:var(--dim)">'+(r.note||'')+'</td></tr>';
+  }).join('');
+
+  // Spend breakdown
+  var dispRow=incData[incData.length-1]; var dispUsd=dispRow?dispRow.usd:3000;
+  var sb=document.getElementById('h-spend-breakdown');
+  if(sb){
+    var cats=[
+      {n:'住居関連',pct:5,color:'#60A5FA'},{n:'飲食',pct:22,color:'#F4C842'},
+      {n:'交通',pct:10,color:'#4ADE80'},{n:'FTC/体験',pct:15,color:'#34D399'},
+      {n:'美容/ウェルネス',pct:8,color:'#A78BFA'},{n:'貯蓄/送金',pct:25,color:'#8899B0'},
+      {n:'その他',pct:15,color:'#FF7F50'}
+    ];
+    sb.innerHTML='<div style="font-size:.75rem;color:var(--dim);margin-bottom:.6rem">推定可処分 $'+Math.abs(dispUsd).toLocaleString()+'/月の支出配分</div>'
+      +cats.map(function(c){
+        var amt=Math.round(Math.abs(dispUsd)*c.pct/100);
+        return '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem">'
+          +'<span style="width:80px;font-size:.75rem;color:var(--dim)">'+c.n+'</span>'
+          +'<div style="flex:1;background:var(--bg3);border-radius:3px;height:14px;overflow:hidden">'
+          +'<div style="width:'+c.pct+'%;background:'+c.color+';height:100%;border-radius:3px"></div></div>'
+          +'<span style="font-size:.73rem;color:'+c.color+';width:60px;text-align:right">$'+amt+'</span></div>';
+      }).join('');
+  }
+
+  // ── Tab: 推奨サービス ───────────────────────────────────────────
+  var svcs=RANK_SERVICES_DATA[ri]||RANK_SERVICES_DATA[1];
+  var sl=document.getElementById('h-service-list');
+  if(sl) sl.innerHTML=svcs.map(function(s,i){
+    return '<div class="box" style="padding:.75rem;border-left:2px solid #34D399">'
+      +'<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">'
+      +'<span style="font-size:1rem">'+s.icon+'</span>'
+      +'<span style="font-size:.85rem;font-weight:700">'+String(i+1)+'. '+s.svc+'</span></div>'
+      +'<div style="display:flex;gap:1rem;margin-bottom:.25rem">'
+      +'<span style="font-size:.75rem;color:var(--gold)">'+s.price+'</span>'
+      +'<span style="font-size:.75rem;color:var(--dim)">'+s.freq+'</span></div>'
+      +'<div style="font-size:.75rem;color:#34D399">'+s.why+'</div></div>';
+  }).join('');
+
+  // ── Tab: 物件マッチング ─────────────────────────────────────────
+  var pc=document.getElementById('h-prop-cards');
+  if(pc) pc.innerHTML=OKI_PROPS.map(function(p,idx){
+    var sc=hPsychScore(p,rank);
+    var gap=hAllowanceGap(p,rank);
+    var sc_c=scoreColor(sc);
+    var isSelected=(idx===pi);
+    return '<div class="box" style="border:1px solid '+(isSelected?sc_c:'var(--border)')+';padding:.8rem">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">'
+      +'<span style="font-weight:700;font-size:.83rem">'+(isSelected?'▶ ':'')+p.label+'</span>'
+      +'<span style="font-size:.85rem;font-weight:700;color:'+sc_c+'">'+sc+'点</span></div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem;font-size:.75rem">'
+      +'<span style="color:var(--dim)">OHA余力</span><span style="color:'+(gap>=0?'var(--green)':'var(--red)')+'">'+(gap>=0?'+':'')+'$'+gap+'</span>'
+      +'<span style="color:var(--dim)">家賃</span><span>¥'+p.rentJpy.toLocaleString()+'</span>'
+      +'<span style="color:var(--dim)">面積</span><span>'+p.sqm+'㎡ ('+p.tsubo+'坪)</span>'
+      +'<span style="color:var(--dim)">坪単価</span><span>¥'+p.perTsuboJpy.toLocaleString()+'</span>'
+      +'<span style="color:var(--dim)">基地まで</span><span>'+p.distMin+'分</span>'
+      +'<span style="color:var(--dim)">ペット/英語</span><span>'+(p.pet?'✓':'—')+'/'+(p.eng?'✓':'—')+'</span>'
+      +'</div>'
+      +'<div style="margin-top:.5rem;font-size:.72rem;color:var(--dim)">'+p.note+'</div>'
+      +'<div style="margin-top:.4rem;font-size:.78rem;font-weight:600;color:'+(gap>=0&&sc>=75?'var(--green)':'var(--gold)')+'">'
+      +(gap>=0&&sc>=75?'✅ 推奨':'⚠️ 条件確認')+'</div></div>';
+  }).join('');
+
+  // ── Area chart (if tab visible) ──────────────────────────────────
+  var areaTab=document.getElementById('htab-area');
+  if(areaTab&&areaTab.style.display!=='none') renderAreaChart();
+}
+
+function generateHousingDiagnosis(rank,prop,score,gapUsd,gapJpy,boost,ri){
+  var lines=[];
+  lines.push('<strong>【住宅診断】</strong> '+rank.label+' × '+prop.label);
+  if(ri===1) lines.push('<span style="color:#34D399;font-weight:600">⭐ E-4（兵長）— FamilyTreeOki最重要ターゲット。出産・育児開始期と重なる消費ピーク層。</span>');
+  lines.push('');
+  if(score>=85) lines.push('🟢 <strong>心理スコア '+score+'点（優秀）</strong> — 高い住宅満足度。外部サービスへの支出意欲が最大化します。');
+  else if(score>=70) lines.push('🟡 <strong>心理スコア '+score+'点（良好）</strong> — 概ね満足できる環境。FamilyTreeOkiの主要サービスへの誘導が有効。');
+  else lines.push('🔴 <strong>心理スコア '+score+'点（要改善）</strong> — 住宅ストレスが外部消費を抑制する可能性。物件変更を検討。');
+  if(gapUsd>=300) lines.push('💰 OHA余力 $'+gapUsd+'（¥'+Math.abs(gapJpy).toLocaleString()+'）は高水準。体験・記念型サービスへの積極支出が見込めます。');
+  else if(gapUsd>=0) lines.push('💰 OHA余力 $'+gapUsd+'（¥'+Math.abs(gapJpy).toLocaleString()+'）あり。バランス型の支出パターン。');
+  else lines.push('⚠️ OHAが家賃を $'+Math.abs(gapUsd)+' 超過。自己負担発生で外部消費は抑制傾向。');
+  var sfit=hSizeFit(prop.sqm);
+  lines.push('🏠 面積適合 '+sfit+'点 ('+prop.sqm+'㎡ / 標準151㎡比'+(Math.round(prop.sqm/1.51))+'%)');
+  lines.push('📈 <strong>消費余力ブースト: ×'+boost.toFixed(2)+'</strong> — 価格心理シミュレーターの購買スコアに連動。');
+  lines.push('');
+  lines.push('🎯 <strong>戦略:</strong> '+rank.psych);
+  return lines.join('<br>');
+}
+
+
+
+// ── Mobile sidebar ──────────────────────────────────────────────────────
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebar-overlay');
+  if(sb.classList.contains('open')){closeSidebar();}
+  else{sb.classList.add('open');ov.classList.add('show');}
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+}
+// Close sidebar when nav item clicked on mobile
+document.querySelectorAll('.nav-item').forEach(function(n){
+  n.addEventListener('click',function(){
+    if(window.innerWidth<=768) closeSidebar();
+  });
+});
+
+</script>
+</body>
+</html>
