@@ -958,8 +958,8 @@ var FRED_SERIES = [
 ];
 
 var MOCK = {
-  DEXJPUS:158.92, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:4.0, CPIFABSL:3.8,
-  AHETPI:32.23, DGS10:4.42, T10YIE:2.28, UMCSENT:65.4, GS2:4.05, DCOILWTICO:76.8
+  DEXJPUS:158.69, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
+  AHETPI:32.23, DGS10:4.57, T10YIE:2.4, UMCSENT:49.8, GS2:3.80, DCOILWTICO:112.25
 };
 
 // State
@@ -1072,23 +1072,47 @@ function drawGauge(score, label){
 // ════════════════════════════════════════════════
 // FRED API
 // ════════════════════════════════════════════════
+// ─── DATA.JSON CACHE (Same-Origin fetch, no CORS) ───
+var _dataJsonCache = null;
+var _dataJsonPromise = null;
+function getDataJson(){
+  if(_dataJsonCache) return Promise.resolve(_dataJsonCache);
+  if(_dataJsonPromise) return _dataJsonPromise;
+  _dataJsonPromise = fetch('./fred-data.json?v='+Date.now(),{cache:'no-cache'})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){ _dataJsonCache=d; return d; })
+    .catch(function(){ return null; });
+  return _dataJsonPromise;
+}
+
 function fredFetch(sid,limit){
   limit=limit||14;
-  var url='https://api.stlouisfed.org/fred/series/observations?series_id='+sid+'&api_key='+FRED_KEY+'&limit='+limit+'&sort_order=desc&file_type=json';
-  var enc=encodeURIComponent(url);
-  var proxies=['https://corsproxy.io/?'+enc,'https://api.allorigins.win/raw?url='+enc];
-  function tryOne(i){
-    if(i>=proxies.length) return Promise.resolve(null);
-    var ctrl=new AbortController(); var tmr=setTimeout(function(){ctrl.abort();},8000);
-    return fetch(proxies[i],{signal:ctrl.signal})
-      .then(function(r){clearTimeout(tmr); if(!r.ok) throw 0; return r.json();})
-      .then(function(j){
-        if(!j||!j.observations) return null;
-        return j.observations.filter(function(o){return o.value!=='.'&&o.value!=='';}).map(function(o){return{date:o.date,value:parseFloat(o.value)};});
-      })
-      .catch(function(){clearTimeout(tmr); return tryOne(i+1);});
-  }
-  return tryOne(0);
+  // 1. Try Same-Origin data.json first (no CORS issues)
+  return getDataJson().then(function(dj){
+    if(dj && dj.series && dj.series[sid] && dj.series[sid].length){
+      var arr = dj.series[sid].slice(0,limit);
+      return arr;
+    }
+    // 2. Fallback: try live proxies
+    var url='https://api.stlouisfed.org/fred/series/observations?series_id='+sid+'&api_key='+FRED_KEY+'&limit='+limit+'&sort_order=desc&file_type=json';
+    var enc=encodeURIComponent(url);
+    var proxies=[
+      'https://api.allorigins.win/raw?url='+enc,
+      'https://api.codetabs.com/v1/proxy/?quest='+url
+    ];
+    function tryOne(i){
+      if(i>=proxies.length) return Promise.resolve(null);
+      var ctrl=new AbortController(); var tmr=setTimeout(function(){ctrl.abort();},6000);
+      return fetch(proxies[i],{signal:ctrl.signal})
+        .then(function(r){clearTimeout(tmr); if(!r.ok) throw 0; return r.json();})
+        .then(function(j){
+          if(!j||!j.observations) return null;
+          return j.observations.filter(function(o){return o.value!=='.'&&o.value!=='';}).map(function(o){return{date:o.date,value:parseFloat(o.value)};});
+        })
+        .catch(function(){clearTimeout(tmr); return tryOne(i+1);});
+    }
+    return tryOne(0);
+  });
 }
 
 function cacheGet(){
@@ -1142,9 +1166,9 @@ function applyData(data,isMock){
   S.fredVals=data.fredVals||{};
   S.signal=calcSig(S.fx,S.ur);
   // Set fredLive BEFORE updateOverviewCards so the count displays correctly
-  var liveCount=isMock?0:Object.keys(S.fredVals).length;
+  var liveCount=isMock?0:Math.min(Object.keys(S.fredVals).filter(function(k){return S.fredVals[k]!==null&&S.fredVals[k]!==undefined;}).length,11);
   S.fredLive=liveCount;
-  document.getElementById('fred-pill').textContent='FRED '+liveCount+'/11';
+  document.getElementById('fred-pill').textContent='FRED '+liveCount+'/11'+(isMock?' MOCK':' LIVE');
   updateSig();
   updateOverviewCards();
   if(RD.overview) renderOverview();
