@@ -478,22 +478,22 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="cards">
       <div class="card">
         <div class="c-lbl">推計価格心理インパクト</div>
-        <div class="c-val gold">+7.5%</div>
+        <div class="c-val gold" id="geo-impact-pct">+7.5%</div>
         <div class="c-sub">推奨価格帯への上乗せ</div>
       </div>
       <div class="card">
         <div class="c-lbl">購買市場温度 寄与</div>
-        <div class="c-val">+9.3pt</div>
+        <div class="c-val" id="geo-mkt-temp">+9.3pt</div>
         <div class="c-sub">地政学・ニュース合算</div>
       </div>
       <div class="card">
         <div class="c-lbl">戦略需要 寄与</div>
-        <div class="c-val blue">+12.8pt</div>
+        <div class="c-val blue" id="geo-strategic">+12.8pt</div>
         <div class="c-sub">東アジア緊張・前方展開</div>
       </div>
       <div class="card">
         <div class="c-lbl">総合地政学リスク</div>
-        <div class="c-val gold">75</div>
+        <div class="c-val gold" id="geo-total-risk">75</div>
         <div class="c-sub">/ 100スコア</div>
       </div>
     </div>
@@ -1446,11 +1446,25 @@ function renderGeo(){
   document.getElementById('geo-cards').innerHTML=html;
   // Radar
   mkRadar('c-radar',GEO.map(function(g){return g.label;}),GEO.map(function(g){return g.val;}));
-  // Impact
-  var impHtml='<div class="impact-row"><span style="color:var(--muted)">推奨価格帯への上乗せ</span><span class="impact-val" style="color:var(--teal)">+2.0%</span></div>'
-    +'<div class="impact-row"><span style="color:var(--muted)">購買市場温度への寄与</span><span class="impact-val" style="color:var(--gold)">+9.3pt</span></div>'
-    +'<div class="impact-row"><span style="color:var(--muted)">戦略需要への寄与</span><span class="impact-val" style="color:var(--blue)">+12.8pt</span></div>'
-    +'<div class="impact-row"><span style="color:var(--muted)">総合価格心理インパクト</span><span class="impact-val" style="color:var(--purple)">+7.5%</span></div>';
+  // Impact — GEOスコアから動的計算
+  var gW={forward:0.30,defense:0.20,taiwan:0.20,first:0.15,okinawa:0.10,usstress:-0.03,rebase:-0.02};
+  var geoW=0; GEO.forEach(function(g){ if(gW[g.key]!==undefined) geoW+=g.val*gW[g.key]; });
+  var gImpact  = Math.max(0, geoW/100*10);                   // 総合価格心理インパクト
+  var gMktTemp = ((GEO[0].val+GEO[4].val)/2)*0.12;          // forward+taiwan → 市場温度寄与
+  var gStrat   = ((GEO[2].val+GEO[1].val)/2)*0.165;         // first+defense  → 戦略需要寄与
+  var gPremium = gImpact*0.28;                               // 価格帯上乗せ
+  var gRisk    = Math.round((GEO[0].val+GEO[4].val+GEO[2].val+GEO[1].val)/4);
+  // 上部KPIカード更新
+  var _e1=document.getElementById('geo-impact-pct'); if(_e1) _e1.textContent='+'+gImpact.toFixed(1)+'%';
+  var _e2=document.getElementById('geo-mkt-temp');   if(_e2) _e2.textContent='+'+gMktTemp.toFixed(1)+'pt';
+  var _e3=document.getElementById('geo-strategic');  if(_e3) _e3.textContent='+'+gStrat.toFixed(1)+'pt';
+  var _e4=document.getElementById('geo-total-risk'); if(_e4) _e4.textContent=gRisk;
+  // 市場概況カード（ov-geo）も更新
+  var _eG=document.getElementById('ov-geo'); if(_eG) _eG.textContent='+'+gImpact.toFixed(1)+'%';
+  var impHtml='<div class="impact-row"><span style="color:var(--muted)">推奨価格帯への上乗せ</span><span class="impact-val" style="color:var(--teal)">+'+gPremium.toFixed(1)+'%</span></div>'
+    +'<div class="impact-row"><span style="color:var(--muted)">購買市場温度への寄与</span><span class="impact-val" style="color:var(--gold)">+'+gMktTemp.toFixed(1)+'pt</span></div>'
+    +'<div class="impact-row"><span style="color:var(--muted)">戦略需要への寄与</span><span class="impact-val" style="color:var(--blue)">+'+gStrat.toFixed(1)+'pt</span></div>'
+    +'<div class="impact-row"><span style="color:var(--muted)">総合価格心理インパクト</span><span class="impact-val" style="color:var(--purple)">+'+gImpact.toFixed(1)+'%</span></div>';
   document.getElementById('geo-impact').innerHTML=impHtml;
   // Table
   document.getElementById('geo-tbody').innerHTML=GEO.map(function(g){
