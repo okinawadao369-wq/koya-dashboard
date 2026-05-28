@@ -654,7 +654,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     </div>
 
     <div class="note">
-      公開URL運用ではFRED APIキーはVercel環境変数に置き、/api/fred サーバー側プロキシ経由で取得します。本ダッシュボードではcorsproxy.io / allorigins.win経由でフロントからFRED APIに接続します。
+      本ダッシュボードはリポジトリ内のfred-data.json（Same-Origin）経由でFREDデータを取得します。CORSプロキシ不要の安定アーキテクチャです。データは毎朝09:00に自動更新されます。
     </div>
   </div>
 
@@ -836,7 +836,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v7';
+var CACHE_KEY = 'koya_v8';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -958,8 +958,8 @@ var FRED_SERIES = [
 ];
 
 var MOCK = {
-  DEXJPUS:158.69, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
-  AHETPI:32.23, DGS10:4.57, T10YIE:2.4, UMCSENT:49.8, GS2:3.80, DCOILWTICO:112.25
+  DEXJPUS:159.2, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
+  AHETPI:32.23, DGS10:4.5, T10YIE:2.39, UMCSENT:49.8, GS2:3.80, DCOILWTICO:112.25
 };
 
 // State
@@ -1080,7 +1080,18 @@ function getDataJson(){
   if(_dataJsonPromise) return _dataJsonPromise;
   _dataJsonPromise = fetch('./fred-data.json?v='+Date.now(),{cache:'no-cache'})
     .then(function(r){ return r.ok ? r.json() : null; })
-    .then(function(d){ _dataJsonCache=d; return d; })
+    .then(function(d){
+      _dataJsonCache=d;
+      // Display fred-data.json updated timestamp in sidebar
+      if(d && d.updated){
+        try{
+          var dt=new Date(d.updated);
+          var updEl=document.getElementById('last-upd');
+          if(updEl) updEl.textContent=dt.toLocaleDateString('ja-JP')+' '+dt.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' (FRED)';
+        }catch(e){}
+      }
+      return d;
+    })
     .catch(function(){ return null; });
   return _dataJsonPromise;
 }
