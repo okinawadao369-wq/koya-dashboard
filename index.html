@@ -626,6 +626,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
       <div class="card"><div class="c-lbl">FF金利</div><div class="c-val gold" id="f-ff">—</div><div class="c-sub">FEDFUNDS</div></div>
       <div class="card"><div class="c-lbl">失業率</div><div class="c-val" id="f-ur">—</div><div class="c-sub">UNRATE</div></div>
       <div class="card"><div class="c-lbl">平均時給</div><div class="c-val blue" id="f-ahe">—</div><div class="c-sub">AHETPI</div></div>
+      <div class="card"><div class="c-lbl">VIX 恐怖指数</div><div class="c-val" id="f-vix" style="color:#F472B6">—</div><div class="c-sub">低=市場安定・消費意欲↑</div></div>
+      <div class="card"><div class="c-lbl">S&amp;P500</div><div class="c-val" id="f-sp500" style="color:#34D399">—</div><div class="c-sub">米国株・資産効果指標</div></div>
     </div>
 
     <div class="fred-grid" id="fred-grid"></div>
@@ -836,7 +838,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v8';
+var CACHE_KEY = 'koya_v9';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -954,12 +956,15 @@ var FRED_SERIES = [
   {id:'T10YIE',   name:'10年インフレ期待', unit:'%',   color:'#F472B6', val:null, date:'—'},
   {id:'UMCSENT',  name:'消費者信頼感',     unit:'',    color:'#34D399', val:null, date:'—'},
   {id:'GS2',      name:'2年国債',          unit:'%',   color:'#FCD34D', val:null, date:'—'},
-  {id:'DCOILWTICO',name:'原油価格',        unit:'$/bbl',color:'#6EE7B7',val:null, date:'—'}
+  {id:'DCOILWTICO',name:'原油価格',        unit:'$/bbl',color:'#6EE7B7',val:null, date:'—'},
+  {id:'VIX',       name:'VIX 恐怖指数',    unit:'',     color:'#F472B6',val:null, date:'—'},
+  {id:'SP500',     name:'S&P500',          unit:'',     color:'#34D399',val:null, date:'—'}
 ];
 
 var MOCK = {
-  DEXJPUS:159.2, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
-  AHETPI:32.23, DGS10:4.5, T10YIE:2.39, UMCSENT:49.8, GS2:3.80, DCOILWTICO:112.25
+  DEXJPUS:159.31, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
+  AHETPI:32.23, DGS10:4.455, T10YIE:2.39, UMCSENT:49.8, GS2:3.80, DCOILWTICO:87.84,
+  VIX:15.74, SP500:7563.63
 };
 
 // State
@@ -1179,7 +1184,7 @@ function applyData(data,isMock){
   // Set fredLive BEFORE updateOverviewCards so the count displays correctly
   var liveCount=isMock?0:Math.min(Object.keys(S.fredVals).filter(function(k){return S.fredVals[k]!==null&&S.fredVals[k]!==undefined;}).length,11);
   S.fredLive=liveCount;
-  document.getElementById('fred-pill').textContent='FRED '+liveCount+'/11'+(isMock?' MOCK':' LIVE');
+  document.getElementById('fred-pill').textContent='FRED '+liveCount+'/'+FRED_SERIES.length+(isMock?' MOCK':' LIVE');
   updateSig();
   updateOverviewCards();
   if(RD.overview) renderOverview();
@@ -1211,7 +1216,11 @@ function updateOverviewCards(){
   document.getElementById('f-ff').textContent=ff!==null?ff.toFixed(2)+'%':'--';
   document.getElementById('f-ur').textContent=ur!==null?ur.toFixed(1)+'%':'--';
   document.getElementById('f-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'--';
-  document.getElementById('fred-live-count').textContent=S.fredLive+'/11';
+  document.getElementById('fred-live-count').textContent=S.fredLive+'/'+(FRED_SERIES.length);
+  // VIX・SP500表示
+  var vix=S.fredVals['VIX']||MOCK.VIX; var sp=S.fredVals['SP500']||MOCK.SP500;
+  var eVix=document.getElementById('f-vix'); if(eVix) eVix.textContent=vix?vix.toFixed(2):'—';
+  var eSp=document.getElementById('f-sp500'); if(eSp) eSp.textContent=sp?sp.toLocaleString('ja-JP',{maximumFractionDigits:0}):'—';
   if(S.fxH.length>=2){
     var chg=S.fxH[S.fxH.length-1].value-S.fxH[S.fxH.length-2].value;
     var el=document.getElementById('ov-fxchg');
