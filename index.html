@@ -838,7 +838,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v9';
+var CACHE_KEY = 'koya_v10';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -879,14 +879,14 @@ var SEGS = [
 var BTYPE = {
   ft_2d:  {label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:80, usHigh:150,ftcDef:12000,monthlyPerPerson:2.5,note:'Private 1-hour session'},
   ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:156,usHigh:275,ftcDef:20000,monthlyPerPerson:3.0,note:'Private 1-hour memory session'},
-  ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:108,usHigh:168,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)'},
-  ft_med: {label:'FamilyTreeOki｜産後・新生児ケア',  cat:'ftc',usLow:210,usHigh:390,ftcDef:35000,monthlyPerPerson:2.0,note:'医療系乳児・産後ケア'},
+  ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:108,usHigh:175,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)'},
+  ft_med: {label:'FamilyTreeOki｜産後・新生児ケア',  cat:'ftc',usLow:180,usHigh:480,ftcDef:35000,monthlyPerPerson:2.0,note:'医療系乳児・産後ケア'},
   cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:5,  usHigh:8,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当'},
   lunch:  {label:'飲食｜カジュアルランチ',           cat:'food',usLow:15, usHigh:25, ftcDef:1500, monthlyPerPerson:40, note:'ランチ1食'},
-  dinner: {label:'飲食｜ファミリーディナー',         cat:'food',usLow:60, usHigh:120,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分'},
-  premium:{label:'飲食｜プレミアムディナー/記念日',  cat:'food',usLow:120,usHigh:250,ftcDef:18000,monthlyPerPerson:5,  note:'2名記念日コース'},
+  dinner: {label:'飲食｜ファミリーディナー',         cat:'food',usLow:75, usHigh:160,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分'},
+  premium:{label:'飲食｜プレミアムディナー/記念日',  cat:'food',usLow:200,usHigh:500,ftcDef:18000,monthlyPerPerson:5,  note:'2名記念日コース'},
   house:  {label:'生活｜ハウスクリーニング',         cat:'life',usLow:150,usHigh:300,ftcDef:20000,monthlyPerPerson:2,  note:'3LDK相当'},
-  car:    {label:'生活｜車内外クリーニング',         cat:'life',usLow:100,usHigh:250,ftcDef:12000,monthlyPerPerson:3,  note:'フルディテール'},
+  car:    {label:'生活｜車内外クリーニング',         cat:'life',usLow:150,usHigh:400,ftcDef:12000,monthlyPerPerson:3,  note:'フルディテール'},
   pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:20, usHigh:35, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問'},
   trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行'},
   hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:120,usHigh:200,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー'},
@@ -894,7 +894,7 @@ var BTYPE = {
   acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:100,usHigh:180,ftcDef:8000, monthlyPerPerson:8, note:'60分セッション'},
   hbeat:  {label:'小売｜Heartbeat Animal記念品',    cat:'retail',usLow:40, usHigh:80, ftcDef:5500, monthlyPerPerson:1.5,note:'ベビー胎動記念品'},
   baby:   {label:'小売｜ベビー/マタニティ用品',     cat:'retail',usLow:30, usHigh:100,ftcDef:6000, monthlyPerPerson:10, note:'消耗品含むセット'},
-  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:200,usHigh:500,ftcDef:25000,monthlyPerPerson:1,  note:'フルセッション'},
+  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:300,usHigh:1000,ftcDef:25000,monthlyPerPerson:1,  note:'フルセッション'},
   mini:   {label:'体験｜ミニフォトセッション',       cat:'exp',usLow:100,usHigh:200,ftcDef:12000,monthlyPerPerson:2,  note:'30分ミニ'},
   tour:   {label:'体験｜半日ツアー/アクティビティ', cat:'exp',usLow:80, usHigh:150,ftcDef:9000, monthlyPerPerson:3,  note:'沖縄体験'},
   lesson: {label:'教育｜語学/子どもレッスン',       cat:'edu',usLow:50, usHigh:100,ftcDef:5000, monthlyPerPerson:6,  note:'60分レッスン'}
