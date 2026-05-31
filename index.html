@@ -838,7 +838,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v13';
+var CACHE_KEY = 'koya_v14';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -895,7 +895,7 @@ var BTYPE = {
   acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:100,usHigh:180,ftcDef:8000, monthlyPerPerson:8, note:'60分セッション'},
   hbeat:  {label:'小売｜Heartbeat Animal記念品',    cat:'retail',usLow:40, usHigh:80, ftcDef:5500, monthlyPerPerson:1.5,note:'ベビー胎動記念品'},
   baby:   {label:'小売｜ベビー/マタニティ用品',     cat:'retail',usLow:30, usHigh:100,ftcDef:6000, monthlyPerPerson:10, note:'消耗品含むセット'},
-  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:300,usHigh:1000,ftcDef:25000,monthlyPerPerson:1,  note:'フルセッション'},
+  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:300,usHigh:1000,ftcDef:35000,monthlyPerPerson:1,  note:'フルセッション'},
   mini:   {label:'体験｜ミニフォトセッション',       cat:'exp',usLow:100,usHigh:200,ftcDef:12000,monthlyPerPerson:2,  note:'30分ミニ'},
   tour:   {label:'体験｜半日ツアー/アクティビティ', cat:'exp',usLow:80, usHigh:150,ftcDef:9000, monthlyPerPerson:3,  note:'沖縄体験'},
   lesson: {label:'教育｜語学/子どもレッスン',       cat:'edu',usLow:50, usHigh:100,ftcDef:5000, monthlyPerPerson:6,  note:'60分レッスン'}
@@ -1254,7 +1254,7 @@ function renderOverview(){
   if(S.ffH.length) mkLine('c-ff',S.ffH.map(function(d){return d.date.slice(0,7);}),S.ffH.map(function(d){return d.value;}),'#F4C842');
   if(S.urH.length) mkLine('c-ur',S.urH.map(function(d){return d.date.slice(0,7);}),S.urH.map(function(d){return d.value;}),'#FF4D6A');
   // Gauge
-  var fx=S.fx||158.92; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
+  var fx=S.fx||159.31; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
   var score=60;
   if(fx>155) score+=15; else if(fx>148) score+=10; else if(fx>140) score+=5;
   if(ur<4) score+=12; else if(ur<5) score+=8; else if(ur<6) score+=4;
@@ -1352,13 +1352,15 @@ function runSim(){
   if(!seg) seg=SEGS[1];
   var area=AREAS[S.curArea];
   var inputJPY=parseFloat(document.getElementById('price-input').value)||20000;
-  var fx=S.fx||158.92;
+  var fx=S.fx||159.31;
   var ahe=S.ahe||32.23; var cpi=S.cpi||4.0;
 
   // CPI補正（全計算に適用）
   var cpiAdj=1+cpi/100;
-  var recLow =Math.round(bt.usLow *fx*0.60*1.075*cpiAdj);
-  var recHigh=Math.round(bt.usHigh*fx*0.85*1.075*cpiAdj*(0.8+seg.prem/100*0.3));
+  // geo factor: GEO動的計算7.3%→1.073 ≈ 1.075（差0.2%のため近似値使用）
+  var geoFactor=1.075;
+  var recLow =Math.round(bt.usLow *fx*0.60*geoFactor*cpiAdj);
+  var recHigh=Math.round(bt.usHigh*fx*0.85*geoFactor*cpiAdj*(0.8+seg.prem/100*0.3));
   var usMid  =(bt.usLow+bt.usHigh)/2*cpiAdj;
   var usAnchorJPY=Math.round(usMid*fx);
   var inputUSD=inputJPY/fx;
@@ -1524,7 +1526,7 @@ function buildBizFilter(){
 
 function renderBiz(cat){
   cat=cat||'all';
-  var fx=S.fx||158.92; var cpi=S.cpi||3.7;
+  var fx=S.fx||159.31; var cpi=S.cpi||4.0;  // CPI統一: runSim=4.0%と整合
   var catColors={'ftc':'#00D4AA','food':'#F4C842','life':'#4ADE80','beauty':'#A78BFA','retail':'#60A5FA','exp':'#FF7F50','edu':'#F472B6'};
   var filtered=Object.keys(BTYPE).filter(function(k){ return cat==='all'||BTYPE[k].cat===cat; });
   document.getElementById('biz-count').textContent=filtered.length+'業種';
@@ -1541,8 +1543,9 @@ function renderBiz(cat){
     var usHiCur=Math.round(bt.usHigh*cpiAdj);
     var anchorLow=Math.round(usLowCur*fx);
     var anchorHi=Math.round(usHiCur*fx);
-    var recLow=Math.round(anchorLow*0.62);
-    var recHi=Math.round(anchorHi*0.85);
+    var gF=1.075;
+    var recLow=Math.round(anchorLow*0.60*gF);
+    var recHi=Math.round(anchorHi*0.85*gF);
     var valueRatio=+((usHiCur+usLowCur)/2/(bt.ftcDef/fx)).toFixed(1);
     var mktM=+((bt.monthlyPerPerson*SOFA/1000000).toFixed(2));
     var catLbl=CAT_LABELS[bt.cat]||bt.cat;
@@ -1611,7 +1614,7 @@ function renderMil(){
   var e4Seg = SEGS.find(function(s){ return s.id==='E4'; });
   var e4OHA = OHA_RANKS && OHA_RANKS.find(function(r){ return r.id==='E4'; });
   if(e4Seg) {
-    var fx=S.fx||158.92;
+    var fx=S.fx||159.31;
     var totalMkt=0;
     AREAS.forEach(function(a){ totalMkt += 3.0 * Math.round(80000*a.pct/100) * 20000 / 1000000; });
     var e4mkt = (totalMkt * (e4Seg.prem/100)).toFixed(1);
@@ -1629,7 +1632,7 @@ function renderMil(){
 // ════════════════════════════════════════════════
 function renderFred(){
   RD.fred=true;
-  var fx=S.fx||158.92; var ff=S.ff||3.64; var ur=S.ur||4.3;
+  var fx=S.fx||159.31; var ff=S.ff||3.64; var ur=S.ur||4.3;
   // Sync FRED_SERIES val from S.fredVals
   FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=new Date().toISOString().slice(0,10); });
   // FRED grid
@@ -2062,7 +2065,7 @@ var _H_AREA_CHART = null;
 function renderAreaChart(){
   var ri=parseInt(document.getElementById('h-rank-sel').value);
   var rank=OHA_RANKS[ri];
-  var fx=S.fx||158.92;
+  var fx=S.fx||159.31;
   var incRow=RANK_INCOME_DATA[ri]; var disp=0;
   if(incRow){ var last=incRow[incRow.length-1]; disp=last.usd||3000; }
   var data=AREAS.map(function(a){
@@ -2097,7 +2100,7 @@ function updateHousingAnalysis(){
   var ai=parseInt((document.getElementById('h-area-sel')||{value:'0'}).value)||0;
   var rank=OHA_RANKS[ri];
   var prop=OKI_PROPS[pi];
-  var fx=S.fx||158.92;
+  var fx=S.fx||159.31;
   var score=hPsychScore(prop,rank);
   var gapUsd=hAllowanceGap(prop,rank);
   var gapJpy=rank.rentJpy-prop.rentJpy;
