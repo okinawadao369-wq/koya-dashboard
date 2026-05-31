@@ -838,7 +838,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v12';
+var CACHE_KEY = 'koya_v13';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1150,8 +1150,12 @@ function calcYoY(arr){
 }
 
 function calcSig(fx,ur){
-  if(fx===null||ur===null) return 'HOLD';
-  if(fx>148&&ur<5) return 'GO'; if(fx>140) return 'WATCH'; return 'HOLD';
+  if(fx===null) return 'HOLD';
+  var urVal=(ur!==null)?ur:(MOCK.UNRATE||4.3); // urNull時はMOCK=4.3でフォールバック
+  var vix=S.fredVals&&S.fredVals['VIX']?S.fredVals['VIX']:20;
+  if(fx>148&&urVal<5) return 'GO';
+  if(fx>140||(fx>135&&vix<15)) return 'WATCH';
+  return 'HOLD';
 }
 
 function mockHistory(base,v,n,byMonth){
@@ -1184,6 +1188,14 @@ function applyData(data,isMock){
   S.ahe=data.fredVals&&data.fredVals.AHETPI?data.fredVals.AHETPI:32.23;
   S.fredVals=data.fredVals||{};
   S.signal=calcSig(S.fx,S.ur);
+  // geo impact事前計算（タブ未訪問でもov-geoを即時更新）
+  (function(){
+    var _gW={forward:0.30,defense:0.20,taiwan:0.20,first:0.15,okinawa:0.10,usstress:-0.03,rebase:-0.02};
+    var _geoW=0; GEO.forEach(function(g){ if(_gW[g.key]!==undefined) _geoW+=g.val*_gW[g.key]; });
+    var _gi=Math.max(0,_geoW/100*10);
+    var _eG=document.getElementById('ov-geo'); if(_eG) _eG.textContent='+'+_gi.toFixed(1)+'%';
+    var _eGp=document.getElementById('geo-impact-pct'); if(_eGp) _eGp.textContent='+'+_gi.toFixed(1)+'%';
+  })();
   // Set fredLive BEFORE updateOverviewCards so the count displays correctly
   var liveCount=isMock?0:Math.min(Object.keys(S.fredVals).filter(function(k){return S.fredVals[k]!==null&&S.fredVals[k]!==undefined;}).length,11);
   S.fredLive=liveCount;
@@ -1211,7 +1223,8 @@ function updateOverviewCards(){
   var fx=S.fx; var ff=S.ff; var ur=S.ur;
   document.getElementById('ov-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
   document.getElementById('ov-ff').textContent=ff!==null?ff.toFixed(2)+'%':'--';
-  document.getElementById('ov-ur').textContent=ur!==null?ur.toFixed(1)+'%':'--';
+  var urDisp=ur!==null?ur:(MOCK.UNRATE||4.3);
+  document.getElementById('ov-ur').textContent=urDisp.toFixed(1)+'%'+(ur===null?' *':'');
   document.getElementById('ov-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'$32.23';
   document.getElementById('ov-cpi').textContent=S.cpi?S.cpi.toFixed(1)+'%':'3.7%';
   document.getElementById('fx-display').textContent=fx!==null?fx.toFixed(2):'158.92';
