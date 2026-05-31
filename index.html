@@ -568,8 +568,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <!-- E4 KPI Cards -->
     <div class="cards" id="e4-kpi-cards">
       <div class="card"><div class="c-lbl">E-4 推計人口（沖縄）</div><div class="c-val teal" id="e4-pop">6,900人</div><div class="c-sub">SOFA家族帯同層 推計</div></div>
-      <div class="card"><div class="c-lbl">E-4 月収合計（USD）</div><div class="c-val gold" id="e4-income">$4,800/mo</div><div class="c-sub">基本給＋OHA＋COLA</div></div>
-      <div class="card"><div class="c-lbl">E-4 OHA（沖縄・扶養あり）</div><div class="c-val blue" id="e4-oha">$1,850/mo</div><div class="c-sub">＝¥293,000 住宅手当</div></div>
+      <div class="card"><div class="c-lbl">E-4 月収合計（USD）</div><div class="c-val gold" id="e4-income">$6,051/mo</div><div class="c-sub">基本給＋OHA＋COLA</div></div>
+      <div class="card"><div class="c-lbl">E-4 OHA（沖縄・扶養あり）</div><div class="c-val blue" id="e4-oha">$2,461/mo</div><div class="c-sub">＝¥391,000 住宅手当</div></div>
       <div class="card"><div class="c-lbl">E-4 月間市場ポテンシャル</div><div class="c-val green" id="e4-market">--</div><div class="c-sub">4Dエコー換算 全商圏</div></div>
       <div class="card"><div class="c-lbl">E-4 価格許容度</div><div class="c-val gold">68%</div><div class="c-sub">米国比プレミアム許容</div></div>
       <div class="card"><div class="c-lbl">FTC 最重要ターゲット</div><div class="c-val teal">★ E-4</div><div class="c-sub">出産・育児開始期 消費ピーク</div></div>
@@ -792,7 +792,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 
     <!-- OHA Rank Table -->
     <div class="box" style="margin-top:1.5rem">
-      <div class="box-title">OHA階級別予算表（扶養あり・沖縄基準・2025年）</div>
+      <div class="box-title">OHA階級別予算表（扶養あり・沖縄基準・2026年5月改定）</div>
       <div class="tbl-wrap"><table class="tbl">
         <thead><tr><th>階級</th><th>家賃OHA(USD)</th><th>光熱費(USD)</th><th>合計(USD)</th><th>家賃OHA(円)</th><th>合計(円)</th><th>推奨面積(㎡)</th><th>推奨坪数</th><th>実勢相場(円)</th></tr></thead>
         <tbody id="h-oha-tbody"></tbody>
@@ -838,7 +838,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v10';
+var CACHE_KEY = 'koya_v11';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -905,20 +905,22 @@ var CAT_LABELS = {
   beauty:'美容・ウェルネス',retail:'小売・ギフト',exp:'体験・写真',edu:'教育・その他'
 };
 
+// 基本給: DFAS 2026公式(3.8%増, <2yr〜2yr代表値)
+// OHA: 沖縄2026/5/16増額後 賃貸+公共料金(扶養あり) 出典:Stars&Stripes 2026/5/11
 var PAY = [
-  {g:'E-1',t:'二等兵',  b:2407,h:1100,a:460},
-  {g:'E-2',t:'一等兵',  b:2694,h:1100,a:460},
-  {g:'E-3',t:'上等兵',  b:2835,h:1200,a:460},
-  {g:'E-4',t:'兵長',    b:3138,h:1200,a:460},
-  {g:'E-5',t:'軍曹',    b:3420,h:1350,a:460},
-  {g:'E-6',t:'一等軍曹',b:3740,h:1400,a:460},
-  {g:'E-7',t:'上級軍曹',b:4320,h:1500,a:460},
-  {g:'W-1',t:'准尉1',   b:3399,h:1600,a:460},
-  {g:'W-2',t:'准尉2',   b:3831,h:1700,a:460},
-  {g:'O-1',t:'少尉',    b:3637,h:1800,a:460},
-  {g:'O-2',t:'中尉',    b:4188,h:2000,a:460},
-  {g:'O-3',t:'大尉',    b:4861,h:2200,a:460},
-  {g:'O-4',t:'少佐',    b:5520,h:2400,a:460}
+  {g:'E-1',t:'二等兵',  b:2397,h:2461,a:460},
+  {g:'E-2',t:'一等兵',  b:2687,h:2461,a:460},
+  {g:'E-3',t:'上等兵',  b:2826,h:2461,a:460},
+  {g:'E-4',t:'兵長',    b:3130,h:2461,a:460},
+  {g:'E-5',t:'軍曹',    b:3325,h:2605,a:460},
+  {g:'E-6',t:'一等軍曹',b:3743,h:2767,a:460},
+  {g:'E-7',t:'上級軍曹',b:4292,h:2767,a:460},
+  {g:'W-1',t:'准尉1',   b:4057,h:2767,a:460},
+  {g:'W-2',t:'准尉2',   b:4622,h:2900,a:460},
+  {g:'O-1',t:'少尉',    b:4150,h:2605,a:460},
+  {g:'O-2',t:'中尉',    b:4782,h:2605,a:460},
+  {g:'O-3',t:'大尉',    b:5534,h:2767,a:460},
+  {g:'O-4',t:'少佐',    b:6295,h:2900,a:460}
 ];
 
 var GEO = [
