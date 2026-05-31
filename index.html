@@ -838,7 +838,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v11';
+var CACHE_KEY = 'koya_v12';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -861,16 +861,17 @@ var AREAS = [
   {name:'恩納・北谷海岸・観光導線',   pct:5, bases:'Leisure / PCS memory',note:'家族写真・記念品・沖縄体験に強い。',color:'#A78BFA'}
 ];
 
+// SEGS月収: DFAS2026基本給+OHA沖縄2026年5月改定後実勢値（扶養あり）+COLA
 var SEGS = [
-  {id:'E1E3',label:'E-1〜E-3',sub:'若年・価格敏感',monthly:3200,sens:1.4,prem:52,color:'#60A5FA',e4pop:0,
+  {id:'E1E3',label:'E-1〜E-3',sub:'若年・価格敏感',monthly:5500,sens:1.4,prem:52,color:'#60A5FA',e4pop:0,
    desc:'低単価・即決・友人紹介。飲食、車、娯楽、低価格体験に反応。SNSシェア層として口コミ起点になりやすい。'},
-  {id:'E4',label:'E-4',sub:'兵長・家族移行期 ★',monthly:4800,sens:1.2,prem:68,color:'#34D399',e4pop:6900,
+  {id:'E4',label:'E-4',sub:'兵長・家族移行期 ★',monthly:6051,sens:1.2,prem:68,color:'#34D399',e4pop:6900,
    desc:'【FamilyTreeOki最重要ターゲット】妊娠・出産・育児開始期に重なる消費ピーク層。4Dエコー・産後ケア・ニューボーン写真への支出意欲が最も高い。OHA余力ありで体験型サービスに積極的。'},
-  {id:'E4E6',label:'E-5〜E-6',sub:'中堅ファミリー',monthly:5100,sens:0.95,prem:86,color:'#00D4AA',e4pop:0,
+  {id:'E4E6',label:'E-5〜E-6',sub:'中堅ファミリー',monthly:6700,sens:0.95,prem:86,color:'#00D4AA',e4pop:0,
    desc:'妊婦、乳幼児、家族写真、外食、記念体験の中心層。FamilyTreeOkiの主戦場。月次消費が最も厚い。'},
-  {id:'E7E9',label:'E-7〜E-9',sub:'シニアNCO',monthly:5800,sens:0.7,prem:91,color:'#F4C842',e4pop:0,
+  {id:'E7E9',label:'E-7〜E-9',sub:'シニアNCO',monthly:7800,sens:0.7,prem:91,color:'#F4C842',e4pop:0,
    desc:'価格より信頼・評判・紹介・プライバシー重視。高単価パッケージへの反応が良い。'},
-  {id:'O1O4',label:'O-1〜O-4',sub:'士官層',monthly:7500,sens:0.5,prem:95,color:'#A78BFA',e4pop:0,
+  {id:'O1O4',label:'O-1〜O-4',sub:'士官層',monthly:8400,sens:0.5,prem:95,color:'#A78BFA',e4pop:0,
    desc:'高LTV。家族向け、写真、産前産後、ウェルネス、教育に強い。'},
   {id:'DODGS',label:'DoD/GS',sub:'軍属・民間',monthly:6200,sens:0.6,prem:93,color:'#FF7F50',e4pop:0,
    desc:'民間消費に近い意思決定。品質・レビュー・英語導線・予約の簡単さが重要。'}
@@ -1180,7 +1181,7 @@ function applyData(data,isMock){
   S.ff=S.ffH.length?S.ffH[S.ffH.length-1].value:null;
   S.ur=S.urH.length?S.urH[S.urH.length-1].value:null;
   var cpiYoY=calcYoY(S.cpiH); S.cpi=cpiYoY!==null?cpiYoY:3.7;
-  S.ahe=data.fredVals&&data.fredVals.AHETPI?data.fredVals.AHETPI:37.41;
+  S.ahe=data.fredVals&&data.fredVals.AHETPI?data.fredVals.AHETPI:32.23;
   S.fredVals=data.fredVals||{};
   S.signal=calcSig(S.fx,S.ur);
   // Set fredLive BEFORE updateOverviewCards so the count displays correctly
@@ -1211,7 +1212,7 @@ function updateOverviewCards(){
   document.getElementById('ov-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
   document.getElementById('ov-ff').textContent=ff!==null?ff.toFixed(2)+'%':'--';
   document.getElementById('ov-ur').textContent=ur!==null?ur.toFixed(1)+'%':'--';
-  document.getElementById('ov-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'$37.41';
+  document.getElementById('ov-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'$32.23';
   document.getElementById('ov-cpi').textContent=S.cpi?S.cpi.toFixed(1)+'%':'3.7%';
   document.getElementById('fx-display').textContent=fx!==null?fx.toFixed(2):'158.92';
   document.getElementById('f-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
@@ -1245,7 +1246,10 @@ function renderOverview(){
   if(fx>155) score+=15; else if(fx>148) score+=10; else if(fx>140) score+=5;
   if(ur<4) score+=12; else if(ur<5) score+=8; else if(ur<6) score+=4;
   if(ff>4) score+=5;
-  score+=9; // geo impact base
+  var vixB=S.fredVals&&S.fredVals['VIX']?S.fredVals['VIX']:20;
+  if(vixB<15) score+=8; else if(vixB<20) score+=5; else if(vixB<25) score+=2;
+  var geoBase=typeof gImpact!=='undefined'?Math.round(gImpact):7;
+  score+=geoBase; // geo impact (動的)
   score=Math.min(100,Math.round(score));
   var lbl=score>80?'Strong':score>65?'Good':score>50?'Moderate':'Weak';
   drawGauge(score,lbl);
