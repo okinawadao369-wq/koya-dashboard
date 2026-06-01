@@ -838,7 +838,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v14';
+var CACHE_KEY = 'koya_v15';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -924,28 +924,30 @@ var PAY = [
   {g:'O-4',t:'少佐',    b:6295,h:2900,a:460}
 ];
 
+// GEOスコア: 2026年6月時点 最新国際情勢調査反映
+// 出典: ArmyRecognition/CSIS/CFR/Military.com/Stars&Stripes/BLS/U-Michigan 2026年調査
 var GEO = [
-  {key:'forward', label:'米軍前方展開指数',val:87,trend:'↑',color:'#00D4AA',
-   desc:'USFJ統合司令部化、12th MLR配備、前方展開ニュース量を合成。高いほどSOFA需要が安定する。',
-   impact:'需要安定・消費意欲維持に寄与。高付加価値サービス需要を下支え。',src:'GDELT+公開報道'},
-  {key:'defense', label:'国防予算/PDI指数',val:75,trend:'↑',color:'#4ADE80',
-   desc:'DoD予算、Pacific Deterrence Initiative、議会承認動向を合成。',
-   impact:'軍人家族の雇用安定期待が消費余力に寄与。',src:'DoD公開予算+GDELT'},
-  {key:'first',   label:'第一列島線地政学',val:82,trend:'→',color:'#F4C842',
-   desc:'大国政治・海洋障壁・第一列島線前方拠点性。沖縄の戦略的重要度を数値化。',
-   impact:'米軍プレゼンス長期化シグナル。中長期の商圏安定根拠。',src:'地政学推計モデル'},
-  {key:'okinawa', label:'沖縄関係安定度',val:68,trend:'→',color:'#60A5FA',
-   desc:'USFJ/沖縄の対話・共同パトロール・基地関連ニュース摩擦を合成。',
-   impact:'地元摩擦が少ないほどSOFA層の外出・消費が活発化。',src:'GDELT+沖縄報道'},
-  {key:'taiwan',  label:'台湾・東アジア緊張',val:78,trend:'↑',color:'#A78BFA',
-   desc:'台湾海峡、北朝鮮、インド太平洋ニュース量・緊張語を合成。',
-   impact:'緊張高まりはドル高・部隊増強につながり、短期的にSOFA消費を押し上げる場合も。',src:'GDELT+Al Jazeera'},
-  {key:'rebase',  label:'基地再編リスク',val:45,trend:'↓',color:'#FF4D6A',
-   desc:'グアム移転進捗・部隊削減ニュース。商圏には慎重材料（ドラッグ）。',
-   impact:'高いほど将来人口減少リスク。中長期の商圏縮小に注意が必要。',src:'DoD+GDELT'},
-  {key:'usstress',label:'米国政治経済ストレス',val:62,trend:'→',color:'#FF7F50',
-   desc:'FRED金利・CPI・消費者心理とGDELT市場/政治ニュースを合成。',
-   impact:'ストレス高いほど本国のドル安定に不安。円安が「安全資産」化する局面も。',src:'FRED+GDELT'}
+  {key:'forward', label:'米軍前方展開指数',val:92,trend:'↑',color:'#00D4AA',
+   desc:'USFJ統合司令部化進行中・米特殊部隊沖縄精密降下訓練強化・島嶼空港事前集積。DoD「中国が沖縄/Guamを初撃圧倒」懸念から前方分散展開を加速中。',
+   impact:'需要安定・消費意欲維持に寄与。高付加価値サービス需要を長期下支え。',src:'ArmyRecognition/AsiaTimesReports 2026/CSIS'},
+  {key:'defense', label:'国防予算/PDI指数',val:79,trend:'↑',color:'#4ADE80',
+   desc:'2026 NDS（対中・台湾中心）・PDI予算継続・インド太平洋抑止力投資を合成。議会超党派支持で予算維持。',
+   impact:'軍人家族の雇用安定期待・長期駐留確実性が消費余力に寄与。',src:'2026 NDS/DoD公開予算+CFR'},
+  {key:'first',   label:'第一列島線地政学',val:85,trend:'↑',color:'#F4C842',
+   desc:'DoD「中国PLA能力が沖縄・Guamを圧倒するリスク」公表→島嶼分散配備・空港燃料事前集積を加速。沖縄の戦略的代替不可能性が上昇。',
+   impact:'米軍プレゼンス長期化・強化シグナル。商圏安定の最強根拠。',src:'AsiaTimesReports/DoD Reports 2026'},
+  {key:'okinawa', label:'沖縄関係安定度',val:63,trend:'↓',color:'#60A5FA',
+   desc:'OHA増額→家主が家賃引き上げ・USFJ基地交渉継続・地元との摩擦やや増加。ただし米軍・沖縄県の対話継続中。',
+   impact:'摩擦増はSOFA層の外出消費にやや抑制効果。英語対応サービスの差別化重要性が増す。',src:'Stars&Stripes 2026/5/11+沖縄メディア'},
+  {key:'taiwan',  label:'台湾・東アジア緊張',val:85,trend:'↑',color:'#A78BFA',
+   desc:'中国デュアルトラック戦略（台湾・フィリピン・日本へ同時圧力）継続。PLA海空演習増加。「台湾有事」シナリオへの軍事プランニング可視化。',
+   impact:'部隊増強・ドル高・COLA増額など、短期SOFA消費を押し上げる複合効果。',src:'CFR Indo-Pacific Jan2026/HSCentre 2026 NDS'},
+  {key:'rebase',  label:'基地再編リスク',val:42,trend:'↓',color:'#FF4D6A',
+   desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
+   impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
+  {key:'usstress',label:'米国政治経済ストレス',val:75,trend:'↑',color:'#FF7F50',
+   desc:'UMCSENT=44.8（2026年5月・記録的低水準）・ホルムズ海峡混乱によるガソリン高・インフレ期待4.8%・タリフ影響継続。消費者心理が3ヶ月連続低下。',
+   impact:'本国の生活コスト上昇→円安・OHA・海外駐留優遇が相対的安心感を高め、沖縄SOFA層の消費余力への影響は限定的。',src:'U-Michigan UMCSENT May2026/FRB/BLS'}
 ];
 
 var FRED_SERIES = [
@@ -964,9 +966,10 @@ var FRED_SERIES = [
   {id:'SP500',     name:'S&P500',          unit:'',     color:'#34D399',val:null, date:'—'}
 ];
 
+// MOCK値: 2026年6月1日時点の最新実勢値
 var MOCK = {
-  DEXJPUS:159.31, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
-  AHETPI:32.23, DGS10:4.455, T10YIE:2.39, UMCSENT:49.8, GS2:3.80, DCOILWTICO:87.84,
+  DEXJPUS:159.20, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
+  AHETPI:32.23, DGS10:4.45, T10YIE:2.38, UMCSENT:44.8, GS2:3.80, DCOILWTICO:97.63,
   VIX:15.74, SP500:7563.63
 };
 
