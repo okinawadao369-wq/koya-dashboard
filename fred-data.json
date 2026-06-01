@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-01T00:30:35Z",
+  "updated": "2026-06-01T01:34:45.517376Z",
   "series": {
     "DEXJPUS": [
       {
@@ -117,7 +117,6 @@
         "value": 4.33
       }
     ],
-    "UNRATE": [],
     "CPIAUCSL": [
       {
         "date": "2026-04-01",
@@ -226,7 +225,6 @@
         "value": 334.527
       }
     ],
-    "AHETPI": [],
     "DGS10": [
       {
         "date": "2026-05-28",
@@ -335,7 +333,6 @@
         "value": 2.47
       }
     ],
-    "UMCSENT": [],
     "GS2": [
       {
         "date": "2026-04-01",
@@ -452,13 +449,10 @@
   "latest": {
     "DEXJPUS": 159.2,
     "FEDFUNDS": 3.64,
-    "UNRATE": null,
     "CPIAUCSL": 332.407,
     "CPIFABSL": 345.197,
-    "AHETPI": null,
     "DGS10": 4.45,
     "T10YIE": 2.38,
-    "UMCSENT": null,
     "GS2": 3.8,
     "DCOILWTICO": 97.63
   }
