@@ -838,7 +838,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v17';
+var CACHE_KEY = 'koya_v18';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -945,8 +945,8 @@ var GEO = [
   {key:'rebase',  label:'基地再編リスク',val:42,trend:'↓',color:'#FF4D6A',
    desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
    impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
-  {key:'usstress',label:'米国政治経済ストレス',val:75,trend:'↑',color:'#FF7F50',
-   desc:'UMCSENT=44.8（2026年5月・記録的低水準）・ホルムズ海峡混乱によるガソリン高・インフレ期待4.8%・タリフ影響継続。消費者心理が3ヶ月連続低下。',
+  {key:'usstress',label:'米国政治経済ストレス',val:68,trend:'↑',color:'#FF7F50',
+   desc:'UMCSENT=64.2（2026年5月、4月52.2から回復）・ホルムズ海峡情勢が一部安定化しWTI$93.52に下落。ただし依然としてインフレ・タリフ圧力が継続。',
    impact:'本国の生活コスト上昇→円安・OHA・海外駐留優遇が相対的安心感を高め、沖縄SOFA層の消費余力への影響は限定的。',src:'U-Michigan UMCSENT May2026/FRB/BLS'}
 ];
 
@@ -966,10 +966,12 @@ var FRED_SERIES = [
   {id:'SP500',     name:'S&P500',          unit:'',     color:'#34D399',val:null, date:'—'}
 ];
 
-// MOCK値: 2026年6月3日 最新実勢値（TradingEconomics/OilPriceAPI/Treasury/Yahoo Finance）
+// MOCK値: 2026年6月3日 FRED公式データ同期済
+// UMCSENT=64.2（5月FREDデータ、4月52.2からの回復）
+// CPIAUCSL=325.8（FRED公式、1982-84=100基準）
 var MOCK = {
-  DEXJPUS:159.85, FEDFUNDS:3.64, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
-  AHETPI:32.23, DGS10:4.46, T10YIE:2.41, UMCSENT:44.8, GS2:3.80, DCOILWTICO:93.52,
+  DEXJPUS:159.85, FEDFUNDS:3.63, UNRATE:4.3, CPIAUCSL:325.8, CPIFABSL:345.2,
+  AHETPI:32.23, DGS10:4.46, T10YIE:2.41, UMCSENT:64.2, GS2:3.98, DCOILWTICO:93.52,
   VIX:15.32, SP500:7585.00
 };
 
