@@ -1,25 +1,29 @@
 {
-  "updated": "2026-06-02T00:08:56Z",
+  "updated": "2026-06-03T00:07:44Z",
   "series": {
-    "DEXJPUS": null,
-    "FEDFUNDS": null,
-    "UNRATE": null,
-    "CPIAUCSL": null,
-    "DGS10": null,
-    "GS2": null,
-    "DCOILWTICO": null,
-    "T10YIE": null,
-    "UMCSENT": null
+    "DEXJPUS": [],
+    "FEDFUNDS": [],
+    "UNRATE": [],
+    "CPIAUCSL": [],
+    "CPIFABSL": [],
+    "AHETPI": [],
+    "DGS10": [],
+    "T10YIE": [],
+    "UMCSENT": [],
+    "GS2": [],
+    "DCOILWTICO": []
   },
   "latest": {
     "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
+    "CPIFABSL": null,
+    "AHETPI": null,
     "DGS10": null,
-    "GS2": null,
-    "DCOILWTICO": null,
     "T10YIE": null,
-    "UMCSENT": null
+    "UMCSENT": null,
+    "GS2": null,
+    "DCOILWTICO": null
   }
 }
