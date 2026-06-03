@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-03T04:04:24Z",
+  "updated": "2026-06-03T04:12:56.183053Z",
   "data_verified": true,
   "verification_sources": {
     "DEXJPUS": "TradingEconomics, June 2 2026: 159.69",
@@ -12,6 +12,10 @@
   },
   "series": {
     "DEXJPUS": [
+      {
+        "date": "2026-06-03",
+        "value": 159.85
+      },
       {
         "date": "2026-06-02",
         "value": 159.69
@@ -63,10 +67,6 @@
       {
         "date": "2026-05-13",
         "value": 157.8
-      },
-      {
-        "date": "2026-05-12",
-        "value": 157.2
       }
     ],
     "FEDFUNDS": [
@@ -259,6 +259,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-06-03",
+        "value": 4.46
+      },
+      {
         "date": "2026-06-02",
         "value": 4.35
       },
@@ -309,13 +313,13 @@
       {
         "date": "2026-05-13",
         "value": 4.27
-      },
-      {
-        "date": "2026-05-12",
-        "value": 4.22
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-06-03",
+        "value": 2.41
+      },
       {
         "date": "2026-06-02",
         "value": 2.65
@@ -403,6 +407,10 @@
     ],
     "DCOILWTICO": [
       {
+        "date": "2026-06-03",
+        "value": 93.52
+      },
+      {
         "date": "2026-06-02",
         "value": 91.5
       },
@@ -453,10 +461,6 @@
       {
         "date": "2026-05-13",
         "value": 83.1
-      },
-      {
-        "date": "2026-05-12",
-        "value": 80.3
       }
     ],
     "CPIFABSL": [
@@ -475,17 +479,17 @@
     ]
   },
   "latest": {
-    "DEXJPUS": 159.69,
+    "DEXJPUS": 159.85,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.3,
     "CPIAUCSL": 325.8,
     "CPIFABSL": 4.1,
     "AHETPI": 32.23,
-    "DGS10": 4.35,
-    "T10YIE": 2.65,
+    "DGS10": 4.46,
+    "T10YIE": 2.41,
     "UMCSENT": 64.2,
     "GS2": 3.98,
-    "DCOILWTICO": 91.5
+    "DCOILWTICO": 93.52
   },
   "cpi_yoy_pct": 3.8,
   "notes": {
