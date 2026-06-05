@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-05T01:26:33Z",
+  "updated": "2026-06-05T01:31:06.645103Z",
   "series": {
     "DEXJPUS": [
       {
@@ -287,6 +287,50 @@
       {
         "date": "2026-02-01",
         "value": 32.04
+      },
+      {
+        "date": "2026-01-01",
+        "value": 31.94
+      },
+      {
+        "date": "2025-12-01",
+        "value": 31.83
+      },
+      {
+        "date": "2025-11-01",
+        "value": 31.79
+      },
+      {
+        "date": "2025-10-01",
+        "value": 31.7
+      },
+      {
+        "date": "2025-09-01",
+        "value": 31.56
+      },
+      {
+        "date": "2025-08-01",
+        "value": 31.49
+      },
+      {
+        "date": "2025-07-01",
+        "value": 31.39
+      },
+      {
+        "date": "2025-06-01",
+        "value": 31.31
+      },
+      {
+        "date": "2025-05-01",
+        "value": 31.2
+      },
+      {
+        "date": "2025-04-01",
+        "value": 31.09
+      },
+      {
+        "date": "2025-03-01",
+        "value": 31.02
       }
     ],
     "DGS10": [
@@ -445,6 +489,14 @@
       {
         "date": "2025-05-01",
         "value": 52.2
+      },
+      {
+        "date": "2025-04-01",
+        "value": 52.2
+      },
+      {
+        "date": "2025-03-01",
+        "value": 57.0
       }
     ],
     "GS2": [
@@ -574,98 +626,75 @@
     "DCOILWTICO": 95.96
   },
   "prev_latest": {
-    "DEXJPUS": 159.95,
+    "DEXJPUS": 159.23,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.3,
     "CPIAUCSL": 332.407,
     "CPIFABSL": 345.197,
     "AHETPI": 32.23,
-    "DGS10": 4.46,
-    "T10YIE": 2.38,
+    "DGS10": 4.49,
+    "T10YIE": 2.36,
     "UMCSENT": 49.8,
     "GS2": 4.0,
-    "DCOILWTICO": 92.13
+    "DCOILWTICO": 95.96
   },
   "deltas": {
-    "DEXJPUS": -0.72,
-    "FEDFUNDS": 0.0,
-    "UNRATE": 0.0,
-    "CPIAUCSL": 0.0,
-    "CPIFABSL": 0.0,
-    "AHETPI": 0.0,
-    "DGS10": 0.03,
-    "T10YIE": -0.02,
-    "UMCSENT": 0.0,
-    "GS2": 0.0,
-    "DCOILWTICO": 3.83
+    "DEXJPUS": null,
+    "FEDFUNDS": null,
+    "UNRATE": null,
+    "CPIAUCSL": null,
+    "CPIFABSL": null,
+    "AHETPI": null,
+    "DGS10": null,
+    "T10YIE": null,
+    "UMCSENT": null,
+    "GS2": null,
+    "DCOILWTICO": null
   },
   "alerts": {
     "DEXJPUS": "green",
-    "DEXJPUS_score": 100,
     "FEDFUNDS": "green",
-    "FEDFUNDS_score": 80,
     "UNRATE": "green",
-    "UNRATE_score": 85,
-    "CPIAUCSL": "red",
-    "CPIAUCSL_score": 40,
-    "CPIFABSL": "red",
-    "CPIFABSL_score": 38,
+    "CPIAUCSL": "yellow",
+    "CPIFABSL": "yellow",
     "AHETPI": "green",
-    "AHETPI_score": 100,
     "DGS10": "green",
-    "DGS10_score": 80,
     "T10YIE": "green",
-    "T10YIE_score": 92,
     "UMCSENT": "red",
-    "UMCSENT_score": 38,
-    "GS2": "green",
-    "GS2_score": 70,
-    "DCOILWTICO": "red",
-    "DCOILWTICO_score": 42,
-    "SPREAD_DGS10_GS2": "yellow",
-    "SPREAD_DGS10_GS2_score": 55
+    "GS2": "yellow",
+    "DCOILWTICO": "yellow"
   },
   "scores": {
-    "DEXJPUS": 100,
-    "FEDFUNDS": 80,
+    "DEXJPUS": 95,
+    "FEDFUNDS": 75,
     "UNRATE": 85,
-    "CPIAUCSL": 40,
-    "CPIFABSL": 38,
-    "AHETPI": 100,
+    "CPIAUCSL": 50,
+    "CPIFABSL": 52,
+    "AHETPI": 80,
     "DGS10": 80,
     "T10YIE": 92,
-    "UMCSENT": 38,
-    "GS2": 70,
-    "DCOILWTICO": 42
+    "UMCSENT": 35,
+    "GS2": 50,
+    "DCOILWTICO": 45
   },
-  "koya_score": 71.0,
+  "koya_score": 70.2,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "0.49%",
-  "decision_triggers": [
-    {
-      "level": "green",
-      "indicator": "koya総合スコア",
-      "message": "71/100 [GO] — 積極展開フェーズ。高単価サービス・新メニュー投入に最適タイミング。"
-    },
-    {
-      "level": "green",
-      "indicator": "USD/JPY",
-      "message": "¥159.23 — 軍属購買力ゾーン（高）。高単価メニュー・プレミアムオプション積極投入タイミング。"
-    },
-    {
-      "level": "yellow",
-      "indicator": "USD/JPY前日比",
-      "message": "前日比↓0.72円の急変動。"
-    },
-    {
-      "level": "red",
-      "indicator": "WTI原油",
-      "message": "$95.96/bbl — 高値。沖縄の燃料・物流コスト上昇。サービス価格への転嫁を検討。"
-    },
-    {
-      "level": "red",
-      "indicator": "消費者信頼感",
-      "message": "49.8 — 歴史的低水準。安心感・価値訴求を前面に。"
+  "spread_dgs10_gs2": "+0.490%",
+  "fetch_quality": {
+    "ok": 11,
+    "total": 11,
+    "results": {
+      "DEXJPUS": "ok",
+      "FEDFUNDS": "ok",
+      "UNRATE": "ok",
+      "CPIAUCSL": "ok",
+      "CPIFABSL": "ok",
+      "AHETPI": "ok",
+      "DGS10": "ok",
+      "T10YIE": "ok",
+      "UMCSENT": "ok",
+      "GS2": "ok",
+      "DCOILWTICO": "ok"
     }
-  ]
+  }
 }
