@@ -352,6 +352,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
         <div class="c-val" id="ov-cpi">—</div>
         <div class="c-sub">Consumer Price Index</div>
       </div>
+      <div class="card" style="border:1px solid rgba(0,212,170,.3);background:rgba(0,212,170,.04)">
+        <div class="c-lbl" style="color:var(--teal)">🎯 koya経営スコア</div>
+        <div class="c-val" id="koya-score-val" style="font-size:1.6rem">—</div>
+        <div class="c-sub">総合判断指数 (0-100)</div>
+      </div>
       <div class="card">
         <div class="c-lbl">SOFA市場規模</div>
         <div class="c-val gold">~80,000</div>
@@ -384,6 +389,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="box" style="border:1px solid rgba(244,200,66,.2);margin-bottom:1rem">
+      <div class="box-title" style="color:var(--gold)">⚡ 意思決定トリガー — 本日のアクション指示</div>
+      <div id="decision-triggers" style="color:var(--muted);font-size:.78rem;padding:.5rem 0">データ読み込み中...</div>
     </div>
 
     <div class="g2">
@@ -1154,11 +1164,17 @@ function calcYoY(arr){
 }
 
 function calcSig(fx,ur){
+  // koya_scoreが取得済みならそれを最優先で使用
+  if(typeof S.koyaScore==='number'&&S.koyaScore!==null){
+    if(S.koyaScore>=68) return 'GO';
+    if(S.koyaScore>=45) return 'WATCH';
+    return 'HOLD';
+  }
+  // フォールバック: FX+UR基本ロジック
   if(fx===null) return 'HOLD';
-  var urVal=(ur!==null)?ur:(MOCK.UNRATE||4.3); // urNull時はMOCK=4.3でフォールバック
-  var vix=S.fredVals&&S.fredVals['VIX']?S.fredVals['VIX']:20;
+  var urVal=(ur!==null)?ur:(MOCK.UNRATE||4.3);
   if(fx>148&&urVal<5) return 'GO';
-  if(fx>140||(fx>135&&vix<15)) return 'WATCH';
+  if(fx>140) return 'WATCH';
   return 'HOLD';
 }
 
@@ -1191,7 +1207,15 @@ function applyData(data,isMock){
   var cpiYoY=calcYoY(S.cpiH); S.cpi=cpiYoY!==null?cpiYoY:3.7;
   S.ahe=data.fredVals&&data.fredVals.AHETPI?data.fredVals.AHETPI:32.23;
   S.fredVals=data.fredVals||{};
-  S.signal=calcSig(S.fx,S.ur);
+  // koya_score・deltas・alertsをfredDataJsonから読み込む
+  if(_dataJsonCache){
+    S.koyaScore=typeof _dataJsonCache.koya_score==='number'?_dataJsonCache.koya_score:null;
+    S.koyaSignal=_dataJsonCache.koya_signal||null;
+    S.deltas=_dataJsonCache.deltas||{};
+    S.alerts=_dataJsonCache.alerts||{};
+    S.triggers=_dataJsonCache.decision_triggers||[];
+  }
+  S.signal=S.koyaSignal||calcSig(S.fx,S.ur);
   // geo impact事前計算（タブ未訪問でもov-geoを即時更新）
   (function(){
     var _gW={forward:0.30,defense:0.20,taiwan:0.20,first:0.15,okinawa:0.10,usstress:-0.03,rebase:-0.02};
@@ -1218,9 +1242,25 @@ function applyData(data,isMock){
 
 function updateSig(){
   var b=document.getElementById('sig');
-  if(S.signal==='GO'){b.className='sig-go';b.textContent='▶ GO — 積極展開フェーズ';}
-  else if(S.signal==='WATCH'){b.className='sig-watch';b.textContent='◎ WATCH — 準備・監視フェーズ';}
-  else{b.className='sig-hold';b.textContent='▬ HOLD — 現状維持フェーズ';}
+  var score=typeof S.koyaScore==='number'?(' ['+Math.round(S.koyaScore)+'/100]'):'';
+  if(S.signal==='GO'){b.className='sig-go';b.textContent='▶ GO — 積極展開フェーズ'+score;}
+  else if(S.signal==='WATCH'){b.className='sig-watch';b.textContent='◎ WATCH — 準備・監視フェーズ'+score;}
+  else{b.className='sig-hold';b.textContent='▬ HOLD — 現状維持フェーズ'+score;}
+  // koyaスコアバッジを更新
+  var ks=document.getElementById('koya-score-val');
+  if(ks&&typeof S.koyaScore==='number'){
+    ks.textContent=Math.round(S.koyaScore)+'/100';
+    var color=S.koyaScore>=68?'#4ADE80':(S.koyaScore>=45?'#F4C842':'#FF4D6A');
+    ks.style.color=color;
+  }
+  // Decision triggersを更新
+  var dt=document.getElementById('decision-triggers');
+  if(dt&&S.triggers&&S.triggers.length){
+    dt.innerHTML=S.triggers.map(function(t){
+      var icon=t.level==='red'?'🔴':(t.level==='yellow'?'🟡':'🟢');
+      return '<div style="padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.78rem;line-height:1.5">'+icon+' <strong style="color:var(--text)">'+t.indicator+'</strong> '+t.message+'</div>';
+    }).join('');
+  }
 }
 
 function updateOverviewCards(){
@@ -1640,12 +1680,35 @@ function renderFred(){
   // Sync FRED_SERIES val from S.fredVals
   FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=new Date().toISOString().slice(0,10); });
   // FRED grid
+  var ALERT_COLORS={red:'rgba(255,77,106,.12)',yellow:'rgba(244,200,66,.10)',green:'rgba(74,222,128,.08)'};
+  var ALERT_BORDER={red:'#FF4D6A',yellow:'#F4C842',green:'#4ADE80'};
   var html='';
   FRED_SERIES.forEach(function(f){
     var val=f.val||S.fredVals[f.id]||MOCK[f.id];
     var dispVal=val?+(val).toFixed(2):'—';
-    html+='<div class="fred-card"><div class="fred-id">'+f.id+'</div><div class="fred-name">'+f.name+'</div>'
-      +'<div class="fred-val" style="color:'+f.color+'">'+dispVal+'<span style="font-size:9px;color:var(--muted)"> '+f.unit+'</span></div>'
+    var delta=S.deltas&&S.deltas[f.id]!==undefined?S.deltas[f.id]:null;
+    var alert=S.alerts&&S.alerts[f.id]?S.alerts[f.id]:'';
+    var score=S.alerts&&S.alerts[f.id+'_score']!==undefined?S.alerts[f.id+'_score']:null;
+    var deltaHtml='';
+    if(delta!==null&&!isNaN(delta)){
+      var dir=delta>0.001?'↑':(delta<-0.001?'↓':'→');
+      var dColor=delta>0.001?'#4ADE80':(delta<-0.001?'#FF4D6A':'#8899B0');
+      // 一部のIDは下落が良い(WTI,CPI,UNRATE)
+      var invertIds=['DCOILWTICO','CPIAUCSL','CPIFABSL','UNRATE'];
+      if(invertIds.indexOf(f.id)!==-1){ dColor=delta>0.001?'#FF4D6A':(delta<-0.001?'#4ADE80':'#8899B0'); }
+      deltaHtml='<span style="font-size:10px;color:'+dColor+';font-weight:700;margin-left:4px">'+dir+(Math.abs(delta)<100?Math.abs(delta).toFixed(2):Math.abs(delta).toFixed(0))+'</span>';
+    }
+    var scoreBadge=score!==null?'<span style="font-size:9px;background:rgba(255,255,255,.05);padding:1px 5px;border-radius:3px;margin-left:4px">'+Math.round(score)+'pt</span>':'';
+    var bg=alert?ALERT_COLORS[alert]:'';
+    var bd=alert?('border-left:3px solid '+ALERT_BORDER[alert]+';'):'';
+    html+='<div class="fred-card" style="background:'+bg+';'+bd+'">'
+      +'<div class="fred-id">'+f.id+'</div>'
+      +'<div class="fred-name">'+f.name+'</div>'
+      +'<div class="fred-val" style="color:'+f.color+'">'+dispVal
+      +'<span style="font-size:9px;color:var(--muted)"> '+f.unit+'</span>'
+      +deltaHtml
+      +'</div>'
+      +scoreBadge
       +'<div class="fred-src">'+(S.isMock?'mock':'live')+'</div></div>';
   });
   document.getElementById('fred-grid').innerHTML=html;
@@ -1655,13 +1718,34 @@ function renderFred(){
   if(S.cpiH.length) mkLine('c-fred-cpi',S.cpiH.map(function(d){return d.date.slice(0,7);}),S.cpiH.map(function(d){return d.value;}),'#60A5FA');
   // Table
   var tbody='';
+  var INVERT=['DCOILWTICO','CPIAUCSL','CPIFABSL','UNRATE'];
   FRED_SERIES.forEach(function(f){
     var val=S.fredVals[f.id]||MOCK[f.id];
-    tbody+='<tr><td class="mono" style="color:var(--muted)">'+f.id+'</td><td style="font-weight:600">'+f.name+'</td>'
+    var delta=S.deltas&&S.deltas[f.id]!==undefined?S.deltas[f.id]:null;
+    var alert=S.alerts&&S.alerts[f.id]?S.alerts[f.id]:'';
+    var score=S.alerts&&S.alerts[f.id+'_score']!==undefined?S.alerts[f.id+'_score']:null;
+    var alertCell='<td></td>';
+    if(alert){
+      var alertIco=alert==='red'?'🔴':(alert==='yellow'?'🟡':'🟢');
+      alertCell='<td>'+alertIco+(score!==null?' '+Math.round(score)+'pt':'')+'</td>';
+    }
+    var deltaCell='<td class="mono" style="font-size:10px;color:var(--muted)">—</td>';
+    if(delta!==null&&!isNaN(delta)){
+      var dir=delta>0.001?'↑':(delta<-0.001?'↓':'→');
+      var isInvert=INVERT.indexOf(f.id)!==-1;
+      var dOk=(dir==='↑'&&!isInvert)||(dir==='↓'&&isInvert);
+      var dColor=dir==='→'?'var(--muted)':(dOk?'#4ADE80':'#FF4D6A');
+      deltaCell='<td class="mono" style="font-size:10px;color:'+dColor+';font-weight:700">'+dir+(Math.abs(delta)<100?Math.abs(delta).toFixed(2):Math.abs(delta).toFixed(0))+'</td>';
+    }
+    tbody+='<tr>'
+      +'<td class="mono" style="color:var(--muted)">'+f.id+'</td>'
+      +'<td style="font-weight:600">'+f.name+'</td>'
       +'<td class="mono" style="color:'+f.color+';font-weight:700">'+(val?+(+val).toFixed(2):'—')+'</td>'
       +'<td style="font-size:9px;color:var(--muted)">'+f.unit+'</td>'
+      +deltaCell
+      +alertCell
       +'<td class="mono" style="font-size:9px">'+f.date+'</td>'
-      +'<td style="font-size:9px;color:'+(S.isMock?'var(--muted)':'var(--teal)')+'">'+(S.isMock?'Mock/Fallback':'FRED Live')+'</td></tr>';
+      +'<td style="font-size:9px;color:'+(S.isMock?'var(--muted)':'var(--teal)')+'">'+(S.isMock?'Mock':'Live')+'</td></tr>';
   });
   document.getElementById('fred-tbody').innerHTML=tbody;
 }
