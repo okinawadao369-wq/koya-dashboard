@@ -848,7 +848,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v19';
+var CACHE_KEY = 'koya_v20';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -955,9 +955,9 @@ var GEO = [
   {key:'rebase',  label:'基地再編リスク',val:42,trend:'↓',color:'#FF4D6A',
    desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
    impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
-  {key:'usstress',label:'米国政治経済ストレス',val:70,trend:'↑',color:'#FF7F50',
-   desc:'UMCSENT=49.8（FRED公式、2026年4月）・ホルムズ海峡情勢の継続とイラン交渉進展でWTI$92.13に下落。インフレ・タリフ圧力継続も原油安が緩和要因。',
-   impact:'本国の生活コスト上昇→円安・OHA・海外駐留優遇が相対的安心感を高め、沖縄SOFA層の消費余力への影響は限定的。',src:'U-Michigan UMCSENT May2026/FRB/BLS'}
+  {key:'usstress',label:'米国政治経済ストレス',val:80,trend:'↑',color:'#FF7F50',
+   desc:'UMCSENT=44.8（5月改定値・史上最低記録）・クレカ延滞率13.1%（16年ぶり高水準）・実質賃金▲0.2%（名目+3.6% vs インフレ3.8%）・住宅負担世帯49%・WTI$91.00。CPI公式3.8% vs リアリティ指数推計5〜7%の乖離が消費心理を圧迫。',
+   impact:'本国消費者の生活苦が深刻化する中、SOFA家族はOHA・ドル収入により住宅費/光熱費負担をダイレクトに受けない二重バッファ構造。米国アンカー価格の上昇が沖縄サービスの相対的割安感をさらに高め、価格心理効果は増大。',src:'U-Michigan UMCSENT June2026/NY Fed HH Debt Q1-2026/BLS CPI Apr2026'}
 ];
 
 var FRED_SERIES = [
@@ -977,10 +977,10 @@ var FRED_SERIES = [
 ];
 
 // MOCK値: 2026年6月5日 FRED公式+市場データ同期
-// UMCSENT=49.8（FRED公式4月値）/ WTI=92.13（イラン交渉で下落）
+// UMCSENT=44.8（Michigan 2026年5月改定・史上最低）/ WTI=91.00（2026年6月7日）
 var MOCK = {
-  DEXJPUS:159.23, FEDFUNDS:3.63, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
-  AHETPI:32.23, DGS10:4.46, T10YIE:2.38, UMCSENT:49.8, GS2:4.0, DCOILWTICO:95.96,
+  DEXJPUS:160.32, FEDFUNDS:3.63, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
+  AHETPI:32.23, DGS10:4.46, T10YIE:2.38, UMCSENT:44.8, GS2:4.0, DCOILWTICO:91.00,
   VIX:15.32, SP500:7585.00
 };
 
@@ -1298,7 +1298,7 @@ function renderOverview(){
   if(S.ffH.length) mkLine('c-ff',S.ffH.map(function(d){return d.date.slice(0,7);}),S.ffH.map(function(d){return d.value;}),'#F4C842');
   if(S.urH.length) mkLine('c-ur',S.urH.map(function(d){return d.date.slice(0,7);}),S.urH.map(function(d){return d.value;}),'#FF4D6A');
   // Gauge
-  var fx=S.fx||159.23; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
+  var fx=S.fx||160.32; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
   var score=60;
   if(fx>155) score+=15; else if(fx>148) score+=10; else if(fx>140) score+=5;
   if(ur<4) score+=12; else if(ur<5) score+=8; else if(ur<6) score+=4;
@@ -1396,7 +1396,7 @@ function runSim(){
   if(!seg) seg=SEGS[1];
   var area=AREAS[S.curArea];
   var inputJPY=parseFloat(document.getElementById('price-input').value)||20000;
-  var fx=S.fx||159.23;
+  var fx=S.fx||160.32;
   var ahe=S.ahe||32.23; var cpi=S.cpi||4.0;
 
   // CPI補正（全計算に適用）
@@ -1570,7 +1570,7 @@ function buildBizFilter(){
 
 function renderBiz(cat){
   cat=cat||'all';
-  var fx=S.fx||159.23; var cpi=S.cpi||4.0;  // CPI統一: runSim=4.0%と整合
+  var fx=S.fx||160.32; var cpi=S.cpi||4.0;  // CPI統一: runSim=4.0%と整合
   var catColors={'ftc':'#00D4AA','food':'#F4C842','life':'#4ADE80','beauty':'#A78BFA','retail':'#60A5FA','exp':'#FF7F50','edu':'#F472B6'};
   var filtered=Object.keys(BTYPE).filter(function(k){ return cat==='all'||BTYPE[k].cat===cat; });
   document.getElementById('biz-count').textContent=filtered.length+'業種';
@@ -1658,7 +1658,7 @@ function renderMil(){
   var e4Seg = SEGS.find(function(s){ return s.id==='E4'; });
   var e4OHA = OHA_RANKS && OHA_RANKS.find(function(r){ return r.id==='E4'; });
   if(e4Seg) {
-    var fx=S.fx||159.23;
+    var fx=S.fx||160.32;
     var totalMkt=0;
     AREAS.forEach(function(a){ totalMkt += 3.0 * Math.round(80000*a.pct/100) * 20000 / 1000000; });
     var e4mkt = (totalMkt * (e4Seg.prem/100)).toFixed(1);
@@ -1676,7 +1676,7 @@ function renderMil(){
 // ════════════════════════════════════════════════
 function renderFred(){
   RD.fred=true;
-  var fx=S.fx||159.23; var ff=S.ff||3.64; var ur=S.ur||4.3;
+  var fx=S.fx||160.32; var ff=S.ff||3.64; var ur=S.ur||4.3;
   // Sync FRED_SERIES val from S.fredVals
   FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=new Date().toISOString().slice(0,10); });
   // FRED grid
@@ -2153,7 +2153,7 @@ var _H_AREA_CHART = null;
 function renderAreaChart(){
   var ri=parseInt(document.getElementById('h-rank-sel').value);
   var rank=OHA_RANKS[ri];
-  var fx=S.fx||159.23;
+  var fx=S.fx||160.32;
   var incRow=RANK_INCOME_DATA[ri]; var disp=0;
   if(incRow){ var last=incRow[incRow.length-1]; disp=last.usd||3000; }
   var data=AREAS.map(function(a){
@@ -2188,7 +2188,7 @@ function updateHousingAnalysis(){
   var ai=parseInt((document.getElementById('h-area-sel')||{value:'0'}).value)||0;
   var rank=OHA_RANKS[ri];
   var prop=OKI_PROPS[pi];
-  var fx=S.fx||159.23;
+  var fx=S.fx||160.32;
   var score=hPsychScore(prop,rank);
   var gapUsd=hAllowanceGap(prop,rank);
   var gapJpy=rank.rentJpy-prop.rentJpy;
