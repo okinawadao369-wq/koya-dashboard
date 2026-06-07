@@ -300,6 +300,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="nav-item" data-tab="mil"><span class="nav-dot"></span>軍人・軍属マーケット</div>
     <div class="nav-item" data-tab="fred"><span class="nav-dot"></span>FRED経済データ</div>
     <div class="nav-item" data-tab="housing"><span class="nav-dot"></span>住宅心理モジュール</div>
+    <div class="nav-item" data-tab="us-reality"><span class="nav-dot"></span>米国消費者実態</div>
   </div>
   <div class="sfoot">
     <div class="lbl">Last update</div>
@@ -840,6 +841,136 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     </div>
   </div>
 
+
+  <!-- ── TAB 8: 米国消費者実態モジュール ── -->
+  <div id="tab-us-reality" class="tab-panel">
+    <div class="sec-title">米国消費者実態モジュール — 官民データ乖離インテリジェンス</div>
+    <div class="sec-sub">政府公式統計と生活実感の乖離・SOFA保護指数・価格心理プレミアムを横断分析し経営判断に直結させる</div>
+
+    <!-- KPI Cards Row 1: 官民乖離 -->
+    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(155px,1fr));margin-bottom:.75rem">
+      <div class="card"><div class="c-lbl">CPI公式（前年比）</div><div class="c-val blue" id="ur-cpi-official">3.8%</div><div class="c-sub">BLS Apr 2026</div></div>
+      <div class="card"><div class="c-lbl">体感インフレ推計</div><div class="c-val gold" id="ur-cpi-real">5〜7%</div><div class="c-sub">Reality Index 2026</div></div>
+      <div class="card"><div class="c-lbl">乖離幅</div><div class="c-val red" id="ur-cpi-gap">+1.2〜3.2pp</div><div class="c-sub">過去最大級の差</div></div>
+      <div class="card"><div class="c-lbl">実質賃金成長</div><div class="c-val red" id="ur-real-wage">▲0.2%</div><div class="c-sub">名目+3.6% − 物価3.8%</div></div>
+      <div class="card"><div class="c-lbl">消費者信頼感</div><div class="c-val red" id="ur-umcsent">44.8</div><div class="c-sub">2026年5月 史上最低</div></div>
+    </div>
+
+    <!-- KPI Cards Row 2: 家計ストレス -->
+    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(155px,1fr));margin-bottom:1.2rem">
+      <div class="card"><div class="c-lbl">クレカ延滞率</div><div class="c-val red" id="ur-delinquency">13.1%</div><div class="c-sub">16年ぶり最高 / 2008年危機並み</div></div>
+      <div class="card"><div class="c-lbl">家計総債務</div><div class="c-val" id="ur-debt">$18.8兆</div><div class="c-sub">Q1 2026 NY Fed</div></div>
+      <div class="card"><div class="c-lbl">住宅費負担世帯</div><div class="c-val red" id="ur-housing-burden">49%</div><div class="c-sub">収入30%超 / 3年連続最高</div></div>
+      <div class="card"><div class="c-lbl">深刻負担世帯</div><div class="c-val red" id="ur-severe-burden">26%</div><div class="c-sub">収入50%超が家賃に</div></div>
+      <div class="card"><div class="c-lbl">GDP成長率（推計）</div><div class="c-val green" id="ur-gdp">+2.0%</div><div class="c-sub">公式統計 ↔️ 感情最低の乖離</div></div>
+    </div>
+
+    <div class="g2" style="gap:1rem;margin-bottom:1rem">
+
+      <!-- バイブスリセッション分析 -->
+      <div class="box" style="border:1px solid rgba(255,77,106,.25)">
+        <div class="box-title" style="color:#FF4D6A">⚡ バイブスリセッション（Vibes Recession）</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">GDP成長中でも消費者心理が史上最低 — 2026年の最大経済パラドックス</div>
+
+        <!-- 感情指数バー -->
+        <div style="margin-bottom:.8rem">
+          <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin-bottom:.3rem">
+            <span>消費者信頼感指数（University of Michigan）</span><span id="ur-sent-val" style="color:#FF4D6A;font-weight:700">44.8</span>
+          </div>
+          <div style="background:var(--bg3);height:8px;border-radius:4px;overflow:hidden">
+            <div id="ur-sent-bar" style="height:100%;background:linear-gradient(90deg,#FF4D6A,#FF7F50);border-radius:4px;transition:width .6s" width="45%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.2rem"><span>0（極度悲観）</span><span>100（楽観）</span></div>
+        </div>
+
+        <!-- 党派別センチメント -->
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">党派別信頼感（観測史上最大50ポイント差）</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem">
+          <div style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.3);border-radius:6px;padding:.5rem .7rem;text-align:center">
+            <div style="font-size:.7rem;color:#60A5FA">共和党系</div>
+            <div style="font-size:1.3rem;font-weight:700;color:#60A5FA;font-family:monospace">120</div>
+            <div style="font-size:.65rem;color:var(--muted)">ブーム水準・楽観的</div>
+          </div>
+          <div style="background:rgba(255,77,106,.1);border:1px solid rgba(255,77,106,.3);border-radius:6px;padding:.5rem .7rem;text-align:center">
+            <div style="font-size:.7rem;color:#FF4D6A">民主/無党派</div>
+            <div style="font-size:1.3rem;font-weight:700;color:#FF4D6A;font-family:monospace">70</div>
+            <div style="font-size:.65rem;color:var(--muted)">生活コスト圧迫</div>
+          </div>
+        </div>
+
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.6;border-top:1px solid var(--border);padding-top:.6rem">
+          💡 <strong style="color:var(--text)">shrinkflation（内容量削減）</strong>がCPI食料インフレを3.7pp追加で過小評価（UMass 2026研究）。
+          住宅コストは実態の<strong style="color:var(--gold)">6倍超</strong>、医療費は<strong style="color:var(--red)">15.6倍</strong>の乖離。
+        </div>
+      </div>
+
+      <!-- SOFA保護指数 -->
+      <div class="box" style="border:1px solid rgba(0,212,170,.25)" id="ur-sofa-box">
+        <div class="box-title" style="color:var(--teal)">🛡️ SOFA家族 保護指数（動的計算）</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">米国インフレから守られている予算比率 — SOFA家族固有の経済絶縁構造</div>
+
+        <!-- 総合スコア -->
+        <div style="text-align:center;margin-bottom:1rem">
+          <div style="font-size:.75rem;color:var(--muted)">米国インフレ絶縁率</div>
+          <div style="font-size:2.4rem;font-weight:700;color:var(--teal);font-family:monospace" id="ur-protection-score">57%</div>
+          <div style="font-size:.75rem;color:var(--muted)" id="ur-effective-inflation">実効インフレ暴露: 約1.6〜3.0%</div>
+        </div>
+
+        <!-- 保護項目 -->
+        <div id="ur-protection-items" style="display:flex;flex-direction:column;gap:.4rem">
+          <!-- JSで描画 -->
+        </div>
+
+        <div style="margin-top:.75rem;font-size:.78rem;color:var(--muted);line-height:1.6;border-top:1px solid var(--border);padding-top:.6rem">
+          💱 <strong style="color:var(--gold)">USD/JPY=<span id="ur-fx-display">160.32</span></strong> — 日本での消費は歴史的基準比
+          <strong style="color:var(--teal)">約<span id="ur-yen-discount">38</span>%割安</strong>（¥110/$ 長期平均比）
+        </div>
+      </div>
+    </div>
+
+    <!-- 日米価格ギャップ → 価格心理プレミアム -->
+    <div class="box" style="border:1px solid rgba(244,200,66,.25);margin-bottom:1rem">
+      <div class="box-title" style="color:var(--gold)">📊 価格心理プレミアム分析 — US体感インフレ × SOFA消費行動</div>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem">米国アンカー価格の上昇により、沖縄サービスの"相対的割安感"がさらに拡大中</div>
+
+      <div id="ur-price-premium-table" style="overflow-x:auto">
+        <table class="tbl" id="ur-premium-tbl">
+          <thead>
+            <tr>
+              <th>サービス</th>
+              <th>米国体感価格</th>
+              <th>Okinawa価格</th>
+              <th>割安率</th>
+              <th>心理プレミアム</th>
+              <th>経営判断</th>
+            </tr>
+          </thead>
+          <tbody id="ur-premium-tbody"><!-- JSで描画 --></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:.8rem;font-size:.78rem;color:var(--muted);line-height:1.7;background:rgba(244,200,66,.05);border-left:3px solid var(--gold);padding:.6rem .9rem;border-radius:0 6px 6px 0">
+        <strong style="color:var(--gold)">行動経済学的根拠：</strong>
+        アンカリング効果（Kahneman）により、消費者は「以前知っていた価格」ではなく
+        「今感じている米国価格」を基準に判断します。実感インフレが公式より高い現在、
+        沖縄のサービス価格の"お得感"は数値以上に増幅されています。
+        <br><strong style="color:var(--text)">→ 価格改定・新サービス導入は今が最適タイミング。</strong>
+      </div>
+    </div>
+
+    <!-- 経営シグナル統合 -->
+    <div class="box" style="border:1px solid rgba(74,222,128,.25)">
+      <div class="box-title" style="color:var(--green)">🎯 経営判断シグナル統合 — 米国消費者実態 × SOFA市場</div>
+      <div id="ur-signal-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.75rem;margin-bottom:.75rem">
+        <!-- JSで描画 -->
+      </div>
+      <div class="note" id="ur-bottom-note">
+        データソース: BLS CPI Apr2026 / University of Michigan UMCSENT May2026 / NY Fed Household Debt Q1-2026 / Harvard JCHS Rental Housing 2026 / Reality Index May2026 / UMass Amherst Shrinkflation Research 2026
+      </div>
+    </div>
+
+  </div><!-- /tab-us-reality -->
+
   </div><!-- /content -->
 </div><!-- /main -->
 
@@ -848,7 +979,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v20';
+var CACHE_KEY = 'koya_v21';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1768,6 +1899,7 @@ document.querySelectorAll('.nav-item').forEach(function(n){
     if(id==='mil') renderMil();
     if(id==='fred') renderFred();
     if(id==='housing'&&!RD.housing){ RD.housing=true; renderHousing(); }
+    if(id==='us-reality'&&!RD.usReality){ RD.usReality=true; renderUSReality(); }
   });
 });
 
@@ -1777,7 +1909,7 @@ document.querySelectorAll('.nav-item').forEach(function(n){
 function loadFresh(){
   document.getElementById('lo').style.display='flex';
   try{localStorage.removeItem(CACHE_KEY);}catch(e){}
-  RD={overview:false,sim:false,geo:false,biz:false,mil:false,fred:false};
+  RD={overview:false,sim:false,geo:false,biz:false,mil:false,fred:false,housing:false,usReality:false};
   var series=['DEXJPUS','FEDFUNDS','UNRATE','CPIAUCSL','CPIFABSL','AHETPI','DGS10','T10YIE','UMCSENT','GS2','DCOILWTICO'];
   Promise.all([
     fredFetch('DEXJPUS',14),fredFetch('FEDFUNDS',12),
@@ -2324,6 +2456,155 @@ function generateHousingDiagnosis(rank,prop,score,gapUsd,gapJpy,boost,ri){
   return lines.join('<br>');
 }
 
+
+
+
+
+// ════════════════════════════════════════════════
+// RENDER: 米国消費者実態モジュール
+// ════════════════════════════════════════════════
+function renderUSReality(){
+  var fx = S.fx||MOCK.DEXJPUS||160.32;
+  var umcsent = S.fredVals&&S.fredVals['UMCSENT'] ? S.fredVals['UMCSENT'] : (MOCK.UMCSENT||44.8);
+  var cpi = S.cpi||4.0;
+
+  // センチメントバー更新
+  var sentPct = Math.min(100,Math.max(0,umcsent));
+  var sentBar=document.getElementById('ur-sent-bar');
+  if(sentBar) sentBar.style.width=sentPct+'%';
+  var sentVal=document.getElementById('ur-sent-val');
+  if(sentVal) sentVal.textContent=umcsent.toFixed(1);
+
+  // FX表示・円安割安率
+  var fxBase=110;
+  var yenDiscount=Math.round((1-fxBase/fx)*100);
+  var fxDisp=document.getElementById('ur-fx-display');
+  var ydDisp=document.getElementById('ur-yen-discount');
+  if(fxDisp) fxDisp.textContent=fx.toFixed(2);
+  if(ydDisp) ydDisp.textContent=yenDiscount;
+
+  // SOFA保護指数計算
+  // 典型的米国家族支出構成（BLS 2024）
+  var protectionItems=[
+    {label:'住宅費（OHA全額カバー）',  pct:36, protected:true,  note:'家賃ゼロ負担 / OHA月¥2,461+'},
+    {label:'医療費（TriCare完全適用）', pct:7,  protected:true,  note:'SOFA協定医療無償'},
+    {label:'輸送費（基地ガソリン補助）',pct:10, protected:0.67, note:'BX/AAFES価格 約33%割引'},
+    {label:'食料費（Commissary割引）',  pct:13, protected:0.30, note:'コミサリー約30%オフ'},
+    {label:'教育・娯楽',              pct:9,  protected:0.20, note:'MWR施設・学費補助'},
+    {label:'その他（生活雑費等）',      pct:25, protected:0,    note:'現地物価に完全暴露'},
+  ];
+  var totalProtected=0;
+  protectionItems.forEach(function(it){
+    var p = typeof it.protected==='boolean' ? (it.protected?it.pct:0) : it.pct*it.protected;
+    totalProtected+=p;
+  });
+  totalProtected=Math.round(totalProtected);
+
+  // 実効インフレ暴露
+  var realInflation=5.5; // Reality Index中央値
+  var effectiveMin=(realInflation*(100-totalProtected)/100).toFixed(1);
+  var effectiveMax=((realInflation+1.5)*(100-totalProtected)/100).toFixed(1);
+
+  var pScore=document.getElementById('ur-protection-score');
+  var pEff=document.getElementById('ur-effective-inflation');
+  if(pScore) pScore.textContent=totalProtected+'%';
+  if(pEff) pEff.textContent='実効インフレ暴露: 約'+effectiveMin+'〜'+effectiveMax+'%';
+
+  // 保護項目リスト描画
+  var pBox=document.getElementById('ur-protection-items');
+  if(pBox){
+    pBox.innerHTML=protectionItems.map(function(it){
+      var p=typeof it.protected==='boolean'?(it.protected?100:0):Math.round(it.protected*100);
+      var col=p>=80?'var(--teal)':p>=50?'var(--gold)':'var(--muted)';
+      return '<div style="display:flex;align-items:center;gap:.5rem">'
+        +'<div style="flex:1;font-size:.76rem;color:var(--text)">'+it.label+'</div>'
+        +'<div style="width:80px;background:var(--bg3);height:6px;border-radius:3px;overflow:hidden">'
+        +'<div style="width:'+p+'%;height:100%;background:'+col+';border-radius:3px"></div></div>'
+        +'<div style="font-size:.7rem;color:'+col+';font-weight:600;font-family:monospace;min-width:28px;text-align:right">'+p+'%</div>'
+        +'<div style="font-size:.65rem;color:var(--muted);flex:1.5">'+it.note+'</div>'
+        +'</div>';
+    }).join('');
+  }
+
+  // 価格心理プレミアムテーブル
+  var premiumData=[
+    {svc:'マタニティフォト',  usLow:300, usHigh:1000, okinawa:35000, biz:'photo'},
+    {svc:'産後ケア（4週間）', usLow:5000,usHigh:10000,okinawa:280000,biz:'postpartum'},
+    {svc:'マタニティヨガ/月', usLow:180, usHigh:480, okinawa:15000, biz:'ft_med'},
+    {svc:'ベビーシッター/時', usLow:20,  usHigh:35,  okinawa:1500,  biz:'babysit'},
+    {svc:'ファミリー4D撮影', usLow:180, usHigh:480, okinawa:20000, biz:'ft_4d'},
+    {svc:'プレミアムディナー', usLow:200, usHigh:500, okinawa:18000, biz:'premium'},
+    {svc:'ファミリーディナー', usLow:80,  usHigh:160, okinawa:10000, biz:'family'},
+  ];
+  var pTbody=document.getElementById('ur-premium-tbody');
+  if(pTbody){
+    // 体感インフレ補正係数（公式CPIに乖離分を加算）
+    var sentimentAdj=1+(cpi/100)*0.5; // 体感インフレは公式の約1.5倍として補正
+    pTbody.innerHTML=premiumData.map(function(d){
+      var usLowAdj=Math.round(d.usLow*sentimentAdj);
+      var usHighAdj=Math.round(d.usHigh*sentimentAdj);
+      var usAvgUSD=(usLowAdj+usHighAdj)/2;
+      var usAvgJPY=Math.round(usAvgUSD*fx);
+      var discount=Math.round((1-d.okinawa/usAvgJPY)*100);
+      var isPremium=discount>=35;
+      var discColor=isPremium?'var(--teal)':'var(--gold)';
+      var psych=discount>=50?'🔥 超高プレミアム':discount>=35?'⭐ 高プレミアム':'✅ プレミアム';
+      var action=isPremium?'<span style="color:var(--teal);font-weight:600">今すぐ値上げ余地あり</span>':'<span style="color:var(--gold)">現行維持・継続訴求</span>';
+      return '<tr>'
+        +'<td>'+d.svc+'</td>'
+        +'<td style="font-family:monospace">$'+usLowAdj.toLocaleString()+'〜$'+usHighAdj.toLocaleString()+'<br><span style="font-size:.68rem;color:var(--muted)">(体感値換算)</span></td>'
+        +'<td style="font-family:monospace">¥'+d.okinawa.toLocaleString()+'<br><span style="font-size:.68rem;color:var(--muted)">($'+Math.round(d.okinawa/fx)+' equiv.)</span></td>'
+        +'<td style="color:'+discColor+';font-weight:700;font-family:monospace">'+discount+'%</td>'
+        +'<td>'+psych+'</td>'
+        +'<td>'+action+'</td>'
+        +'</tr>';
+    }).join('');
+  }
+
+  // 経営シグナルカード
+  var signals=[
+    {
+      icon:'📈', title:'価格改定ウィンドウ',
+      status: discount>40?'GO':'WATCH',
+      color:'var(--teal)',
+      body:'米国体感インフレ上昇により沖縄サービスの相対価値が高まっています。価格引き上げはSOFA家族の「割安感」を損なわない現在が最適タイミングです。'
+    },
+    {
+      icon:'💡', title:'マーケティング訴求軸',
+      status:'INSIGHT',
+      color:'var(--gold)',
+      body:'「アメリカなら$400、ここでは¥35,000（$219）」の比較訴求が最も効果的。US体感物価が高いほどこの比較の説得力が増します。SNSではUS物価への不満が日常化中。'
+    },
+    {
+      icon:'🛡️', title:'SOFA家族の購買余力',
+      status:'STRONG',
+      color:'var(--green)',
+      body:'住宅費(36%)・医療費(7%)がOHA/TriCareでカバーされ、実効インフレ暴露は約'+effectiveMin+'〜'+effectiveMax+'%のみ。本国の生活苦とは切り離された消費力を維持。'
+    },
+    {
+      icon:'⚠️', title:'感情的緊縮リスク',
+      status: umcsent<50?'WATCH':'LOW',
+      color: umcsent<50?'var(--gold)':'var(--muted)',
+      body:'UMCSENT='+umcsent.toFixed(1)+'（史上最低圏）。経済的余裕があっても「本国が大変なのに贅沢できない」という社会的罪悪感が潜在的に存在。「バリュー投資」「思い出・家族」の文脈での訴求が重要。'
+    },
+  ];
+
+  var sigCards=document.getElementById('ur-signal-cards');
+  if(sigCards){
+    sigCards.innerHTML=signals.map(function(sg){
+      var bgColor=sg.status==='GO'?'rgba(0,212,170,.1)':sg.status==='WATCH'?'rgba(244,200,66,.1)':sg.status==='STRONG'?'rgba(74,222,128,.1)':sg.status==='INSIGHT'?'rgba(244,200,66,.08)':'rgba(136,153,176,.08)';
+      var bColor=sg.status==='GO'?sg.color:sg.status==='WATCH'?'var(--gold)':sg.status==='STRONG'?'var(--green)':sg.status==='INSIGHT'?'var(--gold)':'var(--muted)';
+      return '<div style="background:'+bgColor+';border:1px solid '+bColor.replace('var','').replace('(','').replace(')','')+'33;border-radius:8px;padding:.8rem 1rem">'
+        +'<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">'
+        +'<span>'+sg.icon+'</span>'
+        +'<span style="font-size:.82rem;font-weight:700;color:var(--text)">'+sg.title+'</span>'
+        +'<span style="font-size:.7rem;font-weight:700;color:'+sg.color+';margin-left:auto">'+sg.status+'</span>'
+        +'</div>'
+        +'<div style="font-size:.78rem;color:var(--muted);line-height:1.65">'+sg.body+'</div>'
+        +'</div>';
+    }).join('');
+  }
+}
 
 
 // ── Mobile sidebar ──────────────────────────────────────────────────────
