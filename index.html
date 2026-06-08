@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#070E1A">
 <meta name="description" content="KOYA AI 価格心理インテリジェンス — 沖縄米軍・軍属マーケット分析ダッシュボード">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KOYA AI v2 — 沖縄米軍マーケットインテリジェンス [スタッフ共有版]</title>
+<title>KOYA AI v22 — 沖縄米軍マーケットインテリジェンス [スタッフ共有版]</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -979,7 +979,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v21';
+var CACHE_KEY = 'koya_v22';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1087,8 +1087,8 @@ var GEO = [
    desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
    impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
   {key:'usstress',label:'米国政治経済ストレス',val:80,trend:'↑',color:'#FF7F50',
-   desc:'UMCSENT=44.8（5月改定値・史上最低記録）・クレカ延滞率13.1%（16年ぶり高水準）・実質賃金▲0.2%（名目+3.6% vs インフレ3.8%）・住宅負担世帯49%・WTI$91.00。CPI公式3.8% vs リアリティ指数推計5〜7%の乖離が消費心理を圧迫。',
-   impact:'本国消費者の生活苦が深刻化する中、SOFA家族はOHA・ドル収入により住宅費/光熱費負担をダイレクトに受けない二重バッファ構造。米国アンカー価格の上昇が沖縄サービスの相対的割安感をさらに高め、価格心理効果は増大。',src:'U-Michigan UMCSENT June2026/NY Fed HH Debt Q1-2026/BLS CPI Apr2026'}
+   desc:'UMCSENT=49.8（FRED公式Apr2026・2023年以来の低水準）・クレカ延滞率13.1%（16年ぶり高水準）・実質賃金▲0.2%（名目+3.6% vs インフレ3.8%）・住宅負担世帯49%・WTI$95.96・VIX=21.51（市場警戒水準突破）。CPI公式3.8% vs リアリティ指数推計5〜7%の乖離が継続。S&P500=7383.74（高値比▲2.6%下落局面）。',
+   impact:'本国消費者の生活苦が深刻化する中、SOFA家族はOHA・ドル収入により住宅費/光熱費負担をダイレクトに受けない二重バッファ構造。米国アンカー価格の上昇が沖縄サービスの相対的割安感をさらに高め、価格心理効果は増大。',src:'FRED UMCSENT Apr2026/Yahoo Finance VIX+SP500 Jun2026-06-08/NY Fed HH Debt Q1-2026/BLS CPI Apr2026'}
 ];
 
 var FRED_SERIES = [
@@ -1107,12 +1107,12 @@ var FRED_SERIES = [
   {id:'SP500',     name:'S&P500',          unit:'',     color:'#34D399',val:null, date:'—'}
 ];
 
-// MOCK値: 2026年6月5日 FRED公式+市場データ同期
-// UMCSENT=44.8（Michigan 2026年5月改定・史上最低）/ WTI=91.00（2026年6月7日）
+// MOCK値: 2026年6月8日 FRED公式+Yahoo Finance同期
+// UMCSENT=49.8（FRED公式Apr2026）/ WTI=95.96（FRED Jun-01）/ VIX=21.51（市場警戒ゾーン）/ SP500=7383.74
 var MOCK = {
-  DEXJPUS:159.23, FEDFUNDS:3.63, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
-  AHETPI:32.23, DGS10:4.46, T10YIE:2.38, UMCSENT:49.8, GS2:4.0, DCOILWTICO:95.96,
-  VIX:15.32, SP500:7585.00
+  DEXJPUS:160.25, FEDFUNDS:3.63, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
+  AHETPI:32.31, DGS10:4.47, T10YIE:2.36, UMCSENT:49.8, GS2:4.0, DCOILWTICO:95.96,
+  VIX:21.51, SP500:7383.74
 };
 
 // State
