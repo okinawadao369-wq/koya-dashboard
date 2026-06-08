@@ -1,7 +1,11 @@
 {
-  "updated": "2026-06-08T00:09:03.904195Z",
+  "updated": "2026-06-08T00:50:34.421062Z",
   "series": {
     "DEXJPUS": [
+      {
+        "date": "2026-06-08",
+        "value": 160.25
+      },
       {
         "date": "2026-05-29",
         "value": 159.23
@@ -49,10 +53,6 @@
       {
         "date": "2026-05-13",
         "value": 157.84
-      },
-      {
-        "date": "2026-05-12",
-        "value": 157.71
       }
     ],
     "FEDFUNDS": [
@@ -95,22 +95,6 @@
       {
         "date": "2025-08-01",
         "value": 4.33
-      },
-      {
-        "date": "2025-07-01",
-        "value": 4.33
-      },
-      {
-        "date": "2025-06-01",
-        "value": 4.33
-      },
-      {
-        "date": "2025-05-01",
-        "value": 4.33
-      },
-      {
-        "date": "2025-04-01",
-        "value": 4.33
       }
     ],
     "UNRATE": [
@@ -149,26 +133,6 @@
       {
         "date": "2025-08-01",
         "value": 4.3
-      },
-      {
-        "date": "2025-07-01",
-        "value": 4.3
-      },
-      {
-        "date": "2025-06-01",
-        "value": 4.1
-      },
-      {
-        "date": "2025-05-01",
-        "value": 4.3
-      },
-      {
-        "date": "2025-04-01",
-        "value": 4.2
-      },
-      {
-        "date": "2025-03-01",
-        "value": 4.2
       }
     ],
     "CPIAUCSL": [
@@ -199,30 +163,6 @@
       {
         "date": "2025-09-01",
         "value": 324.245
-      },
-      {
-        "date": "2025-08-01",
-        "value": 323.291
-      },
-      {
-        "date": "2025-07-01",
-        "value": 322.169
-      },
-      {
-        "date": "2025-06-01",
-        "value": 321.435
-      },
-      {
-        "date": "2025-05-01",
-        "value": 320.62
-      },
-      {
-        "date": "2025-04-01",
-        "value": 320.302
-      },
-      {
-        "date": "2025-03-01",
-        "value": 319.785
       }
     ],
     "CPIFABSL": [
@@ -249,34 +189,6 @@
       {
         "date": "2025-11-01",
         "value": 339.478
-      },
-      {
-        "date": "2025-09-01",
-        "value": 339.145
-      },
-      {
-        "date": "2025-08-01",
-        "value": 338.39
-      },
-      {
-        "date": "2025-07-01",
-        "value": 336.941
-      },
-      {
-        "date": "2025-06-01",
-        "value": 336.527
-      },
-      {
-        "date": "2025-05-01",
-        "value": 335.571
-      },
-      {
-        "date": "2025-04-01",
-        "value": 334.68
-      },
-      {
-        "date": "2025-03-01",
-        "value": 334.527
       }
     ],
     "AHETPI": [
@@ -307,34 +219,6 @@
       {
         "date": "2025-11-01",
         "value": 31.79
-      },
-      {
-        "date": "2025-10-01",
-        "value": 31.7
-      },
-      {
-        "date": "2025-09-01",
-        "value": 31.56
-      },
-      {
-        "date": "2025-08-01",
-        "value": 31.49
-      },
-      {
-        "date": "2025-07-01",
-        "value": 31.39
-      },
-      {
-        "date": "2025-06-01",
-        "value": 31.31
-      },
-      {
-        "date": "2025-05-01",
-        "value": 31.2
-      },
-      {
-        "date": "2025-04-01",
-        "value": 31.09
       }
     ],
     "DGS10": [
@@ -377,22 +261,6 @@
       {
         "date": "2026-05-21",
         "value": 4.57
-      },
-      {
-        "date": "2026-05-20",
-        "value": 4.57
-      },
-      {
-        "date": "2026-05-19",
-        "value": 4.67
-      },
-      {
-        "date": "2026-05-18",
-        "value": 4.61
-      },
-      {
-        "date": "2026-05-15",
-        "value": 4.59
       }
     ],
     "T10YIE": [
@@ -425,32 +293,8 @@
         "value": 2.39
       },
       {
-        "date": "2026-05-27",
-        "value": 2.39
-      },
-      {
-        "date": "2026-05-26",
-        "value": 2.4
-      },
-      {
         "date": "2026-05-22",
         "value": 2.4
-      },
-      {
-        "date": "2026-05-21",
-        "value": 2.39
-      },
-      {
-        "date": "2026-05-20",
-        "value": 2.44
-      },
-      {
-        "date": "2026-05-19",
-        "value": 2.49
-      },
-      {
-        "date": "2026-05-18",
-        "value": 2.48
       }
     ],
     "UMCSENT": [
@@ -485,30 +329,6 @@
       {
         "date": "2025-09-01",
         "value": 55.1
-      },
-      {
-        "date": "2025-08-01",
-        "value": 58.2
-      },
-      {
-        "date": "2025-07-01",
-        "value": 61.7
-      },
-      {
-        "date": "2025-06-01",
-        "value": 60.7
-      },
-      {
-        "date": "2025-05-01",
-        "value": 52.2
-      },
-      {
-        "date": "2025-04-01",
-        "value": 52.2
-      },
-      {
-        "date": "2025-03-01",
-        "value": 57.0
       }
     ],
     "GS2": [
@@ -535,38 +355,6 @@
       {
         "date": "2025-12-01",
         "value": 3.5
-      },
-      {
-        "date": "2025-11-01",
-        "value": 3.55
-      },
-      {
-        "date": "2025-10-01",
-        "value": 3.52
-      },
-      {
-        "date": "2025-09-01",
-        "value": 3.57
-      },
-      {
-        "date": "2025-08-01",
-        "value": 3.7
-      },
-      {
-        "date": "2025-07-01",
-        "value": 3.88
-      },
-      {
-        "date": "2025-06-01",
-        "value": 3.89
-      },
-      {
-        "date": "2025-05-01",
-        "value": 3.92
-      },
-      {
-        "date": "2025-04-01",
-        "value": 3.78
       }
     ],
     "DCOILWTICO": [
@@ -597,35 +385,11 @@
       {
         "date": "2026-05-21",
         "value": 100.2
-      },
-      {
-        "date": "2026-05-20",
-        "value": 101.69
-      },
-      {
-        "date": "2026-05-19",
-        "value": 112.09
-      },
-      {
-        "date": "2026-05-18",
-        "value": 112.25
-      },
-      {
-        "date": "2026-05-15",
-        "value": 108.99
-      },
-      {
-        "date": "2026-05-14",
-        "value": 104.66
-      },
-      {
-        "date": "2026-05-13",
-        "value": 104.52
       }
     ]
   },
   "latest": {
-    "DEXJPUS": 159.23,
+    "DEXJPUS": 160.25,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.3,
     "CPIAUCSL": 332.407,
@@ -635,33 +399,39 @@
     "T10YIE": 2.36,
     "UMCSENT": 49.8,
     "GS2": 4.0,
-    "DCOILWTICO": 95.96
+    "DCOILWTICO": 95.96,
+    "VIX": 21.51,
+    "SP500": 7383.74
   },
   "prev_latest": {
     "DEXJPUS": 159.23,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.3,
-    "CPIAUCSL": 332.407,
-    "CPIFABSL": 345.197,
-    "AHETPI": 32.31,
-    "DGS10": 4.47,
-    "T10YIE": 2.36,
-    "UMCSENT": 49.8,
-    "GS2": 4.0,
-    "DCOILWTICO": 95.96
+    "CPIAUCSL": 330.293,
+    "CPIFABSL": 343.51,
+    "AHETPI": 32.23,
+    "DGS10": 4.46,
+    "T10YIE": 2.38,
+    "UMCSENT": 53.3,
+    "GS2": 3.8,
+    "DCOILWTICO": 91.16,
+    "VIX": 15.32,
+    "SP500": 7585.0
   },
   "deltas": {
-    "DEXJPUS": null,
-    "FEDFUNDS": null,
-    "UNRATE": null,
-    "CPIAUCSL": null,
-    "CPIFABSL": null,
-    "AHETPI": null,
-    "DGS10": null,
-    "T10YIE": null,
-    "UMCSENT": null,
-    "GS2": null,
-    "DCOILWTICO": null
+    "DEXJPUS": 1.02,
+    "FEDFUNDS": 0.0,
+    "UNRATE": 0.0,
+    "CPIAUCSL": 2.114,
+    "CPIFABSL": 1.687,
+    "AHETPI": 0.08,
+    "DGS10": 0.01,
+    "T10YIE": -0.02,
+    "UMCSENT": -3.5,
+    "GS2": 0.2,
+    "DCOILWTICO": 4.8,
+    "VIX": 6.19,
+    "SP500": -201.26
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -674,7 +444,9 @@
     "T10YIE": "green",
     "UMCSENT": "red",
     "GS2": "green",
-    "DCOILWTICO": "yellow"
+    "DCOILWTICO": "yellow",
+    "VIX": "red",
+    "SP500": "red"
   },
   "scores": {
     "DEXJPUS": 95,
@@ -683,42 +455,56 @@
     "CPIAUCSL": 50,
     "CPIFABSL": 52,
     "AHETPI": 80,
-    "DGS10": 80,
-    "T10YIE": 92,
+    "DGS10": 78,
+    "T10YIE": 93,
     "UMCSENT": 35,
     "GS2": 70,
-    "DCOILWTICO": 45
+    "DCOILWTICO": 45,
+    "VIX": 42,
+    "SP500": 55
   },
-  "koya_score": 70.2,
+  "koya_score": 71.4,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.470%",
+  "vix_note": "VIX=21.51 市場警戒ゾーン突破。通常<20が安定域。SOFA家族の消費慎重化リスクに注意。",
+  "sp500_note": "S&P500=7383.74 高値比▲2.6%下落中。米国株価下落→本国家族の資産効果低下。SOFA家族への波及は限定的。",
   "decision_triggers": [
     {
       "level": "green",
       "indicator": "koya総合スコア",
-      "message": "70/100 [GO] — 積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
+      "message": "71.4/100 [GO] — 積極展開フェーズ継続。USD高・SOFA購買力維持。"
     },
     {
       "level": "green",
       "indicator": "USD/JPY",
-      "message": "¥159.23 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
+      "message": "¥160.25 — 軍属購買力MAX水準。高単価メニュー・新規サービス投入に最適タイミング。"
     },
     {
       "level": "red",
+      "indicator": "VIX恐怖指数",
+      "message": "21.51 — 警戒ゾーン突破（>20）。市場不安定。本国SOFA家族の節約意識に注意。"
+    },
+    {
+      "level": "red",
+      "indicator": "S&P500",
+      "message": "7383.74 — 高値比▲2.6%下落。米国株式市場に調整圧力。本国の消費マインド低下に連動可能性。"
+    },
+    {
+      "level": "yellow",
       "indicator": "WTI原油",
-      "message": "$95.96/bbl — 高値。燃料・物流コスト上昇。価格転嫁を検討。"
+      "message": "$95.96/bbl — 高値継続。燃料・物流コスト上昇圧力。価格転嫁の検討を。"
     },
     {
       "level": "red",
       "indicator": "消費者信頼感",
-      "message": "49.8 — 低水準。「安心感・価値訴求」を前面に。"
+      "message": "UMCSENT=49.8 — 低水準継続。「本国比バリュー訴求」「安心感・価値」を前面に。"
     }
   ],
   "fetch_quality": {
-    "ok": 11,
-    "total": 11,
+    "ok": 13,
+    "total": 13,
     "results": {
-      "DEXJPUS": "ok",
+      "DEXJPUS": "ok(Yahoo)",
       "FEDFUNDS": "ok",
       "UNRATE": "ok",
       "CPIAUCSL": "ok",
@@ -728,7 +514,9 @@
       "T10YIE": "ok",
       "UMCSENT": "ok",
       "GS2": "ok",
-      "DCOILWTICO": "ok"
+      "DCOILWTICO": "ok",
+      "VIX": "ok(Yahoo)",
+      "SP500": "ok(Yahoo)"
     }
   }
 }
