@@ -979,7 +979,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v24';
+var CACHE_KEY = 'koya_v25';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1945,7 +1945,21 @@ document.getElementById('ref-btn').addEventListener('click',loadFresh);
 
 (function init(){
   var cached=cacheGet();
-  if(cached){ applyData(cached,false); renderOverview(); return; }
+  if(cached){
+    applyData(cached,false); renderOverview();
+    // キャッシュ使用時もfred-data.jsonを非同期フェッチしてkoyaスコアを即時更新
+    getDataJson().then(function(dj){
+      if(!dj) return;
+      S.koyaScore=typeof dj.koya_score==='number'?dj.koya_score:null;
+      S.koyaSignal=dj.koya_signal||null;
+      S.deltas=dj.deltas||{};
+      S.alerts=dj.alerts||{};
+      S.triggers=dj.decision_triggers||[];
+      if(S.koyaSignal) S.signal=S.koyaSignal;
+      updateSig();
+    });
+    return;
+  }
   loadFresh();
   setTimeout(function(){ if(document.getElementById('lo').style.display!=='none'){ var m=getMock(); m.fredVals=MOCK; applyData(m,true); renderOverview(); }},3500);
 })();
