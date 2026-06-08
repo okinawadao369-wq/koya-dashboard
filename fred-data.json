@@ -1,5 +1,21 @@
 {
-  "updated": "2026-06-08T00:59:58.214905Z",
+  "updated": "2026-06-08T01:20:01.832229Z",
+  "realtime": {
+    "USDJPY": {
+      "price": 160.283,
+      "change": -0.01,
+      "day_high": 160.358,
+      "day_low": 160.097,
+      "source": "Yahoo Finance (realtime)",
+      "ok": true
+    },
+    "WTI": {
+      "price": 92.33,
+      "change": 1.79,
+      "source": "Yahoo Finance (realtime)",
+      "ok": true
+    }
+  },
   "series": {
     "DEXJPUS": [
       {
@@ -617,6 +633,27 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 160.25,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.3,
+    "CPIAUCSL": 332.407,
+    "CPIFABSL": 345.197,
+    "AHETPI": 32.31,
+    "DGS10": 4.47,
+    "T10YIE": 2.36,
+    "UMCSENT": 49.8,
+    "GS2": 4.0,
+    "DCOILWTICO": 95.96,
+    "VIX": 21.51,
+    "SP500": 7383.74,
+    "DEXJPUS_RT": 160.283,
+    "DEXJPUS_RT_change": -0.01,
+    "DEXJPUS_RT_high": 160.358,
+    "DEXJPUS_RT_low": 160.097,
+    "DCOILWTICO_RT": 92.33,
+    "DCOILWTICO_RT_change": 1.79
+  },
+  "prev_latest": {
     "DEXJPUS": 160.32,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.3,
@@ -631,23 +668,8 @@
     "VIX": 21.51,
     "SP500": 7383.74
   },
-  "prev_latest": {
-    "DEXJPUS": 160.25,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.3,
-    "CPIAUCSL": 332.407,
-    "CPIFABSL": 345.197,
-    "AHETPI": 32.31,
-    "DGS10": 4.47,
-    "T10YIE": 2.36,
-    "UMCSENT": 49.8,
-    "GS2": 4.0,
-    "DCOILWTICO": 95.96,
-    "VIX": 21.51,
-    "SP500": 7383.74
-  },
   "deltas": {
-    "DEXJPUS": 0.07,
+    "DEXJPUS": -0.07,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -658,8 +680,7 @@
     "UMCSENT": null,
     "GS2": null,
     "DCOILWTICO": null,
-    "VIX": null,
-    "SP500": null
+    "DEXJPUS_RT": -0.01
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -672,9 +693,7 @@
     "T10YIE": "green",
     "UMCSENT": "red",
     "GS2": "green",
-    "DCOILWTICO": "yellow",
-    "VIX": "red",
-    "SP500": "yellow"
+    "DCOILWTICO": "yellow"
   },
   "scores": {
     "DEXJPUS": 95,
@@ -687,47 +706,38 @@
     "T10YIE": 92,
     "UMCSENT": 35,
     "GS2": 70,
-    "DCOILWTICO": 45,
-    "VIX": 42,
-    "SP500": 65
+    "DCOILWTICO": 45
   },
-  "koya_score": 68.8,
+  "koya_score": 70.2,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.470%",
-  "vix_note": "VIX=21.51 市場警戒(>20)",
-  "sp500_note": "S&P500=7383.74 delta=None",
   "decision_triggers": [
     {
       "level": "green",
       "indicator": "koya総合スコア",
-      "message": "69/100 [GO] — 積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
+      "message": "70/100 [GO] — 積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
       "level": "green",
-      "indicator": "USD/JPY",
-      "message": "¥160.32 — 軍属購買力MAX。高単価メニュー投入好機。"
+      "indicator": "USD/JPY(RT)",
+      "message": "¥160.28 Δ-0.01 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
     },
     {
       "level": "red",
-      "indicator": "VIX恐怖指数",
-      "message": "21.51 — 市場警戒ゾーン突破(>20)。本国節約意識上昇リスク。"
-    },
-    {
-      "level": "red",
-      "indicator": "WTI原油",
-      "message": "$95.96/bbl — 高値。燃料・物流コスト上昇。価格転嫁検討。"
+      "indicator": "WTI原油(RT)",
+      "message": "$92.33/bbl Δ+1.79 — 高値。燃料・物流コスト上昇。価格転嫁を検討。"
     },
     {
       "level": "red",
       "indicator": "消費者信頼感",
-      "message": "UMCSENT=49.8 — 低水準。本国比バリュー訴求を前面に。"
+      "message": "49.8 — 低水準。「安心感・価値訴求」を前面に。"
     }
   ],
   "fetch_quality": {
-    "ok": 13,
-    "total": 13,
+    "ok": 11,
+    "total": 11,
     "results": {
-      "DEXJPUS": "ok(Yahoo)",
+      "DEXJPUS": "ok",
       "FEDFUNDS": "ok",
       "UNRATE": "ok",
       "CPIAUCSL": "ok",
@@ -737,9 +747,7 @@
       "T10YIE": "ok",
       "UMCSENT": "ok",
       "GS2": "ok",
-      "DCOILWTICO": "ok",
-      "VIX": "ok(Yahoo)",
-      "SP500": "ok(Yahoo)"
+      "DCOILWTICO": "ok"
     }
   }
 }
