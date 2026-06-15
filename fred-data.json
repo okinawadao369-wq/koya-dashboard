@@ -653,7 +653,7 @@
     ]
   },
   "latest": {
-    "DEXJPUS": 160.25,
+    "DEXJPUS": 160.12,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.3,
     "CPIAUCSL": 333.979,
@@ -663,14 +663,14 @@
     "T10YIE": 2.31,
     "UMCSENT": 49.8,
     "GS2": 4.0,
-    "DCOILWTICO": 95.0,
+    "DCOILWTICO": 86.04,
     "VIX": 19.44,
     "SP500": 7394.3,
     "DEXJPUS_RT": 159.916,
     "DEXJPUS_RT_change": -0.269,
     "DEXJPUS_RT_high": 160.185,
     "DEXJPUS_RT_low": 159.702,
-    "DCOILWTICO_RT": 80.96,
+    "DCOILWTICO_RT": 86.04,
     "DCOILWTICO_RT_change": -3.92
   },
   "prev_latest": {
@@ -746,7 +746,7 @@
     {
       "level": "green",
       "indicator": "USD/JPY(RT)",
-      "message": "¥159.92 Δ-0.27 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
+      "message": "¥160.12 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
     },
     {
       "level": "yellow",
