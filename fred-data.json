@@ -1,17 +1,17 @@
 {
-  "updated": "2026-06-14T00:09:16.507232Z",
+  "updated": "2026-06-15T00:10:10.271704Z",
   "realtime": {
     "USDJPY": {
-      "price": 160.185,
-      "change": 0.27,
+      "price": 159.916,
+      "change": -0.269,
       "day_high": 160.185,
-      "day_low": 160.185,
+      "day_low": 159.702,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     },
     "WTI": {
-      "price": 84.88,
-      "change": -2.83,
+      "price": 80.96,
+      "change": -3.92,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     }
@@ -666,12 +666,12 @@
     "DCOILWTICO": 95.0,
     "VIX": 19.44,
     "SP500": 7394.3,
-    "DEXJPUS_RT": 160.185,
-    "DEXJPUS_RT_change": 0.27,
+    "DEXJPUS_RT": 159.916,
+    "DEXJPUS_RT_change": -0.269,
     "DEXJPUS_RT_high": 160.185,
-    "DEXJPUS_RT_low": 160.185,
-    "DCOILWTICO_RT": 84.88,
-    "DCOILWTICO_RT_change": -2.83
+    "DEXJPUS_RT_low": 159.702,
+    "DCOILWTICO_RT": 80.96,
+    "DCOILWTICO_RT_change": -3.92
   },
   "prev_latest": {
     "DEXJPUS": 160.25,
@@ -689,10 +689,10 @@
     "SP500": 7394.3,
     "DEXJPUS_RT": 160.185,
     "DEXJPUS_RT_change": 0.27,
-    "DEXJPUS_RT_high": 160.377,
-    "DEXJPUS_RT_low": 159.897,
-    "DCOILWTICO_RT": 84.29,
-    "DCOILWTICO_RT_change": -3.42
+    "DEXJPUS_RT_high": 160.185,
+    "DEXJPUS_RT_low": 160.185,
+    "DCOILWTICO_RT": 84.88,
+    "DCOILWTICO_RT_change": -2.83
   },
   "deltas": {
     "DEXJPUS": null,
@@ -706,7 +706,7 @@
     "UMCSENT": null,
     "GS2": null,
     "DCOILWTICO": null,
-    "DEXJPUS_RT": 0.27
+    "DEXJPUS_RT": -0.269
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -746,12 +746,12 @@
     {
       "level": "green",
       "indicator": "USD/JPY(RT)",
-      "message": "¥160.19 Δ+0.27 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
+      "message": "¥159.92 Δ-0.27 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
     },
     {
       "level": "yellow",
       "indicator": "WTI原油(RT)",
-      "message": "$84.88/bbl Δ-2.83 — やや高め。生活費上昇分を価格説明に活用。"
+      "message": "$80.96/bbl Δ-3.92 — やや高め。生活費上昇分を価格説明に活用。"
     },
     {
       "level": "red",
