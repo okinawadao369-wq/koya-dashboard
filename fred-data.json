@@ -1,23 +1,39 @@
 {
-  "updated": "2026-06-15T00:10:10.271704Z",
+  "updated": "2026-06-16T00:09:28.950965Z",
   "realtime": {
     "USDJPY": {
-      "price": 159.916,
-      "change": -0.269,
-      "day_high": 160.185,
-      "day_low": 159.702,
+      "price": 160.256,
+      "change": -0.072,
+      "day_high": 160.357,
+      "day_low": 160.215,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     },
     "WTI": {
-      "price": 80.96,
-      "change": -3.92,
+      "price": 81.48,
+      "change": 0.73,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     }
   },
   "series": {
     "DEXJPUS": [
+      {
+        "date": "2026-06-12",
+        "value": 160.24
+      },
+      {
+        "date": "2026-06-11",
+        "value": 160.51
+      },
+      {
+        "date": "2026-06-10",
+        "value": 160.47
+      },
+      {
+        "date": "2026-06-09",
+        "value": 160.23
+      },
       {
         "date": "2026-06-08",
         "value": 160.25
@@ -57,22 +73,6 @@
       {
         "date": "2026-05-26",
         "value": 159.36
-      },
-      {
-        "date": "2026-05-22",
-        "value": 159.2
-      },
-      {
-        "date": "2026-05-21",
-        "value": 159.16
-      },
-      {
-        "date": "2026-05-20",
-        "value": 158.84
-      },
-      {
-        "date": "2026-05-19",
-        "value": 159.11
       }
     ],
     "FEDFUNDS": [
@@ -363,6 +363,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-06-12",
+        "value": 4.48
+      },
+      {
         "date": "2026-06-11",
         "value": 4.45
       },
@@ -413,13 +417,13 @@
       {
         "date": "2026-05-26",
         "value": 4.5
-      },
-      {
-        "date": "2026-05-22",
-        "value": 4.56
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-06-15",
+        "value": 2.32
+      },
       {
         "date": "2026-06-12",
         "value": 2.31
@@ -471,10 +475,6 @@
       {
         "date": "2026-05-27",
         "value": 2.39
-      },
-      {
-        "date": "2026-05-26",
-        "value": 2.4
       }
     ],
     "UMCSENT": [
@@ -653,6 +653,27 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 160.24,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.3,
+    "CPIAUCSL": 333.979,
+    "CPIFABSL": 345.715,
+    "AHETPI": 32.31,
+    "DGS10": 4.48,
+    "T10YIE": 2.32,
+    "UMCSENT": 49.8,
+    "GS2": 4.0,
+    "DCOILWTICO": 95.0,
+    "VIX": 19.44,
+    "SP500": 7394.3,
+    "DEXJPUS_RT": 160.256,
+    "DEXJPUS_RT_change": -0.072,
+    "DEXJPUS_RT_high": 160.357,
+    "DEXJPUS_RT_low": 160.215,
+    "DCOILWTICO_RT": 81.48,
+    "DCOILWTICO_RT_change": 0.73
+  },
+  "prev_latest": {
     "DEXJPUS": 160.12,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.3,
@@ -673,40 +694,19 @@
     "DCOILWTICO_RT": 86.04,
     "DCOILWTICO_RT_change": -3.92
   },
-  "prev_latest": {
-    "DEXJPUS": 160.25,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.3,
-    "CPIAUCSL": 333.979,
-    "CPIFABSL": 345.715,
-    "AHETPI": 32.31,
-    "DGS10": 4.45,
-    "T10YIE": 2.31,
-    "UMCSENT": 49.8,
-    "GS2": 4.0,
-    "DCOILWTICO": 95.0,
-    "VIX": 19.44,
-    "SP500": 7394.3,
-    "DEXJPUS_RT": 160.185,
-    "DEXJPUS_RT_change": 0.27,
-    "DEXJPUS_RT_high": 160.185,
-    "DEXJPUS_RT_low": 160.185,
-    "DCOILWTICO_RT": 84.88,
-    "DCOILWTICO_RT_change": -2.83
-  },
   "deltas": {
-    "DEXJPUS": null,
+    "DEXJPUS": 0.12,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": null,
-    "T10YIE": null,
+    "DGS10": 0.03,
+    "T10YIE": 0.01,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": null,
-    "DEXJPUS_RT": -0.269
+    "DCOILWTICO": 8.96,
+    "DEXJPUS_RT": -0.072
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -736,7 +736,7 @@
   },
   "koya_score": 74.0,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+0.450%",
+  "spread_dgs10_gs2": "+0.480%",
   "decision_triggers": [
     {
       "level": "green",
@@ -746,12 +746,12 @@
     {
       "level": "green",
       "indicator": "USD/JPY(RT)",
-      "message": "¥160.12 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
+      "message": "¥160.26 Δ-0.07 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
     },
     {
       "level": "yellow",
       "indicator": "WTI原油(RT)",
-      "message": "$80.96/bbl Δ-3.92 — やや高め。生活費上昇分を価格説明に活用。"
+      "message": "$81.48/bbl Δ+0.73 — やや高め。生活費上昇分を価格説明に活用。"
     },
     {
       "level": "red",
