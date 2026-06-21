@@ -1,11 +1,11 @@
 {
-  "updated": "2026-06-20T00:09:39.070834Z",
+  "updated": "2026-06-21T02:00:44.532297Z",
   "realtime": {
     "USDJPY": {
-      "price": 161.28,
-      "change": -0.068,
-      "day_high": 161.459,
-      "day_low": 160.976,
+      "price": 161.275,
+      "change": -0.073,
+      "day_high": 161.275,
+      "day_low": 161.275,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     },
@@ -666,10 +666,10 @@
     "DCOILWTICO": 84.65,
     "VIX": 19.44,
     "SP500": 7394.3,
-    "DEXJPUS_RT": 161.28,
-    "DEXJPUS_RT_change": -0.068,
-    "DEXJPUS_RT_high": 161.459,
-    "DEXJPUS_RT_low": 160.976,
+    "DEXJPUS_RT": 161.275,
+    "DEXJPUS_RT_change": -0.073,
+    "DEXJPUS_RT_high": 161.275,
+    "DEXJPUS_RT_low": 161.275,
     "DCOILWTICO_RT": 76.54,
     "DCOILWTICO_RT_change": 0.69
   },
@@ -687,12 +687,12 @@
     "DCOILWTICO": 84.65,
     "VIX": 19.44,
     "SP500": 7394.3,
-    "DEXJPUS_RT": 161.226,
-    "DEXJPUS_RT_change": -0.122,
-    "DEXJPUS_RT_high": 161.429,
-    "DEXJPUS_RT_low": 161.164,
-    "DCOILWTICO_RT": 75.42,
-    "DCOILWTICO_RT_change": -0.43
+    "DEXJPUS_RT": 161.28,
+    "DEXJPUS_RT_change": -0.068,
+    "DEXJPUS_RT_high": 161.459,
+    "DEXJPUS_RT_low": 160.976,
+    "DCOILWTICO_RT": 76.54,
+    "DCOILWTICO_RT_change": 0.69
   },
   "deltas": {
     "DEXJPUS": null,
@@ -706,7 +706,7 @@
     "UMCSENT": null,
     "GS2": null,
     "DCOILWTICO": null,
-    "DEXJPUS_RT": -0.068
+    "DEXJPUS_RT": -0.073
   },
   "alerts": {
     "DEXJPUS": "green",
