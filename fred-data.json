@@ -1,17 +1,17 @@
 {
-  "updated": "2026-06-21T02:00:44.532297Z",
+  "updated": "2026-06-22T00:09:45.151008Z",
   "realtime": {
     "USDJPY": {
-      "price": 161.275,
-      "change": -0.073,
-      "day_high": 161.275,
-      "day_low": 161.275,
+      "price": 161.488,
+      "change": 0.208,
+      "day_high": 161.519,
+      "day_low": 161.14,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     },
     "WTI": {
-      "price": 76.54,
-      "change": 0.69,
+      "price": 77.64,
+      "change": 1.79,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     }
@@ -666,12 +666,12 @@
     "DCOILWTICO": 84.65,
     "VIX": 19.44,
     "SP500": 7394.3,
-    "DEXJPUS_RT": 161.275,
-    "DEXJPUS_RT_change": -0.073,
-    "DEXJPUS_RT_high": 161.275,
-    "DEXJPUS_RT_low": 161.275,
-    "DCOILWTICO_RT": 76.54,
-    "DCOILWTICO_RT_change": 0.69
+    "DEXJPUS_RT": 161.488,
+    "DEXJPUS_RT_change": 0.208,
+    "DEXJPUS_RT_high": 161.519,
+    "DEXJPUS_RT_low": 161.14,
+    "DCOILWTICO_RT": 77.64,
+    "DCOILWTICO_RT_change": 1.79
   },
   "prev_latest": {
     "DEXJPUS": 160.24,
@@ -687,10 +687,10 @@
     "DCOILWTICO": 84.65,
     "VIX": 19.44,
     "SP500": 7394.3,
-    "DEXJPUS_RT": 161.28,
-    "DEXJPUS_RT_change": -0.068,
-    "DEXJPUS_RT_high": 161.459,
-    "DEXJPUS_RT_low": 160.976,
+    "DEXJPUS_RT": 161.275,
+    "DEXJPUS_RT_change": -0.073,
+    "DEXJPUS_RT_high": 161.275,
+    "DEXJPUS_RT_low": 161.275,
     "DCOILWTICO_RT": 76.54,
     "DCOILWTICO_RT_change": 0.69
   },
@@ -706,7 +706,7 @@
     "UMCSENT": null,
     "GS2": null,
     "DCOILWTICO": null,
-    "DEXJPUS_RT": -0.073
+    "DEXJPUS_RT": 0.208
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -746,12 +746,12 @@
     {
       "level": "green",
       "indicator": "USD/JPY(RT)",
-      "message": "¥161.28 Δ-0.07 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
+      "message": "¥161.49 Δ+0.21 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
     },
     {
       "level": "green",
       "indicator": "WTI原油(RT)",
-      "message": "$76.54/bbl Δ+0.69 — 安定。可処分所得への圧力なし。"
+      "message": "$77.64/bbl Δ+1.79 — 安定。可処分所得への圧力なし。"
     },
     {
       "level": "red",
