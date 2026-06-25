@@ -1,17 +1,17 @@
 {
-  "updated": "2026-06-24T00:10:18.131179Z",
+  "updated": "2026-06-25T00:09:10.296140Z",
   "realtime": {
     "USDJPY": {
-      "price": 161.548,
-      "change": 0.015,
-      "day_high": 161.609,
-      "day_low": 161.465,
+      "price": 161.743,
+      "change": -0.007,
+      "day_high": 161.791,
+      "day_low": 161.689,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     },
     "WTI": {
-      "price": 72.67,
-      "change": -0.54,
+      "price": 69.99,
+      "change": -0.35,
       "source": "Yahoo Finance (realtime)",
       "ok": true
     }
@@ -363,6 +363,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-06-23",
+        "value": 4.5
+      },
+      {
         "date": "2026-06-22",
         "value": 4.51
       },
@@ -413,13 +417,13 @@
       {
         "date": "2026-06-03",
         "value": 4.49
-      },
-      {
-        "date": "2026-06-02",
-        "value": 4.46
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-06-24",
+        "value": 2.18
+      },
       {
         "date": "2026-06-23",
         "value": 2.21
@@ -471,10 +475,6 @@
       {
         "date": "2026-06-04",
         "value": 2.36
-      },
-      {
-        "date": "2026-06-03",
-        "value": 2.38
       }
     ],
     "UMCSENT": [
@@ -595,6 +595,22 @@
     ],
     "DCOILWTICO": [
       {
+        "date": "2026-06-22",
+        "value": 78.94
+      },
+      {
+        "date": "2026-06-18",
+        "value": 80.35
+      },
+      {
+        "date": "2026-06-17",
+        "value": 80.65
+      },
+      {
+        "date": "2026-06-16",
+        "value": 79.8
+      },
+      {
         "date": "2026-06-15",
         "value": 84.65
       },
@@ -633,26 +649,29 @@
       {
         "date": "2026-06-02",
         "value": 97.47
-      },
-      {
-        "date": "2026-06-01",
-        "value": 95.96
-      },
-      {
-        "date": "2026-05-29",
-        "value": 91.16
-      },
-      {
-        "date": "2026-05-28",
-        "value": 92.65
-      },
-      {
-        "date": "2026-05-27",
-        "value": 92.35
       }
     ]
   },
   "latest": {
+    "DEXJPUS": 161.37,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.3,
+    "CPIAUCSL": 333.979,
+    "CPIFABSL": 345.715,
+    "AHETPI": 32.31,
+    "DGS10": 4.5,
+    "T10YIE": 2.18,
+    "UMCSENT": 49.8,
+    "GS2": 4.0,
+    "DCOILWTICO": 78.94,
+    "DEXJPUS_RT": 161.743,
+    "DEXJPUS_RT_change": -0.007,
+    "DEXJPUS_RT_high": 161.791,
+    "DEXJPUS_RT_low": 161.689,
+    "DCOILWTICO_RT": 69.99,
+    "DCOILWTICO_RT_change": -0.35
+  },
+  "prev_latest": {
     "DEXJPUS": 161.37,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.3,
@@ -671,25 +690,6 @@
     "DCOILWTICO_RT": 72.67,
     "DCOILWTICO_RT_change": -0.54
   },
-  "prev_latest": {
-    "DEXJPUS": 161.37,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.3,
-    "CPIAUCSL": 333.979,
-    "CPIFABSL": 345.715,
-    "AHETPI": 32.31,
-    "DGS10": 4.46,
-    "T10YIE": 2.23,
-    "UMCSENT": 49.8,
-    "GS2": 4.0,
-    "DCOILWTICO": 84.65,
-    "DEXJPUS_RT": 161.546,
-    "DEXJPUS_RT_change": 0.03,
-    "DEXJPUS_RT_high": 161.64,
-    "DEXJPUS_RT_low": 161.487,
-    "DCOILWTICO_RT": 74.13,
-    "DCOILWTICO_RT_change": 0.27
-  },
   "deltas": {
     "DEXJPUS": null,
     "FEDFUNDS": null,
@@ -697,12 +697,12 @@
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": 0.05,
-    "T10YIE": -0.02,
+    "DGS10": -0.01,
+    "T10YIE": -0.03,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": null,
-    "DEXJPUS_RT": 0.015
+    "DCOILWTICO": -5.71,
+    "DEXJPUS_RT": -0.007
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -711,7 +711,7 @@
     "CPIAUCSL": "yellow",
     "CPIFABSL": "yellow",
     "AHETPI": "green",
-    "DGS10": "yellow",
+    "DGS10": "green",
     "T10YIE": "green",
     "UMCSENT": "red",
     "GS2": "green",
@@ -724,30 +724,30 @@
     "CPIAUCSL": 50,
     "CPIFABSL": 52,
     "AHETPI": 80,
-    "DGS10": 60,
+    "DGS10": 80,
     "T10YIE": 92,
     "UMCSENT": 35,
     "GS2": 70,
-    "DCOILWTICO": 85
+    "DCOILWTICO": 100
   },
-  "koya_score": 75.4,
+  "koya_score": 78.5,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+0.510%",
+  "spread_dgs10_gs2": "+0.500%",
   "decision_triggers": [
     {
       "level": "green",
       "indicator": "koya総合スコア",
-      "message": "75/100 [GO] — 積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
+      "message": "78/100 [GO] — 積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
       "level": "green",
       "indicator": "USD/JPY(RT)",
-      "message": "¥161.55 Δ+0.01 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
+      "message": "¥161.74 Δ-0.01 — 軍属購買力ゾーン（高）。高単価オプション積極投入。"
     },
     {
       "level": "green",
       "indicator": "WTI原油(RT)",
-      "message": "$72.67/bbl Δ-0.54 — 安定。可処分所得への圧力なし。"
+      "message": "$69.99/bbl Δ-0.35 — 安定。可処分所得への圧力なし。"
     },
     {
       "level": "red",
