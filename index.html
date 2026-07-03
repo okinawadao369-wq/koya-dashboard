@@ -1079,7 +1079,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v33';
+var CACHE_KEY = 'koya_v34';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1357,6 +1357,13 @@ function fredFetch(sid,limit){
       var arr = dj.series[sid].slice(0,limit);
       return arr;
     }
+    // 1b. Use latest value from data.json to build synthetic history (series is empty)
+    if(dj && dj.latest && typeof dj.latest[sid]==='number'){
+      var base=dj.latest[sid];
+      var byMonth=(sid==='FEDFUNDS'||sid==='UNRATE'||sid==='GS2'||sid==='DGS10'||sid==='T10YIE'||sid==='UMCSENT'||sid==='AHETPI');
+      var spread=sid==='DEXJPUS'?1.5:(sid==='SP500'?50:(sid==='VIX'?1:(byMonth?0.03:0.5)));
+      return Promise.resolve(mockHistory(base,spread,limit,byMonth));
+    }
     // 2. Fallback: try live proxies
     var url='https://api.stlouisfed.org/fred/series/observations?series_id='+sid+'&api_key='+FRED_KEY+'&limit='+limit+'&sort_order=desc&file_type=json';
     var enc=encodeURIComponent(url);
@@ -1496,8 +1503,8 @@ function updateSig(){
 
 function updateOverviewCards(){
   var fx=S.fx; var ff=S.ff; var ur=S.ur;
-  document.getElementById('ov-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
-  document.getElementById('ov-ff').textContent=ff!==null?ff.toFixed(2)+'%':'--';
+  document.getElementById('ov-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'¥'+(MOCK.DEXJPUS||161.34).toFixed(2);
+  document.getElementById('ov-ff').textContent=ff!==null?ff.toFixed(2)+'%':(MOCK.FEDFUNDS||3.63).toFixed(2)+'%';
   var urDisp=ur!==null?ur:(MOCK.UNRATE||4.3);
   document.getElementById('ov-ur').textContent=urDisp.toFixed(1)+'%'+(ur===null?' *':'');
   document.getElementById('ov-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'$32.23';
@@ -1517,6 +1524,9 @@ function updateOverviewCards(){
     var el=document.getElementById('ov-fxchg');
     el.textContent=(chg>=0?'+':'')+chg.toFixed(2)+' (前日比)';
     el.className='c-chg '+(chg>=0?'up':'dn');
+  } else {
+    var el=document.getElementById('ov-fxchg');
+    if(el) { el.textContent='FRED最新値'; el.className='c-chg'; }
   }
 }
 
@@ -2022,7 +2032,7 @@ function loadFresh(){
     if(res[4]&&res[4].length){ fredVals['AHETPI']=res[4][0].value; }
     var data;
     if(!anyReal){
-      var m=getMock(); data=m; data.fredVals=MOCK; applyData(data,true); return;
+      var m=getMock(); data=m; data.fredVals=MOCK; applyData(data,true); if(!RD.overview) renderOverview(); return;
     }
     // Sync live history latest values → fredVals
     if(res[0]&&res[0].length){ var fxArr=res[0].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['DEXJPUS']=fxArr[fxArr.length-1].value; }
@@ -2036,9 +2046,9 @@ function loadFresh(){
     // Fill mock for remaining missing FRED vals
     series.forEach(function(s){ if(!fredVals[s]) fredVals[s]=MOCK[s]; });
     data.fredVals=fredVals;
-    cacheSet(data); applyData(data,false);
+    cacheSet(data); applyData(data,false); if(!RD.overview) renderOverview();
   }).catch(function(){
-    var m=getMock(); m.fredVals=MOCK; applyData(m,true);
+    var m=getMock(); m.fredVals=MOCK; applyData(m,true); if(!RD.overview) renderOverview();
   });
 }
 
@@ -2062,7 +2072,7 @@ document.getElementById('ref-btn').addEventListener('click',loadFresh);
     return;
   }
   loadFresh();
-  setTimeout(function(){ if(document.getElementById('lo').style.display!=='none'){ var m=getMock(); m.fredVals=MOCK; applyData(m,true); renderOverview(); }},3500);
+  setTimeout(function(){ if(!RD.overview){ var m=getMock(); m.fredVals=MOCK; applyData(m,true); renderOverview(); }},3500);
 })();
 
 // ════════════════════════════════════════════════
