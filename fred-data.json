@@ -791,23 +791,33 @@
   "decision_triggers": [
     {
       "level": "green",
-      "text": "koya総合スコア 79/100 [GO] — 積極展開フェーズ。7月PCS転入ピーク・新規獲得最大チャンス。"
+      "indicator": "koya総合スコア 79/100 [GO]",
+      "message": "積極展開フェーズ。7月PCS転入ピーク・新規獲得最大チャンス。"
     },
     {
       "level": "green",
-      "text": "USD/JPY ¥161.337 — 軍属購買力MAX水準。高単価メニュー投入好機。"
+      "indicator": "USD/JPY ¥161.337",
+      "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
       "level": "yellow",
-      "text": "VIX恐怖指数 15.81 — 通常範囲内(15.81<20)。市場安定・購買行動平常通り。"
+      "indicator": "VIX恐怖指数 15.81",
+      "message": "通常範囲内(15.81<20)。市場安定・購買行動平常通り。"
     },
     {
       "level": "green",
-      "text": "S&P500 7,483 — 良好水準。本国資産効果継続。"
+      "indicator": "S&P500 7,483",
+      "message": "良好水準。本国資産効果継続。"
     },
     {
       "level": "red",
-      "text": "消費者信頼感 44.8 — 2016年以来低水準。節約意識高め。安心感・価値訴求を重視。"
+      "indicator": "消費者信頼感 44.8",
+      "message": "2016年以来低水準。節約意識高め。安心感・価値訴求を重視。"
+    },
+    {
+      "level": "green",
+      "indicator": "WTI原油 $68.78",
+      "message": "低位安定。ガソリン・生活費圧力なし。可処分所得に余裕。"
     }
   ],
   "data_version": "v34",
