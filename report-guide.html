@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毎朝レポートの読み方 | Family Tree Oki スタッフガイド</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #FDF9F6;
+    color: #5A4035;
+    line-height: 1.65;
+  }
+
+  /* ─── HEADER ─── */
+  .hero {
+    background: linear-gradient(135deg, #7B5C44 0%, #A87B5A 60%, #C4956A 100%);
+    color: white;
+    padding: 48px 32px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -40px;
+    width: 200px; height: 200px;
+    background: rgba(240,168,112,0.15);
+    border-radius: 50%;
+  }
+  .logo-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    border-radius: 32px;
+    padding: 8px 22px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    margin-bottom: 22px;
+    font-family: Georgia, serif;
+  }
+  .hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: normal;
+    margin-bottom: 14px;
+  }
+  .hero p {
+    font-size: 14px;
+    opacity: 0.88;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .hero-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .hero-badge {
+    background: rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+
+  /* ─── MAIN LAYOUT ─── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* ─── SECTION ─── */
+  .section { margin-top: 52px; }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: #C4A090;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: Georgia, serif;
+    font-size: clamp(18px, 4vw, 24px);
+    color: #7B5C44;
+    margin-bottom: 6px;
+  }
+  .section-sub {
+    font-size: 13px;
+    color: #A87B5A;
+    margin-bottom: 28px;
+  }
+
+  /* ─── WHAT IS ─── */
+  .what-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .what-card {
+    background: white;
+    border: 1px solid #EDD8C8;
+    border-radius: 14px;
+    padding: 24px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .what-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .what-card.green::before { background: #8FAF3A; }
+  .what-card.rose::before  { background: #E8A0BC; }
+  .what-card.blue::before  { background: #7DB8E0; }
+  .what-num {
+    font-size: 36px;
+    font-family: Georgia, serif;
+    opacity: 0.12;
+    position: absolute;
+    top: 12px; right: 16px;
+  }
+  .what-icon { font-size: 28px; margin-bottom: 12px; }
+  .what-card h3 {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    color: #7B5C44;
+    margin-bottom: 8px;
+  }
+  .what-card p { font-size: 13px; color: #6B5048; }
+
+  /* ─── SIGNAL TRAFFIC LIGHT ─── */
+  .signal-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 4px;
+  }
+  .signal-card {
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .signal-card.go   { background: linear-gradient(145deg, #F2FAEC, #E8F5D8); border: 2px solid #8FAF3A; }
+  .signal-card.watch{ background: linear-gradient(145deg, #FFF9EC, #FFF0D0); border: 2px solid #F0A870; }
+  .signal-card.hold { background: linear-gradient(145deg, #FFF0F3, #FFE4E8); border: 2px solid #E8A0BC; }
+  .signal-dot {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    margin: 0 auto 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+  .signal-card.go   .signal-dot { background: #8FAF3A; }
+  .signal-card.watch .signal-dot { background: #F0A870; }
+  .signal-card.hold  .signal-dot { background: #E8A0BC; }
+  .signal-label {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  .signal-card.go   .signal-label { color: #5A7A1A; }
+  .signal-card.watch .signal-label { color: #A06010; }
+  .signal-card.hold  .signal-label { color: #9A3060; }
+  .signal-score {
+    font-size: 12px;
+    margin-bottom: 14px;
+    opacity: 0.75;
+  }
+  .signal-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #5A4035;
+  }
+  .signal-action {
+    margin-top: 16px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 12px;
+    text-align: left;
+    color: #5A4035;
+  }
+  .signal-action strong { display: block; margin-bottom: 6px; font-size: 11px; letter-spacing: 0.1em; color: #A87B5A; text-transform: uppercase; }
+
+  /* ─── INDICATORS ─── */
+  .indicator-list { display: flex; flex-direction: column; gap: 14px; }
+  .ind-card {
+    background: white;
+    border: 1px solid #EDD8C8;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 52px 1fr 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  @media (max-width: 600px) {
+    .ind-card { grid-template-columns: 42px 1fr; }
+    .ind-right { grid-column: 2; }
+  }
+  .ind-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .ind-icon.gold   { background: #FFF8E8; }
+  .ind-icon.green  { background: #F2FAEC; }
+  .ind-icon.blue   { background: #EDF5FF; }
+  .ind-icon.rose   { background: #FFF0F5; }
+  .ind-icon.peach  { background: #FFF4EE; }
+  .ind-left h4 {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: #7B5C44;
+    margin-bottom: 4px;
+  }
+  .ind-left .ind-name-en {
+    font-size: 10px;
+    color: #C4A090;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .ind-center { }
+  .ind-center .ind-plain {
+    font-size: 13px;
+    color: #5A4035;
+    margin-bottom: 8px;
+  }
+  .ind-center .ind-plain strong { color: #7B5C44; }
+  .ind-right {
+    background: #FDF9F6;
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .ind-right .ir-title {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: #C4A090;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .meter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: #6B5048;
+  }
+  .meter-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-green { background: #8FAF3A; }
+  .dot-yellow { background: #F0A870; }
+  .dot-red { background: #E8A0BC; }
+
+  /* ─── 3 STEPS ─── */
+  .steps-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .step-card {
+    background: white;
+    border: 1px solid #EDD8C8;
+    border-radius: 14px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .step-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #7B5C44;
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .step-time {
+    display: inline-block;
+    background: #FFF0F5;
+    color: #C4708C;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  .step-card h3 {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    color: #7B5C44;
+    margin-bottom: 10px;
+  }
+  .step-card p { font-size: 13px; color: #6B5048; }
+  .step-card .step-focus {
+    margin-top: 14px;
+    background: #FDF9F6;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+    text-align: left;
+    color: #7B5C44;
+  }
+  .step-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #C4A090;
+    padding-top: 20px;
+  }
+
+  /* ─── BENEFIT ─── */
+  .benefit-banner {
+    background: linear-gradient(135deg, #7B5C44 0%, #A87B5A 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 36px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+  @media (max-width: 600px) {
+    .benefit-banner { grid-template-columns: 1fr; }
+  }
+  .benefit-left h2 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    margin-bottom: 12px;
+    font-weight: normal;
+  }
+  .benefit-left p { font-size: 13px; opacity: 0.88; line-height: 1.7; }
+  .benefit-right { display: flex; flex-direction: column; gap: 14px; }
+  .benefit-item {
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .benefit-item .bi-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .benefit-item h4 { font-size: 13px; margin-bottom: 3px; }
+  .benefit-item p { font-size: 12px; opacity: 0.8; }
+
+  /* ─── ALERT TABLE ─── */
+  .alert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .alert-item {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #EDD8C8;
+    padding: 18px;
+    border-left-width: 4px;
+  }
+  .alert-item.a-green { border-left-color: #8FAF3A; }
+  .alert-item.a-yellow { border-left-color: #F0A870; }
+  .alert-item.a-red   { border-left-color: #E8A0BC; }
+  .alert-item .al-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+  .a-green .al-badge { background: #F2FAEC; color: #5A7A1A; }
+  .a-yellow .al-badge { background: #FFF8E8; color: #A06010; }
+  .a-red .al-badge   { background: #FFF0F5; color: #9A3060; }
+  .alert-item h4 { font-family: Georgia, serif; font-size: 14px; color: #7B5C44; margin-bottom: 6px; }
+  .alert-item p { font-size: 12px; color: #6B5048; }
+
+  /* ─── QA ─── */
+  .qa-list { display: flex; flex-direction: column; gap: 16px; }
+  .qa-item {
+    background: white;
+    border: 1px solid #EDD8C8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .qa-q {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: #7B5C44;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .qa-q .q-tag {
+    background: #7B5C44;
+    color: white;
+    border-radius: 6px;
+    padding: 1px 8px;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .qa-a {
+    font-size: 13px;
+    color: #6B5048;
+    padding-left: 36px;
+  }
+  .qa-a strong { color: #7B5C44; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #EDD8C8, transparent);
+    margin: 14px 0;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: #7B5C44;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 12px;
+    margin-top: 60px;
+  }
+  .footer strong { color: white; }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight-box {
+    background: linear-gradient(135deg, #FFF5EE, #FFF0F5);
+    border: 1px solid #EDD8C8;
+    border-radius: 14px;
+    padding: 24px 24px;
+    margin-bottom: 28px;
+  }
+  .highlight-box h3 {
+    font-family: Georgia, serif;
+    color: #7B5C44;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  .highlight-box p { font-size: 13px; color: #6B5048; }
+
+  /* ─── CURRENT VALUE BOX ─── */
+  .today-box {
+    background: linear-gradient(135deg, #F2FAEC, #E8F5D8);
+    border: 1.5px solid #8FAF3A;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .today-icon { font-size: 32px; }
+  .today-content h3 {
+    font-family: Georgia, serif;
+    color: #5A7A1A;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .today-content p { font-size: 13px; color: #5A7A1A; }
+  .today-score {
+    margin-left: auto;
+    text-align: center;
+    background: #8FAF3A;
+    color: white;
+    border-radius: 12px;
+    padding: 10px 20px;
+    min-width: 100px;
+  }
+  .today-score .ts-num {
+    font-family: Georgia, serif;
+    font-size: 26px;
+    font-weight: bold;
+  }
+  .today-score .ts-label { font-size: 11px; opacity: 0.9; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="logo-badge">🌳 Family Tree Oki — スタッフ専用</div>
+  <h1>毎朝レポートの読み方ガイド</h1>
+  <p>毎朝9時に届く「経営インテリジェンスレポート」を<br>誰でも3分で理解できるガイドです</p>
+  <div class="hero-badges">
+    <span class="hero-badge">📊 難しい経済指標を接客言語に翻訳</span>
+    <span class="hero-badge">⏱ 毎朝30秒でOK</span>
+    <span class="hero-badge">🎯 今日やることがすぐわかる</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TODAY STATUS -->
+  <div class="section">
+    <div class="today-box">
+      <div class="today-icon">✅</div>
+      <div class="today-content">
+        <h3>2026年7月4日 本日のシグナル</h3>
+        <p>USD/JPY ¥161.3 · VIX 15.81(安定) · S&P500 7,483 · WTI $68.78</p>
+      </div>
+      <div class="today-score">
+        <div class="ts-num">78.6</div>
+        <div class="ts-label">🟢 GO — 積極展開</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT IS -->
+  <div class="section">
+    <div class="section-label">このレポートとは</div>
+    <div class="section-title">なぜ毎朝このレポートが届くの？</div>
+    <div class="section-sub">Family Tree Okiのお客様は在沖米軍軍属のアメリカ人ご家族。アメリカの経済状況が直接お財布と気持ちに影響します。</div>
+
+    <div class="what-grid">
+      <div class="what-card green">
+        <div class="what-num">1</div>
+        <div class="what-icon">💱</div>
+        <h3>お客様の「今日のお財布」がわかる</h3>
+        <p>円とドルの関係や、アメリカの株・消費者気分が毎日変わります。今日お客様がどのくらい「気前がよいか」「節約モードか」が数字でわかります。</p>
+      </div>
+      <div class="what-card rose">
+        <div class="what-num">2</div>
+        <div class="what-icon">🎯</div>
+        <h3>「今日のベストな接客方針」がわかる</h3>
+        <p>「今日はアップセルのチャンス」「今日は安心感を重視」など、具体的な接客スタンスを毎朝教えてくれます。感覚ではなくデータで動けます。</p>
+      </div>
+      <div class="what-card blue">
+        <div class="what-num">3</div>
+        <div class="what-icon">📈</div>
+        <h3>経営者と同じ視点で動ける</h3>
+        <p>社長が見ている情報をスタッフ全員が共有。「なぜ今月このキャンペーンをするのか」「なぜ今週強気に提案するのか」が腑に落ちます。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNAL -->
+  <div class="section">
+    <div class="section-label">まず最初に見る</div>
+    <div class="section-title">３つのシグナル — 今日の接客モードはどれ？</div>
+    <div class="section-sub">レポートの一番上にある「GO / WATCH / HOLD」が今日の基本スタンスです。まずここだけ見ればOKです。</div>
+
+    <div class="signal-wrap">
+      <div class="signal-card go">
+        <div class="signal-dot">🟢</div>
+        <div class="signal-label">GO</div>
+        <div class="signal-score">スコア 68点以上（例：78点）</div>
+        <div class="signal-desc">
+          お客様の購買意欲が高い日。<br>
+          ドルが強く、株も安定。<br>
+          アメリカ本国の気分も上向き。
+        </div>
+        <div class="signal-action">
+          <strong>今日の接客スタンス</strong>
+          ✦ 高単価メニューを積極提案<br>
+          ✦ パッケージ・セットを薦める<br>
+          ✦ 「特別な体験」を前面に<br>
+          ✦ 次回予約・追加オプションも提案
+        </div>
+      </div>
+
+      <div class="signal-card watch">
+        <div class="signal-dot">🟡</div>
+        <div class="signal-label">WATCH</div>
+        <div class="signal-score">スコア 45〜67点</div>
+        <div class="signal-desc">
+          普通の日。特に問題なし。<br>
+          ただし変化の兆しに注意。<br>
+          慎重に様子を見ながら営業。
+        </div>
+        <div class="signal-action">
+          <strong>今日の接客スタンス</strong>
+          ✦ 通常メニューをていねいに説明<br>
+          ✦ 無理なアップセルは避ける<br>
+          ✦ 赤いアラートを確認する<br>
+          ✦ 信頼関係の構築を優先
+        </div>
+      </div>
+
+      <div class="signal-card hold">
+        <div class="signal-dot">🔴</div>
+        <div class="signal-label">HOLD</div>
+        <div class="signal-score">スコア 45点未満</div>
+        <div class="signal-desc">
+          お客様が節約モードの日。<br>
+          アメリカで何か不安なことが<br>
+          起きている可能性あり。
+        </div>
+        <div class="signal-action">
+          <strong>今日の接客スタンス</strong>
+          ✦ 安心感・信頼感を最優先に<br>
+          ✦ 価格より「ここに来てよかった」<br>
+          ✦ コスパや「記念になる」訴求<br>
+          ✦ リピーター重視・関係深める
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INDICATORS -->
+  <div class="section">
+    <div class="section-label">各指標の読み方</div>
+    <div class="section-title">難しい経済用語を「スタッフ語」に翻訳</div>
+    <div class="section-sub">数字が何を意味するか、お客様へのどんな影響があるか、やさしく解説します。</div>
+
+    <div class="indicator-list">
+
+      <!-- USD/JPY -->
+      <div class="ind-card">
+        <div class="ind-icon gold">💰</div>
+        <div class="ind-center">
+          <h4>USD/JPY（ドル円レート）</h4>
+          <div class="ind-name-en">Dollar · Yen Exchange Rate</div>
+          <div class="divider"></div>
+          <div class="ind-plain">
+            <strong>スタッフ語訳：お客様の「お財布の大きさ」</strong><br>
+            お客様は米軍から毎月ドルで給料をもらっています。円が安い（ドル高）ほど、同じ$200でも円でたくさん払えます。つまり<strong>円安＝お客様が気前よく使える日</strong>です。
+          </div>
+        </div>
+        <div class="ind-right">
+          <div class="ir-title">今日どう動く？</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>¥155〜162：最高！高単価提案のチャンス</div>
+          <div class="meter-row"><div class="meter-dot dot-yellow"></div>¥148〜155：通常。いつも通りでOK</div>
+          <div class="meter-row"><div class="meter-dot dot-red"></div>¥145以下：円高。価値・体験を強調する</div>
+        </div>
+      </div>
+
+      <!-- VIX -->
+      <div class="ind-card">
+        <div class="ind-icon rose">😰</div>
+        <div class="ind-center">
+          <h4>VIX（恐怖指数）</h4>
+          <div class="ind-name-en">Fear & Volatility Index</div>
+          <div class="divider"></div>
+          <div class="ind-plain">
+            <strong>スタッフ語訳：アメリカ全体の「不安メーター」</strong><br>
+            アメリカの株式市場がどれだけ不安定かを示します。数字が高いほどアメリカ人は不安を感じています。不安な時は<strong>財布のひもが固くなり</strong>、贅沢より節約モードになります。
+          </div>
+        </div>
+        <div class="ind-right">
+          <div class="ir-title">今日どう動く？</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>15以下：超安定。消費意欲MAX</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>15〜20：安定。通常通りでOK</div>
+          <div class="meter-row"><div class="meter-dot dot-yellow"></div>20〜30：やや不安。安心感を意識</div>
+          <div class="meter-row"><div class="meter-dot dot-red"></div>30以上：危機ゾーン。ケア重視に</div>
+        </div>
+      </div>
+
+      <!-- SP500 -->
+      <div class="ind-card">
+        <div class="ind-icon green">📊</div>
+        <div class="ind-center">
+          <h4>S&P500（米国株価指数）</h4>
+          <div class="ind-name-en">US Stock Market Index</div>
+          <div class="divider"></div>
+          <div class="ind-plain">
+            <strong>スタッフ語訳：お客様の「資産・貯蓄の気分」</strong><br>
+            アメリカ人の多くが401K（年金）などで米国株を持っています。株が上がると「お金が増えた！」と気分がよくなり消費が増えます。株が下がると<strong>「節約しなきゃ」とブレーキ</strong>がかかります。
+          </div>
+        </div>
+        <div class="ind-right">
+          <div class="ir-title">今日どう動く？</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>7,500以上：資産効果MAX。積極提案</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>7,000〜7,500：良好。通常通り</div>
+          <div class="meter-row"><div class="meter-dot dot-yellow"></div>6,000〜7,000：注意。慎重に</div>
+          <div class="meter-row"><div class="meter-dot dot-red"></div>6,000以下：節約モード注意</div>
+        </div>
+      </div>
+
+      <!-- UMCSENT -->
+      <div class="ind-card">
+        <div class="ind-icon peach">💬</div>
+        <div class="ind-center">
+          <h4>消費者信頼感（UMCSENT）</h4>
+          <div class="ind-name-en">Michigan Consumer Sentiment</div>
+          <div class="divider"></div>
+          <div class="ind-plain">
+            <strong>スタッフ語訳：アメリカ人の「気持ちの明るさ」</strong><br>
+            毎月行われるアンケート。「来月も大丈夫！」と思っているアメリカ人が多いほど数字が上がります。<strong>50以下は悲観的</strong>な人が多い状態。現在44.8は「本国では暗めの気持ち」の人が多い状況です。
+          </div>
+        </div>
+        <div class="ind-right">
+          <div class="ir-title">今日どう動く？</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>80以上：超楽観。贅沢消費OK</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>65〜80：良好。普通に提案OK</div>
+          <div class="meter-row"><div class="meter-dot dot-yellow"></div>50〜65：やや慎重。体験価値を強調</div>
+          <div class="meter-row"><div class="meter-dot dot-red"></div>50以下：悲観的。安心感・バリュー重視</div>
+        </div>
+      </div>
+
+      <!-- WTI -->
+      <div class="ind-card">
+        <div class="ind-icon gold">⛽</div>
+        <div class="ind-center">
+          <h4>WTI原油価格</h4>
+          <div class="ind-name-en">West Texas Intermediate Oil</div>
+          <div class="divider"></div>
+          <div class="ind-plain">
+            <strong>スタッフ語訳：「生活費の圧力計」</strong><br>
+            原油が高くなるとガソリン・電気代・食品など生活費全体が上がり、<strong>可処分所得（自由に使えるお金）が減ります</strong>。現在$68.78は「低位安定」で生活費の圧力が少ない良い状態です。
+          </div>
+        </div>
+        <div class="ind-right">
+          <div class="ir-title">今日どう動く？</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>$70以下：最適。可処分所得に余裕</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>$70〜80：安定。通常通り</div>
+          <div class="meter-row"><div class="meter-dot dot-yellow"></div>$80〜95：やや高め。生活費上昇中</div>
+          <div class="meter-row"><div class="meter-dot dot-red"></div>$95以上：高騰。生活費が圧迫</div>
+        </div>
+      </div>
+
+      <!-- FF金利 -->
+      <div class="ind-card">
+        <div class="ind-icon blue">🏦</div>
+        <div class="ind-center">
+          <h4>FF金利（フェデラルファンズレート）</h4>
+          <div class="ind-name-en">Federal Funds Rate</div>
+          <div class="divider"></div>
+          <div class="ind-plain">
+            <strong>スタッフ語訳：「アメリカ経済のアクセル加減」</strong><br>
+            アメリカの中央銀行（FRB）が決める基準金利。<strong>低いほど経済が活性化</strong>しやすく、お金が回りやすい状態。現在3.63%は2024年から下がってきており、経済には追い風の状態です。
+          </div>
+        </div>
+        <div class="ind-right">
+          <div class="ir-title">今日どう動く？</div>
+          <div class="meter-row"><div class="meter-dot dot-green"></div>2.5〜4.5%：適正ゾーン。経済活発</div>
+          <div class="meter-row"><div class="meter-dot dot-yellow"></div>4.5〜5.5%：やや高め。ローン負担増</div>
+          <div class="meter-row"><div class="meter-dot dot-red"></div>5.5%以上：高い。消費に慎重</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3 STEPS -->
+  <div class="section">
+    <div class="section-label">毎朝のルーティン</div>
+    <div class="section-title">朝のレポート確認 — たった3ステップ・合計40秒</div>
+    <div class="section-sub">毎朝このステップを習慣にするだけで、データを使った接客ができるようになります。</div>
+
+    <div class="steps-wrap">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-time">⏱ 約5秒</div>
+        <h3>GOシグナルを確認</h3>
+        <p>レポートの一番上にある「🟢 GO」「🟡 WATCH」「🔴 HOLD」を見る。</p>
+        <div class="step-focus">
+          <strong style="color:#7B5C44">見る場所：</strong><br>
+          「本日の経営判断」の【シグナル】欄<br>
+          → <em>今日のモードが1秒でわかる</em>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-time">⏱ 約15秒</div>
+        <h3>🔴 赤アラートを確認</h3>
+        <p>「即時アクション」の赤マーク（🔴）を確認。今日特に気をつけることがわかる。</p>
+        <div class="step-focus">
+          <strong style="color:#7B5C44">見る場所：</strong><br>
+          「意思決定トリガー」の赤いアイテム<br>
+          → <em>今日の注意事項がすぐわかる</em>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-time">⏱ 約20秒</div>
+        <h3>USD/JPYと米ドルを確認</h3>
+        <p>円とドルの今日の数字を見て、お客様の「財布の大きさ」を把握する。</p>
+        <div class="step-focus">
+          <strong style="color:#7B5C44">見る場所：</strong><br>
+          「指標スコアボード」のUSD/JPY欄<br>
+          → <em>¥155以上なら積極提案OK！</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERT MEANINGS -->
+  <div class="section">
+    <div class="section-label">アラート別の意味</div>
+    <div class="section-title">色別アラートが出たら何をする？</div>
+    <div class="section-sub">レポートの「意思決定トリガー」に出る色付きアラートの意味と対応方法です。</div>
+
+    <div class="alert-grid">
+      <div class="alert-item a-green">
+        <div class="al-badge">🟢 グリーン</div>
+        <h4>チャンスを示す好材料</h4>
+        <p>「ドル高で購買力高い」「VIX安定」「株が高水準」など、お客様が消費しやすい状況。<strong>積極的に提案するサイン。</strong></p>
+      </div>
+      <div class="alert-item a-yellow">
+        <div class="al-badge">🟡 イエロー</div>
+        <h4>注視・様子見</h4>
+        <p>「VIX少し上昇」「消費者信頼感やや低め」など、変化の兆し。<strong>無理な提案を避け、状況を見ながら通常営業。</strong></p>
+      </div>
+      <div class="alert-item a-red">
+        <div class="al-badge">🔴 レッド</div>
+        <h4>注意・慎重に</h4>
+        <p>「消費者信頼感が低い（50以下）」「VIX急上昇」「円高進行」など。<strong>安心感・信頼感・体験価値を最優先に。</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BENEFIT -->
+  <div class="section">
+    <div class="benefit-banner">
+      <div class="benefit-left">
+        <h2>このレポートが毎日届くことの<br>本当の意味</h2>
+        <p>在沖米軍のお客様は「本国アメリカの経済」と「日本の円レート」の両方の影響を毎日受けています。スタッフ全員がこのデータを共有することで、どんな日も最適な接客ができます。</p>
+      </div>
+      <div class="benefit-right">
+        <div class="benefit-item">
+          <div class="bi-icon">🎯</div>
+          <div>
+            <h4>感覚ではなくデータで動ける</h4>
+            <p>「なんとなく今日は元気がなかった」が「今日はVIXが高かったから本国が不安定だった」と理解できる。</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="bi-icon">💡</div>
+          <div>
+            <h4>経営者と同じ情報で動ける</h4>
+            <p>社長が見ている数字をスタッフも毎朝共有。意思決定の根拠が全員で一致する。</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="bi-icon">🌟</div>
+          <div>
+            <h4>お客様への提案精度が上がる</h4>
+            <p>「今日は高単価で攻める日か、寄り添う日か」が毎朝明確。迷わず最適な接客ができる。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QA -->
+  <div class="section">
+    <div class="section-label">よくある質問</div>
+    <div class="section-title">スタッフからよく出る疑問</div>
+
+    <div class="qa-list">
+      <div class="qa-item">
+        <div class="qa-q">
+          <span class="q-tag">Q</span>
+          数字の意味がわからなくても大丈夫ですか？
+        </div>
+        <div class="qa-a">
+          <strong>大丈夫です！</strong> まず「GOシグナルの色」と「赤いアラート」だけ見れば十分です。複雑な数字は経営者が解釈して、接客スタンスとして伝えてくれています。「GO＝積極提案の日」「HOLD＝安心感重視の日」この2つを覚えれば毎日使えます。
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">
+          <span class="q-tag">Q</span>
+          レポートが長くて全部読む時間がありません
+        </div>
+        <div class="qa-a">
+          <strong>全部読まなくてOKです。</strong> 「Step 1: GOシグナル確認（5秒）」→「Step 2: 赤アラート確認（15秒）」→「Step 3: USD/JPY確認（10秒）」の合計30秒だけ見てください。詳細は社長・マネージャーが朝のミーティングで共有してくれます。
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">
+          <span class="q-tag">Q</span>
+          消費者信頼感44.8は「低い」のですか？お客様に影響はある？
+        </div>
+        <div class="qa-a">
+          <strong>はい、やや低めです。</strong> 50以下は「アメリカ本国では節約意識が高い人が多い」状態。ただし在沖米軍ご家族は「OHA（住宅手当）」「COLA（生活費手当）」などで生活費が守られているため、一般のアメリカ人より影響は少なめです。それでも本国の家族の心配が間接的に影響することがあります。だから今は<strong>「安心感・信頼感の提供」を大切に</strong>した接客がベストです。
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">
+          <span class="q-tag">Q</span>
+          7月に特別なことはありますか？
+        </div>
+        <div class="qa-a">
+          <strong>7月は年間最大の「転入ラッシュ月」です！</strong> 米軍はPCS（引越し命令）が5〜8月に集中しており、7月は新しいご家族が沖縄に着任するピーク。「新しく沖縄に来たご家族」がたくさんいます。FamilyTreeOkiを知らない方も多いので、<strong>「はじめてのご案内」「ウェルカムキャンペーン」</strong>が効果的な時期です。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REF -->
+  <div class="section">
+    <div class="section-label">クイックリファレンス</div>
+    <div class="section-title">今日のデータまとめ（2026年7月4日）</div>
+
+    <div class="highlight-box">
+      <h3>🟢 本日は「積極展開フェーズ」— スコア 78.6/100 [GO]</h3>
+      <p>USD/JPY ¥161.3（軍属購買力MAX水準）／VIX 15.81（市場安定・消費意欲良好）／S&P500 7,483（高水準・資産効果継続）／WTI $68.78（低位安定・生活費圧力なし）。7月はPCS転入ピーク月。新規顧客獲得強化・ウェルカム対応を積極展開。消費者信頼感(44.8)は低めなので体験価値・安心感の訴求も忘れずに。</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>Family Tree Oki — スタッフ向け経営インテリジェンスガイド</strong><br>
+  毎朝9時に最新レポートが届きます / このガイドは随時更新されます<br>
+  <span style="opacity:0.5;font-size:11px">Powered by KOYA AI Intelligence · okinawadao369@gmail.com</span>
+</div>
+
+</body>
+</html>
