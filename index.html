@@ -1079,7 +1079,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v32';
+var CACHE_KEY = 'koya_v33';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1120,7 +1120,7 @@ var SEGS = [
 
 var BTYPE = {
   ft_2d:  {label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:80, usHigh:150,ftcDef:12000,monthlyPerPerson:2.5,note:'Private 1-hour session'},
-  ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:156,usHigh:275,ftcDef:20000,monthlyPerPerson:3.0,note:'Private 1-hour memory session'},
+  ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:175,usHigh:350,ftcDef:20000,monthlyPerPerson:3.0,note:'Private 1-hour memory session'},
   ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:108,usHigh:175,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)'},
   ft_med: {label:'FamilyTreeOki｜産後・新生児ケア',  cat:'ftc',usLow:180,usHigh:480,ftcDef:35000,monthlyPerPerson:2.0,note:'医療系乳児・産後ケア'},
   cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:5,  usHigh:8,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当'},
@@ -1132,11 +1132,11 @@ var BTYPE = {
   pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:20, usHigh:35, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問'},
   trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行'},
   hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:120,usHigh:200,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー'},
-  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:80, usHigh:150,ftcDef:7000, monthlyPerPerson:12,note:'60分全身'},
+  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:90, usHigh:160,ftcDef:7000, monthlyPerPerson:12,note:'60分全身'},
   acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:100,usHigh:180,ftcDef:8000, monthlyPerPerson:8, note:'60分セッション'},
   hbeat:  {label:'小売｜Heartbeat Animal記念品',    cat:'retail',usLow:40, usHigh:80, ftcDef:5500, monthlyPerPerson:1.5,note:'ベビー胎動記念品'},
   baby:   {label:'小売｜ベビー/マタニティ用品',     cat:'retail',usLow:30, usHigh:100,ftcDef:6000, monthlyPerPerson:10, note:'消耗品含むセット'},
-  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:300,usHigh:1000,ftcDef:35000,monthlyPerPerson:1,  note:'フルセッション'},
+  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:400,usHigh:1200,ftcDef:35000,monthlyPerPerson:1,  note:'フルセッション'},
   mini:   {label:'体験｜ミニフォトセッション',       cat:'exp',usLow:100,usHigh:200,ftcDef:12000,monthlyPerPerson:2,  note:'30分ミニ'},
   tour:   {label:'体験｜半日ツアー/アクティビティ', cat:'exp',usLow:80, usHigh:150,ftcDef:9000, monthlyPerPerson:3,  note:'沖縄体験'},
   lesson: {label:'教育｜語学/子どもレッスン',       cat:'edu',usLow:50, usHigh:100,ftcDef:5000, monthlyPerPerson:6,  note:'60分レッスン'}
@@ -1186,8 +1186,8 @@ var GEO = [
   {key:'rebase',  label:'基地再編リスク',val:42,trend:'↓',color:'#FF4D6A',
    desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
    impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
-  {key:'usstress',label:'米国政治経済ストレス',val:80,trend:'↑',color:'#FF7F50',
-   desc:'UMCSENT=49.8（FRED公式Apr2026・2023年以来の低水準）・クレカ延滞率13.1%（16年ぶり高水準）・実質賃金▲0.2%（名目+3.6% vs インフレ3.8%）・住宅負担世帯49%・WTI$68.45・VIX=18.44（警戒水準解除・正常ゾーン回復）。CPI公式3.8% vs リアリティ指数推計5〜7%の乖離が継続。S&P500=7,420.10（回復局面・高値圏維持）。',
+  {key:'usstress',label:'米国政治経済ストレス',val:85,trend:'↑',color:'#FF7F50',
+   desc:'UMCSENT=49.8（FRED公式Apr2026・2023年以来の低水準）・クレカ延滞率13.1%（16年ぶり高水準）・実質賃金▲0.2%（名目+3.6% vs インフレ3.8%）・住宅負担世帯49%・WTI$68.78・VIX=15.81（警戒水準解除・正常ゾーン回復）。CPI公式3.8% vs リアリティ指数推計5〜7%の乖離が継続。S&P500=7,420.10（回復局面・高値圏維持）。',
    impact:'本国消費者の生活苦が深刻化する中、SOFA家族はOHA・ドル収入により住宅費/光熱費負担をダイレクトに受けない二重バッファ構造。米国アンカー価格の上昇が沖縄サービスの相対的割安感をさらに高め、価格心理効果は増大。',src:'FRED UMCSENT Apr2026/Yahoo Finance VIX+SP500 Jun2026-06-08/NY Fed HH Debt Q1-2026/BLS CPI Apr2026'}
 ];
 
@@ -1210,9 +1210,9 @@ var FRED_SERIES = [
 // MOCK値: 2026年6月8日 FRED公式+Yahoo Finance同期
 // UMCSENT=49.8（FRED公式Apr2026）/ WTI=95.96（FRED Jun-01）/ VIX=21.51（市場警戒ゾーン）/ SP500=7383.74
 var MOCK = {
-  DEXJPUS:161.136, FEDFUNDS:3.63, UNRATE:4.3, CPIAUCSL:332.407, CPIFABSL:345.197,
-  AHETPI:32.31, DGS10:4.56, T10YIE:2.29, UMCSENT:44.8, GS2:4.0, DCOILWTICO:68.45,
-  VIX:18.44, SP500:7420.10
+  DEXJPUS:161.337, FEDFUNDS:3.63, UNRATE:4.2, CPIAUCSL:333.979, CPIFABSL:345.715,
+  AHETPI:32.38, DGS10:4.48, T10YIE:2.23, UMCSENT:44.8, GS2:4.11, DCOILWTICO:68.78,
+  VIX:15.81, SP500:7483.24
 };
 
 // State
@@ -1529,7 +1529,7 @@ function renderOverview(){
   if(S.ffH.length) mkLine('c-ff',S.ffH.map(function(d){return d.date.slice(0,7);}),S.ffH.map(function(d){return d.value;}),'#F4C842');
   if(S.urH.length) mkLine('c-ur',S.urH.map(function(d){return d.date.slice(0,7);}),S.urH.map(function(d){return d.value;}),'#FF4D6A');
   // Gauge
-  var fx=S.fx||161.136; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
+  var fx=S.fx||161.337; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
   var score=60;
   if(fx>155) score+=15; else if(fx>148) score+=10; else if(fx>140) score+=5;
   if(ur<4) score+=12; else if(ur<5) score+=8; else if(ur<6) score+=4;
@@ -1627,7 +1627,7 @@ function runSim(){
   if(!seg) seg=SEGS[1];
   var area=AREAS[S.curArea];
   var inputJPY=parseFloat(document.getElementById('price-input').value)||20000;
-  var fx=S.fx||161.136;
+  var fx=S.fx||161.337;
   var ahe=S.ahe||32.23; var cpi=S.cpi||4.0;
 
   // CPI補正（全計算に適用）
@@ -1801,7 +1801,7 @@ function buildBizFilter(){
 
 function renderBiz(cat){
   cat=cat||'all';
-  var fx=S.fx||161.136; var cpi=S.cpi||4.0;  // CPI統一: runSim=4.0%と整合
+  var fx=S.fx||161.337; var cpi=S.cpi||4.0;  // CPI統一: runSim=4.0%と整合
   var catColors={'ftc':'#00D4AA','food':'#F4C842','life':'#4ADE80','beauty':'#A78BFA','retail':'#60A5FA','exp':'#FF7F50','edu':'#F472B6'};
   var filtered=Object.keys(BTYPE).filter(function(k){ return cat==='all'||BTYPE[k].cat===cat; });
   document.getElementById('biz-count').textContent=filtered.length+'業種';
@@ -1889,7 +1889,7 @@ function renderMil(){
   var e4Seg = SEGS.find(function(s){ return s.id==='E4'; });
   var e4OHA = OHA_RANKS && OHA_RANKS.find(function(r){ return r.id==='E4'; });
   if(e4Seg) {
-    var fx=S.fx||161.136;
+    var fx=S.fx||161.337;
     var totalMkt=0;
     AREAS.forEach(function(a){ totalMkt += 3.0 * Math.round(80000*a.pct/100) * 20000 / 1000000; });
     var e4mkt = (totalMkt * (e4Seg.prem/100)).toFixed(1);
@@ -1907,7 +1907,7 @@ function renderMil(){
 // ════════════════════════════════════════════════
 function renderFred(){
   RD.fred=true;
-  var fx=S.fx||161.136; var ff=S.ff||3.64; var ur=S.ur||4.3;
+  var fx=S.fx||161.337; var ff=S.ff||3.64; var ur=S.ur||4.3;
   // Sync FRED_SERIES val from S.fredVals
   FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=new Date().toISOString().slice(0,10); });
   // FRED grid
@@ -2400,7 +2400,7 @@ var _H_AREA_CHART = null;
 function renderAreaChart(){
   var ri=parseInt(document.getElementById('h-rank-sel').value);
   var rank=OHA_RANKS[ri];
-  var fx=S.fx||161.136;
+  var fx=S.fx||161.337;
   var incRow=RANK_INCOME_DATA[ri]; var disp=0;
   if(incRow){ var last=incRow[incRow.length-1]; disp=last.usd||3000; }
   var data=AREAS.map(function(a){
@@ -2435,7 +2435,7 @@ function updateHousingAnalysis(){
   var ai=parseInt((document.getElementById('h-area-sel')||{value:'0'}).value)||0;
   var rank=OHA_RANKS[ri];
   var prop=OKI_PROPS[pi];
-  var fx=S.fx||161.136;
+  var fx=S.fx||161.337;
   var score=hPsychScore(prop,rank);
   var gapUsd=hAllowanceGap(prop,rank);
   var gapJpy=rank.rentJpy-prop.rentJpy;
