@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T00:08:54.669227Z",
+  "updated": "2026-07-05T00:08:35.802377Z",
   "series": {
     "DEXJPUS": [
       {
@@ -772,32 +772,32 @@
     "SP500": 7483.24
   },
   "prev_latest": {
-    "DEXJPUS": 161.337,
+    "DEXJPUS": 161.34,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
-    "CPIAUCSL": 333.979,
-    "CPIFABSL": 345.715,
-    "AHETPI": 32.38,
-    "DGS10": 4.48,
+    "CPIAUCSL": 334.184,
+    "CPIFABSL": 345.893,
+    "AHETPI": 32.35,
+    "DGS10": 4.486,
     "T10YIE": 2.23,
-    "UMCSENT": 44.8,
-    "GS2": 4.11,
-    "DCOILWTICO": 68.78,
+    "UMCSENT": 44.661,
+    "GS2": 4.131,
+    "DCOILWTICO": 67.537,
     "VIX": 15.81,
     "SP500": 7483.24
   },
   "deltas": {
-    "DEXJPUS": 0.003,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
-    "CPIAUCSL": 0.205,
-    "CPIFABSL": 0.178,
-    "AHETPI": -0.03,
-    "DGS10": 0.006,
+    "CPIAUCSL": null,
+    "CPIFABSL": null,
+    "AHETPI": null,
+    "DGS10": null,
     "T10YIE": null,
-    "UMCSENT": -0.139,
-    "GS2": 0.021,
-    "DCOILWTICO": -1.243,
+    "UMCSENT": null,
+    "GS2": null,
+    "DCOILWTICO": null,
     "VIX": null,
     "SP500": null
   },
