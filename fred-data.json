@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-09T08:35:06.907560Z",
+  "updated": "2026-07-09T08:35:52.230961Z",
   "series": {
     "DEXJPUS": [
       {
@@ -768,38 +768,38 @@
     "UMCSENT": 44.661,
     "GS2": 4.131,
     "DCOILWTICO": 69.6,
-    "VIX": 16.66,
+    "VIX": 16.64,
     "SP500": 7482.71
   },
   "prev_latest": {
-    "DEXJPUS": 161.86,
+    "DEXJPUS": 162.33,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
     "CPIAUCSL": 334.184,
     "CPIFABSL": 345.893,
     "AHETPI": 32.35,
-    "DGS10": 4.49,
-    "T10YIE": 2.24,
+    "DGS10": 4.55,
+    "T10YIE": 2.25,
     "UMCSENT": 44.661,
     "GS2": 4.131,
-    "DCOILWTICO": 67.537,
-    "VIX": 15.89,
-    "SP500": 7537.43
+    "DCOILWTICO": 69.6,
+    "VIX": 16.66,
+    "SP500": 7482.71
   },
   "deltas": {
-    "DEXJPUS": 0.47,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": 0.06,
-    "T10YIE": 0.01,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 2.063,
-    "VIX": 0.77,
-    "SP500": -54.72
+    "DCOILWTICO": null,
+    "VIX": -0.02,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -834,7 +834,7 @@
   "koya_score": 74.0,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.419%",
-  "vix_note": "VIX=16.66 正常範囲",
+  "vix_note": "VIX=16.64 正常範囲",
   "sp500_note": "S&P500=7482.71",
   "decision_triggers": [
     {
@@ -849,7 +849,7 @@
     },
     {
       "level": "yellow",
-      "indicator": "VIX恐怖指数 16.66",
+      "indicator": "VIX恐怖指数 16.64",
       "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
