@@ -1079,7 +1079,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v40';
+var CACHE_KEY = 'koya_v41';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1463,7 +1463,7 @@ function applyData(data,isMock){
     var _eGp=document.getElementById('geo-impact-pct'); if(_eGp) _eGp.textContent='+'+_gi.toFixed(1)+'%';
   })();
   // Set fredLive BEFORE updateOverviewCards so the count displays correctly
-  var liveCount=isMock?0:Math.min(Object.keys(S.fredVals).filter(function(k){return S.fredVals[k]!==null&&S.fredVals[k]!==undefined;}).length,11);
+  var liveCount=isMock?0:Math.min(Object.keys(S.fredVals).filter(function(k){return S.fredVals[k]!==null&&S.fredVals[k]!==undefined;}).length,FRED_SERIES.length);
   S.fredLive=liveCount;
   document.getElementById('fred-pill').textContent='FRED '+liveCount+'/'+FRED_SERIES.length+(isMock?' MOCK':' LIVE');
   updateSig();
@@ -1502,7 +1502,7 @@ function updateSig(){
 }
 
 function updateOverviewCards(){
-  var fx=S.fx; var ff=S.ff; var ur=S.ur;
+  var fx=S.fredVals['DEXJPUS']||S.fx; var ff=S.fredVals['FEDFUNDS']||S.ff; var ur=S.fredVals['UNRATE']||S.ur;
   document.getElementById('ov-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'¥'+(MOCK.DEXJPUS||161.34).toFixed(2);
   document.getElementById('ov-ff').textContent=ff!==null?ff.toFixed(2)+'%':(MOCK.FEDFUNDS||3.63).toFixed(2)+'%';
   var urDisp=ur!==null?ur:(MOCK.UNRATE||4.3);
@@ -2035,14 +2035,43 @@ function loadFresh(){
       var m=getMock(); data=m; data.fredVals=MOCK; applyData(data,true); if(!RD.overview) renderOverview(); return;
     }
     // Sync live history latest values → fredVals
-    if(res[0]&&res[0].length){ var fxArr=res[0].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['DEXJPUS']=fxArr[fxArr.length-1].value; }
-    if(res[1]&&res[1].length){ var ffArr=res[1].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['FEDFUNDS']=ffArr[ffArr.length-1].value; }
-    if(res[2]&&res[2].length){ var urArr=res[2].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['UNRATE']=urArr[urArr.length-1].value; }
+    // latestフィールドを最優先（series終端値より正確な当日値）
+    var dj=_dataJsonCache;
+    if(dj&&dj.latest){
+      ['DEXJPUS','FEDFUNDS','UNRATE','CPIAUCSL','CPIFABSL','AHETPI',
+       'DGS10','T10YIE','UMCSENT','GS2','DCOILWTICO','VIX','SP500'].forEach(function(k){
+        if(typeof dj.latest[k]==='number') fredVals[k]=dj.latest[k];
+      });
+    } else {
+      // latestなければseries末尾から取得
+      if(res[0]&&res[0].length){ var fxArr=res[0].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['DEXJPUS']=fxArr[fxArr.length-1].value; }
+      if(res[1]&&res[1].length){ var ffArr=res[1].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['FEDFUNDS']=ffArr[ffArr.length-1].value; }
+      if(res[2]&&res[2].length){ var urArr=res[2].slice().sort(function(a,b){return a.date>b.date?1:-1;}); fredVals['UNRATE']=urArr[urArr.length-1].value; }
+    }
+    // CPI前年比：絶対値を保持（calcYoYで表示時に計算）
     if(res[3]&&res[3].length){
       var cpiArr=res[3].slice().sort(function(a,b){return a.date>b.date?1:-1;});
-      if(cpiArr.length>=13){ fredVals['CPIAUCSL']=+(((cpiArr[0].value-cpiArr[12].value)/cpiArr[12].value*100).toFixed(2)); }
+      if(cpiArr.length>=13){ fredVals['CPIAUCSL_YOY']=+(((cpiArr[0].value-cpiArr[12].value)/cpiArr[12].value*100).toFixed(2)); }
     }
-    data={fxH:res[0]||[],ffH:res[1]||[],urH:res[2]||[],cpiH:res[3]||[],fredVals:fredVals};
+    // fxH末尾にlatestの今日の日付を追加（チャートを常に最新値で終端）
+    var fxHarr=res[0]||[];
+    if(fredVals['DEXJPUS'] && fxHarr.length){
+      var today=new Date().toISOString().slice(0,10);
+      var lastD=fxHarr.slice().sort(function(a,b){return a.date>b.date?1:-1;})[fxHarr.length-1];
+      if(!lastD||lastD.date<today){
+        fxHarr=fxHarr.concat([{date:today,value:fredVals['DEXJPUS']}]);
+      }
+    }
+    // ffH末尾にlatestのFEDFUNDSを今月で追加
+    var ffHarr=res[1]||[];
+    if(fredVals['FEDFUNDS'] && ffHarr.length){
+      var thisMonth=new Date().toISOString().slice(0,7)+'-01';
+      var ffLast=ffHarr.slice().sort(function(a,b){return a.date>b.date?1:-1;})[ffHarr.length-1];
+      if(!ffLast||ffLast.date<thisMonth){
+        ffHarr=ffHarr.concat([{date:thisMonth,value:fredVals['FEDFUNDS']}]);
+      }
+    }
+    data={fxH:fxHarr,ffH:ffHarr,urH:res[2]||[],cpiH:res[3]||[],fredVals:fredVals};
     // Fill mock for remaining missing FRED vals
     series.forEach(function(s){ if(!fredVals[s]) fredVals[s]=MOCK[s]; });
     data.fredVals=fredVals;
