@@ -1,0 +1,25 @@
+カテゴリ,指標キー,指標名,値,スコア,アラート,更新日
+FRED,DEXJPUS,USD/JPY為替,162.41,80,green,2026-07-14
+FRED,FEDFUNDS,FF金利 (%),3.63,75,green,2026-07-14
+FRED,UNRATE,失業率 (%),4.2,85,green,2026-07-14
+FRED,CPIAUCSL,CPI総合指数,334.184,50,yellow,2026-07-14
+FRED,CPIFABSL,食品CPI,345.893,52,yellow,2026-07-14
+FRED,AHETPI,平均時給 ($),32.35,80,green,2026-07-14
+FRED,DGS10,10年債利回り (%),4.56,60,yellow,2026-07-14
+FRED,T10YIE,期待インフレ率 (%),2.26,92,green,2026-07-14
+FRED,UMCSENT,消費者信頼感指数,44.661,35,red,2026-07-14
+FRED,GS2,2年債利回り (%),4.131,70,green,2026-07-14
+FRED,DCOILWTICO,WTI原油 ($/bbl),69.6,100,green,2026-07-14
+FRED,VIX,VIX恐怖指数,17.16,75,green,2026-07-14
+FRED,SP500,S&P500,7515.34,80,green,2026-07-14
+Yahoo,USDJPY,USD/JPY (リアルタイム),161.843,,-0.588,2026-07-14
+Yahoo,VIX,VIX (リアルタイム),17.38,,0.22,2026-07-14
+Yahoo,SP500,S&P500 (リアルタイム),7515.34,,-60.05,2026-07-14
+GEO,forward,米軍前方展開指数,92,,,2026-07-14
+GEO,defense,国防予算/PDI指数,79,,,2026-07-14
+GEO,first,第一列島線地政学,85,,,2026-07-14
+GEO,okinawa,沖縄関係安定度,63,,,2026-07-14
+GEO,taiwan,台湾・東アジア緊張,85,,,2026-07-14
+GEO,rebase,基地再編リスク,42,,,2026-07-14
+GEO,usstress,米国政治経済ストレス,85,,,2026-07-14
+KOYA,koya_score,koya総合スコア,74.0,74.0,GO,2026-07-14
