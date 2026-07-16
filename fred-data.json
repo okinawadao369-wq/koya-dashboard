@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-16T00:14:09.579257Z",
+  "updated": "2026-07-16T00:15:05.542044Z",
   "series": {
     "DEXJPUS": [
       {
@@ -351,6 +351,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-07-14",
+        "value": 4.58
+      },
+      {
         "date": "2026-07-13",
         "value": 4.62
       },
@@ -401,10 +405,6 @@
       {
         "date": "2026-06-24",
         "value": 4.41
-      },
-      {
-        "date": "2026-06-23",
-        "value": 4.5
       }
     ],
     "T10YIE": [
@@ -763,7 +763,7 @@
     "CPIAUCSL": 334.184,
     "CPIFABSL": 345.893,
     "AHETPI": 32.35,
-    "DGS10": 4.62,
+    "DGS10": 4.58,
     "T10YIE": 2.23,
     "UMCSENT": 44.661,
     "GS2": 4.131,
@@ -772,34 +772,34 @@
     "SP500": 7572.4
   },
   "prev_latest": {
-    "DEXJPUS": 162.19,
+    "DEXJPUS": 162.08,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
     "CPIAUCSL": 334.184,
     "CPIFABSL": 345.893,
     "AHETPI": 32.35,
     "DGS10": 4.62,
-    "T10YIE": 2.25,
+    "T10YIE": 2.23,
     "UMCSENT": 44.661,
     "GS2": 4.131,
-    "DCOILWTICO": 69.6,
-    "VIX": 16.5,
-    "SP500": 7543.59
+    "DCOILWTICO": 79.2,
+    "VIX": 15.67,
+    "SP500": 7572.4
   },
   "deltas": {
-    "DEXJPUS": -0.11,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": null,
-    "T10YIE": -0.02,
+    "DGS10": -0.04,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 9.6,
-    "VIX": -0.83,
-    "SP500": 28.81
+    "DCOILWTICO": null,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -833,7 +833,7 @@
   },
   "koya_score": 72.1,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+0.489%",
+  "spread_dgs10_gs2": "+0.449%",
   "vix_note": "VIX=15.67 正常範囲",
   "sp500_note": "S&P500=7572.4",
   "decision_triggers": [
@@ -870,20 +870,20 @@
   ],
   "data_version": "v7",
   "fetch_quality": {
-    "ok": 9,
+    "ok": 11,
     "total": 13,
     "results": {
       "DEXJPUS": "ok(Yahoo-live)",
       "FEDFUNDS": "ok",
       "UNRATE": "ok",
-      "CPIAUCSL": "ok",
+      "CPIAUCSL": "kept",
       "CPIFABSL": "ok",
-      "AHETPI": "kept",
-      "DGS10": "kept",
+      "AHETPI": "ok",
+      "DGS10": "ok",
       "T10YIE": "ok",
-      "UMCSENT": "kept",
-      "GS2": "kept",
-      "DCOILWTICO": "ok",
+      "UMCSENT": "ok",
+      "GS2": "ok",
+      "DCOILWTICO": "kept",
       "VIX": "ok(Yahoo)",
       "SP500": "ok(Yahoo)"
     }
