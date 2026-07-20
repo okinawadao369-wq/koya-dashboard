@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T00:11:06.804459Z",
+  "updated": "2026-07-20T00:10:39.254841Z",
   "series": {
     "DEXJPUS": [
       {
@@ -757,7 +757,7 @@
     ]
   },
   "latest": {
-    "DEXJPUS": 162.35,
+    "DEXJPUS": 162.51,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
     "CPIAUCSL": 334.184,
@@ -772,34 +772,34 @@
     "SP500": 7457.69
   },
   "prev_latest": {
-    "DEXJPUS": 162.4,
+    "DEXJPUS": 162.35,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
     "CPIAUCSL": 334.184,
     "CPIFABSL": 345.893,
     "AHETPI": 32.35,
-    "DGS10": 4.55,
-    "T10YIE": 2.22,
+    "DGS10": 4.57,
+    "T10YIE": 2.24,
     "UMCSENT": 44.661,
     "GS2": 4.131,
     "DCOILWTICO": 79.2,
-    "VIX": 16.73,
-    "SP500": 7533.77
+    "VIX": 18.77,
+    "SP500": 7457.69
   },
   "deltas": {
-    "DEXJPUS": -0.05,
+    "DEXJPUS": 0.16,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": 0.02,
-    "T10YIE": 0.02,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
     "DCOILWTICO": null,
-    "VIX": 2.04,
-    "SP500": -76.08
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -834,7 +834,7 @@
   "koya_score": 72.1,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.439%",
-  "vix_note": "VIX=18.77 normal",
+  "vix_note": "VIX=18.77 正常範囲",
   "sp500_note": "S&P500=7457.69",
   "decision_triggers": [
     {
@@ -844,7 +844,7 @@
     },
     {
       "level": "red",
-      "indicator": "USD/JPY ¥162.350",
+      "indicator": "USD/JPY ¥162.510",
       "message": "BOJ介入リスク域。ドル建て明示検討。"
     },
     {
