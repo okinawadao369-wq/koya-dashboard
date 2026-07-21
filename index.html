@@ -302,6 +302,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="nav-item" data-tab="housing"><span class="nav-dot"></span>住宅心理モジュール</div>
     <div class="nav-item" data-tab="us-reality"><span class="nav-dot"></span>米国消費者実態</div>
     <div class="nav-item" data-tab="pcs"><span class="nav-dot"></span>PCS移動分析</div>
+    <div class="nav-item" data-tab="maternity"><span class="nav-dot"></span>妊婦ターゲット層</div>
   </div>
   <div class="sfoot">
     <div class="lbl">Last update</div>
@@ -1071,6 +1072,99 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 <!-- /tab-pcs -->
 
 
+
+<!-- ── TAB 10: 妊婦ターゲット層 ── -->
+<div id="tab-maternity" class="tab-panel">
+  <div class="sec-title">在沖米軍 妊婦ターゲット層インテリジェンス</div>
+  <div class="sec-sub">TRICARE・PCS・SOFA家族データ統合 | FamilyTreeOki 産前産後ビジネス需要モデル 2026</div>
+
+  <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(148px,1fr));margin-bottom:.75rem">
+    <div class="card"><div class="c-lbl">SOFA対象 総人口</div><div class="c-val" style="color:var(--accent)">~55,000</div><div class="c-sub">軍人+軍属+家族（2026推計）</div></div>
+    <div class="card"><div class="c-lbl">育齢女性（20〜35歳）</div><div class="c-val" style="color:#60a5fa">~16,000</div><div class="c-sub">SOFA家族の推定28〜30%</div></div>
+    <div class="card"><div class="c-lbl">年間出産推計</div><div class="c-val" style="color:#00D4AA">960〜1,280</div><div class="c-sub">出生率60〜80/1,000（米軍家族）</div></div>
+    <div class="card"><div class="c-lbl">同時妊娠中推計</div><div class="c-val" style="color:var(--gold)">240〜320人</div><div class="c-sub">常時妊婦数（9ヶ月換算）</div></div>
+    <div class="card"><div class="c-lbl">TRICARE産科カバー率</div><div class="c-val" style="color:#a78bfa">100%</div><div class="c-sub">依存家族も全員対象</div></div>
+    <div class="card"><div class="c-lbl">配偶者失業率</div><div class="c-val" style="color:#ef4444">23%</div><div class="c-sub">全米平均の5倍 → 在宅需要↑</div></div>
+  </div>
+
+  <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(148px,1fr));margin-bottom:1.2rem">
+    <div class="card"><div class="c-lbl">OHA 2026増額（E-7帯同）</div><div class="c-val" style="color:#00D4AA">+$180/月</div><div class="c-sub">2026年5月改定・余力↑</div></div>
+    <div class="card"><div class="c-lbl">TRICAREデモ期間</div><div class="c-val" style="color:#60a5fa">〜2026/12/31</div><div class="c-sub">授乳サポート100%カバー</div></div>
+    <div class="card"><div class="c-lbl">PCSピーク × 妊婦流入</div><div class="c-val" style="color:var(--gold)">5〜8月</div><div class="c-sub">転入妊婦の60%超がこの時期</div></div>
+    <div class="card"><div class="c-lbl">沖縄合計特殊出生率</div><div class="c-val" style="color:#a78bfa">1.60</div><div class="c-sub">日本最高（2023年）</div></div>
+    <div class="card"><div class="c-lbl">FTO月間アクティブ対象</div><div class="c-val" style="color:var(--accent)">80〜107人</div><div class="c-sub">妊娠中＋産後3ヶ月以内</div></div>
+    <div class="card"><div class="c-lbl">Naval Hospital 分娩数</div><div class="c-val" style="color:#f59e0b">600〜800/年</div><div class="c-sub">2023年スタッフ不足→外部需要↑</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+    <div class="card" style="padding:16px">
+      <div style="font-size:.75rem;font-weight:700;color:var(--accent);margin-bottom:10px">&#128197; 月別 妊婦需要指数 x PCS転入圧力</div>
+      <canvas id="mat-monthly-chart" height="220"></canvas>
+      <div style="font-size:.62rem;color:var(--muted);margin-top:6px">月別転入妊婦推計（棒）x PCS圧力指数（折れ線）</div>
+    </div>
+    <div class="card" style="padding:16px">
+      <div style="font-size:.75rem;font-weight:700;color:#60a5fa;margin-bottom:10px">&#129328; 妊娠期別 FTOサービスニーズマップ</div>
+      <div id="mat-timeline" style="font-size:.7rem"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;overflow-x:auto">
+    <div style="font-size:.75rem;font-weight:700;color:var(--gold);margin-bottom:10px;padding:4px 0">&#128176; 米国価格 vs 沖縄（FTO）価格 — 産前産後業種別比較 2026</div>
+    <table style="width:100%;border-collapse:collapse;font-size:.71rem">
+      <thead>
+        <tr style="background:rgba(255,255,255,.06)">
+          <th style="padding:8px 10px;text-align:left;color:var(--muted)">サービス</th>
+          <th style="padding:8px 10px;text-align:right;color:var(--muted)">米国価格（2026）</th>
+          <th style="padding:8px 10px;text-align:right;color:var(--muted)">FTO沖縄価格目安</th>
+          <th style="padding:8px 10px;text-align:right;color:var(--muted)">プレミアム余地</th>
+          <th style="padding:8px 10px;text-align:center;color:var(--muted)">TRICARE</th>
+          <th style="padding:8px 10px;text-align:left;color:var(--muted)">戦略メモ</th>
+        </tr>
+      </thead>
+      <tbody id="mat-price-tbody"></tbody>
+    </table>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:14px">
+    <div class="card" style="border-left:3px solid var(--accent)">
+      <div style="font-size:.7rem;font-weight:700;color:var(--accent);margin-bottom:6px">&#127919; PCS流入キャンペーン</div>
+      <div style="font-size:.68rem;color:var(--muted)">5〜8月のPCS転入妊婦を狙い、Facebook Groups（Okinawa Moms, Base Wives）・Naval Hospitalロビーチラシで初回割引30%展開。転入後30日以内の獲得を最大化。</div>
+    </div>
+    <div class="card" style="border-left:3px solid #60a5fa">
+      <div style="font-size:.7rem;font-weight:700;color:#60a5fa;margin-bottom:6px">&#128138; TRICARE連携ポジション</div>
+      <div style="font-size:.68rem;color:var(--muted)">TRICARE授乳サポートデモ（〜2026/12/31）実施中。FTOを「TRICARE連携プロバイダー」として案内し信頼性と受診率を同時向上。年内完全定着を狙う。</div>
+    </div>
+    <div class="card" style="border-left:3px solid #a78bfa">
+      <div style="font-size:.7rem;font-weight:700;color:#a78bfa;margin-bottom:6px">&#127973; Naval Hospital需要吸収</div>
+      <div style="font-size:.68rem;color:var(--muted)">2023年の分娩スタッフ不足で外部産後ケア需要急増。産後ケア・授乳指導・新生児ケアのウェイティング解消役としてFTOを位置づけ。</div>
+    </div>
+    <div class="card" style="border-left:3px solid #00D4AA">
+      <div style="font-size:.7rem;font-weight:700;color:#00D4AA;margin-bottom:6px">&#128172; 口コミ増殖設計</div>
+      <div style="font-size:.68rem;color:var(--muted)">軍属コミュニティは口コミ感度が高い（Facebook Groups・BASE Wives Network）。産後ケアで感動体験提供→「紹介割引」組み込みで自然拡散設計。</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+    <div class="card" style="padding:16px">
+      <div style="font-size:.75rem;font-weight:700;color:#a78bfa;margin-bottom:10px">&#128737; TRICARE 産前産後カバレッジ内訳</div>
+      <canvas id="mat-tricare-chart" height="180"></canvas>
+    </div>
+    <div class="card" style="padding:16px">
+      <div style="font-size:.75rem;font-weight:700;color:var(--gold);margin-bottom:10px">&#128202; 年間需要シナリオ（弱気/ベース/強気）</div>
+      <canvas id="mat-scenario-chart" height="180"></canvas>
+    </div>
+  </div>
+
+  <div style="font-size:.62rem;color:var(--muted);padding:10px 14px;background:rgba(255,255,255,.03);border-radius:8px;line-height:1.7">
+    <strong>データソース：</strong>
+    DoD Demographics Report 2024 | TRICARE Policy Manual 2024 | Naval Hospital Okinawa |
+    沖縄県基地対策室 在沖米軍統計 2024 | BLS 業種別賃金・価格統計 2026 |
+    RAND Corporation「軍属家族の雇用と福祉」2024 | 沖縄県合計特殊出生率（厚労省2023）|
+    DoD OHA 2026年改定（DFAS）| thervo.com・busybook.co 価格調査 2026
+  </div>
+</div>
+<!-- /tab-maternity -->
+
   </div><!-- /content -->
 </div><!-- /main -->
 
@@ -1079,7 +1173,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v53';
+var CACHE_KEY = 'koya_v54';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1090,7 +1184,8 @@ var TAB_TITLES = {
   biz:'業種別価格分析',
   mil:'軍人・軍属マーケット',
   fred:'FRED経済データ',
-  housing:'米軍住宅心理モジュール — OHA/BAH・面積・家賃'
+  housing:'米軍住宅心理モジュール — OHA/BAH・面積・家賃',
+  maternity:'在沖米軍妊婦ターゲット層インテリジェンス'
 };
 
 var AREAS = [
@@ -1223,7 +1318,7 @@ var S = {
   curSeg:'E4',curBtype:'ft_4d',curArea:0,curCat:'all'
 };
 var CH = {};
-var RD = {overview:false,sim:false,geo:false,biz:false,mil:false,fred:false,housing:false,pcs:false};
+var RD = {overview:false,sim:false,geo:false,biz:false,mil:false,fred:false,housing:false,pcs:false,maternity:false};
 
 // ════════════════════════════════════════════════
 // CLOCK
@@ -2011,8 +2106,136 @@ document.querySelectorAll('.nav-item').forEach(function(n){
     if(id==='housing'&&!RD.housing){ RD.housing=true; renderHousing(); }
     if(id==='us-reality'&&!RD.usReality){ RD.usReality=true; renderUSReality(); }
     if(id==='pcs'&&!RD.pcs){ RD.pcs=true; renderPCS(); }
+    if(id==='maternity'&&!RD.maternity){ RD.maternity=true; initMaternityTab(); }
   });
 });
+
+
+// ════════════════════════════════════════════════
+// MATERNITY TAB — 妊婦ターゲット層
+// ════════════════════════════════════════════════
+function initMaternityTab() {
+  var MAT_PRICES = [
+    {svc:'産後ドゥーラ / 産後ケア',      us:'$25〜80/時 (avg $35)',  fto:'¥8,000〜12,000/時', prm:'+30〜50%余地',  tc:'◎ デモ実施中', note:'TRICARE授乳デモ対象 / 最高需要'},
+    {svc:'産後マッサージ 60分',           us:'$60〜150 (avg $95)',    fto:'¥10,000〜14,000',  prm:'+20〜40%余地',  tc:'△ 一部対象',   note:'プレナタル特化で差別化可'},
+    {svc:'鍼灸 / ウェルネス 60分',        us:'$75〜150 (avg $110)',   fto:'¥12,000〜16,000',  prm:'競争的',        tc:'× 非対象',     note:'ウェルネス需要増が追い風'},
+    {svc:'新生児・家族フォト',             us:'$200〜3,000+ (avg$550)',fto:'¥30,000〜80,000',  prm:'競争的',        tc:'× 非対象',     note:'記念需要は価格感度低い'},
+    {svc:'産前ヨガ（グループ）',           us:'$20〜30/回',            fto:'¥2,500〜4,500',    prm:'競争的',        tc:'× 非対象',     note:'コミュニティ形成ツール'},
+    {svc:'産前ヨガ（プライベート）',       us:'$80〜120/回',           fto:'¥8,000〜12,000',   prm:'+10〜25%余地', tc:'× 非対象',     note:'VIP顧客育成チャネル'},
+    {svc:'医療通訳・病院同行',             us:'$45〜150/時',           fto:'¥5,000〜10,000',   prm:'SOFA特需',      tc:'△ 一部対象',   note:'希少性プレミアム / 最高LTV'},
+    {svc:'プレミアムディナー（記念日）',   us:'$85〜250+/人',          fto:'¥8,000〜18,000/人',prm:'外食CPI追い風', tc:'× 非対象',     note:'産後祝い・記念需要'},
+  ];
+
+  var tbody = document.getElementById('mat-price-tbody');
+  if (tbody && !tbody._inited) {
+    tbody._inited = true;
+    tbody.innerHTML = MAT_PRICES.map(function(r, i) {
+      var bg = i%2===0 ? 'rgba(255,255,255,.02)' : 'transparent';
+      var tc = r.tc.charAt(0)==='◎'?'#00D4AA':r.tc.charAt(0)==='△'?'#f59e0b':'var(--muted)';
+      return '<tr style="background:'+bg+'">' +
+        '<td style="padding:7px 10px;color:var(--fg);font-weight:600">'+r.svc+'</td>' +
+        '<td style="padding:7px 10px;text-align:right;color:#60a5fa">'+r.us+'</td>' +
+        '<td style="padding:7px 10px;text-align:right;color:var(--gold)">'+r.fto+'</td>' +
+        '<td style="padding:7px 10px;text-align:right;color:var(--accent)">'+r.prm+'</td>' +
+        '<td style="padding:7px 10px;text-align:center;color:'+tc+';font-weight:700">'+r.tc+'</td>' +
+        '<td style="padding:7px 10px;color:var(--muted);font-size:.65rem">'+r.note+'</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  // Timeline
+  var tl = document.getElementById('mat-timeline');
+  if (tl && !tl._inited) {
+    tl._inited = true;
+    var phases = [
+      {ph:'&#x1F7E6; 初期（1〜3ヶ月）', c:'#60a5fa', items:['産前ヨガ開始','食事・栄養指導','つわりケア鍼灸','FTO初回カウンセリング']},
+      {ph:'&#x1F7EA; 中期（4〜6ヶ月）', c:'#a78bfa', items:['マタニティマッサージ','産前ヨガ継続','医療通訳サポート','ニューボーン写真予約']},
+      {ph:'&#x1F7E1; 後期（7〜9ヶ月）', c:'#f59e0b', items:['バーストプレップ鍼灸','産後プラン作成','ドゥーラ面談・契約','病院同行サービス']},
+      {ph:'&#x1F7E2; 産後（0〜3ヶ月）', c:'#00D4AA', items:['産後ドゥーラ（TRICARE対象）','授乳指導・ラクテーション','ニューボーン撮影','産後マッサージ・回復ケア']},
+    ];
+    tl.innerHTML = phases.map(function(p) {
+      return '<div style="margin-bottom:10px">' +
+        '<div style="font-size:.68rem;font-weight:700;color:'+p.c+';padding:4px 8px;background:rgba(255,255,255,.05);border-radius:4px;border-left:3px solid '+p.c+';margin-bottom:4px">'+p.ph+'</div>' +
+        p.items.map(function(it){return '<div style="font-size:.65rem;color:var(--muted);padding:2px 10px">&#x2022; '+it+'</div>';}).join('') +
+        '</div>';
+    }).join('');
+  }
+
+  // Monthly chart
+  var mc = document.getElementById('mat-monthly-chart');
+  if (mc && !mc._inited) {
+    mc._inited = true;
+    new Chart(mc, {
+      type:'bar',
+      data:{
+        labels:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+        datasets:[
+          {label:'妊婦需要指数',data:[65,62,70,78,95,100,98,88,80,72,65,60],
+           backgroundColor:'rgba(0,212,170,.5)',borderColor:'#00D4AA',borderWidth:1,yAxisID:'y'},
+          {label:'PCS転入圧力',data:[30,28,35,55,90,100,95,80,60,40,32,28],
+           type:'line',borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,.1)',
+           borderWidth:2,pointRadius:3,tension:.4,yAxisID:'y'}
+        ]
+      },
+      options:{
+        responsive:true,
+        plugins:{legend:{labels:{color:'rgba(255,255,255,.7)',font:{size:10}}}},
+        scales:{
+          x:{ticks:{color:'rgba(255,255,255,.5)',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'}},
+          y:{ticks:{color:'rgba(255,255,255,.5)',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'},min:0,max:110}
+        }
+      }
+    });
+  }
+
+  // TRICARE donut
+  var tc = document.getElementById('mat-tricare-chart');
+  if (tc && !tc._inited) {
+    tc._inited = true;
+    new Chart(tc, {
+      type:'doughnut',
+      data:{
+        labels:['産科診察・検査','分娩・入院','授乳サポートデモ','産後メンタルケア','ドゥーラデモ'],
+        datasets:[{data:[30,35,15,12,8],
+          backgroundColor:['#00D4AA','#60a5fa','#a78bfa','#f59e0b','#ef4444'],borderWidth:0}]
+      },
+      options:{
+        responsive:true,
+        plugins:{
+          legend:{position:'right',labels:{color:'rgba(255,255,255,.7)',font:{size:9},boxWidth:12}},
+          tooltip:{callbacks:{label:function(c){return c.label+': '+c.raw+'%';}}}
+        },
+        cutout:'60%'
+      }
+    });
+  }
+
+  // Scenario bar
+  var sc = document.getElementById('mat-scenario-chart');
+  if (sc && !sc._inited) {
+    sc._inited = true;
+    new Chart(sc, {
+      type:'bar',
+      data:{
+        labels:['産後ドゥーラ','マッサージ','鍼灸','写真撮影','産前ヨガ','医療通訳'],
+        datasets:[
+          {label:'弱気',data:[80,120,60,45,200,30],  backgroundColor:'rgba(239,68,68,.5)'},
+          {label:'ベース',data:[160,250,120,90,400,55], backgroundColor:'rgba(245,158,11,.5)'},
+          {label:'強気',data:[280,400,200,150,650,90],backgroundColor:'rgba(0,212,170,.5)'},
+        ]
+      },
+      options:{
+        responsive:true,
+        plugins:{legend:{labels:{color:'rgba(255,255,255,.7)',font:{size:9}}}},
+        scales:{
+          x:{ticks:{color:'rgba(255,255,255,.5)',font:{size:8}},grid:{color:'rgba(255,255,255,.05)'}},
+          y:{ticks:{color:'rgba(255,255,255,.5)',font:{size:9}},grid:{color:'rgba(255,255,255,.05)'},
+             title:{display:true,text:'年間件数',color:'rgba(255,255,255,.4)',font:{size:9}}}
+        }
+      }
+    });
+  }
+}
 
 // ════════════════════════════════════════════════
 // DATA LOAD
