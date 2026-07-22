@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>koya AI経営インテリジェンス — Public Summary</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #0F1218;
+    color: #E8E6E1;
+    line-height: 1.7;
+  }
+  .header {
+    background: linear-gradient(135deg, #1A1F2B 0%, #0F1218 100%);
+    padding: 40px 24px 32px;
+    text-align: center;
+    border-bottom: 1px solid #2A3040;
+  }
+  .header .badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C9A876;
+    border: 1px solid #C9A876;
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-bottom: 14px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #F5F2ED;
+  }
+  .header p {
+    font-size: 13px;
+    color: #8A94A6;
+    margin-top: 8px;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 20px 60px; }
+  .score-card {
+    background: #171B24;
+    border: 1px solid #2A3040;
+    border-radius: 14px;
+    padding: 28px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .score-card .num { font-size: 56px; font-weight: 700; line-height: 1; }
+  .score-card .label { font-size: 12px; color: #8A94A6; margin-top: 6px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .score-card .signal {
+    display: inline-block; margin-top: 14px; padding: 5px 18px; border-radius: 20px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+  }
+  .sig-go { background: rgba(74,222,128,0.15); color: #4ADE80; }
+  .sig-watch { background: rgba(250,204,21,0.15); color: #FACC15; }
+  .sig-hold { background: rgba(248,113,113,0.15); color: #F87171; }
+
+  .section-title {
+    font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #C9A876; margin: 36px 0 14px;
+  }
+  table { width: 100%; border-collapse: collapse; background: #171B24; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 14px; text-align: left; font-size: 13px; border-bottom: 1px solid #232838; }
+  th { color: #8A94A6; font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .dot-g { background: #4ADE80; } .dot-y { background: #FACC15; } .dot-r { background: #F87171; }
+
+  .trend-wrap { background: #171B24; border: 1px solid #2A3040; border-radius: 10px; padding: 20px; }
+  .trend-bars { display: flex; align-items: flex-end; gap: 3px; height: 120px; }
+  .bar { flex: 1; background: linear-gradient(180deg, #C9A876, #8A6F45); border-radius: 2px 2px 0 0; min-width: 2px; }
+  .trend-caption { font-size: 11px; color: #6B7280; margin-top: 10px; display: flex; justify-content: space-between; }
+
+  .note-box {
+    background: #171B24; border: 1px solid #2A3040; border-radius: 10px;
+    padding: 18px 20px; font-size: 13px; color: #B8BEC9; margin-top: 28px;
+  }
+  .note-box b { color: #E8E6E1; }
+
+  footer {
+    text-align: center; padding: 40px 20px 20px; font-size: 12px; color: #5A6270;
+  }
+  footer a { color: #C9A876; text-decoration: none; }
+  #loading { text-align: center; padding: 60px 20px; color: #8A94A6; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">Public Summary · External View</div>
+  <h1>koya AI経営インテリジェンス</h1>
+  <p>沖縄駐留米軍経済圏を対象とした、自社内製AIエージェントによる日次経営判断システム</p>
+</div>
+
+<div class="container">
+  <div id="loading">読み込み中...</div>
+  <div id="content" style="display:none;">
+
+    <div class="score-card">
+      <div class="num" id="scoreNum">--</div>
+      <div class="label">koya 経営スコア / 100</div>
+      <span class="signal" id="signalBadge">--</span>
+    </div>
+
+    <div class="section-title">主要マクロ指標</div>
+    <table>
+      <thead><tr><th>指標</th><th class="num">現在値</th><th>状態</th></tr></thead>
+      <tbody id="indicatorRows"></tbody>
+    </table>
+
+    <div class="section-title">スコア推移（2026年6月〜）</div>
+    <div class="trend-wrap">
+      <div class="trend-bars" id="trendBars"></div>
+      <div class="trend-caption"><span id="trendStart">6/6</span><span id="trendEnd">今日</span></div>
+    </div>
+
+    <div class="note-box">
+      <b>このページについて。</b> 毎朝、FRED（米連邦準備制度の公開経済統計）とYahoo Financeの市場データ、および在沖米軍・地政学に関する公開情報を自社AIエージェントが統合し、経営判断シグナル（GO/WATCH/HOLD）を自動生成しています。2026年6月上旬の運用開始以来、掲載しているスコアは一度もGO判定の閾値を下回っていません。本ページは外部公開向けの要約版です。個別の価格戦略・売上・顧客データ等は一切含まれていません。
+    </div>
+  </div>
+</div>
+
+<footer>
+  合同会社koya ｜ <a href="https://okinawadao369-wq.github.io/familytreeoki-dashboard/family-tree-oki-welcome.html">Family Tree Oki</a>
+</footer>
+
+<script>
+const HIST = [
+  ["06-06",70],["06-07",70],["06-08",70],["06-09",69],["06-10",73],["06-11",69],["06-12",73],
+  ["06-13",74],["06-14",74],["06-15",74],["06-16",74],["06-17",76],["06-18",76],["06-19",76],
+  ["06-20",76],["06-21",76],["06-22",76],["06-23",76],["06-24",75],["06-25",78],["06-26",76],
+  ["06-27",76],["06-28",78],["07-03",79],["07-04",79],["07-05",79],["07-06",75],["07-07",79],
+  ["07-09",74],["07-10",74],["07-11",78],["07-12",78],["07-13",74],["07-14",74],["07-15",74],
+  ["07-16",72],["07-17",72],["07-18",72],["07-20",72],["07-21",72],["07-22",72.1]
+];
+
+const LABELS = {
+  DEXJPUS: "USD/JPY", VIX: "VIX恐怖指数", SP500: "S&P500", DCOILWTICO: "WTI原油",
+  FEDFUNDS: "FF金利(%)", UNRATE: "失業率(%)", UMCSENT: "消費者信頼感", DGS10: "10年国債(%)",
+  T10YIE: "期待インフレ率(%)", AHETPI: "平均時給($)"
+};
+const KEY_ORDER = ["DEXJPUS","VIX","SP500","DCOILWTICO","UMCSENT","FEDFUNDS","UNRATE","DGS10","T10YIE","AHETPI"];
+
+fetch('./fred-data.json?_=' + Date.now())
+  .then(r => r.json())
+  .then(d => {
+    document.getElementById('scoreNum').textContent = d.koya_score;
+    const sig = d.koya_signal || 'WATCH';
+    const badge = document.getElementById('signalBadge');
+    badge.textContent = sig;
+    badge.className = 'signal ' + (sig === 'GO' ? 'sig-go' : sig === 'HOLD' ? 'sig-hold' : 'sig-watch');
+
+    const rows = document.getElementById('indicatorRows');
+    KEY_ORDER.forEach(k => {
+      const val = d.latest ? d.latest[k] : null;
+      const alert = d.alerts ? d.alerts[k] : null;
+      const dotClass = alert === 'green' ? 'dot-g' : alert === 'red' ? 'dot-r' : 'dot-y';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${LABELS[k] || k}</td><td class="num">${val != null ? val : 'N/A'}</td><td><span class="dot ${dotClass}"></span>${alert || '-'}</td>`;
+      rows.appendChild(tr);
+    });
+
+    const max = Math.max(...HIST.map(h => h[1]));
+    const min = Math.min(...HIST.map(h => h[1])) - 5;
+    const bars = document.getElementById('trendBars');
+    HIST.forEach(([date, score]) => {
+      const pct = Math.max(4, ((score - min) / (max - min)) * 100);
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.height = pct + '%';
+      bar.title = `${date}: ${score}pt`;
+      bars.appendChild(bar);
+    });
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  })
+  .catch(e => {
+    document.getElementById('loading').textContent = 'データ読み込みに失敗しました。しばらくしてから再度お試しください。';
+  });
+</script>
+
+</body>
+</html>
