@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-21T00:18:54.651313Z",
+  "updated": "2026-07-22T00:10:58.027606Z",
   "series": {
     "DEXJPUS": [
       {
@@ -351,6 +351,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-07-20",
+        "value": 4.6
+      },
+      {
         "date": "2026-07-17",
         "value": 4.55
       },
@@ -401,13 +405,13 @@
       {
         "date": "2026-06-30",
         "value": 4.44
-      },
-      {
-        "date": "2026-06-29",
-        "value": 4.38
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-07-21",
+        "value": 2.26
+      },
       {
         "date": "2026-07-20",
         "value": 2.25
@@ -459,10 +463,6 @@
       {
         "date": "2026-07-01",
         "value": 2.204
-      },
-      {
-        "date": "2026-06-30",
-        "value": 2.24
       }
     ],
     "UMCSENT": [
@@ -757,6 +757,21 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 163.15,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.2,
+    "CPIAUCSL": 334.184,
+    "CPIFABSL": 345.893,
+    "AHETPI": 32.35,
+    "DGS10": 4.6,
+    "T10YIE": 2.26,
+    "UMCSENT": 44.661,
+    "GS2": 4.131,
+    "DCOILWTICO": 79.2,
+    "VIX": 17.05,
+    "SP500": 7509.2
+  },
+  "prev_latest": {
     "DEXJPUS": 162.48,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
@@ -771,35 +786,20 @@
     "VIX": 18.65,
     "SP500": 7443.28
   },
-  "prev_latest": {
-    "DEXJPUS": 162.51,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.2,
-    "CPIAUCSL": 334.184,
-    "CPIFABSL": 345.893,
-    "AHETPI": 32.35,
-    "DGS10": 4.57,
-    "T10YIE": 2.24,
-    "UMCSENT": 44.661,
-    "GS2": 4.131,
-    "DCOILWTICO": 79.2,
-    "VIX": 18.77,
-    "SP500": 7457.69
-  },
   "deltas": {
-    "DEXJPUS": -0.03,
+    "DEXJPUS": 0.67,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.02,
+    "DGS10": 0.05,
     "T10YIE": 0.01,
     "UMCSENT": null,
     "GS2": null,
     "DCOILWTICO": null,
-    "VIX": -0.12,
-    "SP500": -14.41
+    "VIX": -1.6,
+    "SP500": 65.92
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -814,7 +814,7 @@
     "GS2": "green",
     "DCOILWTICO": "green",
     "VIX": "green",
-    "SP500": "yellow"
+    "SP500": "green"
   },
   "scores": {
     "DEXJPUS": 80,
@@ -829,13 +829,13 @@
     "GS2": 70,
     "DCOILWTICO": 85,
     "VIX": 75,
-    "SP500": 65
+    "SP500": 80
   },
   "koya_score": 72.1,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+0.419%",
-  "vix_note": "VIX=18.65 正常範囲",
-  "sp500_note": "S&P500=7443.28",
+  "spread_dgs10_gs2": "+0.469%",
+  "vix_note": "VIX=17.05 正常範囲",
+  "sp500_note": "S&P500=7509.2",
   "decision_triggers": [
     {
       "level": "green",
@@ -844,18 +844,18 @@
     },
     {
       "level": "red",
-      "indicator": "USD/JPY ¥162.480",
+      "indicator": "USD/JPY ¥163.150",
       "message": "BOJ介入リスク域。ドル建て明示検討。"
     },
     {
       "level": "yellow",
-      "indicator": "VIX恐怖指数 18.65",
+      "indicator": "VIX恐怖指数 17.05",
       "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
-      "level": "yellow",
-      "indicator": "S&P500 7,443",
-      "message": "良好水準。本国資産効果継続。"
+      "level": "green",
+      "indicator": "S&P500 7,509",
+      "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
     },
     {
       "level": "green",
