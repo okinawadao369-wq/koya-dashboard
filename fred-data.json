@@ -757,7 +757,7 @@
     ]
   },
   "latest": {
-    "DEXJPUS": 162.43,
+    "DEXJPUS": 163.36,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
     "CPIAUCSL": 334.184,
@@ -769,7 +769,8 @@
     "GS2": 4.131,
     "DCOILWTICO": 84.38,
     "VIX": 17.58,
-    "SP500": 7498.96
+    "SP500": 7498.96,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
   "prev_latest": {
     "DEXJPUS": 163.15,
