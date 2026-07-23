@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-23T00:07:10.085582Z",
+  "updated": "2026-07-23T03:00:00Z",
   "series": {
     "DEXJPUS": [
       {
@@ -757,7 +757,7 @@
     ]
   },
   "latest": {
-    "DEXJPUS": 163.09,
+    "DEXJPUS": 162.43,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
     "CPIAUCSL": 334.184,
@@ -768,7 +768,7 @@
     "UMCSENT": 44.661,
     "GS2": 4.131,
     "DCOILWTICO": 84.38,
-    "VIX": 16.64,
+    "VIX": 17.58,
     "SP500": 7498.96
   },
   "prev_latest": {
@@ -797,7 +797,7 @@
     "T10YIE": 0.02,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 5.18,
+    "DCOILWTICO": 0.95,
     "VIX": -0.41,
     "SP500": -10.24
   },
@@ -831,7 +831,7 @@
     "VIX": 75,
     "SP500": 65
   },
-  "koya_score": 70.1,
+  "koya_score": 73.2,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.499%",
   "vix_note": "VIX=16.64",
@@ -868,7 +868,7 @@
       "message": "Low level, emphasize value."
     }
   ],
-  "data_version": "v7",
+  "data_version": "v8",
   "fetch_quality": {
     "ok": 13,
     "total": 13,
