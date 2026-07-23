@@ -355,6 +355,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
         <div class="c-val" id="ov-cpi">—</div>
         <div class="c-sub">Consumer Price Index</div>
       </div>
+      <div class="card" style="border:1px solid rgba(248,160,0,.35);background:rgba(248,160,0,.04)">
+        <div class="c-lbl" style="color:#E8A000">⛽ WTI原油 (DCOILWTICO)</div>
+        <div class="c-val" id="ov-wti" style="color:#E8A000">—</div>
+        <div class="c-sub" id="ov-wti-note">体感インフレ指数</div>
+      </div>
       <div class="card" style="border:1px solid rgba(0,212,170,.3);background:rgba(0,212,170,.04)">
         <div class="c-lbl" style="color:var(--teal)">🎯 koya経営スコア</div>
         <div class="c-val" id="koya-score-val" style="font-size:1.6rem">—</div>
@@ -374,6 +379,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
         <div class="c-lbl">地政学インパクト</div>
         <div class="c-val purple" id="ov-geo">+7.5%</div>
         <div class="c-sub">推奨価格への上乗せ</div>
+      </div>
+      <div class="card" style="border:1px solid rgba(0,212,170,.3);background:rgba(0,212,170,.05)">
+        <div class="c-lbl" style="color:var(--teal)">💴 FTO価格インデックス</div>
+        <div class="c-val" id="ov-fto-idx" style="color:var(--teal);font-size:1.15rem">—</div>
+        <div class="c-sub" id="ov-fto-disc">コンボ¥15,800のドル換算</div>
       </div>
     </div>
 
@@ -582,7 +592,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="cards" id="e4-kpi-cards">
       <div class="card"><div class="c-lbl">E-4 推計人口（沖縄）</div><div class="c-val teal" id="e4-pop">6,900人</div><div class="c-sub">SOFA家族帯同層 推計</div></div>
       <div class="card"><div class="c-lbl">E-4 月収合計（USD）</div><div class="c-val gold" id="e4-income">$6,051/mo</div><div class="c-sub">基本給＋OHA＋COLA</div></div>
-      <div class="card"><div class="c-lbl">E-4 OHA（沖縄・扶養あり）</div><div class="c-val blue" id="e4-oha">$2,461/mo</div><div class="c-sub">＝¥391,000 住宅手当</div></div>
+      <div class="card"><div class="c-lbl">E-4 OHA（沖縄・扶養あり）</div><div class="c-val blue" id="e4-oha">$2,461/mo</div><div class="c-sub">＝¥401,000 住宅手当</div></div>
       <div class="card"><div class="c-lbl">E-4 月間市場ポテンシャル</div><div class="c-val green" id="e4-market">--</div><div class="c-sub">4Dエコー換算 全商圏</div></div>
       <div class="card"><div class="c-lbl">E-4 価格許容度</div><div class="c-val gold">68%</div><div class="c-sub">米国比プレミアム許容</div></div>
       <div class="card"><div class="c-lbl">FTC 最重要ターゲット</div><div class="c-val teal">★ E-4</div><div class="c-sub">出産・育児開始期 消費ピーク</div></div>
@@ -1173,7 +1183,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v58';
+var CACHE_KEY = 'koya_v57';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1227,8 +1237,9 @@ var BTYPE = {
   pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:20, usHigh:35, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問'},
   trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行'},
   hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:120,usHigh:200,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー'},
-  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:90, usHigh:160,ftcDef:7000, monthlyPerPerson:12,note:'60分全身'},
-  acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:100,usHigh:180,ftcDef:8000, monthlyPerPerson:8, note:'60分セッション'},
+  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:60, usHigh:150,ftcDef:10000,monthlyPerPerson:12,note:'60分全身（PDF確認:avg$95）'},
+  acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:75, usHigh:150,ftcDef:16000,monthlyPerPerson:8, note:'60分スタンドアロン（PDF確認:avg$110）'},
+  acu_combo:{label:'🌟 FTO｜60分Acu-Wellnessコンボ', cat:'beauty',usLow:180,usHigh:260,ftcDef:15800,monthlyPerPerson:8, note:'鍼灸+マッサージ+PEMF 新メニュー(PDF調査:avg$220)'},
   hbeat:  {label:'小売｜Heartbeat Animal記念品',    cat:'retail',usLow:40, usHigh:80, ftcDef:5500, monthlyPerPerson:1.5,note:'ベビー胎動記念品'},
   baby:   {label:'小売｜ベビー/マタニティ用品',     cat:'retail',usLow:30, usHigh:100,ftcDef:6000, monthlyPerPerson:10, note:'消耗品含むセット'},
   photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:400,usHigh:1200,ftcDef:35000,monthlyPerPerson:1,  note:'フルセッション'},
@@ -1282,7 +1293,7 @@ var GEO = [
    desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
    impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
   {key:'usstress',label:'米国政治経済ストレス',val:85,trend:'↑',color:'#FF7F50',
-   desc:'UMCSENT=49.8（FRED公式Apr2026・2023年以来の低水準）・クレカ延滞率13.1%（16年ぶり高水準）・実質賃金▲0.2%（名目+3.6% vs インフレ3.8%）・住宅負担世帯49%・WTI$84.38・VIX=16.64（Alert lifted, normal zone）。CPI公式3.8% vs リアリティ指数推計5〜7%の乖離が継続。S&P500=7,420.10（回復局面・高値圏維持）。',
+   desc:'UMCSENT=49.8（FRED公式Apr2026・2023年以来の低水準）・クレカ延滞率13.1%（16年ぶり高水準）・実質賃金▲0.2%（名目+3.6% vs インフレ3.8%）・住宅負担世帯49%・WTI$79.2・VIX=18.65（警戒水準解除・正常ゾーン回復）。CPI公式3.8% vs リアリティ指数推計5〜7%の乖離が継続。S&P500=7,420.10（回復局面・高値圏維持）。',
    impact:'本国消費者の生活苦が深刻化する中、SOFA家族はOHA・ドル収入により住宅費/光熱費負担をダイレクトに受けない二重バッファ構造。米国アンカー価格の上昇が沖縄サービスの相対的割安感をさらに高め、価格心理効果は増大。',src:'FRED UMCSENT Apr2026/Yahoo Finance VIX+SP500 Jun2026-06-08/NY Fed HH Debt Q1-2026/BLS CPI Apr2026'}
 ];
 
@@ -1305,9 +1316,10 @@ var FRED_SERIES = [
 // MOCK値: 2026年6月8日 FRED公式+Yahoo Finance同期
 // UMCSENT=49.8（FRED公式Apr2026）/ WTI=95.96（FRED Jun-01）/ VIX=21.51（市場警戒ゾーン）/ SP500=7383.74
 var MOCK = {
-  DEXJPUS:163.09, FEDFUNDS:3.63, UNRATE:4.2, CPIAUCSL:334.184, CPIFABSL:345.893,
-  AHETPI:32.35, DGS10:4.63, T10YIE:2.28, UMCSENT:44.661, GS2:4.131, DCOILWTICO:84.38,
-  VIX:16.64, SP500:7498.96
+  // v57 2026-07-23 更新: FRED最新値 + Yahoo Finance Live
+  DEXJPUS:163.39, FEDFUNDS:3.63, UNRATE:4.2, CPIAUCSL:332.568, CPIFABSL:346.391,
+  AHETPI:32.38, DGS10:4.63, T10YIE:2.28, UMCSENT:44.8, GS2:4.11, DCOILWTICO:84.38,
+  VIX:17.58, SP500:7499.0
 };
 
 // State
@@ -1604,6 +1616,23 @@ function updateOverviewCards(){
   var urDisp=ur!==null?ur:(MOCK.UNRATE||4.3);
   document.getElementById('ov-ur').textContent=urDisp.toFixed(1)+'%'+(ur===null?' *':'');
   document.getElementById('ov-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'$32.23';
+  // WTI原油リアルタイム表示
+  var wtiVal=S.fredVals['DCOILWTICO']||(MOCK.DCOILWTICO||84.38);
+  var wtiEl=document.getElementById('ov-wti');
+  if(wtiEl) wtiEl.textContent='$'+wtiVal.toFixed(2)+'/bbl';
+  var wtiNoteEl=document.getElementById('ov-wti-note');
+  if(wtiNoteEl){
+    var wtiRef=79.2; var wtiChgPct=((wtiVal-wtiRef)/wtiRef*100);
+    wtiNoteEl.textContent=(wtiChgPct>=0?'+':'')+wtiChgPct.toFixed(1)+'% 前月比 → 米国インフレ'+(wtiChgPct>=3?'↑↑':wtiChgPct>=0?'↑':'↓');
+    wtiNoteEl.style.color=wtiChgPct>=5?'#E8A000':wtiChgPct>=0?'#B8800A':'#4CAF50';
+  }
+  // FTO価格インデックス（コンボ¥15,800のドル換算 vs 米国アンカー）
+  var fxLive=S.fredVals['DEXJPUS']||S.fx||(MOCK.DEXJPUS||163.39);
+  var comboPriceUsd=Math.round(15800/fxLive);
+  var ftoIdxEl=document.getElementById('ov-fto-idx');
+  if(ftoIdxEl) ftoIdxEl.textContent='$'+comboPriceUsd+' vs US$220';
+  var ftoDiscEl=document.getElementById('ov-fto-disc');
+  if(ftoDiscEl){ var disc=Math.round((1-comboPriceUsd/220)*100); ftoDiscEl.textContent='米国比 '+disc+'%割安（¥15,800コンボ/生体）'; }
   document.getElementById('ov-cpi').textContent=S.cpi?S.cpi.toFixed(1)+'%':'3.7%';
   document.getElementById('fx-display').textContent=fx!==null?fx.toFixed(2):'158.92';
   document.getElementById('f-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
@@ -1643,7 +1672,7 @@ function renderOverview(){
   if(S.ffH.length) mkLine('c-ff',S.ffH.map(function(d){return d.date.slice(0,7);}),S.ffH.map(function(d){return d.value;}),'#F4C842');
   if(S.urH.length) mkLine('c-ur',S.urH.map(function(d){return d.date.slice(0,7);}),S.urH.map(function(d){return d.value;}),'#FF4D6A');
   // Gauge
-  var fx=S.fx||163.09; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
+  var fx=S.fx||162.48; var ur=S.ur||4.3; var ff=S.ff||3.64; var cpi=S.cpi||4.0;
   var score=60;
   if(fx>155) score+=15; else if(fx>148) score+=10; else if(fx>140) score+=5;
   if(ur<4) score+=12; else if(ur<5) score+=8; else if(ur<6) score+=4;
@@ -1741,7 +1770,7 @@ function runSim(){
   if(!seg) seg=SEGS[1];
   var area=AREAS[S.curArea];
   var inputJPY=parseFloat(document.getElementById('price-input').value)||20000;
-  var fx=S.fx||163.09;
+  var fx=S.fx||162.48;
   var ahe=S.ahe||32.23; var cpi=S.cpi||4.0;
 
   // CPI補正（全計算に適用）
@@ -1915,7 +1944,7 @@ function buildBizFilter(){
 
 function renderBiz(cat){
   cat=cat||'all';
-  var fx=S.fx||163.09; var cpi=S.cpi||4.0;  // CPI統一: runSim=4.0%と整合
+  var fx=S.fx||162.48; var cpi=S.cpi||4.0;  // CPI統一: runSim=4.0%と整合
   var catColors={'ftc':'#00D4AA','food':'#F4C842','life':'#4ADE80','beauty':'#A78BFA','retail':'#60A5FA','exp':'#FF7F50','edu':'#F472B6'};
   var filtered=Object.keys(BTYPE).filter(function(k){ return cat==='all'||BTYPE[k].cat===cat; });
   document.getElementById('biz-count').textContent=filtered.length+'業種';
@@ -2003,7 +2032,7 @@ function renderMil(){
   var e4Seg = SEGS.find(function(s){ return s.id==='E4'; });
   var e4OHA = OHA_RANKS && OHA_RANKS.find(function(r){ return r.id==='E4'; });
   if(e4Seg) {
-    var fx=S.fx||163.09;
+    var fx=S.fx||162.48;
     var totalMkt=0;
     AREAS.forEach(function(a){ totalMkt += 3.0 * Math.round(80000*a.pct/100) * 20000 / 1000000; });
     var e4mkt = (totalMkt * (e4Seg.prem/100)).toFixed(1);
@@ -2021,7 +2050,7 @@ function renderMil(){
 // ════════════════════════════════════════════════
 function renderFred(){
   RD.fred=true;
-  var fx=S.fx||163.09; var ff=S.ff||3.64; var ur=S.ur||4.3;
+  var fx=S.fx||162.48; var ff=S.ff||3.64; var ur=S.ur||4.3;
   // Sync FRED_SERIES val from S.fredVals
   FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=new Date().toISOString().slice(0,10); });
   // FRED grid
@@ -2127,7 +2156,7 @@ function initMaternityTab() {
   var MAT_PRICES = [
     {svc:'産後ドゥーラ / 産後ケア',      us:'$25〜80/時 (avg $35)',  fto:'¥8,000〜12,000/時', prm:'+30〜50%余地',  tc:'◎ デモ実施中', note:'TRICARE授乳デモ対象 / 最高需要'},
     {svc:'産後マッサージ 60分',           us:'$60〜150 (avg $95)',    fto:'¥10,000〜14,000',  prm:'+20〜40%余地',  tc:'△ 一部対象',   note:'プレナタル特化で差別化可'},
-    {svc:'鍼灸 / ウェルネス 60分',        us:'$75〜150 (avg $110)',   fto:'¥12,000〜16,000',  prm:'競争的',        tc:'× 非対象',     note:'ウェルネス需要増が追い風'},
+    {svc:'60分 Acu-Wellness コンボ ★新', us:'単体$75〜150 / コンボ$180〜260', fto:'¥15,800 (コンボ推奨)', prm:'+24%余地→¥19,800', tc:'× 非対象', note:'鍼灸×マッサージ×PEMF 2026新メニュー'},
     {svc:'新生児・家族フォト',             us:'$200〜3,000+ (avg$550)',fto:'¥30,000〜80,000',  prm:'競争的',        tc:'× 非対象',     note:'記念需要は価格感度低い'},
     {svc:'産前ヨガ（グループ）',           us:'$20〜30/回',            fto:'¥2,500〜4,500',    prm:'競争的',        tc:'× 非対象',     note:'コミュニティ形成ツール'},
     {svc:'産前ヨガ（プライベート）',       us:'$80〜120/回',           fto:'¥8,000〜12,000',   prm:'+10〜25%余地', tc:'× 非対象',     note:'VIP顧客育成チャネル'},
@@ -2671,7 +2700,7 @@ var _H_AREA_CHART = null;
 function renderAreaChart(){
   var ri=parseInt(document.getElementById('h-rank-sel').value);
   var rank=OHA_RANKS[ri];
-  var fx=S.fx||163.09;
+  var fx=S.fx||162.48;
   var incRow=RANK_INCOME_DATA[ri]; var disp=0;
   if(incRow){ var last=incRow[incRow.length-1]; disp=last.usd||3000; }
   var data=AREAS.map(function(a){
@@ -2706,7 +2735,7 @@ function updateHousingAnalysis(){
   var ai=parseInt((document.getElementById('h-area-sel')||{value:'0'}).value)||0;
   var rank=OHA_RANKS[ri];
   var prop=OKI_PROPS[pi];
-  var fx=S.fx||163.09;
+  var fx=S.fx||162.48;
   var score=hPsychScore(prop,rank);
   var gapUsd=hAllowanceGap(prop,rank);
   var gapJpy=rank.rentJpy-prop.rentJpy;
