@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-26T22:23:56.324594Z",
+  "updated": "2026-07-27T00:08:07.777774Z",
   "series": {
     "DEXJPUS": [
       {
@@ -757,7 +757,7 @@
     ]
   },
   "latest": {
-    "DEXJPUS": 163.67,
+    "DEXJPUS": 163.57,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
     "CPIAUCSL": 334.184,
@@ -773,7 +773,7 @@
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
   "prev_latest": {
-    "DEXJPUS": 163.79,
+    "DEXJPUS": 163.67,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
     "CPIAUCSL": 334.184,
@@ -789,7 +789,7 @@
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
   "deltas": {
-    "DEXJPUS": -0.12,
+    "DEXJPUS": -0.1,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -846,7 +846,7 @@
     },
     {
       "level": "red",
-      "indicator": "USD/JPY 163.670",
+      "indicator": "USD/JPY 163.570",
       "message": "BOJ intervention risk zone."
     },
     {
