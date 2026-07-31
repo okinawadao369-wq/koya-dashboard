@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-30T00:08:53.271208Z",
+  "updated": "2026-07-31T00:10:13.616722Z",
   "series": {
     "DEXJPUS": [
       {
@@ -339,6 +339,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-07-29",
+        "value": 4.67
+      },
+      {
         "date": "2026-07-28",
         "value": 4.61
       },
@@ -389,13 +393,13 @@
       {
         "date": "2026-07-10",
         "value": 4.56
-      },
-      {
-        "date": "2026-07-09",
-        "value": 4.54
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-07-30",
+        "value": 2.27
+      },
       {
         "date": "2026-07-29",
         "value": 2.26
@@ -447,10 +451,6 @@
       {
         "date": "2026-07-13",
         "value": 2.26
-      },
-      {
-        "date": "2026-07-10",
-        "value": 2.24
       }
     ],
     "UMCSENT": [
@@ -745,6 +745,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 160.31,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.2,
+    "CPIAUCSL": 332.568,
+    "CPIFABSL": 346.391,
+    "AHETPI": 32.38,
+    "DGS10": 4.67,
+    "T10YIE": 2.27,
+    "UMCSENT": 44.8,
+    "GS2": 4.11,
+    "DCOILWTICO": 84.25,
+    "VIX": 17.09,
+    "SP500": 7437.63,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
+  },
+  "prev_latest": {
     "DEXJPUS": 163.23,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.2,
@@ -760,36 +776,20 @@
     "SP500": 7316.15,
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
-  "prev_latest": {
-    "DEXJPUS": 163.87,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.2,
-    "CPIAUCSL": 334.184,
-    "CPIFABSL": 345.893,
-    "AHETPI": 32.35,
-    "DGS10": 4.65,
-    "T10YIE": 2.2,
-    "UMCSENT": 44.661,
-    "GS2": 4.131,
-    "DCOILWTICO": 84.38,
-    "VIX": 18.21,
-    "SP500": 7428.78,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
-  },
   "deltas": {
-    "DEXJPUS": -0.64,
+    "DEXJPUS": -2.92,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.04,
-    "T10YIE": 0.06,
+    "DGS10": 0.06,
+    "T10YIE": 0.01,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -0.13,
-    "VIX": 2.45,
-    "SP500": -112.63
+    "DCOILWTICO": null,
+    "VIX": -3.57,
+    "SP500": 121.48
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -803,11 +803,11 @@
     "UMCSENT": "red",
     "GS2": "green",
     "DCOILWTICO": "green",
-    "VIX": "red",
+    "VIX": "green",
     "SP500": "yellow"
   },
   "scores": {
-    "DEXJPUS": 80,
+    "DEXJPUS": 95,
     "FEDFUNDS": 75,
     "UNRATE": 85,
     "CPIAUCSL": 50,
@@ -818,34 +818,39 @@
     "UMCSENT": 35,
     "GS2": 70,
     "DCOILWTICO": 70,
-    "VIX": 42,
+    "VIX": 75,
     "SP500": 65
   },
-  "koya_score": 67.5,
-  "koya_signal": "WATCH",
-  "spread_dgs10_gs2": "+0.479%",
-  "vix_note": "VIX=20.66 市場警戒ゾーン突破（>20）",
-  "sp500_note": "S&P500=7316.15",
+  "koya_score": 73.9,
+  "koya_signal": "GO",
+  "spread_dgs10_gs2": "+0.560%",
+  "vix_note": "VIX=17.09 正常範囲",
+  "sp500_note": "S&P500=7437.63",
   "decision_triggers": [
     {
-      "level": "yellow",
-      "indicator": "koya総合スコア 68/100 [WATCH]",
-      "message": "準備・監視フェーズ。現状維持しつつ差別化訴求を継続。"
+      "level": "green",
+      "indicator": "koya総合スコア 74/100 [GO]",
+      "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
+    },
+    {
+      "level": "green",
+      "indicator": "USD/JPY ¥160.310",
+      "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
       "level": "red",
-      "indicator": "USD/JPY ¥163.230",
-      "message": "BOJ介入リスク域。ドル建て明示検討。"
-    },
-    {
-      "level": "red",
-      "indicator": "VIX恐怖指数 20.66",
-      "message": "市場警戒ゾーン突破(>20)。本国の節約意識上昇に注意。"
+      "indicator": "USD/JPY急変",
+      "message": "前日比-2.92円の急変動。価格設定・予約に注意。"
     },
     {
       "level": "yellow",
-      "indicator": "S&P500 7,316",
-      "message": "下落傾向(-113pt)。本国消費マインドに影響可能性。"
+      "indicator": "VIX恐怖指数 17.09",
+      "message": "通常範囲内。市場安定・購買行動平常通り。"
+    },
+    {
+      "level": "yellow",
+      "indicator": "S&P500 7,438",
+      "message": "良好水準。本国資産効果継続。"
     },
     {
       "level": "yellow",
@@ -854,11 +859,11 @@
     },
     {
       "level": "red",
-      "indicator": "消費者信頼感 44.7",
+      "indicator": "消費者信頼感 44.8",
       "message": "低水準。本国比バリュー・安心感訴求を前面に。"
     }
   ],
-  "data_version": "v7",
+  "data_version": "v7.2",
   "fetch_quality": {
     "ok": 13,
     "total": 13,
