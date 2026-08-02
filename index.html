@@ -271,9 +271,73 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
   .h-tab-btn{font-size:.65rem !important;padding:.25rem .4rem !important}
 }
 /* ════════════════════════════════════════════════════════════════════════ */
+
+/* ── v2 追加: パスワードゲート・検証バッジ・フォールバックバナー・計算式開示 ── */
+#fto-gate{position:fixed;inset:0;z-index:99999;background:#0A0E14;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+#fto-gate.hidden{display:none}
+#fto-gate .gate-box{background:#131A24;border:1px solid rgba(0,212,170,.25);border-radius:12px;padding:32px 36px;text-align:center;max-width:340px}
+#fto-gate .gate-title{color:#00D4AA;font-weight:700;font-size:15px;margin-bottom:6px}
+#fto-gate .gate-sub{color:#8899B0;font-size:11px;margin-bottom:16px;line-height:1.6}
+#fto-gate input{width:100%;padding:10px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#0A0E14;color:#fff;font-size:14px;margin-bottom:10px;box-sizing:border-box}
+#fto-gate button{width:100%;padding:10px;border-radius:6px;border:none;background:#00D4AA;color:#0A0E14;font-weight:700;cursor:pointer;font-size:13px}
+#fto-gate .gate-err{color:#FF4D6A;font-size:11px;margin-top:8px;min-height:14px}
+#fto-gate .gate-note{color:#5A6578;font-size:9px;margin-top:14px;line-height:1.6}
+
+.verif-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap;vertical-align:middle}
+.verif-ok{background:rgba(0,212,170,.15);color:#00D4AA;border:1px solid rgba(0,212,170,.35)}
+.verif-est{background:rgba(244,200,66,.15);color:#F4C842;border:1px solid rgba(244,200,66,.35)}
+.margin-note{font-size:9px;color:#F4C842;opacity:.85;margin-top:2px}
+.src-note{font-size:9px;color:#5A6578;margin-top:2px}
+
+#fallback-banner{display:none;background:rgba(244,200,66,.12);border:1px solid rgba(244,200,66,.3);color:#F4C842;font-size:11px;padding:7px 16px;border-radius:6px;margin:10px 20px 0 20px;align-items:center;gap:8px}
+#fallback-banner.show{display:flex}
+
+.formula-toggle{display:inline-block;font-size:9px;color:#60A5FA;cursor:pointer;text-decoration:underline;margin-left:6px}
+.formula-box{display:none;background:var(--bg3);border:1px solid rgba(96,165,250,.25);border-radius:6px;padding:10px 12px;margin-top:8px;font-size:10px;line-height:1.8;color:var(--muted);font-family:'JetBrains Mono',monospace;white-space:pre-wrap}
+.formula-box.show{display:block}
 </style>
 </head>
 <body>
+<div id="fto-gate">
+  <div class="gate-box">
+    <div class="gate-title">🔒 KOYA AI — スタッフ限定ダッシュボード</div>
+    <div class="gate-sub">社外秘の経営インテリジェンス情報を含みます。<br>共有されたパスコードを入力してください。</div>
+    <input type="password" id="fto-gate-pw" placeholder="パスコード" autocomplete="off">
+    <button onclick="ftoGateCheck()">入場する</button>
+    <div class="gate-err" id="fto-gate-err"></div>
+    <div class="gate-note">※このパスコードは簡易的な閲覧抑止であり、強固なセキュリティではありません。<br>より堅牢な保護が必要な場合は非公開ホスティングへの移行をご検討ください。</div>
+  </div>
+</div>
+<script>
+(function(){
+  // SHA-256("FTOstaff2026")
+  var FTO_GATE_HASH = '97aa966afd784495ddd8c6df97242cacba40a556e2c57f087a430e0677c50d44';
+  async function sha256(msg){
+    var enc = new TextEncoder().encode(msg);
+    var buf = await crypto.subtle.digest('SHA-256', enc);
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  }
+  window.ftoGateCheck = async function(){
+    var pw = document.getElementById('fto-gate-pw').value;
+    var h = await sha256(pw);
+    if(h === FTO_GATE_HASH){
+      try{ localStorage.setItem('fto_gate_ok','1'); }catch(e){}
+      document.getElementById('fto-gate').classList.add('hidden');
+    } else {
+      document.getElementById('fto-gate-err').textContent = 'パスコードが違います';
+    }
+  };
+  document.addEventListener('DOMContentLoaded', function(){
+    var pwInput = document.getElementById('fto-gate-pw');
+    if(pwInput) pwInput.addEventListener('keydown', function(e){ if(e.key==='Enter') ftoGateCheck(); });
+    try{
+      if(localStorage.getItem('fto_gate_ok')==='1'){
+        document.getElementById('fto-gate').classList.add('hidden');
+      }
+    }catch(e){}
+  });
+})();
+</script>
 <button id="menu-btn" onclick="toggleSidebar()" aria-label="メニュー">☰</button>
 <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 <div id="lo">
@@ -302,7 +366,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="nav-item" data-tab="housing"><span class="nav-dot"></span>住宅心理モジュール</div>
     <div class="nav-item" data-tab="us-reality"><span class="nav-dot"></span>米国消費者実態</div>
     <div class="nav-item" data-tab="pcs"><span class="nav-dot"></span>PCS移動分析</div>
-    <div class="nav-item" data-tab="maternity"><span class="nav-dot"></span>妊婦ターゲット層</div>
+    <div class="nav-item" data-tab="maternity"><span class="nav-dot"></span>産前産後ケア需要セグメント</div>
   </div>
   <div class="sfoot">
     <div class="lbl">Last update</div>
@@ -323,6 +387,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
       <button class="btn btn-sm" id="ref-btn">&#8635; FRED更新</button>
     </div>
   </div>
+  <div id="fallback-banner">&#9888;&#65039; <span>本日の一部指標はフォールバック値（MOCK/キャッシュ）を使用しています。表示中の数値は最新のFRED/Yahoo Financeライブデータと異なる場合があります。</span></div>
   <div id="content">
 
   <!-- ── TAB 1: 市場概況 ── -->
@@ -476,7 +541,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
       <div class="sim-out" id="sim-out"></div>
       <div style="margin-bottom:8px">
         <div style="display:flex;align-items:center;margin-bottom:4px">
-          <span style="font-size:10px;color:var(--muted)">購買意欲スコア</span>
+          <span style="font-size:10px;color:var(--muted)">購買意欲スコア</span> <span class="verif-badge verif-est" style="font-size:8px;padding:1px 5px">未検証</span>
           <span class="score-badge" id="score-badge" style="background:rgba(0,212,170,.2);color:var(--teal)">—</span>
         </div>
         <div class="score-track">
@@ -515,9 +580,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
         <div class="c-sub">東アジア緊張・前方展開</div>
       </div>
       <div class="card">
-        <div class="c-lbl">総合地政学リスク</div>
+        <div class="c-lbl">総合地政学リスク <span class="verif-badge verif-est">未検証（推計モデル）</span></div>
         <div class="c-val gold" id="geo-total-risk">75</div>
         <div class="c-sub">/ 100スコア</div>
+        <div class="margin-note">7指数の加重平均・アナリスト月次手動更新。実績照合は未実施。</div>
       </div>
     </div>
 
@@ -543,7 +609,19 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     </div>
 
     <div class="box">
-      <div class="box-title">指数別詳細テーブル <span class="badge">推計モデル</span></div>
+      <div class="box-title">指数別詳細テーブル <span class="badge">推計モデル</span>
+        <span class="formula-toggle" onclick="this.nextElementSibling.classList.toggle('show')">計算式を見る</span>
+        <div class="formula-box">【価格心理インパクト算出式】
+gImpact(%) = max(0, Σ(指数値 × 重み) / 100 × 10)
+重み: forward=0.30, defense=0.20, taiwan=0.20, first=0.15, okinawa=0.10, usstress=-0.03, rebase=-0.02
+推奨価格帯への上乗せ = gImpact × 0.28
+
+※画面上の「GDELT記事分類（○○件・リスク語○○件等）」は、アナリストが7指数を
+月次で手動更新する際に参照した報道・統計の背景情報であり、リアルタイムの自動NLP
+集計ではありません。7指数（forward/defense/taiwan/first/okinawa/rebase/usstress）
+自体もArmyRecognition/CSIS/CFR/DoD公開資料等をもとにした推計値で、実績（実際の
+成約・売上データ）との照合は現時点で未実施です。</div>
+      </div>
       <div class="tbl-wrap"><table class="tbl" id="geo-table">
         <thead><tr><th>指数</th><th>スコア</th><th>トレンド</th><th>FTC価格心理への影響</th><th>データ源</th></tr></thead>
         <tbody id="geo-tbody"></tbody>
@@ -565,7 +643,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     </div>
 
     <div class="box">
-      <div class="box-title">業種別 米国単価→沖縄有効価格帯 <span class="badge" id="biz-count">21業種</span></div>
+      <div class="box-title">業種別 米国単価→沖縄有効価格帯 <span class="badge" id="biz-count">21業種</span> <span class="verif-badge verif-est">未検証（推計モデル）</span></div>
+      <div class="src-note">データ源: 業種別に米国公開価格調査(thervo.com/busybook.co等)＋FRED CPI補正。「価格ポジショニング指数」列は米国換算価格との比較値で、実績成約データとの照合は未実施。</div>
       <div class="tbl-wrap"><table class="tbl">
         <thead>
           <tr>
@@ -574,7 +653,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
             <th>円換算アンカー</th>
             <th>FTC参考価格</th>
             <th>推奨価格帯</th>
-            <th>割安感</th>
+            <th>価格ポジショニング指数</th>
             <th>年間市場 (M$)</th>
           </tr>
         </thead>
@@ -590,12 +669,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 
     <!-- E4 KPI Cards -->
     <div class="cards" id="e4-kpi-cards">
-      <div class="card"><div class="c-lbl">E-4 推計人口（沖縄）</div><div class="c-val teal" id="e4-pop">6,900人</div><div class="c-sub">SOFA家族帯同層 推計</div></div>
+      <div class="card"><div class="c-lbl">E-4 推計人口（沖縄） <span class="verif-badge verif-est">未検証</span></div><div class="c-val teal" id="e4-pop">6,900人</div><div class="c-sub">SOFA家族帯同層 推計</div><div class="margin-note">±20%程度の誤差を含む推計値（SOFA総人口×等級構成比の按分）</div></div>
       <div class="card"><div class="c-lbl">E-4 月収合計（USD）</div><div class="c-val gold" id="e4-income">$6,051/mo</div><div class="c-sub">基本給＋OHA＋COLA</div></div>
       <div class="card"><div class="c-lbl">E-4 OHA（沖縄・扶養あり）</div><div class="c-val blue" id="e4-oha">$2,461/mo</div><div class="c-sub">＝¥401,000 住宅手当</div></div>
       <div class="card"><div class="c-lbl">E-4 月間市場ポテンシャル</div><div class="c-val green" id="e4-market">--</div><div class="c-sub">4Dエコー換算 全商圏</div></div>
       <div class="card"><div class="c-lbl">E-4 価格許容度</div><div class="c-val gold">68%</div><div class="c-sub">米国比プレミアム許容</div></div>
-      <div class="card"><div class="c-lbl">FTC 最重要ターゲット</div><div class="c-val teal">★ E-4</div><div class="c-sub">出産・育児開始期 消費ピーク</div></div>
+      <div class="card"><div class="c-lbl">FTC 優先セグメント</div><div class="c-val teal">★ E-4</div><div class="c-sub">出産・育児開始期 消費ピーク</div></div>
     </div>
 
     <div class="box">
@@ -918,7 +997,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 
       <!-- SOFA保護指数 -->
       <div class="box" style="border:1px solid rgba(0,212,170,.25)" id="ur-sofa-box">
-        <div class="box-title" style="color:var(--teal)">🛡️ SOFA家族 保護指数（動的計算）</div>
+        <div class="box-title" style="color:var(--teal)">🛡️ SOFA家族 保護指数（動的計算） <span class="verif-badge verif-est">未検証（推計モデル）</span></div>
         <div style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">米国インフレから守られている予算比率 — SOFA家族固有の経済絶縁構造</div>
 
         <!-- 総合スコア -->
@@ -942,7 +1021,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 
     <!-- 日米価格ギャップ → 価格心理プレミアム -->
     <div class="box" style="border:1px solid rgba(244,200,66,.25);margin-bottom:1rem">
-      <div class="box-title" style="color:var(--gold)">📊 価格心理プレミアム分析 — US体感インフレ × SOFA消費行動</div>
+      <div class="box-title" style="color:var(--gold)">📊 価格心理プレミアム分析 — US体感インフレ × SOFA消費行動 <span class="verif-badge verif-est">未検証（推計モデル）</span> <span class="formula-toggle" onclick="this.nextElementSibling.classList.toggle('show')">計算式を見る</span><div class="formula-box">【価格ポジショニング指数（割安率）算出式】
+sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPIの約1.5倍と仮定
+米国体感価格 = 米国単価レンジ × sentimentAdj
+価格ポジショニング指数(%) = round((1 − 沖縄価格 / 米国体感価格円換算) × 100)
+
+※米国単価レンジ・沖縄価格は固定の調査値（一覧をハードコード）で、リアルタイムAPIではありません。
+「0.5」という調整係数は独自仮定であり、実際の体感インフレ調査に基づく検証値ではありません。</div></div>
       <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem">米国アンカー価格の上昇により、沖縄サービスの"相対的割安感"がさらに拡大中</div>
 
       <div id="ur-price-premium-table" style="overflow-x:auto">
@@ -952,7 +1037,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
               <th>サービス</th>
               <th>米国体感価格</th>
               <th>Okinawa価格</th>
-              <th>割安率</th>
+              <th>価格ポジショニング指数</th>
               <th>心理プレミアム</th>
               <th>経営判断</th>
             </tr>
@@ -1083,9 +1168,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 
 
 
-<!-- ── TAB 10: 妊婦ターゲット層 ── -->
+<!-- ── TAB 10: 産前産後ケア需要セグメント ── -->
 <div id="tab-maternity" class="tab-panel">
-  <div class="sec-title">在沖米軍 妊婦ターゲット層インテリジェンス</div>
+  <div class="sec-title">在沖米軍 産前産後ケア需要セグメントインテリジェンス</div>
   <div class="sec-sub">TRICARE・PCS・SOFA家族データ統合 | FamilyTreeOki 産前産後ビジネス需要モデル 2026</div>
 
   <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(148px,1fr));margin-bottom:.75rem">
@@ -1102,7 +1187,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="card"><div class="c-lbl">TRICAREデモ期間</div><div class="c-val" style="color:#60a5fa">〜2026/12/31</div><div class="c-sub">授乳サポート100%カバー</div></div>
     <div class="card"><div class="c-lbl">PCSピーク × 妊婦流入</div><div class="c-val" style="color:var(--gold)">5〜8月</div><div class="c-sub">転入妊婦の60%超がこの時期</div></div>
     <div class="card"><div class="c-lbl">沖縄合計特殊出生率</div><div class="c-val" style="color:#a78bfa">1.60</div><div class="c-sub">日本最高（2023年）</div></div>
-    <div class="card"><div class="c-lbl">FTO月間アクティブ対象</div><div class="c-val" style="color:var(--accent)">80〜107人</div><div class="c-sub">妊娠中＋産後3ヶ月以内</div></div>
+    <div class="card"><div class="c-lbl">FTO月間アクティブ対象 <span class="verif-badge verif-est">未検証</span></div><div class="c-val" style="color:var(--accent)">80〜107人</div><div class="c-sub">妊娠中＋産後3ヶ月以内</div><div class="margin-note">±30%程度の誤差を含む推計値（複数推計の積み上げ・実績未照合）</div></div>
     <div class="card"><div class="c-lbl">Naval Hospital 分娩数</div><div class="c-val" style="color:#f59e0b">600〜800/年</div><div class="c-sub">2023年スタッフ不足→外部需要↑</div></div>
   </div>
 
@@ -1138,7 +1223,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:14px">
     <div class="card" style="border-left:3px solid var(--accent)">
       <div style="font-size:.7rem;font-weight:700;color:var(--accent);margin-bottom:6px">&#127919; PCS流入キャンペーン</div>
-      <div style="font-size:.68rem;color:var(--muted)">5〜8月のPCS転入妊婦を狙い、Facebook Groups（Okinawa Moms, Base Wives）・Naval Hospitalロビーチラシで初回割引30%展開。転入後30日以内の獲得を最大化。</div>
+      <div style="font-size:.68rem;color:var(--muted)">5〜8月のPCS転入時期に合わせ、Facebook Groups（Okinawa Moms, Base Wives）・Naval Hospitalロビーチラシで初回割引30%展開。転入後30日以内の接点構築を強化。</div>
     </div>
     <div class="card" style="border-left:3px solid #60a5fa">
       <div style="font-size:.7rem;font-weight:700;color:#60a5fa;margin-bottom:6px">&#128138; TRICARE連携ポジション</div>
@@ -1183,7 +1268,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v63';
+var CACHE_KEY = 'koya_v64';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1195,7 +1280,7 @@ var TAB_TITLES = {
   mil:'軍人・軍属マーケット',
   fred:'FRED経済データ',
   housing:'米軍住宅心理モジュール — OHA/BAH・面積・家賃',
-  maternity:'在沖米軍妊婦ターゲット層インテリジェンス'
+  maternity:'在沖米軍産前産後ケア需要セグメントインテリジェンス'
 };
 
 var AREAS = [
@@ -1212,7 +1297,7 @@ var SEGS = [
   {id:'E1E3',label:'E-1〜E-3',sub:'若年・価格敏感',monthly:5500,sens:1.4,prem:52,color:'#60A5FA',e4pop:0,
    desc:'低単価・即決・友人紹介。飲食、車、娯楽、低価格体験に反応。SNSシェア層として口コミ起点になりやすい。'},
   {id:'E4',label:'E-4',sub:'兵長・家族移行期 ★',monthly:6051,sens:1.2,prem:68,color:'#34D399',e4pop:6900,
-   desc:'【FamilyTreeOki最重要ターゲット】妊娠・出産・育児開始期に重なる消費ピーク層。4Dエコー・産後ケア・ニューボーン写真への支出意欲が最も高い。OHA余力ありで体験型サービスに積極的。'},
+   desc:'【FamilyTreeOki優先セグメント】妊娠・出産・育児開始期に重なる消費ピーク層。4Dエコー・産後ケア・ニューボーン写真への支出意欲が最も高い。OHA余力ありで体験型サービスに積極的。'},
   {id:'E4E6',label:'E-5〜E-6',sub:'中堅ファミリー',monthly:6700,sens:0.95,prem:86,color:'#00D4AA',e4pop:0,
    desc:'妊婦、乳幼児、家族写真、外食、記念体験の中心層。FamilyTreeOkiの主戦場。月次消費が最も厚い。'},
   {id:'E7E9',label:'E-7〜E-9',sub:'シニアNCO',monthly:7800,sens:0.7,prem:91,color:'#F4C842',e4pop:0,
@@ -1547,6 +1632,8 @@ function applyData(data,isMock){
   S.fxH=sortAsc(data.fxH); S.ffH=sortAsc(data.ffH);
   S.urH=sortAsc(data.urH); S.cpiH=sortAsc(data.cpiH);
   S.isMock=!!isMock;
+  var _fb=document.getElementById('fallback-banner');
+  if(_fb) _fb.classList.toggle('show', !!isMock);
   S.fx=S.fxH.length?S.fxH[S.fxH.length-1].value:null;
   S.ff=S.ffH.length?S.ffH[S.ffH.length-1].value:null;
   S.ur=S.urH.length?S.urH[S.urH.length-1].value:null;
@@ -2150,7 +2237,7 @@ document.querySelectorAll('.nav-item').forEach(function(n){
 
 
 // ════════════════════════════════════════════════
-// MATERNITY TAB — 妊婦ターゲット層
+// MATERNITY TAB — 産前産後ケア需要セグメント
 // ════════════════════════════════════════════════
 function initMaternityTab() {
   var MAT_PRICES = [
@@ -2437,7 +2524,7 @@ document.getElementById('ref-btn').addEventListener('click',loadFresh);
 
 var OHA_RANKS = [
   {id:'E1E3',label:'E-1〜E-3 扶養あり',rentUsd:1799,utilUsd:661,totalUsd:2460,rentJpy:284800,totalJpy:389000,sqmRange:[100,130],tsuboRange:[30,39],practicalJpy:[180000,280000],psych:'価格感度高め。OHA範囲内で家族支出を管理。飲食・生活サービスへの反応が強い。'},
-  {id:'E4',label:'E-4 扶養あり ★重要',rentUsd:1850,utilUsd:661,totalUsd:2511,rentJpy:293000,totalJpy:405000,sqmRange:[110,145],tsuboRange:[33,44],practicalJpy:[200000,293000],psych:'【FamilyTreeOki最重要ターゲット】出産・育児開始期。OHA余力でプレミアム体験・記念サービスへの支出意欲が高い。'},
+  {id:'E4',label:'E-4 扶養あり ★重要',rentUsd:1850,utilUsd:661,totalUsd:2511,rentJpy:293000,totalJpy:405000,sqmRange:[110,145],tsuboRange:[33,44],practicalJpy:[200000,293000],psych:'【FamilyTreeOki優先セグメント】出産・育児開始期。OHA余力でプレミアム体験・記念サービスへの支出意欲が高い。'},
   {id:'E5O1O2',label:'E-5 / O-1 / O-2 扶養あり',rentUsd:1943,utilUsd:661,totalUsd:2604,rentJpy:307600,totalJpy:412000,sqmRange:[120,150],tsuboRange:[36,45],practicalJpy:[220000,310000],psych:'FamilyTreeOki主力層。3BR、子ども、基地アクセス、英語対応を重視。'},
   {id:'E6E8O3',label:'E-6〜E-8 / O-3 扶養あり',rentUsd:2105,utilUsd:661,totalUsd:2766,rentJpy:333200,totalJpy:438000,sqmRange:[140,170],tsuboRange:[42,51],practicalJpy:[260000,333000],psych:'プレミアム支出が可能。広さ、静かさ、駐車場、ペット可を重視。'},
   {id:'E9O4O5GS',label:'E-9 / O-4〜O-5 / GS上位',rentUsd:2500,utilUsd:661,totalUsd:3161,rentJpy:395800,totalJpy:500000,sqmRange:[160,215],tsuboRange:[48,65],practicalJpy:[350000,450000],psych:'高単価サービスに反応。プライバシー、学校、地域を重視。'},
@@ -2812,7 +2899,7 @@ function updateHousingAnalysis(){
   var badge=document.getElementById('h-rank-badge');
   if(badge){
     var isE4=(ri===1);
-    badge.textContent=isE4?'★ E-4 最重要ターゲット':rank.label;
+    badge.textContent=isE4?'★ E-4 優先セグメント':rank.label;
     badge.style.background=isE4?'rgba(52,211,153,.25)':'rgba(96,165,250,.15)';
     badge.style.color=isE4?'#34D399':'#60A5FA';
   }
@@ -2921,7 +3008,7 @@ function updateHousingAnalysis(){
 function generateHousingDiagnosis(rank,prop,score,gapUsd,gapJpy,boost,ri){
   var lines=[];
   lines.push('<strong>【住宅診断】</strong> '+rank.label+' × '+prop.label);
-  if(ri===1) lines.push('<span style="color:#34D399;font-weight:600">⭐ E-4（兵長）— FamilyTreeOki最重要ターゲット。出産・育児開始期と重なる消費ピーク層。</span>');
+  if(ri===1) lines.push('<span style="color:#34D399;font-weight:600">⭐ E-4（兵長）— FamilyTreeOki優先セグメント。出産・育児開始期と重なる消費ピーク層。</span>');
   lines.push('');
   if(score>=85) lines.push('🟢 <strong>心理スコア '+score+'点（優秀）</strong> — 高い住宅満足度。外部サービスへの支出意欲が最大化します。');
   else if(score>=70) lines.push('🟡 <strong>心理スコア '+score+'点（良好）</strong> — 概ね満足できる環境。FamilyTreeOkiの主要サービスへの誘導が有効。');
