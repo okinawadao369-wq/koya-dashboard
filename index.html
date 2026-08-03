@@ -638,8 +638,9 @@ gImpact(%) = max(0, Σ(指数値 × 重み) / 100 × 10)
     <div class="cat-filter" id="biz-filter"></div>
 
     <div class="box">
-      <div class="box-title">業種別 年間市場規模推計 (USD Million) <span class="badge">SOFA ~80,000人</span></div>
+      <div class="box-title">業種別 年間市場規模推計 (USD Million) <span class="badge">SOFA ~80,000人</span> <span class="verif-badge verif-est">未検証（理論上限値）</span></div>
       <div class="chart-wrap" style="height:320px"><canvas id="c-biz-bar"></canvas></div>
+      <div class="margin-note" style="margin-top:8px">※SOFA全人口(~80,000人)が対象月間頻度で購入した場合の理論上限値です。実際の商品浸透率（何%が顧客になるか）は未反映のため、現実の市場規模はこれよりかなり小さくなります。事業計画の参考値としては使用しないでください。</div>
     </div>
 
     <div class="box">
@@ -1268,7 +1269,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v65';
+var CACHE_KEY = 'koya_v66';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1313,15 +1314,15 @@ var BTYPE = {
   ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:175,usHigh:350,ftcDef:20000,monthlyPerPerson:3.0,note:'Private 1-hour memory session'},
   ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:108,usHigh:175,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)'},
   ft_med: {label:'FamilyTreeOki｜産後・新生児ケア',  cat:'ftc',usLow:180,usHigh:480,ftcDef:35000,monthlyPerPerson:2.0,note:'医療系乳児・産後ケア'},
-  cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:5,  usHigh:8,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当'},
+  cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:4,  usHigh:7,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当(2026調査:全米平均$4-5.60・都市部$5-7)'},
   lunch:  {label:'飲食｜カジュアルランチ',           cat:'food',usLow:15, usHigh:25, ftcDef:1500, monthlyPerPerson:40, note:'ランチ1食'},
   dinner: {label:'飲食｜ファミリーディナー',         cat:'food',usLow:75, usHigh:160,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分'},
   premium:{label:'飲食｜プレミアムディナー/記念日',  cat:'food',usLow:200,usHigh:500,ftcDef:18000,monthlyPerPerson:5,  note:'2名記念日コース'},
   house:  {label:'生活｜ハウスクリーニング',         cat:'life',usLow:150,usHigh:300,ftcDef:20000,monthlyPerPerson:2,  note:'3LDK相当'},
   car:    {label:'生活｜車内外クリーニング',         cat:'life',usLow:150,usHigh:400,ftcDef:12000,monthlyPerPerson:3,  note:'フルディテール'},
-  pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:20, usHigh:35, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問'},
+  pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:18, usHigh:28, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問(2026調査:全米平均時給$16-22)'},
   trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行'},
-  hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:120,usHigh:200,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー'},
+  hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:100,usHigh:220,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー(2026調査:カット平均$69・カラー$60-150)'},
   massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:70, usHigh:160,ftcDef:10000,monthlyPerPerson:12,note:'60分全身（2026年相場$80-165・PDF確認:avg$95）'},
   acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:75, usHigh:150,ftcDef:16000,monthlyPerPerson:8, note:'60分スタンドアロン（PDF確認:avg$110）'},
   acu_combo:{label:'🌟 FTO｜60分Acu-Wellnessコンボ', cat:'beauty',usLow:180,usHigh:260,ftcDef:15800,monthlyPerPerson:8, note:'鍼灸+マッサージ+PEMF 新メニュー(PDF調査:avg$220)'},
@@ -1922,7 +1923,7 @@ function runSim(){
    +'<div class="sim-item"><div class="sim-lbl">米国アンカー 円換算</div><div class="sim-val">¥'+usAnchorJPY.toLocaleString()+'</div><div class="sim-note">米国中央値×'+fx.toFixed(1)+' (CPI補正後)</div></div>'
    +'<div class="sim-item"><div class="sim-lbl">値上げ余地(推奨帯上限比)</div><div class="sim-val '+(priceHeadroom>=0?'green':'red')+'">'+(priceHeadroom>=0?'+':'')+' ¥'+priceHeadroom.toLocaleString()+'</div><div class="sim-note">'+(priceHeadroom>=0?'推奨上限まで値上げ可':'推奨帯を超過・価格見直し')+'</div></div>'
    +'<div class="sim-item"><div class="sim-lbl">割安率(US比)</div><div class="sim-val gold">'+valueRatio.toFixed(2)+'x</div><div class="sim-note">米国の'+valueRatio.toFixed(1)+'倍のサービスが沖縄で</div></div>'
-   +'<div class="sim-item"><div class="sim-lbl">月間市場ポテンシャル</div><div class="sim-val blue">'+monthlyMktJpy.toFixed(1)+'百万円</div><div class="sim-note">'+area.name.split('・')[0]+' '+marketPop.toLocaleString()+'人×'+bt.monthlyPerPerson+'件/月</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">月間市場ポテンシャル <span class="verif-badge verif-est" style="font-size:8px;padding:1px 5px">理論上限</span></div><div class="sim-val blue">'+monthlyMktJpy.toFixed(1)+'百万円</div><div class="sim-note">'+area.name.split('・')[0]+' '+marketPop.toLocaleString()+'人×'+bt.monthlyPerPerson+'件/月（商圏人口全員が対象頻度で購入した場合の理論値。実際の浸透率は未反映）</div></div>'
    +'<div class="sim-item"><div class="sim-lbl">OHAブースト後推奨上限</div><div class="sim-val gold">¥'+recHighBoosted.toLocaleString()+'</div><div class="sim-note">住宅余力係数×'+housingBoost.toFixed(2)+'適用</div></div>'
    +'<div class="sim-item" style="border-left:2px solid '+actionColor+'"><div class="sim-lbl">経営推奨アクション</div><div class="sim-val" style="font-size:11px;color:'+actionColor+'">'+action+'</div><div class="sim-note">購買スコア '+score+'/100</div></div>';
   document.getElementById('sim-out').innerHTML=outHtml;
@@ -2016,7 +2017,7 @@ function renderGeo(){
 // RENDER: BIZ
 // ════════════════════════════════════════════════
 function buildBizFilter(){
-  var html='<button class="cat-btn active" data-cat="all">全て (21)</button>';
+  var html='<button class="cat-btn active" data-cat="all">全て (22)</button>';
   Object.keys(CAT_LABELS).forEach(function(k){
     html+='<button class="cat-btn" data-cat="'+k+'">'+CAT_LABELS[k]+'</button>';
   });
