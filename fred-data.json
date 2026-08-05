@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-04T11:34:24.194283Z",
+  "updated": "2026-08-05T00:10:43.325638Z",
   "series": {
     "DEXJPUS": [
       {
@@ -339,6 +339,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-08-03",
+        "value": 4.7
+      },
+      {
         "date": "2026-07-31",
         "value": 4.75
       },
@@ -389,13 +393,13 @@
       {
         "date": "2026-07-15",
         "value": 4.55
-      },
-      {
-        "date": "2026-07-14",
-        "value": 4.58
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-08-04",
+        "value": 2.23
+      },
       {
         "date": "2026-08-03",
         "value": 2.27
@@ -447,10 +451,6 @@
       {
         "date": "2026-07-16",
         "value": 2.22
-      },
-      {
-        "date": "2026-07-15",
-        "value": 2.23
       }
     ],
     "UMCSENT": [
@@ -751,6 +751,22 @@
     "CPIAUCSL": 332.568,
     "CPIFABSL": 346.391,
     "AHETPI": 32.38,
+    "DGS10": 4.7,
+    "T10YIE": 2.23,
+    "UMCSENT": 49.5,
+    "GS2": 4.22,
+    "DCOILWTICO": 75.29,
+    "VIX": 16.5,
+    "SP500": 7736.52,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
+  },
+  "prev_latest": {
+    "DEXJPUS": 157.68,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.2,
+    "CPIAUCSL": 332.568,
+    "CPIFABSL": 346.391,
+    "AHETPI": 32.38,
     "DGS10": 4.75,
     "T10YIE": 2.27,
     "UMCSENT": 49.5,
@@ -760,36 +776,20 @@
     "SP500": 7600.5,
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
-  "prev_latest": {
-    "DEXJPUS": 157.73,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.2,
-    "CPIAUCSL": 332.568,
-    "CPIFABSL": 346.391,
-    "AHETPI": 32.38,
-    "DGS10": 4.68,
-    "T10YIE": 2.28,
-    "UMCSENT": 49.5,
-    "GS2": 4.11,
-    "DCOILWTICO": 80.8,
-    "VIX": 15.99,
-    "SP500": 7489.72,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
-  },
   "deltas": {
-    "DEXJPUS": -0.05,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": 0.07,
-    "T10YIE": -0.01,
+    "DGS10": -0.05,
+    "T10YIE": -0.04,
     "UMCSENT": null,
-    "GS2": 0.11,
-    "DCOILWTICO": -0.79,
-    "VIX": -0.34,
-    "SP500": 110.78
+    "GS2": null,
+    "DCOILWTICO": -4.72,
+    "VIX": 0.85,
+    "SP500": 136.02
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -817,31 +817,39 @@
     "T10YIE": 92,
     "UMCSENT": 35,
     "GS2": 70,
-    "DCOILWTICO": 70,
+    "DCOILWTICO": 85,
     "VIX": 75,
     "SP500": 80
   },
-  "koya_score": 73.9,
+  "koya_score": 75.8,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+0.530%",
-  "vix_note": "VIX=15.65 正常範囲",
-  "sp500_note": "S&P500=7600.5",
+  "spread_dgs10_gs2": "+0.480%",
+  "vix_note": "VIX=16.5 正常範囲",
+  "sp500_note": "S&P500=7736.52",
   "fx_intervention_alert": null,
-  "contributions": [],
+  "contributions": [
+    {
+      "indicator": "DCOILWTICO",
+      "score_before": 70,
+      "score_after": 85,
+      "koya_score_contribution": 1.95,
+      "contribution_pct": 100.0
+    }
+  ],
   "anomaly_flags": [
-    "SP500: 65→80pt (+15pt) 要確認"
+    "DCOILWTICO: 70->85pt (+15pt) needs check"
   ],
   "fallback_indicators": [],
   "decision_triggers": [
     {
       "level": "green",
-      "indicator": "koya総合スコア 74/100 [GO]",
+      "indicator": "koya総合スコア 76/100 [GO]",
       "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
       "level": "yellow",
       "indicator": "急変異常値フラグ",
-      "message": "SP500: 65→80pt (+15pt) 要確認"
+      "message": "DCOILWTICO: 70->85pt (+15pt) needs check"
     },
     {
       "level": "green",
@@ -850,18 +858,18 @@
     },
     {
       "level": "yellow",
-      "indicator": "VIX恐怖指数 15.65",
+      "indicator": "VIX恐怖指数 16.50",
       "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
       "level": "green",
-      "indicator": "S&P500 7,600",
+      "indicator": "S&P500 7,737",
       "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
     },
     {
-      "level": "yellow",
-      "indicator": "WTI原油 $80.01",
-      "message": "やや高め。生活費上昇分を価格説明に活用。"
+      "level": "green",
+      "indicator": "WTI原油 $75.29",
+      "message": "安定。可処分所得への圧力なし。"
     },
     {
       "level": "red",
