@@ -1269,7 +1269,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v68';
+var CACHE_KEY = 'koya_v69';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1323,7 +1323,7 @@ var BTYPE = {
   pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:18, usHigh:28, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問(2026調査:全米平均時給$16-22)'},
   trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行'},
   hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:100,usHigh:220,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー(2026調査:カット平均$69・カラー$60-150)'},
-  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:70, usHigh:160,ftcDef:10000,monthlyPerPerson:12,note:'60分全身（2026年相場$80-165・PDF確認:avg$95）'},
+  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:80, usHigh:165,ftcDef:10000,monthlyPerPerson:12,note:'60分全身（2026年相場$80-165・PDF確認:avg$95）'},
   acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:75, usHigh:150,ftcDef:16000,monthlyPerPerson:8, note:'60分スタンドアロン（PDF確認:avg$110）'},
   acu_combo:{label:'🌟 FTO｜60分Acu-Wellnessコンボ', cat:'beauty',usLow:180,usHigh:260,ftcDef:15800,monthlyPerPerson:8, note:'鍼灸+マッサージ+PEMF 新メニュー(PDF調査:avg$220)'},
   hbeat:  {label:'小売｜Heartbeat Animal記念品',    cat:'retail',usLow:40, usHigh:80, ftcDef:5500, monthlyPerPerson:1.5,note:'ベビー胎動記念品'},
@@ -3351,13 +3351,13 @@ function renderUSReality(){
 
   // 価格心理プレミアムテーブル
   var premiumData=[
-    {svc:'マタニティフォト',  usLow:300, usHigh:1000, okinawa:35000, biz:'photo'},
+    {svc:'マタニティフォト',  usLow:400, usHigh:1200, okinawa:35000, biz:'photo'},
     {svc:'産後ケア（4週間）', usLow:5000,usHigh:10000,okinawa:280000,biz:'postpartum'},
     {svc:'マタニティヨガ/月', usLow:180, usHigh:480, okinawa:15000, biz:'ft_med'},
-    {svc:'ベビーシッター/時', usLow:20,  usHigh:35,  okinawa:1500,  biz:'babysit'},
-    {svc:'ファミリー4D撮影', usLow:180, usHigh:480, okinawa:20000, biz:'ft_4d'},
+    {svc:'ベビーシッター/時', usLow:20,  usHigh:35,  okinawa:1500,  biz:'ft_sit1'},
+    {svc:'ファミリー4D撮影', usLow:175, usHigh:350, okinawa:20000, biz:'ft_4d'},
     {svc:'プレミアムディナー', usLow:200, usHigh:500, okinawa:18000, biz:'premium'},
-    {svc:'ファミリーディナー', usLow:80,  usHigh:160, okinawa:10000, biz:'family'},
+    {svc:'ファミリーディナー', usLow:75,  usHigh:160, okinawa:10000, biz:'dinner'},
   ];
   var pTbody=document.getElementById('ur-premium-tbody');
   if(pTbody){
