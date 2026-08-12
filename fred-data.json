@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-11T04:03:04.387834Z",
+  "updated": "2026-08-12T00:09:28.057116Z",
   "series": {
     "DEXJPUS": [
       {
@@ -343,6 +343,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-08-10",
+        "value": 4.72
+      },
+      {
         "date": "2026-08-07",
         "value": 4.65
       },
@@ -393,13 +397,13 @@
       {
         "date": "2026-07-22",
         "value": 4.67
-      },
-      {
-        "date": "2026-07-21",
-        "value": 4.63
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-08-11",
+        "value": 2.27
+      },
       {
         "date": "2026-08-10",
         "value": 2.29
@@ -450,10 +454,6 @@
       },
       {
         "date": "2026-07-23",
-        "value": 2.28
-      },
-      {
-        "date": "2026-07-22",
         "value": 2.28
       }
     ],
@@ -749,6 +749,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 159.21,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 332.568,
+    "CPIFABSL": 346.391,
+    "AHETPI": 32.4,
+    "DGS10": 4.72,
+    "T10YIE": 2.27,
+    "UMCSENT": 49.5,
+    "GS2": 4.22,
+    "DCOILWTICO": 83.44,
+    "VIX": 15.28,
+    "SP500": 7728.2,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
+  },
+  "prev_latest": {
     "DEXJPUS": 159.19,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
@@ -764,36 +780,20 @@
     "SP500": 7753.11,
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
-  "prev_latest": {
-    "DEXJPUS": 157.88,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 332.568,
-    "CPIFABSL": 346.391,
-    "AHETPI": 32.4,
-    "DGS10": 4.69,
-    "T10YIE": 2.25,
-    "UMCSENT": 49.5,
-    "GS2": 4.22,
-    "DCOILWTICO": 78.78,
-    "VIX": 14.9,
-    "SP500": 7757.64,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
-  },
   "deltas": {
-    "DEXJPUS": 1.31,
+    "DEXJPUS": 0.02,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.04,
-    "T10YIE": 0.04,
+    "DGS10": 0.07,
+    "T10YIE": -0.02,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 3.34,
-    "VIX": 0.56,
-    "SP500": -4.53
+    "DCOILWTICO": 1.32,
+    "VIX": -0.18,
+    "SP500": -24.91
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -827,30 +827,12 @@
   },
   "koya_score": 73.9,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+0.430%",
-  "vix_note": "VIX=15.46 正常範囲",
-  "sp500_note": "S&P500=7753.11",
+  "spread_dgs10_gs2": "+0.500%",
+  "vix_note": "VIX=15.28 正常範囲",
+  "sp500_note": "S&P500=7728.2",
   "fx_intervention_alert": null,
-  "contributions": [
-    {
-      "indicator": "DCOILWTICO",
-      "score_before": 85,
-      "score_after": 70,
-      "koya_score_contribution": -1.95,
-      "contribution_pct": 54.9
-    },
-    {
-      "indicator": "VIX",
-      "score_before": 95,
-      "score_after": 75,
-      "koya_score_contribution": -1.6,
-      "contribution_pct": 45.1
-    }
-  ],
-  "anomaly_flags": [
-    "DCOILWTICO: 85→70pt (-15pt) 要確認",
-    "VIX: 95→75pt (-20pt) 要確認"
-  ],
+  "contributions": [],
+  "anomaly_flags": [],
   "fallback_indicators": [],
   "decision_triggers": [
     {
@@ -859,33 +841,23 @@
       "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
-      "level": "yellow",
-      "indicator": "急変異常値フラグ",
-      "message": "DCOILWTICO: 85→70pt (-15pt) 要確認; VIX: 95→75pt (-20pt) 要確認"
-    },
-    {
       "level": "green",
-      "indicator": "USD/JPY ¥159.190",
+      "indicator": "USD/JPY ¥159.210",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
-      "level": "red",
-      "indicator": "USD/JPY急変",
-      "message": "前日比+1.31円の急変動。価格設定・予約に注意。"
-    },
-    {
       "level": "yellow",
-      "indicator": "VIX恐怖指数 15.46",
+      "indicator": "VIX恐怖指数 15.28",
       "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
       "level": "green",
-      "indicator": "S&P500 7,753",
+      "indicator": "S&P500 7,728",
       "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $82.12",
+      "indicator": "WTI原油 $83.44",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
