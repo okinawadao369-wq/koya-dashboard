@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-15T00:09:04.670774Z",
+  "updated": "2026-08-16T00:09:15.449272Z",
   "series": {
     "DEXJPUS": [
       {
@@ -773,35 +773,35 @@
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
   "prev_latest": {
-    "DEXJPUS": 159.46,
+    "DEXJPUS": 159.31,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
     "CPIAUCSL": 332.813,
     "CPIFABSL": 346.681,
     "AHETPI": 32.4,
-    "DGS10": 4.68,
-    "T10YIE": 2.24,
+    "DGS10": 4.63,
+    "T10YIE": 2.27,
     "UMCSENT": 49.5,
     "GS2": 4.22,
-    "DCOILWTICO": 81.33,
-    "VIX": 14.63,
-    "SP500": 7798.99,
+    "DCOILWTICO": 82.4,
+    "VIX": 14.25,
+    "SP500": 7785.76,
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
   "deltas": {
-    "DEXJPUS": -0.15,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.05,
-    "T10YIE": 0.03,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 1.07,
-    "VIX": -0.38,
-    "SP500": -13.23
+    "DCOILWTICO": null,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
