@@ -628,6 +628,71 @@ gImpact(%) = max(0, Σ(指数値 × 重み) / 100 × 10)
       </table></div>
       <div class="note">地政学スコアは安全保障判断ではなく、米軍家族向け需要環境の補助指標です。推奨価格帯・購買市場温度・戦略需要スコアへ連動します。</div>
     </div>
+
+    <div class="box" style="margin-top:14px">
+      <div class="box-title">地政学的行動心理指数（GBPI） <span class="verif-badge verif-est">未検証（推計モデル）</span>
+        <span class="formula-toggle" onclick="this.nextElementSibling.classList.toggle('show')">計算式を見る</span>
+        <div class="formula-box">【地政学的行動心理指数（GBPI）算出式】
+プレゼンス安心指数 = (forward + defense + first + (100-rebase)) / 4
+　→ 米軍プレゼンスの継続・強化に対する安心感（雇用安定・長期駐留期待）
+
+緊張時ストレス指数 = (taiwan + (100-okinawa) + usstress) / 3
+　→ 地政学的緊張・地元摩擦・本国経済不安からくる心理的圧迫
+
+SOFAバッファ係数 = 0.4（仮置き・未検証）
+　→ OHA/COLA・ドル収入という二重の生活防衛線により、SOFA家族は本国一般消費者
+　　（NBER/IZA/ECB等の実証研究が示す「地政学リスク→予備的貯蓄→耐久財支出抑制」
+　　という経路）ほどには支出を抑制しないという仮説にもとづく減衰係数。この係数
+　　自体は実測値ではなく、根拠のある仮定（競合仮説C）として扱う。
+
+緩和後ストレス = 緊張時ストレス指数 × (1 − SOFAバッファ係数)
+
+GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0.4
+
+※0〜100スコア。高いほど「SOFA家族向けサービスへの支出に心理的に前向きな環境」
+であることを示す推計値。実際の成約・売上データとの照合は未実施。</div>
+      </div>
+      <div class="cards" style="margin-top:8px">
+        <div class="card">
+          <div class="c-lbl">GBPI 総合スコア</div>
+          <div class="c-val gold" id="gbpi-score">—</div>
+          <div class="c-sub">/ 100（推計モデル）</div>
+        </div>
+        <div class="card">
+          <div class="c-lbl">プレゼンス安心指数</div>
+          <div class="c-val blue" id="gbpi-presence">—</div>
+          <div class="c-sub">前方展開・国防予算・第一列島線・再編安定</div>
+        </div>
+        <div class="card">
+          <div class="c-lbl">緊張時ストレス指数（緩和後）</div>
+          <div class="c-val" id="gbpi-stress">—</div>
+          <div class="c-sub">台湾緊張・沖縄摩擦・本国不安（SOFAバッファ適用後）</div>
+        </div>
+      </div>
+      <div class="g2" style="margin-top:10px">
+        <div class="box" style="border:1px solid rgba(232,160,188,.3)">
+          <div class="box-title" style="color:var(--pink,#E8A0BC)">産前産後ケア需要セグメントへの含意</div>
+          <div style="font-size:11px;line-height:1.7;color:var(--muted)">
+          軍属配偶者の財政ストレスは米陸軍調査で「最大のストレス要因」と報告されており（事実A・観測済み）、
+          地政学的緊張の高まりは一般に予備的貯蓄・支出抑制につながる（NBER/IZA/ECB研究・強い推論B）。
+          一方で、不確実性下では「家族の絆・安心感への支出」を優先する逆方向の行動
+          （ナーセスティング/コンフォート消費）を示す研究もあり、この集団特有の反応は
+          まだ実証されていない（競合仮説C・未立証D）。実際の予約データでの継続観測が必要。
+          </div>
+        </div>
+        <div class="box" style="border:1px solid rgba(125,184,224,.3)">
+          <div class="box-title" style="color:var(--blue)">広域SOFA層への含意</div>
+          <div style="font-size:11px;line-height:1.7;color:var(--muted)">
+          F-15EX 36機の嘉手納配備（2026年春〜）・台湾安全保障協力イニシアチブの
+          予算3倍増（$300M→$1.0B, FY2026）は、プレゼンス継続・強化のシグナルとして
+          雇用安定期待を支える一方、CSIS図上演習は嘉手納が有事シナリオで脆弱との
+          分析も示しており、心理的な緊張要因も併存する（事実A＋強い推論B）。
+          OHA・ドル収入の二重バッファ仮説により、本国一般消費者ほどの支出抑制は
+          想定しにくいが、この緩和効果自体は未検証（競合仮説C）。
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ── TAB 4: 業種別価格分析 ── -->
@@ -1269,7 +1334,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v83';
+var CACHE_KEY = 'koya_v84';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -2011,6 +2076,16 @@ function renderGeo(){
       +'<td style="font-size:10px;color:var(--muted)">'+g.impact+'</td>'
       +'<td style="font-size:9px;color:var(--muted)">'+g.src+'</td></tr>';
   }).join('');
+  // GBPI（地政学的行動心理指数）
+  var gv={}; GEO.forEach(function(g){ gv[g.key]=g.val; });
+  var gbpiPresence = (gv.forward + gv.defense + gv.first + (100-gv.rebase)) / 4;
+  var gbpiStressRaw = (gv.taiwan + (100-gv.okinawa) + gv.usstress) / 3;
+  var SOFA_BUFFER = 0.4;
+  var gbpiStressAdj = gbpiStressRaw * (1 - SOFA_BUFFER);
+  var gbpiScore = gbpiPresence*0.6 + (100-gbpiStressAdj)*0.4;
+  var _gp=document.getElementById('gbpi-score');    if(_gp) _gp.textContent=Math.round(gbpiScore);
+  var _gpr=document.getElementById('gbpi-presence');if(_gpr) _gpr.textContent=gbpiPresence.toFixed(1);
+  var _gst=document.getElementById('gbpi-stress');  if(_gst) _gst.textContent=gbpiStressAdj.toFixed(1);
 }
 
 // ════════════════════════════════════════════════
