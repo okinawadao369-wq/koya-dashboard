@@ -27,6 +27,18 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 .sig-go{background:rgba(0,212,170,.2);border:1px solid var(--teal);color:var(--teal)}
 .sig-watch{background:rgba(244,200,66,.2);border:1px solid var(--gold);color:var(--gold)}
 .sig-hold{background:rgba(136,153,176,.15);border:1px solid var(--muted);color:var(--muted)}
+.sig-exit{background:rgba(255,77,106,.15);border:1px solid var(--red);color:var(--red)}
+.cmp-range{width:100%;accent-color:var(--teal);margin:3px 0 2px}
+.cmp-label{font-size:10px;color:var(--muted);margin-top:12px;display:flex;justify-content:space-between}
+.cmp-label:first-child{margin-top:0}
+.cmp-label b{color:var(--teal);font-family:'JetBrains Mono',monospace;font-weight:700}
+.cmp-decision{border-radius:10px;padding:16px;text-align:center;transition:all .2s}
+.cmp-decision .lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;opacity:.7}
+.cmp-decision .v{font-size:19px;font-weight:700;margin:8px 0;font-family:'DM Sans',sans-serif}
+.cmp-decision .d{font-size:11px;line-height:1.7}
+.cmp-metric-row{display:flex;justify-content:space-between;font-size:11px;padding:7px 0;border-bottom:1px solid rgba(26,46,74,.4)}
+.cmp-metric-row .v{font-family:'JetBrains Mono',monospace;color:var(--teal);font-weight:700}
+.cmp-segbtn{display:flex;gap:8px;margin-top:8px}
 .nav-sec{padding:10px 0}
 .nav-lbl{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;padding:0 14px 6px}
 .nav-item{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;font-size:12px;font-weight:500;color:var(--muted);transition:all .2s;border-left:2px solid transparent;user-select:none}
@@ -367,6 +379,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="nav-item" data-tab="us-reality"><span class="nav-dot"></span>米国消費者実態</div>
     <div class="nav-item" data-tab="pcs"><span class="nav-dot"></span>PCS移動分析</div>
     <div class="nav-item" data-tab="maternity"><span class="nav-dot"></span>産前産後ケア需要セグメント</div>
+    <div class="nav-item" data-tab="compass"><span class="nav-dot"></span>価格羅針盤</div>
   </div>
   <div class="sfoot">
     <div class="lbl">Last update</div>
@@ -1326,6 +1339,75 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 </div>
 <!-- /tab-maternity -->
 
+<div id="tab-compass" class="tab-panel">
+  <div class="sec-title">価格羅針盤</div>
+  <div class="sec-sub">米インフレ・米軍地政学（GEO/GBPI）・円安を束ね、「進む（現状維持）／価格調整／早期警戒（撤退検討）」を早めに判断する羅針盤</div>
+
+  <div class="box" style="font-size:11px;line-height:1.8;color:var(--muted);margin-bottom:14px">
+    米軍軍属ターゲット層は日本の相場ではなく<strong style="color:var(--text)">アメリカ価格を基準に</strong>FTOの価格を判断する、という前提の羅針盤です。
+    実売上が動く前に「アメリカ価格との距離感」「インフレ体感」「円安による割安感」の変化を捉えることを目的にしています。
+    <span class="verif-badge verif-est">未検証（推計モデル・仮説C）</span>
+  </div>
+
+  <div class="g2-1">
+    <div class="box">
+      <div class="box-title">対象カテゴリ・セグメント</div>
+      <select id="cmp-cat"></select>
+      <div class="cmp-segbtn">
+        <button class="cat-btn active" id="cmp-seg-general" data-seg="general" style="flex:1">一般SOFA層</button>
+        <button class="cat-btn" id="cmp-seg-pregnant" data-seg="pregnant" style="flex:1">SOFA妊婦層</button>
+      </div>
+
+      <div class="box-title" style="margin-top:16px">パラメータ（ライブ値を初期反映・手動調整可）</div>
+      <div class="cmp-label">USD/JPY 現在レート<b id="cmp-fx-val">—</b></div>
+      <input type="range" class="cmp-range" id="cmp-fx" min="120" max="200" step="0.1" value="157.6">
+      <div class="cmp-label">基準FX（前回価格設定時）<b id="cmp-fxbase-val">—</b></div>
+      <input type="range" class="cmp-range" id="cmp-fxbase" min="100" max="200" step="0.5" value="150">
+      <div class="cmp-label">米CPI前年比（%）<b id="cmp-cpi-val">—</b></div>
+      <input type="range" class="cmp-range" id="cmp-cpi" min="0" max="8" step="0.1" value="3.5">
+      <div class="cmp-label">前回価格設定からの経過月数<b id="cmp-months-val">6</b></div>
+      <input type="range" class="cmp-range" id="cmp-months" min="0" max="24" step="1" value="6">
+      <div class="cmp-label">GBPI（地政学的行動心理指数）<b id="cmp-gbpi-val">—</b></div>
+      <input type="range" class="cmp-range" id="cmp-gbpi" min="0" max="100" step="1" value="71">
+      <div class="cmp-label">緊張時ストレス指数（緩和後）<b id="cmp-stress-val">—</b></div>
+      <input type="range" class="cmp-range" id="cmp-stress" min="0" max="100" step="1" value="40">
+      <div class="margin-note" style="margin-top:10px">GBPI・ストレス指数の初期値は「地政学インテリジェンス」タブのGEO7指数から自動算出（calcGBPI()共通関数）。手動調整するとシナリオ試算になります。</div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">判断トリガー</div>
+      <div class="cmp-decision sig-hold" id="cmp-decision">
+        <div class="lbl">現在の推奨</div>
+        <div class="v" id="cmp-verdict">—</div>
+        <div class="d" id="cmp-verdict-desc">—</div>
+      </div>
+      <div class="box-title" style="margin-top:16px">算出結果</div>
+      <div class="cmp-metric-row"><span>US価格中央値（現在FX換算）</span><span class="v" id="cmp-out-usjpy">—</span></div>
+      <div class="cmp-metric-row"><span>単純価格ギャップ（割安率）</span><span class="v" id="cmp-out-gapsimple">—</span></div>
+      <div class="cmp-metric-row"><span>円安進行度（基準FX比）</span><span class="v" id="cmp-out-fxmove">—</span></div>
+      <div class="cmp-metric-row"><span>インフレ調整後 US価格アンカー</span><span class="v" id="cmp-out-usadj">—</span></div>
+      <div class="cmp-metric-row"><span><strong>実質価格ギャップ</strong>（体感割安率）</span><span class="v" id="cmp-out-gapreal">—</span></div>
+      <div class="cmp-metric-row"><span>価格ポジショニング健全度</span><span class="v" id="cmp-out-health">—</span></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">閾値ロジック <span class="badge">初期仮説</span>
+      <span class="formula-toggle" onclick="this.nextElementSibling.classList.toggle('show')">計算式を見る</span>
+      <div class="formula-box" id="cmp-formula">計算式はここに表示されます</div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>セグメント</th><th>進む（現状維持／値上げ余地）</th><th>価格調整を検討</th><th>早期警戒（撤退シナリオ検討）</th></tr></thead>
+      <tbody>
+        <tr><td>一般SOFA層</td><td>実質ギャップ 30〜50％ かつ GBPI 55以上</td><td>実質ギャップ 25％未満、または大幅な過剰割引</td><td>GBPI 40未満 かつ 実質ギャップ縮小トレンド</td></tr>
+        <tr><td>SOFA妊婦層</td><td>実質ギャップ 25〜55％ かつ ストレス指数45未満</td><td>実質ギャップ 20％未満、またはストレス指数45〜60</td><td>ストレス指数60以上</td></tr>
+      </tbody>
+    </table>
+    <div class="margin-note">閾値は koya-agent-os の証拠規律における「競合仮説C／未立証D」。実績の検証は<strong>月次顧客人数（新規・リピーター内訳）</strong>を基準に、GBPI・実質価格ギャップとの相関を90日実験（2026-08-20〜2026-11-18）で確認し、随時補正する。</div>
+  </div>
+</div>
+<!-- /tab-compass -->
+
   </div><!-- /content -->
 </div><!-- /main -->
 
@@ -1334,7 +1416,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
 var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
-var CACHE_KEY = 'koya_v85';
+var CACHE_KEY = 'koya_v86';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
 
@@ -1346,7 +1428,8 @@ var TAB_TITLES = {
   mil:'軍人・軍属マーケット',
   fred:'FRED経済データ',
   housing:'米軍住宅心理モジュール — OHA/BAH・面積・家賃',
-  maternity:'在沖米軍産前産後ケア需要セグメントインテリジェンス'
+  maternity:'在沖米軍産前産後ケア需要セグメントインテリジェンス',
+  compass:'価格羅針盤 — 進む／価格調整／やめる 意思決定支援'
 };
 
 var AREAS = [
@@ -1481,7 +1564,7 @@ var S = {
   curSeg:'E4',curBtype:'ft_4d',curArea:0,curCat:'all'
 };
 var CH = {};
-var RD = {overview:false,sim:false,geo:false,biz:false,mil:false,fred:false,housing:false,pcs:false,maternity:false};
+var RD = {overview:false,sim:false,geo:false,biz:false,mil:false,fred:false,housing:false,pcs:false,maternity:false,compass:false};
 
 // ════════════════════════════════════════════════
 // CLOCK
@@ -2076,16 +2159,163 @@ function renderGeo(){
       +'<td style="font-size:10px;color:var(--muted)">'+g.impact+'</td>'
       +'<td style="font-size:9px;color:var(--muted)">'+g.src+'</td></tr>';
   }).join('');
-  // GBPI（地政学的行動心理指数）
+  // GBPI（地政学的行動心理指数）— 共通関数 calcGBPI() を使用（他タブとの二重計算・非同期化を防止）
+  var G=calcGBPI();
+  var _gp=document.getElementById('gbpi-score');    if(_gp) _gp.textContent=Math.round(G.score);
+  var _gpr=document.getElementById('gbpi-presence');if(_gpr) _gpr.textContent=G.presence.toFixed(1);
+  var _gst=document.getElementById('gbpi-stress');  if(_gst) _gst.textContent=G.stressAdj.toFixed(1);
+}
+
+// GBPI（地政学的行動心理指数）共通計算関数。renderGeo()と価格羅針盤タブの両方から参照する
+//単一ソース化: GEO配列の値だけを入力とし、他の場所にGBPIの値を再入力・複製しないこと
+var SOFA_BUFFER = 0.4;
+function calcGBPI(){
   var gv={}; GEO.forEach(function(g){ gv[g.key]=g.val; });
-  var gbpiPresence = (gv.forward + gv.defense + gv.first + (100-gv.rebase)) / 4;
-  var gbpiStressRaw = (gv.taiwan + (100-gv.okinawa) + gv.usstress) / 3;
-  var SOFA_BUFFER = 0.4;
-  var gbpiStressAdj = gbpiStressRaw * (1 - SOFA_BUFFER);
-  var gbpiScore = gbpiPresence*0.6 + (100-gbpiStressAdj)*0.4;
-  var _gp=document.getElementById('gbpi-score');    if(_gp) _gp.textContent=Math.round(gbpiScore);
-  var _gpr=document.getElementById('gbpi-presence');if(_gpr) _gpr.textContent=gbpiPresence.toFixed(1);
-  var _gst=document.getElementById('gbpi-stress');  if(_gst) _gst.textContent=gbpiStressAdj.toFixed(1);
+  var presence = (gv.forward + gv.defense + gv.first + (100-gv.rebase)) / 4;
+  var stressRaw = (gv.taiwan + (100-gv.okinawa) + gv.usstress) / 3;
+  var stressAdj = stressRaw * (1 - SOFA_BUFFER);
+  var score = presence*0.6 + (100-stressAdj)*0.4;
+  return {presence:presence, stressRaw:stressRaw, stressAdj:stressAdj, score:score};
+}
+
+// ════════════════════════════════════════════════
+// 価格羅針盤（COMPASS） — 進む／価格調整／やめる 意思決定支援
+// 価格データはBTYPEを単一ソースとして参照する（別配列に複製しない）
+// ════════════════════════════════════════════════
+var CMP={seg:'general'};
+function initCompassTab(){
+  var sel=document.getElementById('cmp-cat');
+  var html='';
+  Object.keys(BTYPE).forEach(function(k){
+    if(BTYPE[k].usLow!=null && BTYPE[k].usHigh!=null){
+      html+='<option value="'+k+'"'+(k==='acu_combo'?' selected':'')+'>'+BTYPE[k].label+'</option>';
+    }
+  });
+  sel.innerHTML=html;
+  sel.addEventListener('change',renderCompass);
+
+  document.getElementById('cmp-seg-general').addEventListener('click',function(){
+    CMP.seg='general';
+    document.getElementById('cmp-seg-general').classList.add('active');
+    document.getElementById('cmp-seg-pregnant').classList.remove('active');
+    renderCompass();
+  });
+  document.getElementById('cmp-seg-pregnant').addEventListener('click',function(){
+    CMP.seg='pregnant';
+    document.getElementById('cmp-seg-pregnant').classList.add('active');
+    document.getElementById('cmp-seg-general').classList.remove('active');
+    renderCompass();
+  });
+
+  // ライブ値をスライダー初期値に反映
+  var G=calcGBPI();
+  var fxLive=S.fx||158.32;
+  var cpiLive=S.cpi||3.5;
+  document.getElementById('cmp-fx').value=fxLive.toFixed(1);
+  document.getElementById('cmp-fxbase').value=Math.round((fxLive-8)*10)/10;
+  document.getElementById('cmp-cpi').value=cpiLive.toFixed(1);
+  document.getElementById('cmp-gbpi').value=Math.round(G.score);
+  document.getElementById('cmp-stress').value=Math.round(G.stressAdj);
+
+  ['cmp-fx','cmp-fxbase','cmp-cpi','cmp-months','cmp-gbpi','cmp-stress'].forEach(function(id){
+    document.getElementById(id).addEventListener('input',renderCompass);
+  });
+
+  renderCompass();
+}
+
+function fmtPctCmp(v){ return (v>=0?'+':'')+v.toFixed(1)+'%'; }
+function fmtYenCmp(v){ return '¥'+Math.round(v).toLocaleString(); }
+
+function renderCompass(){
+  var cat=document.getElementById('cmp-cat').value || 'acu_combo';
+  var bt=BTYPE[cat]; if(!bt) return;
+  var ftoPrice=bt.ftcDef!=null ? bt.ftcDef : Math.round(((bt.usLow+bt.usHigh)/2)*(S.fx||158)*0.55);
+
+  var fx=parseFloat(document.getElementById('cmp-fx').value);
+  var fxBase=parseFloat(document.getElementById('cmp-fxbase').value);
+  var cpi=parseFloat(document.getElementById('cmp-cpi').value);
+  var months=parseFloat(document.getElementById('cmp-months').value);
+  var gbpi=parseFloat(document.getElementById('cmp-gbpi').value);
+  var stress=parseFloat(document.getElementById('cmp-stress').value);
+
+  document.getElementById('cmp-fx-val').textContent=fx.toFixed(1);
+  document.getElementById('cmp-fxbase-val').textContent=fxBase.toFixed(1);
+  document.getElementById('cmp-cpi-val').textContent=cpi.toFixed(1)+'%';
+  document.getElementById('cmp-months-val').textContent=months;
+  document.getElementById('cmp-gbpi-val').textContent=gbpi;
+  document.getElementById('cmp-stress-val').textContent=stress;
+
+  var usMid=(bt.usLow+bt.usHigh)/2;
+  var usJpy=usMid*fx;
+  var gapSimple=((usJpy-ftoPrice)/usJpy)*100;
+  var fxMove=((fx-fxBase)/fxBase)*100;
+  var inflFactor=1+(cpi/100)*(months/12);
+  var usAdjUsd=usMid*inflFactor;
+  var usAdjJpy=usAdjUsd*fx;
+  var gapReal=((usAdjJpy-ftoPrice)/usAdjJpy)*100;
+  var gbpiFactor=gbpi/100;
+
+  var seg=CMP.seg;
+  var targetLow=seg==='general'?30:25;
+  var targetHigh=seg==='general'?50:55;
+  var mid=(targetLow+targetHigh)/2;
+  var span=(targetHigh-targetLow)/2;
+  var gapScore=Math.max(0,100-Math.min(100,(Math.abs(gapReal-mid)/span)*60));
+  var psychScore=seg==='general'?gbpiFactor*100:(100-stress);
+  var fxBonus=Math.max(0,Math.min(15,fxMove*0.3));
+  var health=Math.max(0,Math.min(100,gapScore*0.55+psychScore*0.35+fxBonus*0.10));
+
+  document.getElementById('cmp-out-usjpy').textContent=fmtYenCmp(usJpy)+'（$'+usMid.toFixed(0)+'換算）';
+  document.getElementById('cmp-out-gapsimple').textContent=fmtPctCmp(gapSimple);
+  document.getElementById('cmp-out-fxmove').textContent=fmtPctCmp(fxMove);
+  document.getElementById('cmp-out-usadj').textContent=fmtYenCmp(usAdjJpy);
+  document.getElementById('cmp-out-gapreal').textContent=fmtPctCmp(gapReal);
+  document.getElementById('cmp-out-health').textContent=Math.round(health)+' / 100';
+
+  var verdict,desc,cls;
+  if(seg==='general'){
+    if(gapReal>=targetLow && gapReal<=targetHigh && gbpi>=55){
+      verdict='進む（現状維持）'; cls='sig-go';
+      desc='実質ギャップ・GBPIとも健全レンジ内。価格据え置きで継続。ギャップが上限に近い場合は値上げ余地を検討。';
+    } else if(gapReal<targetLow || gapReal>targetHigh+10){
+      verdict='価格調整を検討'; cls='sig-watch';
+      desc=gapReal<targetLow?'米価格に接近しすぎ、または過小割引。値下げ・据え置きで割安感を回復するか、商品価値の再訴求を検討。':'割引率が他業種平均を大きく超過。値上げ余地あり。ただしGBPIが低い場合は慎重に。';
+    } else if(gbpi<40 || stress>=60){
+      verdict='早期警戒：撤退シナリオ検討'; cls='sig-exit';
+      desc='地政学的ストレスが高水準。プレゼンス安心指数の低下が続く場合、需要基盤そのものの見直しが必要。';
+    } else {
+      verdict='現状維持（要観察）'; cls='sig-hold';
+      desc='明確なトリガーには達していないが、次回更新時に再確認を。';
+    }
+  } else {
+    if(gapReal>=targetLow && gapReal<=targetHigh && stress<45){
+      verdict='進む（現状維持）'; cls='sig-go';
+      desc='妊婦層の安心感（低ストレス）と価格ギャップともに健全。安全性・信頼訴求を維持しつつ継続。';
+    } else if(stress>=60){
+      verdict='早期警戒：撤退シナリオ検討'; cls='sig-exit';
+      desc='ストレス指数が高水準。妊婦層は安全・安心シグナルへの感応度が高く、価格より先に信頼低下のリスクを最優先で点検。';
+    } else if(gapReal<targetLow || stress>=45){
+      verdict='価格調整を検討'; cls='sig-watch';
+      desc='価格よりも安心材料（コミュニケーション・保証）の補強を優先しつつ、価格の再訴求も検討。';
+    } else {
+      verdict='現状維持（要観察）'; cls='sig-hold';
+      desc='明確なトリガーには達していないが、次回更新時に再確認を。';
+    }
+  }
+
+  document.getElementById('cmp-verdict').textContent=verdict;
+  document.getElementById('cmp-verdict-desc').textContent=desc;
+  document.getElementById('cmp-decision').className='cmp-decision '+cls;
+
+  document.getElementById('cmp-formula').textContent=
+'対象カテゴリ: '+bt.label+' (BTYPE.'+cat+' を単一ソース参照)\n'+
+'US価格中央値(JPY) = (usLow+usHigh)/2 × FX = '+fmtYenCmp(usJpy)+'\n'+
+'単純ギャップ% = (US価格中央値 − FTO価格) / US価格中央値 × 100 = '+fmtPctCmp(gapSimple)+'\n'+
+'円安進行度% = (現在FX − 基準FX) / 基準FX × 100 = '+fmtPctCmp(fxMove)+'\n'+
+'インフレ調整後US価格(USD) = US中央値 × (1 + CPI%×経過月/12) = $'+usAdjUsd.toFixed(0)+'\n'+
+'実質ギャップ% = (インフレ調整後US価格JPY − FTO価格) / インフレ調整後US価格JPY × 100 = '+fmtPctCmp(gapReal)+'\n'+
+'価格ポジショニング健全度 = ギャップ適合度×0.55 + 心理係数×0.35 + 円安ボーナス×0.10 = '+Math.round(health)+'/100';
 }
 
 // ════════════════════════════════════════════════
@@ -2308,6 +2538,8 @@ document.querySelectorAll('.nav-item').forEach(function(n){
     if(id==='us-reality'&&!RD.usReality){ RD.usReality=true; renderUSReality(); }
     if(id==='pcs'&&!RD.pcs){ RD.pcs=true; renderPCS(); }
     if(id==='maternity'&&!RD.maternity){ RD.maternity=true; initMaternityTab(); }
+    if(id==='compass'&&!RD.compass){ RD.compass=true; initCompassTab(); }
+    if(id==='compass') renderCompass();
   });
 });
 
