@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-22T00:08:30.237398Z",
+  "updated": "2026-08-23T00:08:49.448196Z",
   "series": {
     "DEXJPUS": [
       {
@@ -767,41 +767,41 @@
     "T10YIE": 2.34,
     "UMCSENT": 49.5,
     "GS2": 4.22,
-    "DCOILWTICO": 86.64,
+    "DCOILWTICO": 87.06,
     "VIX": 15.13,
     "SP500": 7674.37,
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
   "prev_latest": {
-    "DEXJPUS": 159.0,
+    "DEXJPUS": 158.94,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
     "CPIAUCSL": 332.813,
     "CPIFABSL": 346.681,
     "AHETPI": 32.4,
-    "DGS10": 4.65,
+    "DGS10": 4.69,
     "T10YIE": 2.34,
     "UMCSENT": 49.5,
     "GS2": 4.22,
-    "DCOILWTICO": 86.23,
-    "VIX": 16.01,
-    "SP500": 7641.16,
+    "DCOILWTICO": 86.64,
+    "VIX": 15.13,
+    "SP500": 7674.37,
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
   "deltas": {
-    "DEXJPUS": -0.06,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": 0.04,
+    "DGS10": null,
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 0.41,
-    "VIX": -0.88,
-    "SP500": 33.21
+    "DCOILWTICO": 0.42,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -865,7 +865,7 @@
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $86.64",
+      "indicator": "WTI原油 $87.06",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
