@@ -1415,7 +1415,6 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var FRED_KEY  = '8550f7c848775899f520c5d606f4e3af';
 var CACHE_KEY = 'koya_v92';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 80000;
@@ -1561,7 +1560,8 @@ var S = {
   fx:null,ff:null,ur:null,cpi:null,ahe:null,
   fxH:[],ffH:[],urH:[],cpiH:[],
   fredVals:{},signal:'HOLD',isMock:false,fredLive:0,
-  curSeg:'E4',curBtype:'ft_4d',curArea:0,curCat:'all'
+  curSeg:'E4',curBtype:'ft_4d',curArea:0,curCat:'all',
+  lastGoodUpdateText:null // [R-07/F16] 直近成功時の #last-upd 表示文字列を保持
 };
 var CH = {};
 var RD = {overview:false,sim:false,geo:false,biz:false,mil:false,fred:false,housing:false,pcs:false,maternity:false,compass:false};
@@ -1669,24 +1669,42 @@ function drawGauge(score, label){
 // ─── DATA.JSON CACHE (Same-Origin fetch, no CORS) ───
 var _dataJsonCache = null;
 var _dataJsonPromise = null;
-function getDataJson(){
-  if(_dataJsonCache) return Promise.resolve(_dataJsonCache);
-  if(_dataJsonPromise) return _dataJsonPromise;
+var _dataJsonFetchFailed = false;
+// [R-07/F16] forceRefresh=trueの場合はメモリキャッシュを無視して必ず再取得する。
+// 手動更新ボタン(ref-btn)が「取得したフリ」で終わらないようにするための修正。
+function getDataJson(forceRefresh){
+  if(!forceRefresh && _dataJsonCache) return Promise.resolve(_dataJsonCache);
+  if(!forceRefresh && _dataJsonPromise) return _dataJsonPromise;
   _dataJsonPromise = fetch('./fred-data.json?v='+Date.now(),{cache:'no-cache'})
-    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(r){
+      if(!r.ok){ console.warn('[koya][F16] fred-data.json HTTP '+r.status); return null; }
+      return r.json();
+    })
     .then(function(d){
-      _dataJsonCache=d;
-      // Display fred-data.json updated timestamp in sidebar
-      if(d && d.updated){
-        try{
-          var dt=new Date(d.updated);
-          var updEl=document.getElementById('last-upd');
-          if(updEl) updEl.textContent=dt.toLocaleDateString('ja-JP')+' '+dt.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' (FRED)';
-        }catch(e){}
+      if(d){
+        _dataJsonCache=d;
+        _dataJsonFetchFailed=false;
+        // Display fred-data.json updated timestamp in sidebar
+        if(d.updated){
+          try{
+            var dt=new Date(d.updated);
+            var updText=dt.toLocaleDateString('ja-JP')+' '+dt.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' (FRED)';
+            var updEl=document.getElementById('last-upd');
+            if(updEl) updEl.textContent=updText;
+            S.lastGoodUpdateText=updText;
+          }catch(e){ console.warn('[koya][F16] updated日時のパースに失敗:',e); }
+        }
+      } else {
+        _dataJsonFetchFailed=true;
+        console.warn('[koya][F16] fred-data.jsonの内容が空、またはJSON解析に失敗しました。');
       }
       return d;
     })
-    .catch(function(){ return null; });
+    .catch(function(e){
+      _dataJsonFetchFailed=true;
+      console.warn('[koya][F16] fred-data.json取得に失敗しました:',e);
+      return null;
+    });
   return _dataJsonPromise;
 }
 
@@ -1706,30 +1724,17 @@ function fredFetch(sid,limit){
       var spread=sid==='DEXJPUS'?1.5:(sid==='SP500'?50:(sid==='VIX'?1:(byMonth?0.03:0.5)));
       return Promise.resolve(mockHistory(base,spread,limit,byMonth));
     }
-    // 2. Fallback: try live proxies
-    var url='https://api.stlouisfed.org/fred/series/observations?series_id='+sid+'&api_key='+FRED_KEY+'&limit='+limit+'&sort_order=desc&file_type=json';
-    var enc=encodeURIComponent(url);
-    var proxies=[
-      'https://api.allorigins.win/raw?url='+enc,
-      'https://api.codetabs.com/v1/proxy/?quest='+url
-    ];
-    function tryOne(i){
-      if(i>=proxies.length) return Promise.resolve(null);
-      var ctrl=new AbortController(); var tmr=setTimeout(function(){ctrl.abort();},6000);
-      return fetch(proxies[i],{signal:ctrl.signal})
-        .then(function(r){clearTimeout(tmr); if(!r.ok) throw 0; return r.json();})
-        .then(function(j){
-          if(!j||!j.observations) return null;
-          return j.observations.filter(function(o){return o.value!=='.'&&o.value!=='';}).map(function(o){return{date:o.date,value:parseFloat(o.value)};});
-        })
-        .catch(function(){clearTimeout(tmr); return tryOne(i+1);});
-    }
-    return tryOne(0);
+    // 2. [R-07/F20] クライアント側からのFRED直接アクセス（APIキー露出経路）は廃止。
+    //    取得はスケジュール済みジョブ側でのfred-data.json生成に一本化済み。
+    //    ここに来た時点でfred-data.jsonの同一オリジンfetchが失敗しているので、
+    //    取得失敗として警告を出し、呼び出し元(loadFresh)にMOCKフォールバックを委ねる。
+    console.warn('[koya][F16] fredFetch('+sid+'): fred-data.json取得に失敗したため、この系列は取得不可として扱います。');
+    return Promise.resolve(null);
   });
 }
 
 function cacheGet(){
-  try{var r=localStorage.getItem(CACHE_KEY); if(!r) return null; var o=JSON.parse(r); if(Date.now()-o.ts>CACHE_TTL) return null; return o.data;}catch(e){return null;}
+  try{var r=localStorage.getItem(CACHE_KEY); if(!r) return null; var o=JSON.parse(r); if(Date.now()-o.ts>CACHE_TTL) return null; return o.data;}catch(e){ console.warn('[koya][F16] キャッシュ読み込み失敗(localStorage破損の可能性):',e); return null;}
 }
 function cacheSet(d){
   try{localStorage.setItem(CACHE_KEY,JSON.stringify({ts:Date.now(),data:d}));}catch(e){}
@@ -1737,10 +1742,22 @@ function cacheSet(d){
 
 function sortAsc(a){return (a||[]).slice().sort(function(x,y){return x.date<y.date?-1:1;});}
 
+// [R-07/F17] 固定インデックス(-13)ではなく「12か月前と同じ暦月」を日付で照合する。
+// 該当月のデータが系列に存在しない場合はnullを返し、呼び出し側で
+// 「前年同月データなし」と明示する（近い月で代用しない）。
 function calcYoY(arr){
-  if(!arr||arr.length<13) return null;
-  var cur=arr[arr.length-1].value; var prev=arr[arr.length-13].value;
-  return +((cur-prev)/prev*100).toFixed(2);
+  if(!arr||!arr.length) return null;
+  var sorted=arr.slice().sort(function(a,b){return a.date<b.date?-1:1;});
+  var curPt=sorted[sorted.length-1];
+  var curDate=new Date(curPt.date+'T00:00:00Z');
+  var targetY=curDate.getUTCFullYear()-1, targetM=curDate.getUTCMonth();
+  var targetPrefix=targetY+'-'+String(targetM+1).padStart(2,'0');
+  var prevPt=null;
+  for(var i=0;i<sorted.length;i++){
+    if(sorted[i].date.slice(0,7)===targetPrefix){ prevPt=sorted[i]; break; }
+  }
+  if(!prevPt || !prevPt.value) return null;
+  return +(((curPt.value-prevPt.value)/prevPt.value)*100).toFixed(2);
 }
 
 function calcSig(fx,ur){
@@ -1786,7 +1803,8 @@ function applyData(data,isMock){
   S.fx=S.fxH.length?S.fxH[S.fxH.length-1].value:null;
   S.ff=S.ffH.length?S.ffH[S.ffH.length-1].value:null;
   S.ur=S.urH.length?S.urH[S.urH.length-1].value:null;
-  var cpiYoY=calcYoY(S.cpiH); S.cpi=cpiYoY!==null?cpiYoY:3.7;
+  // [R-07/F17] 前年同月データが無い場合はダミー値(3.7)で埋めず、nullのまま保持する。
+  S.cpi=calcYoY(S.cpiH);
   S.ahe=data.fredVals&&data.fredVals.AHETPI?data.fredVals.AHETPI:32.23;
   S.fredVals=data.fredVals||{};
   // koya_score・deltas・alertsをfredDataJsonから読み込む
@@ -1816,8 +1834,22 @@ function applyData(data,isMock){
   if(RD.sim) runSim();
   if(RD.biz) renderBiz();
   if(RD.fred) renderFred();
-  var now=new Date();
-  document.getElementById('last-upd').textContent=now.toLocaleTimeString('ja-JP')+(isMock?' [mock]':'');
+  // [R-07/F16] 取得失敗(isMock=true)の場合は#last-updを「今」に書き換えない。
+  // 直前に成功していた表示文字列を保持し、末尾に「(更新失敗 HH:MM)」を追記する。
+  // 成功時は、getDataJson()側で既にfred-data.jsonのupdated時刻(データ取得時刻)を
+  // #last-updとS.lastGoodUpdateTextにセット済みのはずなので上書きしない
+  // （まだセットされていない初回のみ、レンダー時刻であることを明示して暫定表示する）。
+  var updEl2=document.getElementById('last-upd');
+  if(isMock){
+    var lastGood=S.lastGoodUpdateText||'未取得';
+    var nowStr=new Date().toLocaleTimeString('ja-JP');
+    if(updEl2) updEl2.textContent=lastGood+'（更新失敗 '+nowStr+'）';
+    console.warn('[koya][F16] データ取得に失敗したためフォールバック値を表示しています。最終成功時刻: '+lastGood);
+  } else if(!S.lastGoodUpdateText){
+    var nowStr2=new Date().toLocaleTimeString('ja-JP')+'（レンダー時刻・データ取得時刻不明）';
+    if(updEl2) updEl2.textContent=nowStr2;
+    S.lastGoodUpdateText=nowStr2;
+  }
   document.getElementById('mock-pill').style.display=isMock?'':'none';
   document.getElementById('lo').style.display='none';
 }
@@ -1869,7 +1901,7 @@ function updateOverviewCards(){
   if(ftoIdxEl) ftoIdxEl.textContent='$'+comboPriceUsd+' vs US$220';
   var ftoDiscEl=document.getElementById('ov-fto-disc');
   if(ftoDiscEl){ var disc=Math.round((1-comboPriceUsd/220)*100); ftoDiscEl.textContent='米国比 '+disc+'%割安（¥15,800コンボ/生体）'; }
-  document.getElementById('ov-cpi').textContent=S.cpi?S.cpi.toFixed(1)+'%':'3.7%';
+  document.getElementById('ov-cpi').textContent=(S.cpi!==null&&S.cpi!==undefined)?S.cpi.toFixed(1)+'%':'前年同月データなし';
   document.getElementById('fx-display').textContent=fx!==null?fx.toFixed(2):'163.77';
   document.getElementById('f-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
   document.getElementById('f-ff').textContent=ff!==null?ff.toFixed(2)+'%':'--';
@@ -1880,18 +1912,24 @@ function updateOverviewCards(){
   var vix=S.fredVals['VIX']||MOCK.VIX; var sp=S.fredVals['SP500']||MOCK.SP500;
   var eVix=document.getElementById('f-vix'); if(eVix) eVix.textContent=vix?vix.toFixed(2):'—';
   var eSp=document.getElementById('f-sp500'); if(eSp) eSp.textContent=sp?sp.toLocaleString('ja-JP',{maximumFractionDigits:0}):'—';
-  // 前日比: fred-data.jsonのdeltas優先 → fxH末尾2点fallback
-  var fxDelta=null;
+  // [R-07/F18] fred-data.jsonのdeltasを優先し、真の前日比が取れない場合のみ
+  // fxH末尾2点の差分を使う。その場合はラベルを「(前日比)」ではなく
+  // 「(ライブ－FRED終値MM/DD)」のように比較対象と日付を明示し、
+  // 画面の数字とJSONのdeltasが矛盾しないようにする。
+  var fxDelta=null, fxDeltaLabel='(前日比)';
   if(S.deltas && typeof S.deltas['DEXJPUS']==='number'){
     fxDelta=S.deltas['DEXJPUS'];
+    fxDeltaLabel='(前日比)';
   } else if(S.fxH.length>=2){
     var sorted2=S.fxH.slice().sort(function(a,b){return a.date<b.date?-1:1;});
-    fxDelta=+(sorted2[sorted2.length-1].value-sorted2[sorted2.length-2].value).toFixed(2);
+    var prevPt2=sorted2[sorted2.length-2], curPt2=sorted2[sorted2.length-1];
+    fxDelta=+(curPt2.value-prevPt2.value).toFixed(2);
+    fxDeltaLabel='(ライブ－FRED終値'+prevPt2.date.slice(5).replace('-','/')+')';
   }
   var fxEl=document.getElementById('ov-fxchg');
   if(fxEl){
     if(fxDelta!==null){
-      fxEl.textContent=(fxDelta>=0?'+':'')+fxDelta.toFixed(2)+' (前日比)';
+      fxEl.textContent=(fxDelta>=0?'+':'')+fxDelta.toFixed(2)+' '+fxDeltaLabel;
       fxEl.className='c-chg '+(fxDelta>=0?'up':'dn');
     } else {
       fxEl.textContent='FRED最新値'; fxEl.className='c-chg';
@@ -2675,7 +2713,11 @@ function initMaternityTab() {
 // ════════════════════════════════════════════════
 function loadFresh(){
   document.getElementById('lo').style.display='flex';
-  try{localStorage.removeItem(CACHE_KEY);}catch(e){}
+  try{localStorage.removeItem(CACHE_KEY);}catch(e){ console.warn('[koya][F16] localStorage.removeItem失敗:',e); }
+  // [R-07/F16] メモリキャッシュ(_dataJsonCache)を明示的に破棄してから再取得する。
+  // 修正前は一度成功すると2回目以降のfetchが実行されず、
+  // 「取得失敗しているのに更新成功に見える」原因になっていた。
+  _dataJsonCache=null; _dataJsonPromise=null;
   RD={overview:false,sim:false,geo:false,biz:false,mil:false,fred:false,housing:false,usReality:false};
   var series=['DEXJPUS','FEDFUNDS','UNRATE','CPIAUCSL','CPIFABSL','AHETPI','DGS10','T10YIE','UMCSENT','GS2','DCOILWTICO'];
   Promise.all([
@@ -2706,8 +2748,9 @@ function loadFresh(){
     }
     // CPI前年比：絶対値を保持（calcYoYで表示時に計算）
     if(res[3]&&res[3].length){
-      var cpiArr=res[3].slice().sort(function(a,b){return a.date>b.date?1:-1;});
-      if(cpiArr.length>=13){ fredVals['CPIAUCSL_YOY']=+(((cpiArr[0].value-cpiArr[12].value)/cpiArr[12].value*100).toFixed(2)); }
+      // [R-07/F17] 固定インデックスをやめ、calcYoY()の日付照合ロジックに統一する。
+      var cpiYoYFixed=calcYoY(res[3]);
+      if(cpiYoYFixed!==null){ fredVals['CPIAUCSL_YOY']=cpiYoYFixed; }
     }
     // fxH末尾にlatestの今日の日付を追加（チャートを常に最新値で終端）
     var fxHarr=res[0]||[];
@@ -2769,9 +2812,10 @@ function loadFresh(){
             var last60=sorted.slice(-60);
             try{mkLine('c-fx',last60.map(function(d){return d.date.slice(5);}),last60.map(function(d){return d.value;}),'#00D4AA');}catch(e){}
           }
-        }).catch(function(){/* Yahoo Finance fetch失敗時はFRED値を維持 */});
+        }).catch(function(e){ console.warn('[koya][F16] Yahoo Finance(USD/JPY)取得失敗。FRED値を維持します:',e); });
     })();
-  }).catch(function(){
+  }).catch(function(e){
+    console.warn('[koya][F16] loadFresh()の主要フローで例外が発生しました:',e);
     var m=getMock(); m.fredVals=MOCK; applyData(m,true); if(!RD.overview) renderOverview();
   });
 }
@@ -2807,7 +2851,7 @@ document.getElementById('ref-btn').addEventListener('click',loadFresh);
           if(fxChgEl&&fxChgEl.textContent.indexOf('YF')===-1){
             fxChgEl.textContent=fxChgEl.textContent+' ★YF';
           }
-        }).catch(function(){});
+        }).catch(function(e){ console.warn('[koya][F16] Yahoo Finance(USD/JPY)取得失敗(キャッシュ表示時):',e); });
     })();
     // キャッシュ使用時もfred-data.jsonを非同期フェッチしてkoyaスコアを即時更新
     getDataJson().then(function(dj){
@@ -2819,6 +2863,10 @@ document.getElementById('ref-btn').addEventListener('click',loadFresh);
       S.triggers=dj.decision_triggers||[];
       if(S.koyaSignal) S.signal=S.koyaSignal;
       updateSig();
+      // [R-07/F18] S.deltas確定後にov-fxchg等のカードを再描画する。
+      // 修正前はここでS.deltasを更新してもカードが再描画されず、
+      // 画面には(fxH二点差分などの)古い値が残り続けていた。
+      updateOverviewCards();
     });
     return;
   }
