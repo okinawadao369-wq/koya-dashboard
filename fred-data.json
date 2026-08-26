@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-26T00:08:41.851585Z",
+  "updated": "2026-08-26T05:30:09.303392Z",
   "series": {
     "DEXJPUS": [
       {
@@ -757,6 +757,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 159.01,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 332.813,
+    "CPIFABSL": 346.681,
+    "AHETPI": 32.4,
+    "DGS10": 4.7,
+    "T10YIE": 2.32,
+    "UMCSENT": 49.5,
+    "GS2": 4.22,
+    "DCOILWTICO": 80.7,
+    "VIX": 15.45,
+    "SP500": 7677.28,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-08-26 14:30 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 159.24,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
@@ -772,36 +788,20 @@
     "SP500": 7677.28,
     "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
   },
-  "prev_latest": {
-    "DEXJPUS": 159.1,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 332.813,
-    "CPIFABSL": 346.681,
-    "AHETPI": 32.4,
-    "DGS10": 4.74,
-    "T10YIE": 2.32,
-    "UMCSENT": 49.5,
-    "GS2": 4.22,
-    "DCOILWTICO": 85.23,
-    "VIX": 15.85,
-    "SP500": 7652.86,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
-  },
   "deltas": {
-    "DEXJPUS": 0.14,
+    "DEXJPUS": -0.23,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.04,
+    "DGS10": null,
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -4.2,
-    "VIX": -0.4,
-    "SP500": 24.42
+    "DCOILWTICO": -0.33,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -850,7 +850,7 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥159.240",
+      "indicator": "USD/JPY ¥159.010",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
@@ -865,7 +865,7 @@
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $81.03",
+      "indicator": "WTI原油 $80.70",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
