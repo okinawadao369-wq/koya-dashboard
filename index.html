@@ -2830,45 +2830,11 @@ function loadFresh(){
     series.forEach(function(s){ if(!fredVals[s]) fredVals[s]=MOCK[s]; });
     data.fredVals=fredVals;
     cacheSet(data); applyData(data,false); if(!RD.overview) renderOverview();
-    // --- Yahoo Finance リアルタイムUSD/JPY取得（FRED遅延値を上書き）---
-    // FREDのDEXJPUSは最大6営業日遅れ → Yahoo Financeで最新値に差し替え
-    (function(){
-      var proxy='https://corsproxy.io/?';
-      var yfUrl=encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/USDJPY%3DX?interval=1d&range=2d');
-      fetch(proxy+yfUrl)
-        .then(function(r){return r.json();})
-        .then(function(d){
-          var price=d&&d.chart&&d.chart.result&&d.chart.result[0]&&
-                    d.chart.result[0].meta&&d.chart.result[0].meta.regularMarketPrice;
-          if(typeof price!=='number'||price<100||price>200) return;
-          // fredVals・Sを最新値で上書き
-          fredVals['DEXJPUS']=price;
-          if(S.fredVals) S.fredVals['DEXJPUS']=price;
-          S.fx=price;
-          // fxH末尾を今日のYahoo Financeレートに更新
-          var today=new Date().toISOString().slice(0,10);
-          if(S.fxH&&S.fxH.length){
-            var last=S.fxH[S.fxH.length-1];
-            if(last&&last.date===today){ S.fxH[S.fxH.length-1].value=price; }
-            else { S.fxH.push({date:today,value:price}); }
-          }
-          // カード・チャート表示を再更新
-          updateOverviewCards();
-          // FXカードにYahoo Financeソースをラベル表示
-          var fxEl=document.getElementById('ov-fx');
-          if(fxEl) fxEl.title='Yahoo Finance リアルタイム: ¥'+price.toFixed(2);
-          var fxChgEl=document.getElementById('ov-fxchg');
-          if(fxChgEl&&fxChgEl.textContent.indexOf('YF')===-1){
-            fxChgEl.textContent=fxChgEl.textContent+' ★YF';
-          }
-          // fxHチャート再描画（市場概況タブが開いていれば）
-          if(typeof mkLine==='function'&&S.fxH&&S.fxH.length){
-            var sorted=S.fxH.slice().sort(function(a,b){return a.date<b.date?-1:1;});
-            var last60=sorted.slice(-60);
-            try{mkLine('c-fx',last60.map(function(d){return d.date.slice(5);}),last60.map(function(d){return d.value;}),'#00D4AA');}catch(e){}
-          }
-        }).catch(function(e){ console.warn('[koya][F16] Yahoo Finance(USD/JPY)取得失敗。FRED値を維持します:',e); });
-    })();
+    // [R-08/F25] corsproxy.io経由のクライアント側Yahoo Financeライブ上書きは撤去した
+    // （ユーザー確認済み・2026-08-27）。外部依存ゼロを優先する。USD/JPYは
+    // fred-data.jsonのlatest.DEXJPUS（koya-dashboard-fred-updateタスクが
+    // 日次でYahoo Financeから取得しコミットする値）をそのまま表示する。
+    // 日中のリアルタイム更新は失われるが、日次1回のライブ値取得自体は維持される。
   }).catch(function(e){
     console.warn('[koya][F16] loadFresh()の主要フローで例外が発生しました:',e);
     var m=getMock(); m.fredVals=MOCK; applyData(m,true); if(!RD.overview) renderOverview();
@@ -2881,33 +2847,8 @@ document.getElementById('ref-btn').addEventListener('click',loadFresh);
   var cached=cacheGet();
   if(cached){
     applyData(cached,false); renderOverview();
-    // キャッシュ使用時もYahoo FinanceからUSD/JPYリアルタイム取得（FRED遅延上書き）
-    (function(){
-      var proxy='https://corsproxy.io/?';
-      var yfUrl=encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/USDJPY%3DX?interval=1d&range=2d');
-      fetch(proxy+yfUrl)
-        .then(function(r){return r.json();})
-        .then(function(d){
-          var price=d&&d.chart&&d.chart.result&&d.chart.result[0]&&
-                    d.chart.result[0].meta&&d.chart.result[0].meta.regularMarketPrice;
-          if(typeof price!=='number'||price<100||price>200) return;
-          if(S.fredVals) S.fredVals['DEXJPUS']=price;
-          S.fx=price;
-          var today=new Date().toISOString().slice(0,10);
-          if(S.fxH&&S.fxH.length){
-            var last=S.fxH[S.fxH.length-1];
-            if(last&&last.date===today){ S.fxH[S.fxH.length-1].value=price; }
-            else { S.fxH.push({date:today,value:price}); }
-          }
-          updateOverviewCards();
-          var fxEl=document.getElementById('ov-fx');
-          if(fxEl) fxEl.title='Yahoo Finance リアルタイム: ¥'+price.toFixed(2);
-          var fxChgEl=document.getElementById('ov-fxchg');
-          if(fxChgEl&&fxChgEl.textContent.indexOf('YF')===-1){
-            fxChgEl.textContent=fxChgEl.textContent+' ★YF';
-          }
-        }).catch(function(e){ console.warn('[koya][F16] Yahoo Finance(USD/JPY)取得失敗(キャッシュ表示時):',e); });
-    })();
+    // [R-08/F25] corsproxy.io経由のクライアント側Yahoo Financeライブ上書きは撤去した
+    // （ユーザー確認済み・2026-08-27）。外部依存ゼロを優先する。
     // キャッシュ使用時もfred-data.jsonを非同期フェッチしてkoyaスコアを即時更新
     getDataJson().then(function(dj){
       if(!dj) return;
