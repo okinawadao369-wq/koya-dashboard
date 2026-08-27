@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-26T05:30:09.303392Z",
+  "updated": "2026-08-27T00:08:52.758056Z",
   "series": {
     "DEXJPUS": [
       {
@@ -351,6 +351,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-08-25",
+        "value": 4.64
+      },
+      {
         "date": "2026-08-24",
         "value": 4.7
       },
@@ -401,13 +405,13 @@
       {
         "date": "2026-08-06",
         "value": 4.69
-      },
-      {
-        "date": "2026-08-05",
-        "value": 4.63
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-08-26",
+        "value": 2.32
+      },
       {
         "date": "2026-08-25",
         "value": 2.32
@@ -459,10 +463,6 @@
       {
         "date": "2026-08-07",
         "value": 2.25
-      },
-      {
-        "date": "2026-08-06",
-        "value": 2.26
       }
     ],
     "UMCSENT": [
@@ -583,6 +583,26 @@
     ],
     "DCOILWTICO": [
       {
+        "date": "2026-08-25",
+        "value": 83.9
+      },
+      {
+        "date": "2026-08-24",
+        "value": 86.34
+      },
+      {
+        "date": "2026-08-21",
+        "value": 87.21
+      },
+      {
+        "date": "2026-08-20",
+        "value": 89.75
+      },
+      {
+        "date": "2026-08-19",
+        "value": 87.28
+      },
+      {
         "date": "2026-08-18",
         "value": 86.48
       },
@@ -617,26 +637,6 @@
       {
         "date": "2026-08-06",
         "value": 78.88
-      },
-      {
-        "date": "2026-08-05",
-        "value": 76.78
-      },
-      {
-        "date": "2026-08-04",
-        "value": 77.33
-      },
-      {
-        "date": "2026-08-03",
-        "value": 81.96
-      },
-      {
-        "date": "2026-07-31",
-        "value": 86.16
-      },
-      {
-        "date": "2026-07-30",
-        "value": 85.15
       }
     ],
     "VIX": [
@@ -757,6 +757,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 159.17,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 332.813,
+    "CPIFABSL": 346.681,
+    "AHETPI": 32.4,
+    "DGS10": 4.64,
+    "T10YIE": 2.32,
+    "UMCSENT": 49.5,
+    "GS2": 4.22,
+    "DCOILWTICO": 81.84,
+    "VIX": 15.21,
+    "SP500": 7675.7,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-08-27 09:08 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 159.01,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
@@ -772,36 +788,20 @@
     "SP500": 7677.28,
     "DEXJPUS_source": "Yahoo Finance RT 2026-08-26 14:30 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 159.24,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 332.813,
-    "CPIFABSL": 346.681,
-    "AHETPI": 32.4,
-    "DGS10": 4.7,
-    "T10YIE": 2.32,
-    "UMCSENT": 49.5,
-    "GS2": 4.22,
-    "DCOILWTICO": 81.03,
-    "VIX": 15.45,
-    "SP500": 7677.28,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-07-23"
-  },
   "deltas": {
-    "DEXJPUS": -0.23,
+    "DEXJPUS": 0.16,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": null,
+    "DGS10": -0.06,
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -0.33,
-    "VIX": null,
-    "SP500": null
+    "DCOILWTICO": 1.14,
+    "VIX": -0.24,
+    "SP500": -1.58
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -835,9 +835,9 @@
   },
   "koya_score": 73.9,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+0.480%",
-  "vix_note": "VIX=15.45 正常範囲",
-  "sp500_note": "S&P500=7677.28",
+  "spread_dgs10_gs2": "+0.420%",
+  "vix_note": "VIX=15.21 正常範囲",
+  "sp500_note": "S&P500=7675.7",
   "fx_intervention_alert": null,
   "contributions": [],
   "anomaly_flags": [],
@@ -850,22 +850,22 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥159.010",
+      "indicator": "USD/JPY ¥159.170",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
       "level": "yellow",
-      "indicator": "VIX恐怖指数 15.45",
+      "indicator": "VIX恐怖指数 15.21",
       "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
       "level": "green",
-      "indicator": "S&P500 7,677",
+      "indicator": "S&P500 7,676",
       "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $80.70",
+      "indicator": "WTI原油 $81.84",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
