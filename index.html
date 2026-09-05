@@ -1361,6 +1361,39 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   </div>
 
   <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#11088; Googleクチコミ 全45件 全数分析 <span class="badge">R-15 2026-09-05 実測（原文）</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">事実A</span></div>
+    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:10px">
+      <div class="card"><div class="c-lbl">評価／件数</div><div class="c-val" style="color:var(--gold)">4.9★ / 45件</div><div class="c-sub">2026-09-05時点</div></div>
+      <div class="card"><div class="c-lbl">英語名の投稿者</div><div class="c-val" style="color:#00D4AA">38件</div><div class="c-sub">84.4%</div></div>
+      <div class="card"><div class="c-lbl">英語本文</div><div class="c-val" style="color:#00D4AA">33件</div><div class="c-sub">73.3%（日本語11件・本文なし1件）</div></div>
+      <div class="card"><div class="c-lbl">★直近1週間の投稿</div><div class="c-val" style="color:#ef4444">6件</div><div class="c-sub">その前の3ヶ月はわずか1件</div></div>
+      <div class="card"><div class="c-lbl">従来ペース</div><div class="c-val" style="color:var(--muted)">1.9件/月</div><div class="c-sub">45件÷24ヶ月</div></div>
+      <div class="card"><div class="c-lbl">★直近ペース（月換算）</div><div class="c-val" style="color:#ef4444">26件/月</div><div class="c-sub">従来の約14倍</div></div>
+    </div>
+    <div class="margin-note">
+      <b>① 顧客層はすでに米軍軍属層へ完全に移行している。</b>2年前の投稿は日本語が中心（助産院・妊婦健診といった語が並ぶ）だが、
+      直近1年の投稿はほぼすべて英語で、Nicoly Maciel／Sean &amp; Nicole hogan／kenia roybal／Nathalie Corrado／Chelsea Hall といった米国名が並ぶ。
+      <b>ターゲット層の転換は仮説ではなく、クチコミの原文で観測できる事実である。</b>
+      <br><br>
+      <b>② 直近1週間で6件という異常な投稿速度。</b>その前の3ヶ月は1件しかない。従来ペース1.9件/月に対し、直近は月26件相当＝<b>約14倍</b>。
+      これは「WEB戦略が最近大きく動いている」という経営者の実感と一致する。
+      ただし原因は<b>(a) 検索経由の新規流入が実際に増えた (b) 施術後にレビュー依頼を始めた</b>の2通りがあり、
+      現時点のデータではどちらか断定できない（証拠区分C）。<b>予約フォームに「FTOを何で知ったか」を追加すれば、この2つを分離して測定できる。</b>
+      <br><br>
+      <b>③ クチコミ本文が語っているニーズ（原文より）：</b><br>
+      　・Amber Howard「赤ちゃんの動きをあまり感じられず心配だった」→ <b>不安の解消</b>が来店動機。DoD IG監査が示した産科アクセス不安と符合する。<br>
+      　・Pedro Rodriguez「初めての父親として、日本では（立ち会えないと）聞いてがっかりしていた」→ <b>日本の医療への不安</b>と、<b>父親が排除される体験</b>。<br>
+      　・"husband" が6件に登場 → 意思決定者・体験者は<b>夫婦セット</b>。単身の妊婦向け訴求では届かない。<br>
+      　・Sean &amp; Nicole hogan「38週なので…」／Margie Mayville「妊娠期間中に何度も通った」→ <b>複数回利用が起きている</b>。<br>
+      　・産後ケア・ベビーシッターへの言及は本文にほぼ皆無 → <b>新サービスには社会的証明がまだ一件も蓄積していない</b>。
+      <br><br>
+      <b>④ 法務上の注意：</b>クチコミ本文に「trained OBGYN が施術」「院長先生」「妊婦健診よりも」といった<b>医療を連想させる記述</b>が含まれている。
+      お客様の言葉そのものは事業者の広告ではないが、<b>オーナー返信でこれを追認する表現を使わないこと</b>。
+      サイトの構造化データが <code>MedicalBusiness</code> 型である点とあわせて、専門家確認を推奨する。
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
     <div class="box-title">&#128270; 発見チャネル監査 — なぜ71%に見つけてもらえていないのか <span class="badge">R-14 2026-09-05 実測</span></div>
     <div class="margin-note" style="margin-bottom:10px">
       捕捉率28.6%の原因を、実際にサイトとGoogleマップを開いて調べた（2026-09-05 実測）。
@@ -1374,18 +1407,25 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">Week Checker（無料ツール）</td><td style="padding:6px 8px">出産予定日→最適週を判定。25〜32週が最適と明示</td><td style="padding:6px 8px;color:#00D4AA">◎ 発見の入口として強い</td></tr>
       <tr><td style="padding:6px 8px">構造化データ</td><td style="padding:6px 8px">MedicalBusiness ＋ FAQPage を実装</td><td style="padding:6px 8px;color:#f59e0b">△ 型の妥当性は要確認（下記）</td></tr>
       <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>AggregateRating / Review</b></td><td style="padding:6px 8px"><b>未実装（HTML内に該当なし）</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 最大の欠落</b></td></tr>
-      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>Googleマップ クチコミ</b></td><td style="padding:6px 8px"><b>4.9★・45件。ただし表示された16件はすべて日本語。英語レビューはごく少数</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 言語ミスマッチ</b></td></tr>
-      <tr><td style="padding:6px 8px">クチコミの話題タグ</td><td style="padding:6px 8px">画像11／妊婦6／家族5／空間5／ベッド4／翻訳4／記録する3／先生3</td><td style="padding:6px 8px">「翻訳」が独立タグ化＝英語対応が強みとして認知されている</td></tr>
+      <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>Googleマップ クチコミ（原文・45件全数）</b></td><td style="padding:6px 8px"><b>4.9★・45件。英語名38件(84.4%)／英語本文33件(73.3%)。すでに英語圏＝米軍軍属層が主体</b></td><td style="padding:6px 8px;color:#00D4AA"><b>◎ 訂正：言語ミスマッチではなかった</b></td></tr>
+      <tr><td style="padding:6px 8px">クチコミの話題タグ（英語UI）</td><td style="padding:6px 8px">ultrasound photos／cozy atmosphere／friendly staff／ultrasound technician／cool staff／translator／clear explanations</td><td style="padding:6px 8px">"translator" が独立タグ化＝英語対応が強みとして認知されている</td></tr>
+      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>ブランド名の分裂</b></td><td style="padding:6px 8px"><b>クチコミ本文で「Sneak Peek / Sneak Peak / sneakpeak」5件 vs 「Family Tree」3件</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 新たに判明した最大の漏れ</b></td></tr>
     </table></div>
     <div class="margin-note" style="margin-top:10px">
-      <b>これが捕捉率のボトルネックである理由：</b>着任直後の妊婦（年間207人・うち134人が5〜8月に集中）は、島の人間関係も口コミ網も持たない。
+      <div style="background:rgba(244,200,66,.10);border-left:3px solid var(--gold);padding:8px 12px;margin:8px 0">
+      <b>【訂正】2026-09-05 初回の判定は誤りでした。</b>最初の確認をGoogleマップの日本語UIで行ったため、Googleの自動翻訳された日本語が返り、
+      「クチコミがほぼ日本語」と誤って判定していました。<code>hl=en</code> で原文を取得し45件を全数集計し直した結果、
+      <b>英語名38件(84.4%)・英語本文33件(73.3%)</b>で、すでに米軍軍属層が主体でした。言語ミスマッチは存在しません。訂正します。
+      </div>
+      <b>あらためて捕捉率のボトルネックを特定すると：</b>着任直後の妊婦（年間207人・うち134人が5〜8月に集中）は、島の人間関係も口コミ網も持たない。
       彼女たちの入口は検索とSNSだけであり、いまその多くはChatGPT・Perplexity・Google AI Overviewのような<b>生成AI検索</b>を経由する。
-      生成AIが店を推薦するかどうかは、<b>①構造化データで評価を機械可読にしているか ②引用できる英語のレビュー本文があるか</b>で大きく変わる。
-      FTOはサイト本文では完璧に英語対応しているのに、<b>最大の資産である4.9★・45件が、機械にも英語話者にも届いていない</b>。
-      <br><b>優先度順の打ち手：</b><br>
-      　1. <b>AggregateRating（4.9／45件）とReviewをschema.orgでサイトに実装する。</b>捕捉率への効果が最も大きく、実装コストは最も小さい。<br>
-      　2. <b>英語レビューを増やす。</b>米軍軍属のお客様に、施術後その場で英語でのレビューを依頼する導線をつくる。日本語45件より、英語15件のほうがこの事業には効く。<br>
-      　3. <b>産後ケア・ベビーシッターのページを英語で作る。</b>現在サイトは4Dエコー中心。LTV¥601,226の出口が検索で見つからない状態にある。<br>
+      生成AIが店を推薦するかどうかは、<b>①構造化データで評価を機械可読にしているか ②ブランド名が一つに集約されているか</b>で大きく変わる。
+      レビュー本文（英語・実名・具体的）はすでに十分な質と量がある。<b>問題はそれが機械に読めないことと、二つの名前に割れていることである。</b>
+      <br><b>優先度順の打ち手（訂正版）：</b><br>
+      　1. <b>AggregateRating（4.9／45件）とReviewをschema.orgでサイトに実装する。</b>効果が最も大きく、実装コストは最も小さい。英語の良質なレビューが33件すでにあるのだから、機械に読ませるだけでよい。<br>
+      　2. <b>ブランド名を一つに集約する。</b>クチコミ本文では「Sneak Peek/Sneak Peak/sneakpeak」5件に対し「Family Tree」3件。口コミで人に伝わっている名前とサイト名（familytreeoki.com）・マップ名（4D ultrasound Family Tree Oki）が割れている。
+      さらに "SneakPeek" は米国の性別判定DNA検査ブランドの名称でもあり、<b>紹介を受けた人が「Sneak Peek Okinawa」で検索しても米国企業が上位に出てFTOに到達しない</b>。これは紹介経由の獲得を直接失っている。<br>
+      　3. <b>産後ケア・ベビーシッターのページを英語で作る。</b>現在サイトは4Dエコー中心。クチコミ45件中、産後ケア・シッターへの言及は本文にほぼ皆無で、LTV¥601,226の出口が検索にも社会的証明にも存在していない。<br>
       　4. これらは<b>4月までに完了させる</b>。5〜8月のPCS流入（月38人の情報ゼロ層）に間に合わせるため。<br>
       <b>要確認（法務）：</b>構造化データの型が <code>MedicalBusiness</code> になっている。ブランド規律では医療行為・診断・性別確認を連想させる表現を避けることになっており、
       <code>HealthAndBeautyBusiness</code> 等への変更が適切かを判断する必要がある。助産院としての実態との整合も含め、専門家確認を推奨する（この判断はダッシュボード側では行わない）。
@@ -1707,7 +1747,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v107';
+var CACHE_KEY = 'koya_v108';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
