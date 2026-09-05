@@ -1361,6 +1361,74 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   </div>
 
   <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#127909; 業態転換とデジタル登録の乖離 — 発見性の最大の構造要因 <span class="badge">R-16 2026-09-05</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">実測＋経営者報告</span></div>
+    <div class="margin-note" style="margin-bottom:10px">
+      <b>前提（経営者報告 2026-09-05）：</b>前業態は<b>医師が在籍するクリニック医院</b>だったが、<b>クリニック医院は廃業</b>。
+      現在は Family Tree Oki として<b>「エンターテインメント写真撮影」へリニューアル</b>し、お客様に<b>契約書的な文章を記入していただく</b>形で、
+      感動を創るビジネスとして運営している。<br>
+      この転換自体は、これまでの分析と完全に整合している。TRICAREが産科を100%カバーしている以上、医療として競争しても勝ち目はなく、
+      <b>「体験・感動の付加」こそが唯一成立するポジション</b>だからである。転換は正しい。<b>問題は、デジタル上の登録が旧業態のまま残っていることだ。</b>
+    </div>
+    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem">
+      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">項目</th><th style="text-align:left;padding:6px 8px">実測値（2026-09-05）</th><th style="text-align:left;padding:6px 8px">現業態との整合</th></tr>
+      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>Googleマップ カテゴリ</b></td><td style="padding:6px 8px"><b>Midwife（助産師）</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 医療系カテゴリのまま</b></td></tr>
+      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>サイト構造化データ</b></td><td style="padding:6px 8px"><b>@type: MedicalBusiness</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 医療事業者として宣言している</b></td></tr>
+      <tr><td style="padding:6px 8px">マップ掲載サイト</td><td style="padding:6px 8px">coubic.com と familytreeoki.com の2本</td><td style="padding:6px 8px;color:#f59e0b">△ 導線が分散</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">サイト本文</td><td style="padding:6px 8px">"clinic" の語を含む</td><td style="padding:6px 8px;color:#f59e0b">△ 旧業態の名残</td></tr>
+      <tr><td style="padding:6px 8px">サイト本文</td><td style="padding:6px 8px">keepsake / non-diagnostic 系の語は既に存在</td><td style="padding:6px 8px;color:#00D4AA">◎ 方向性は正しい</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">同意書に関する記載</td><td style="padding:6px 8px">トップページ上に waiver / consent 等の記載なし</td><td style="padding:6px 8px;color:#f59e0b">△ 運用はあるが公開されていない</td></tr>
+      <tr><td style="padding:6px 8px">AggregateRating / Review</td><td style="padding:6px 8px">未実装</td><td style="padding:6px 8px;color:#ef4444">✕ R-14から継続</td></tr>
+    </table></div>
+    <div class="margin-note" style="margin-top:10px">
+      <b>なぜこれが「発見されない」ことに直結するのか — YMYLという仕組み：</b><br>
+      Googleは健康・医療分野を <b>YMYL（Your Money or Your Life）</b>として扱い、通常より格段に厳しい
+      E-E-A-T（経験・専門性・権威性・信頼性）を要求する。<b>医師が在籍していた頃はその土俵で戦えたが、廃業した現在は医療的な権威性を示す手段がない。</b>
+      医療カテゴリに登録し続ける限り、FTOは<b>自分が満たせない基準で評価され続ける</b>。
+      逆に写真・エンターテインメントのカテゴリであれば、<b>4.9★×45件・英語の具体的な体験談33件</b>という資産が、YMYLのハンデなしにそのまま効く。
+      <b>つまり「業態の実態に登録を合わせる」ことが、そのまま発見性の改善策になる。</b>これは表記の問題ではなく、評価される土俵を選び直す話である。
+      <br><br>
+      <b>推奨（いずれも実行前に専門家確認を）：</b><br>
+      　1. サイト構造化データ <code>MedicalBusiness</code> → <b><code>EntertainmentBusiness</code></b>（schema.orgに実在を確認済み：Thing &gt; Organization &gt; LocalBusiness &gt; EntertainmentBusiness）または <code>LocalBusiness</code>。
+      　※<code>PhotographStudio</code> はschema.orgに<b>存在しない</b>（404を確認済み）。使わないこと。<br>
+      　2. Googleビジネスプロフィールの<b>主カテゴリを写真スタジオ系へ</b>。ただし<b>産後ケアを助産師が提供しているなら「Midwife」は副カテゴリとして正当</b>。
+      　主＋副の設計は資格の実態に依存するため、ここは経営判断と専門家確認が必要（ダッシュボード側では決めない）。<br>
+      　3. サイト本文の "clinic" を "studio" に統一する。<br>
+      　4. マップの掲載URLを1本に集約する（coubic か familytreeoki.com か）。<br>
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#128220; 米国FDAの立場と、同意書が事業の中核である理由 <span class="badge">R-16</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">事実A</span></div>
+    <div class="margin-note">
+      米国FDAは、記念目的の胎児超音波を<b>「強く推奨しない（strongly discourages）」</b>という立場を公表している。
+      keepsake用途で超音波機器を販売・リースする行為を<b>医療機器の未承認用途</b>にあたるとし、
+      医師の指示なく prescription device を用いることは州・地方の法令違反となりうるとしている。
+      一方で<b>「医学的適応のある検査の中で、追加の曝露なしに得られた画像であれば妥当」</b>とも明記している。
+      <br><br>
+      <b>これは日本の法令ではなく米国の規制上の立場であり、日本で営業するFTOに直接適用されるものではない。</b>
+      しかし<b>顧客は米国人である。</b>"is keepsake ultrasound safe" と検索すればFDAやACOGの見解に必ず行き当たり、生成AI検索も同じ情報を返す。
+      つまりこれは法務リスクである以前に、<b>購買前の最大の未解決の疑問</b>である。
+      <br><br>
+      <b>そして構造上、決定的に重要な点：</b>医師がいなくなった現在、<b>「医学的適応のある検査のついでに撮影した画像」という説明はもう使えない。</b>
+      だからこそ、いま導入されている<b>契約書的な文章＝非診断であることへの明示的な同意</b>は、単なる書類ではなく<b>事業構造そのものの中核</b>である。
+      この一枚が、業態を「医療の代替」から「体験の提供」へ法的にも説明可能な形で切り分けている。
+      <br><br>
+      <b>これを弱みではなく強みに変える方法：</b>英語で「Safety &amp; Our Policy」のページを作り、以下を明記する。<br>
+      　・これは診断ではない。妊婦健診の代わりにはならない（<b>continue your prenatal care at USNH</b> と明確に書く）<br>
+      　・施術者の訓練内容<br>
+      　・ALARA原則にもとづく走査時間の上限<br>
+      　・来院前に署名いただく同意書の内容（現に運用しているものを公開する）<br>
+      米国のkeepsakeスタジオで信頼を獲得している事業者はこれを公開している。
+      <b>生成AI検索は「引用できる明文の方針」を強く好む</b>ため、これは信頼の獲得と捕捉率の両方に直結する。
+      同時に、いま社会的証明がゼロである<b>産後ケア（¥490,000）とベビーシッターへの信頼の土台</b>にもなる。
+      <br><br>
+      <b>あわせて：</b>クチコミ本文に残っている「trained OBGYN が施術」「院長先生」「妊婦健診よりも」といった記述は、
+      日付を見るとほぼ<b>2年前＝クリニック医院時代の投稿</b>である。お客様の言葉自体は事業者の広告ではないが、
+      <b>現業態と食い違う記述が検索結果の上位に残り続けている</b>ことは認識しておく必要がある。オーナー返信でこれを追認しないこと。
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
     <div class="box-title">&#11088; Googleクチコミ 全45件 全数分析 <span class="badge">R-15 2026-09-05 実測（原文）</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">事実A</span></div>
     <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:10px">
       <div class="card"><div class="c-lbl">評価／件数</div><div class="c-val" style="color:var(--gold)">4.9★ / 45件</div><div class="c-sub">2026-09-05時点</div></div>
@@ -1747,7 +1815,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v108';
+var CACHE_KEY = 'koya_v109';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
