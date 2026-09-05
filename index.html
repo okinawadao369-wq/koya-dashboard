@@ -1361,6 +1361,40 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   </div>
 
   <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#128270; 発見チャネル監査 — なぜ71%に見つけてもらえていないのか <span class="badge">R-14 2026-09-05 実測</span></div>
+    <div class="margin-note" style="margin-bottom:10px">
+      捕捉率28.6%の原因を、実際にサイトとGoogleマップを開いて調べた（2026-09-05 実測）。
+      結論を先に言うと、<b>サイトの作りは対象層に対してほぼ完璧</b>である。欠けているのは<b>社会的証明の「機械可読性」と「言語」</b>の2点だけだった。
+    </div>
+    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem">
+      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">項目</th><th style="text-align:left;padding:6px 8px">実測結果</th><th style="text-align:left;padding:6px 8px">判定</th></tr>
+      <tr><td style="padding:6px 8px">familytreeoki.com 言語</td><td style="padding:6px 8px">lang="en" ／ 本文の英字4,431字に対し日本語8字＝実質100%英語</td><td style="padding:6px 8px;color:#00D4AA">◎ 対象層に完全一致</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">meta description</td><td style="padding:6px 8px">SOFA・Kadena・Camp Foster・Camp Hansen・Torii Station を明記</td><td style="padding:6px 8px;color:#00D4AA">◎ 地理×属性の指定が的確</td></tr>
+      <tr><td style="padding:6px 8px">見出し構成</td><td style="padding:6px 8px">"Meet Your Baby's Face Before They're Even Born" ／ "What Military Families in Okinawa Ask Us" 等</td><td style="padding:6px 8px;color:#00D4AA">◎ 検索意図に沿う</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">Week Checker（無料ツール）</td><td style="padding:6px 8px">出産予定日→最適週を判定。25〜32週が最適と明示</td><td style="padding:6px 8px;color:#00D4AA">◎ 発見の入口として強い</td></tr>
+      <tr><td style="padding:6px 8px">構造化データ</td><td style="padding:6px 8px">MedicalBusiness ＋ FAQPage を実装</td><td style="padding:6px 8px;color:#f59e0b">△ 型の妥当性は要確認（下記）</td></tr>
+      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>AggregateRating / Review</b></td><td style="padding:6px 8px"><b>未実装（HTML内に該当なし）</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 最大の欠落</b></td></tr>
+      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>Googleマップ クチコミ</b></td><td style="padding:6px 8px"><b>4.9★・45件。ただし表示された16件はすべて日本語。英語レビューはごく少数</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 言語ミスマッチ</b></td></tr>
+      <tr><td style="padding:6px 8px">クチコミの話題タグ</td><td style="padding:6px 8px">画像11／妊婦6／家族5／空間5／ベッド4／翻訳4／記録する3／先生3</td><td style="padding:6px 8px">「翻訳」が独立タグ化＝英語対応が強みとして認知されている</td></tr>
+    </table></div>
+    <div class="margin-note" style="margin-top:10px">
+      <b>これが捕捉率のボトルネックである理由：</b>着任直後の妊婦（年間207人・うち134人が5〜8月に集中）は、島の人間関係も口コミ網も持たない。
+      彼女たちの入口は検索とSNSだけであり、いまその多くはChatGPT・Perplexity・Google AI Overviewのような<b>生成AI検索</b>を経由する。
+      生成AIが店を推薦するかどうかは、<b>①構造化データで評価を機械可読にしているか ②引用できる英語のレビュー本文があるか</b>で大きく変わる。
+      FTOはサイト本文では完璧に英語対応しているのに、<b>最大の資産である4.9★・45件が、機械にも英語話者にも届いていない</b>。
+      <br><b>優先度順の打ち手：</b><br>
+      　1. <b>AggregateRating（4.9／45件）とReviewをschema.orgでサイトに実装する。</b>捕捉率への効果が最も大きく、実装コストは最も小さい。<br>
+      　2. <b>英語レビューを増やす。</b>米軍軍属のお客様に、施術後その場で英語でのレビューを依頼する導線をつくる。日本語45件より、英語15件のほうがこの事業には効く。<br>
+      　3. <b>産後ケア・ベビーシッターのページを英語で作る。</b>現在サイトは4Dエコー中心。LTV¥601,226の出口が検索で見つからない状態にある。<br>
+      　4. これらは<b>4月までに完了させる</b>。5〜8月のPCS流入（月38人の情報ゼロ層）に間に合わせるため。<br>
+      <b>要確認（法務）：</b>構造化データの型が <code>MedicalBusiness</code> になっている。ブランド規律では医療行為・診断・性別確認を連想させる表現を避けることになっており、
+      <code>HealthAndBeautyBusiness</code> 等への変更が適切かを判断する必要がある。助産院としての実態との整合も含め、専門家確認を推奨する（この判断はダッシュボード側では行わない）。
+      <br><b>計測の欠落：</b>STORES予約（dashboard.stores.app）はログインが必要なため、本セッションでは予約データを取得できていない。
+      予約フォームに「妊娠週数」と「FTOを何で知ったか」の2項目を追加すれば、捕捉率もチャネル別効果も推計から実測に変わる。
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
     <div class="box-title">&#128176; サービス構成とLTV — 「発見」より「単価」のほうがレバーが大きい <span class="badge">R-13 2026-09-05</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">実績値ベース</span></div>
     <div class="margin-note" style="margin-bottom:10px">
       2026年9月、産後ケア（1週間・1日¥70,000）とベビーシッター（¥2,500〜3,500/時間）の顧客獲得が確定した。
@@ -1673,7 +1707,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v106';
+var CACHE_KEY = 'koya_v107';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
