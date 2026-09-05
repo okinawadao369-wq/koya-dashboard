@@ -1308,8 +1308,8 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(148px,1fr));margin-bottom:.75rem">
     <div class="card"><div class="c-lbl">SOFA対象 総人口</div><div class="c-val" style="color:var(--accent)">~47,000</div><div class="c-sub">USNH公表47,000／県公表47,300で収束</div></div>
     <div class="card"><div class="c-lbl">育齢女性（20〜40歳）</div><div class="c-val" style="color:#60a5fa">~9,800</div><div class="c-sub">女性配偶者6,971＋女性軍人2,791</div></div>
-    <div class="card"><div class="c-lbl">年間出産推計</div><div class="c-val" style="color:#00D4AA">800〜1,000</div><div class="c-sub">3手法収束・中心値900人/年</div></div>
-    <div class="card"><div class="c-lbl">同時妊娠中推計</div><div class="c-val" style="color:var(--gold)">約675人</div><div class="c-sub">年間出生900×0.75（旧値は×0.25の誤り）</div></div>
+    <div class="card"><div class="c-lbl">年間出産推計</div><div class="c-val" style="color:#00D4AA">800〜980</div><div class="c-sub">中心値880人/年（在沖居住者ベース）</div></div>
+    <div class="card"><div class="c-lbl">同時妊娠中推計</div><div class="c-val" style="color:var(--gold)">約660人</div><div class="c-sub">年間出生880×0.75</div></div>
     <div class="card"><div class="c-lbl">TRICARE産科カバー率</div><div class="c-val" style="color:#a78bfa">100%</div><div class="c-sub">依存家族も全員対象</div></div>
     <div class="card"><div class="c-lbl">配偶者失業率</div><div class="c-val" style="color:#ef4444">21〜23%</div><div class="c-sub">全米平均の約5倍 → 在宅需要↑</div></div>
   </div>
@@ -1319,7 +1319,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
     <div class="card"><div class="c-lbl">TRICAREデモ期間</div><div class="c-val" style="color:#60a5fa">〜2026/12/31</div><div class="c-sub">授乳サポート100%カバー</div></div>
     <div class="card"><div class="c-lbl">PCSピーク × 妊婦流入</div><div class="c-val" style="color:var(--gold)">5〜8月</div><div class="c-sub">転入妊婦の60%超がこの時期</div></div>
     <div class="card"><div class="c-lbl">沖縄合計特殊出生率</div><div class="c-val" style="color:#a78bfa">1.60</div><div class="c-sub">日本最高（2023年）</div></div>
-    <div class="card"><div class="c-lbl">エコー適齢期 在籍数 <span class="verif-badge verif-est">推計</span></div><div class="c-val" style="color:var(--accent)">約450人</div><div class="c-sub">妊娠12〜36週に在籍＝営業可能母数</div><div class="margin-note">年間出生900×0.50。旧「80〜107人」は月間流入(75人/月)と混同した表記だったため定義を明確化。</div></div>
+    <div class="card"><div class="c-lbl">エコー適齢期 在籍数 <span class="verif-badge verif-est">推計</span></div><div class="c-val" style="color:var(--accent)">約440人</div><div class="c-sub">妊娠12〜36週に在籍＝営業可能母数</div><div class="margin-note">年間出生880×0.50（在沖居住者）。これに太平洋圏からの一時滞在妊婦が常時8〜9組加わる。</div></div>
     <div class="card"><div class="c-lbl">USNH沖縄 分娩数（実測）</div><div class="c-val" style="color:#f59e0b">1,099件</div><div class="c-sub">CY2013実測・CY2014は1,089件</div><div class="margin-note">health.mil「Number of Deliveries in Military Hospitals」。海外MTFで最大規模。CY2015以降は更新停止。</div></div>
   </div>
 
@@ -1335,8 +1335,8 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
         <th style="text-align:left;padding:6px 8px">手法</th><th style="text-align:left;padding:6px 8px">根拠データ（一次ソース）</th>
         <th style="text-align:right;padding:6px 8px">年間出生</th><th style="text-align:left;padding:6px 8px">性質</th></tr>
       <tr><td style="padding:6px 8px"><b>A. 病院分娩実測アンカー</b></td>
-        <td style="padding:6px 8px">USNH沖縄 CY13:1,099件／CY14:1,089件（health.mil）× MHS全体出生トレンド補正0.848（FY20 105,000→FY23 89,000／GAO-25-107163）</td>
-        <td style="padding:6px 8px;text-align:right;color:#00D4AA"><b>927</b><br><span style="color:var(--muted)">853〜1,011</span></td>
+        <td style="padding:6px 8px">USNH沖縄 CY13:1,099件／CY14:1,089件（health.mil）− 太平洋圏からの流入分娩 約75件 ＝1,019件 × MHS全体出生トレンド補正0.848（FY20 105,000→FY23 89,000／GAO-25-107163）</td>
+        <td style="padding:6px 8px;text-align:right;color:#00D4AA"><b>864</b><br><span style="color:var(--muted)">R-11で流入補正</span></td>
         <td style="padding:6px 8px">最も直接的</td></tr>
       <tr><td style="padding:6px 8px"><b>B. 人口構成トップダウン</b></td>
         <td style="padding:6px 8px">家族19,463 × DoD 2024 Demographics（配偶者41.6%／女性配偶者86.1%）＝女性配偶者6,971＋女性現役軍人2,791 → 育齢女性9,762 × 出生率9.5%</td>
@@ -1347,8 +1347,8 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
         <td style="padding:6px 8px;text-align:right;color:#f59e0b"><b>542</b><br><span style="color:var(--muted)">下限制約</span></td>
         <td style="padding:6px 8px">PCS3年ローテで下方バイアス</td></tr>
       <tr style="background:rgba(0,212,170,.08)"><td style="padding:6px 8px"><b>収束推計</b></td>
-        <td style="padding:6px 8px">A・Bの927を、Cの下限制約で下方調整</td>
-        <td style="padding:6px 8px;text-align:right;color:#00D4AA;font-size:.85rem"><b>900</b><br><span style="color:var(--muted)">800〜1,000</span></td>
+        <td style="padding:6px 8px">A(864)・B(927)を、Cの下限制約で下方調整</td>
+        <td style="padding:6px 8px;text-align:right;color:#00D4AA;font-size:.85rem"><b>880</b><br><span style="color:var(--muted)">800〜980</span></td>
         <td style="padding:6px 8px">証拠区分B / estimated</td></tr>
     </table>
     </div>
@@ -1361,18 +1361,73 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   </div>
 
   <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#128200; FTO 市場浸透率と残余TAM <span class="verif-badge verif-est">推計（証拠区分B〜C）</span></div>
+    <div class="box-title">&#127758; 太平洋圏の産科紹介ヒエラルキーと「一時滞在妊婦」セグメント <span class="badge">R-11 2026-09-05</span> <span class="verif-badge verif-est">一次ソース：米政府・米軍公式</span></div>
+    <div class="margin-note" style="margin-bottom:10px">
+      沖縄県側の統計が2011年で止まっている以上、母集団もニーズも<b>米国政府・米軍の公式情報から取りに行くほうが精度が高い</b>。
+      その視点で調べ直した結果、沖縄は妊婦を「送り出す」側ではなく<b>太平洋圏から高リスク妊婦を受け入れる側</b>だと判明した。
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:.68rem;margin-bottom:10px">
+      <tr style="background:rgba(255,255,255,.05)">
+        <th style="text-align:left;padding:6px 8px">階層</th><th style="text-align:left;padding:6px 8px">施設</th>
+        <th style="text-align:left;padding:6px 8px">役割</th><th style="text-align:left;padding:6px 8px">出典</th></tr>
+      <tr><td style="padding:6px 8px">1次</td><td style="padding:6px 8px">韓国・グアム・日本本土の各MTF</td>
+        <td style="padding:6px 8px">低リスク妊娠は現地で対応。高リスク・多胎は沖縄へ空路搬送</td><td style="padding:6px 8px">Stars and Stripes</td></tr>
+      <tr style="background:rgba(0,212,170,.10)"><td style="padding:6px 8px"><b>2次</b></td><td style="padding:6px 8px"><b>USNH沖縄（キャンプ・フォスター）</b></td>
+        <td style="padding:6px 8px"><b>西太平洋戦域の産科紹介先。INDOPACOM唯一のNICUを持つ。付設の「Stork's Nest」4棟で他地域からの高リスク妊婦を無償滞在させる</b></td>
+        <td style="padding:6px 8px">okinawa.tricare.mil／Stars and Stripes</td></tr>
+      <tr><td style="padding:6px 8px">3次</td><td style="padding:6px 8px">Tripler陸軍医療センター（ハワイ）</td>
+        <td style="padding:6px 8px">太平洋唯一の連邦三次医療機関。Level III NICUがグアム・韓国・沖縄の新生児を受け入れる。紹介人口171,000名</td>
+        <td style="padding:6px 8px">tripler.tricare.mil／health.mil</td></tr>
+      <tr><td style="padding:6px 8px">例外</td><td style="padding:6px 8px">米国本土（Stork Nesting）</td>
+        <td style="padding:6px 8px">沖縄の受入能力が不足した場合、妊娠34週前に本土へ空路搬送。付添人の渡航は分娩4週間前まで認められない</td>
+        <td style="padding:6px 8px">18th Medical Group 2023年6月メモ</td></tr>
+    </table>
     <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
-      <div class="card"><div class="c-lbl">新規妊娠の月間発生数</div><div class="c-val" style="color:var(--gold)">75人/月</div><div class="c-sub">900÷12＝月次の獲得上限</div></div>
-      <div class="card"><div class="c-lbl">FTOユニーク顧客（17ヶ月）</div><div class="c-val" style="color:var(--accent)">593名</div><div class="c-sub">Square実測 2025/3〜2026/7</div></div>
-      <div class="card"><div class="c-lbl">市場浸透率（粗）</div><div class="c-val" style="color:#00D4AA">46.5%</div><div class="c-sub">593 ÷ 推計出生1,275</div></div>
-      <div class="card"><div class="c-lbl">市場浸透率（調整後）</div><div class="c-val" style="color:#60a5fa">34.9%</div><div class="c-sub">非妊婦・重複を25%控除</div></div>
-      <div class="card"><div class="c-lbl">年間未接触層</div><div class="c-val" style="color:#f59e0b">481〜586人</div><div class="c-sub">まだ会えていない妊婦</div></div>
-      <div class="card"><div class="c-lbl">残余TAM（金額）</div><div class="c-val" style="color:#f59e0b">¥9.8M〜12.0M</div><div class="c-sub">未接触層 × 顧客単価¥20,449</div></div>
+      <div class="card"><div class="c-lbl">Stork's Nest 収容力</div><div class="c-val" style="color:#a78bfa">12組</div><div class="c-sub">4棟・家族4＋カップル8（同時）</div></div>
+      <div class="card"><div class="c-lbl">年間受入 推計</div><div class="c-val" style="color:#a78bfa">約75組</div><div class="c-sub">45〜110組（稼働率70%仮定）</div></div>
+      <div class="card"><div class="c-lbl">常時 島内滞在</div><div class="c-val" style="color:#a78bfa">8〜9組</div><div class="c-sub">キャンプ・フォスター近接</div></div>
+      <div class="card"><div class="c-lbl">属性</div><div class="c-val" style="color:#a78bfa">高リスク・多胎</div><div class="c-sub">双子等。感情的関与が極めて高い</div></div>
     </div>
     <div class="margin-note" style="margin-top:10px">
-      <b>経営示唆：</b>妊婦市場の理論総額は現行単価で<b>年間約¥18.4M</b>（900人 × 顧客あたり¥20,449）。
-      第3期目標¥15,000,000は、<b>妊婦市場だけでは浸透率82%を要求する</b>水準にあたる。すでに粗浸透率46.5%に達している以上、
+      <b>なぜこれが重要か：</b>この層は<b>在沖SOFA人口47,000にも、年間出生880にも含まれていない</b>。
+      韓国・グアム・日本本土から飛来し、数週間から数ヶ月、FTOの商圏であるキャンプ・フォスター周辺に無償滞在する。
+      高リスク妊娠または多胎という、<b>妊娠に対する感情的関与が最も高い層</b>であり、かつ時間が余っていて、土地勘がない。
+      これまでどの推計にも入っていなかった<b>純粋な追加需要</b>である。
+      <br><b>証拠上の位置づけ：</b>収容力（4棟・12組）は事実A（Stars and Stripes 2006年報道）。年間受入数75組は稼働率70%・平均滞在6週を仮定した競合仮説C。実績値は非公表であり、
+      Armed Services YMCA（Stork's Nest運営者）への直接照会が唯一の実測経路。
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#9888; 産科アクセスの構造的不安 — 米政府監査が認定した事実 <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">事実A</span></div>
+    <table style="width:100%;border-collapse:collapse;font-size:.68rem">
+      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">時点</th><th style="text-align:left;padding:6px 8px">事実</th><th style="text-align:left;padding:6px 8px">出典</th></tr>
+      <tr><td style="padding:6px 8px">2023-06</td><td style="padding:6px 8px">嘉手納18th Medical Groupが、8〜11月に出産予定の妊婦に対し「USNH沖縄では受け入れない。日本の病院か、本土へ空路搬送のいずれかを選べ」と通知。翌々日にDHAが撤回</td><td style="padding:6px 8px">Military.com／Stars and Stripes</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">2023-06</td><td style="padding:6px 8px">同メモが日本の産科について「無痛分娩はまれ」「言語の壁」「日本の法律は分娩中の患者の受入を義務づけていない」「肥満の場合は断られることがある」と明記</td><td style="padding:6px 8px">18th Medical Group メモ</td></tr>
+      <tr><td style="padding:6px 8px">2023-06</td><td style="padding:6px 8px">本土搬送の場合、付添人（配偶者）の渡航は分娩4週間前まで認められず「ホテル暮らしで家族と離れる結果になりうる」と当局自身が記載</td><td style="padding:6px 8px">同上</td></tr>
+      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>2025-12</b></td><td style="padding:6px 8px"><b>国防総省監察官(DoD IG)監査 DODIG-2026-025：USNH沖縄と嘉手納クリニックが、全海外MTFの中で契約職の欠員が最も多いと認定</b></td><td style="padding:6px 8px">DoD IG</td></tr>
+    </table>
+    <div class="margin-note" style="margin-top:10px">
+      <b>事業への含意：</b>在沖の妊婦は「産む場所が保証されない」という構造的不安を抱えており、これは印象論ではなく<b>2025年12月の米政府監査で裏づけられた事実A</b>である。
+      TRICAREが産科を100%カバーしている以上、FTOの自費サービスは医療の代替にはならない。しかし
+      <b>医療の確実性が揺らぐほど、「確実に会える・確実に残せる」体験の価値は上がる</b>。
+      またFTOは日本側の民間事業者として、米軍が公式に配布している「日本の医療への具体的な不安リスト」を和らげられる稀有な立場にある。
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#128200; FTO 市場浸透率と残余TAM <span class="verif-badge verif-est">推計（証拠区分B〜C）</span></div>
+    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
+      <div class="card"><div class="c-lbl">新規妊婦の月間発生数</div><div class="c-val" style="color:var(--gold)">79人/月</div><div class="c-sub">居住73＋太平洋圏からの流入6</div></div>
+      <div class="card"><div class="c-lbl">FTOユニーク顧客（17ヶ月）</div><div class="c-val" style="color:var(--accent)">593名</div><div class="c-sub">Square実測 2025/3〜2026/7</div></div>
+      <div class="card"><div class="c-lbl">市場浸透率（粗）</div><div class="c-val" style="color:#00D4AA">43.8%</div><div class="c-sub">593 ÷ 全母数1,353（17ヶ月）</div></div>
+      <div class="card"><div class="c-lbl">市場浸透率（調整後）</div><div class="c-val" style="color:#60a5fa">32.9%</div><div class="c-sub">非妊婦・重複を25%控除</div></div>
+      <div class="card"><div class="c-lbl">年間未接触層</div><div class="c-val" style="color:#f59e0b">約536人</div><div class="c-sub">まだ会えていない妊婦</div></div>
+      <div class="card"><div class="c-lbl">残余TAM（金額）</div><div class="c-val" style="color:#f59e0b">約¥11.0M</div><div class="c-sub">536人 × 顧客単価¥20,449</div></div>
+    </div>
+    <div class="margin-note" style="margin-top:10px">
+      <b>経営示唆：</b>妊婦市場の理論総額は現行単価で<b>年間約¥19.5M</b>（在沖居住880人＋太平洋圏からの一時滞在75組 ＝955人 × 顧客あたり¥20,449）。
+      第3期目標¥15,000,000は、<b>妊婦市場だけでは浸透率77%を要求する</b>水準にあたる。すでに粗浸透率43.8%に達している以上、
       残る打ち手は「未接触481〜586人の獲得」だけでは足りず、<b>①顧客単価の引き上げ ②産後・非妊婦サービスへの横展開 ③日本人・他国籍層への市場定義の拡張</b>のいずれかが構造的に必要になる。
       <br><b>証拠上の限界：</b>浸透率の分母（出生数900）は推計であり、分子（593名）にも非妊婦顧客・複数回妊娠の重複が含まれる。
       予約時に妊娠週数を任意入力させるだけでこの数字は推計から実測に変わる。<b>これは自社で今日から着手できる唯一の精度向上策である。</b>
@@ -1524,7 +1579,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v103';
+var CACHE_KEY = 'koya_v104';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
