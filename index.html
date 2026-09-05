@@ -1072,11 +1072,11 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
 
     <!-- KPI Cards Row 1: 官民乖離 -->
     <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(155px,1fr));margin-bottom:.75rem">
-      <div class="card"><div class="c-lbl">CPI公式（前年比）</div><div class="c-val blue" id="ur-cpi-official">3.8%</div><div class="c-sub">BLS Apr 2026</div></div>
+      <div class="card"><div class="c-lbl">CPI公式（前年比）</div><div class="c-val blue" id="ur-cpi-official">--</div><div class="c-sub">FRED CPIAUCSL 前年比</div></div>
       <div class="card"><div class="c-lbl">体感インフレ推計</div><div class="c-val gold" id="ur-cpi-real">5〜7%</div><div class="c-sub">Reality Index 2026</div></div>
       <div class="card"><div class="c-lbl">乖離幅</div><div class="c-val red" id="ur-cpi-gap">+1.2〜3.2pp</div><div class="c-sub">過去最大級の差</div></div>
       <div class="card"><div class="c-lbl">実質賃金成長</div><div class="c-val red" id="ur-real-wage">▲0.2%</div><div class="c-sub">名目+3.6% − 物価3.8%</div></div>
-      <div class="card"><div class="c-lbl">消費者信頼感</div><div class="c-val red" id="ur-umcsent">44.8</div><div class="c-sub">2026年5月 史上最低</div></div>
+      <div class="card"><div class="c-lbl">消費者信頼感</div><div class="c-val red" id="ur-umcsent">--</div><div class="c-sub">FRED UMCSENT 最新値</div></div>
     </div>
 
     <!-- KPI Cards Row 2: 家計ストレス -->
@@ -4112,6 +4112,35 @@ function renderUSReality(){
   if(sentBar) sentBar.style.width=sentPct+'%';
   var sentVal=document.getElementById('ur-sent-val');
   if(sentVal) sentVal.textContent=umcsent.toFixed(1);
+
+  // ── KPIカードをFREDライブ値に同期（タブ内の数値不整合を防ぐ / 2026-09-05 修正）──
+  // 以前はKPIカードだけ静的な数値（消費者信頼感44.8・CPI3.8%）が固定表示され、
+  // 同じ画面のFRED実データ（55.2 / 3.3%）と食い違っていた。
+  var umKpi = document.getElementById('ur-umcsent');
+  if (umKpi) {
+    umKpi.textContent = umcsent.toFixed(1);
+    var umSub = umKpi.nextElementSibling;
+    if (umSub) umSub.textContent = 'FRED UMCSENT 最新値';
+  }
+  var cpiKpi = document.getElementById('ur-cpi-official');
+  if (cpiKpi) {
+    cpiKpi.textContent = cpi.toFixed(1) + '%';
+    var cpiSub = cpiKpi.nextElementSibling;
+    if (cpiSub) cpiSub.textContent = 'FRED CPIAUCSL 前年比';
+  }
+  var gapKpi = document.getElementById('ur-cpi-gap');
+  if (gapKpi) {
+    gapKpi.textContent = '+' + (5 - cpi).toFixed(1) + '〜' + (7 - cpi).toFixed(1) + 'pp';
+    var gapSub = gapKpi.nextElementSibling;
+    if (gapSub) gapSub.textContent = '体感5〜7% − 公式' + cpi.toFixed(1) + '%';
+  }
+  var rwKpi = document.getElementById('ur-real-wage');
+  if (rwKpi) {
+    var rw = 3.6 - cpi;
+    rwKpi.textContent = (rw < 0 ? '▲' : '+') + Math.abs(rw).toFixed(1) + '%';
+    var rwSub = rwKpi.nextElementSibling;
+    if (rwSub) rwSub.textContent = '名目+3.6% − 物価' + cpi.toFixed(1) + '%';
+  }
 
   // FX表示・円安割安率
   var fxBase=110;
