@@ -413,7 +413,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <span class="fred-pill pill-live" id="fred-pill">FRED —/11</span>
       <span class="fred-pill" id="mock-pill" style="display:none;background:rgba(244,200,66,.2);color:var(--gold)">MOCK</span>
     </div>
-    <div style="font-size:9px;color:var(--muted);margin-top:6px">SOFA市場: ~80,000人</div>
+    <div style="font-size:9px;color:var(--muted);margin-top:6px">SOFA市場: ~47,000人</div>
   </div>
 </nav>
 
@@ -471,8 +471,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       </div>
       <div class="card">
         <div class="c-lbl">SOFA市場規模</div>
-        <div class="c-val gold">~80,000</div>
-        <div class="c-sub">沖縄米軍関係者総数</div>
+        <div class="c-val gold">~47,000</div>
+        <div class="c-sub">USNH沖縄 公表受給者数（一次ソース）</div>
       </div>
       <div class="card">
         <div class="c-lbl">年間購買力推計</div>
@@ -769,9 +769,9 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
     <div class="cat-filter" id="biz-filter"></div>
 
     <div class="box">
-      <div class="box-title">業種別 年間市場規模推計 (USD Million) <span class="badge">SOFA ~80,000人</span> <span class="verif-badge verif-est">未検証（理論上限値）</span></div>
+      <div class="box-title">業種別 年間市場規模推計 (USD Million) <span class="badge">SOFA ~47,000人</span> <span class="verif-badge verif-est">未検証（理論上限値）</span></div>
       <div class="chart-wrap" style="height:320px"><canvas id="c-biz-bar"></canvas></div>
-      <div class="margin-note" style="margin-top:8px">※SOFA全人口(~80,000人)が対象月間頻度で購入した場合の理論上限値です。実際の商品浸透率（何%が顧客になるか）は未反映のため、現実の市場規模はこれよりかなり小さくなります。事業計画の参考値としては使用しないでください。</div>
+      <div class="margin-note" style="margin-top:8px">※SOFA全人口(~47,000人)が対象月間頻度で購入した場合の理論上限値です。実際の商品浸透率（何%が顧客になるか）は未反映のため、現実の市場規模はこれよりかなり小さくなります。事業計画の参考値としては使用しないでください。</div>
     </div>
 
     <div class="box">
@@ -1306,12 +1306,12 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   <div class="sec-sub">TRICARE・PCS・SOFA家族データ統合 | FamilyTreeOki 産前産後ビジネス需要モデル 2026</div>
 
   <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(148px,1fr));margin-bottom:.75rem">
-    <div class="card"><div class="c-lbl">SOFA対象 総人口</div><div class="c-val" style="color:var(--accent)">~55,000</div><div class="c-sub">軍人+軍属+家族（2026推計）</div></div>
-    <div class="card"><div class="c-lbl">育齢女性（20〜35歳）</div><div class="c-val" style="color:#60a5fa">~16,000</div><div class="c-sub">SOFA家族の推定28〜30%</div></div>
-    <div class="card"><div class="c-lbl">年間出産推計</div><div class="c-val" style="color:#00D4AA">960〜1,280</div><div class="c-sub">出生率60〜80/1,000（米軍家族）</div></div>
-    <div class="card"><div class="c-lbl">同時妊娠中推計</div><div class="c-val" style="color:var(--gold)">240〜320人</div><div class="c-sub">常時妊婦数（9ヶ月換算）</div></div>
+    <div class="card"><div class="c-lbl">SOFA対象 総人口</div><div class="c-val" style="color:var(--accent)">~47,000</div><div class="c-sub">USNH公表47,000／県公表47,300で収束</div></div>
+    <div class="card"><div class="c-lbl">育齢女性（20〜40歳）</div><div class="c-val" style="color:#60a5fa">~9,800</div><div class="c-sub">女性配偶者6,971＋女性軍人2,791</div></div>
+    <div class="card"><div class="c-lbl">年間出産推計</div><div class="c-val" style="color:#00D4AA">800〜1,000</div><div class="c-sub">3手法収束・中心値900人/年</div></div>
+    <div class="card"><div class="c-lbl">同時妊娠中推計</div><div class="c-val" style="color:var(--gold)">約675人</div><div class="c-sub">年間出生900×0.75（旧値は×0.25の誤り）</div></div>
     <div class="card"><div class="c-lbl">TRICARE産科カバー率</div><div class="c-val" style="color:#a78bfa">100%</div><div class="c-sub">依存家族も全員対象</div></div>
-    <div class="card"><div class="c-lbl">配偶者失業率</div><div class="c-val" style="color:#ef4444">23%</div><div class="c-sub">全米平均の5倍 → 在宅需要↑</div></div>
+    <div class="card"><div class="c-lbl">配偶者失業率</div><div class="c-val" style="color:#ef4444">21〜23%</div><div class="c-sub">全米平均の約5倍 → 在宅需要↑</div></div>
   </div>
 
   <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(148px,1fr));margin-bottom:1.2rem">
@@ -1319,8 +1319,64 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
     <div class="card"><div class="c-lbl">TRICAREデモ期間</div><div class="c-val" style="color:#60a5fa">〜2026/12/31</div><div class="c-sub">授乳サポート100%カバー</div></div>
     <div class="card"><div class="c-lbl">PCSピーク × 妊婦流入</div><div class="c-val" style="color:var(--gold)">5〜8月</div><div class="c-sub">転入妊婦の60%超がこの時期</div></div>
     <div class="card"><div class="c-lbl">沖縄合計特殊出生率</div><div class="c-val" style="color:#a78bfa">1.60</div><div class="c-sub">日本最高（2023年）</div></div>
-    <div class="card"><div class="c-lbl">FTO月間アクティブ対象 <span class="verif-badge verif-est">未検証</span></div><div class="c-val" style="color:var(--accent)">80〜107人</div><div class="c-sub">妊娠中＋産後3ヶ月以内</div><div class="margin-note">±30%程度の誤差を含む推計値（複数推計の積み上げ・実績未照合）</div></div>
-    <div class="card"><div class="c-lbl">Naval Hospital 分娩数</div><div class="c-val" style="color:#f59e0b">600〜800/年</div><div class="c-sub">2023年スタッフ不足→外部需要↑</div></div>
+    <div class="card"><div class="c-lbl">エコー適齢期 在籍数 <span class="verif-badge verif-est">推計</span></div><div class="c-val" style="color:var(--accent)">約450人</div><div class="c-sub">妊娠12〜36週に在籍＝営業可能母数</div><div class="margin-note">年間出生900×0.50。旧「80〜107人」は月間流入(75人/月)と混同した表記だったため定義を明確化。</div></div>
+    <div class="card"><div class="c-lbl">USNH沖縄 分娩数（実測）</div><div class="c-val" style="color:#f59e0b">1,099件</div><div class="c-sub">CY2013実測・CY2014は1,089件</div><div class="margin-note">health.mil「Number of Deliveries in Military Hospitals」。海外MTFで最大規模。CY2015以降は更新停止。</div></div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#128300; ターゲット層人数の特定 — 多手法トライアンギュレーション <span class="badge">R-10 2026-09-05</span> <span class="verif-badge verif-est">推計（証拠区分B）</span></div>
+    <div class="margin-note" style="margin-bottom:10px">
+      <b>構造的な前提：</b>在沖米軍人・軍属・家族数は、沖縄県が米側から資料提供を受けられなくなったため<b>2011年6月末（47,300人）を最後に公表が止まっている</b>（統計資料集 令和7年7月版でも平成24年〜令和6年は「・・・」表記）。
+      したがって現在の人数は「公表値を読む」のではなく<b>複数の独立した一次情報から三角測量するしかない</b>。本セクションはその推計プロセスそのものを公開している。
+    </div>
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:.68rem">
+      <tr style="background:rgba(255,255,255,.05)">
+        <th style="text-align:left;padding:6px 8px">手法</th><th style="text-align:left;padding:6px 8px">根拠データ（一次ソース）</th>
+        <th style="text-align:right;padding:6px 8px">年間出生</th><th style="text-align:left;padding:6px 8px">性質</th></tr>
+      <tr><td style="padding:6px 8px"><b>A. 病院分娩実測アンカー</b></td>
+        <td style="padding:6px 8px">USNH沖縄 CY13:1,099件／CY14:1,089件（health.mil）× MHS全体出生トレンド補正0.848（FY20 105,000→FY23 89,000／GAO-25-107163）</td>
+        <td style="padding:6px 8px;text-align:right;color:#00D4AA"><b>927</b><br><span style="color:var(--muted)">853〜1,011</span></td>
+        <td style="padding:6px 8px">最も直接的</td></tr>
+      <tr><td style="padding:6px 8px"><b>B. 人口構成トップダウン</b></td>
+        <td style="padding:6px 8px">家族19,463 × DoD 2024 Demographics（配偶者41.6%／女性配偶者86.1%）＝女性配偶者6,971＋女性現役軍人2,791 → 育齢女性9,762 × 出生率9.5%</td>
+        <td style="padding:6px 8px;text-align:right;color:#00D4AA"><b>927</b><br><span style="color:var(--muted)">730〜1,076</span></td>
+        <td style="padding:6px 8px">Aと独立・同値に収束</td></tr>
+      <tr><td style="padding:6px 8px"><b>C. 学齢コホート逆算</b></td>
+        <td style="padding:6px 8px">DoDEA沖縄13校 6,000人超 ÷ 14学年＝429/学年 × 0-5歳密度比1.265</td>
+        <td style="padding:6px 8px;text-align:right;color:#f59e0b"><b>542</b><br><span style="color:var(--muted)">下限制約</span></td>
+        <td style="padding:6px 8px">PCS3年ローテで下方バイアス</td></tr>
+      <tr style="background:rgba(0,212,170,.08)"><td style="padding:6px 8px"><b>収束推計</b></td>
+        <td style="padding:6px 8px">A・Bの927を、Cの下限制約で下方調整</td>
+        <td style="padding:6px 8px;text-align:right;color:#00D4AA;font-size:.85rem"><b>900</b><br><span style="color:var(--muted)">800〜1,000</span></td>
+        <td style="padding:6px 8px">証拠区分B / estimated</td></tr>
+    </table>
+    </div>
+    <div class="margin-note" style="margin-top:10px">
+      <b>独立検証：</b>家族19,463人からDoDの年齢分布で逆算した学齢児（6〜18歳）は<b>6,231人</b>。実測のDoDEA沖縄在籍者数<b>6,000人超</b>と誤差3.7%で一致する。
+      これは「2011年公表の家族19,463人が現在も概ね妥当」という、母集団側の独立した裏付けになる。<br>
+      <b>手法Cが低く出る理由：</b>沖縄は3年ローテのPCS勤務地であり、島内で出産した家族の相当数が就学前に転出する。よってC（学齢人口からの逆算）は構造的に出生数を過小評価し、下限の制約条件としてのみ使うのが正しい。<br>
+      <b>採用しなかった手法：</b>TRICARE全体の粗出生率（89,000件÷950万人＝9.4/1,000）を47,000人に単純適用すると約440人となるが、これは全米の受給者に退役者・高齢者が多く含まれるためで、沖縄の実測値（1,099÷47,300＝23.2/1,000）とは2.5倍乖離する。<b>海外基地は現役・若年家族に極端に偏るため、全国平均の粗率を海外基地に当てはめてはならない。</b>
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#128200; FTO 市場浸透率と残余TAM <span class="verif-badge verif-est">推計（証拠区分B〜C）</span></div>
+    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
+      <div class="card"><div class="c-lbl">新規妊娠の月間発生数</div><div class="c-val" style="color:var(--gold)">75人/月</div><div class="c-sub">900÷12＝月次の獲得上限</div></div>
+      <div class="card"><div class="c-lbl">FTOユニーク顧客（17ヶ月）</div><div class="c-val" style="color:var(--accent)">593名</div><div class="c-sub">Square実測 2025/3〜2026/7</div></div>
+      <div class="card"><div class="c-lbl">市場浸透率（粗）</div><div class="c-val" style="color:#00D4AA">46.5%</div><div class="c-sub">593 ÷ 推計出生1,275</div></div>
+      <div class="card"><div class="c-lbl">市場浸透率（調整後）</div><div class="c-val" style="color:#60a5fa">34.9%</div><div class="c-sub">非妊婦・重複を25%控除</div></div>
+      <div class="card"><div class="c-lbl">年間未接触層</div><div class="c-val" style="color:#f59e0b">481〜586人</div><div class="c-sub">まだ会えていない妊婦</div></div>
+      <div class="card"><div class="c-lbl">残余TAM（金額）</div><div class="c-val" style="color:#f59e0b">¥9.8M〜12.0M</div><div class="c-sub">未接触層 × 顧客単価¥20,449</div></div>
+    </div>
+    <div class="margin-note" style="margin-top:10px">
+      <b>経営示唆：</b>妊婦市場の理論総額は現行単価で<b>年間約¥18.4M</b>（900人 × 顧客あたり¥20,449）。
+      第3期目標¥15,000,000は、<b>妊婦市場だけでは浸透率82%を要求する</b>水準にあたる。すでに粗浸透率46.5%に達している以上、
+      残る打ち手は「未接触481〜586人の獲得」だけでは足りず、<b>①顧客単価の引き上げ ②産後・非妊婦サービスへの横展開 ③日本人・他国籍層への市場定義の拡張</b>のいずれかが構造的に必要になる。
+      <br><b>証拠上の限界：</b>浸透率の分母（出生数900）は推計であり、分子（593名）にも非妊婦顧客・複数回妊娠の重複が含まれる。
+      予約時に妊娠週数を任意入力させるだけでこの数字は推計から実測に変わる。<b>これは自社で今日から着手できる唯一の精度向上策である。</b>
+    </div>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
@@ -1470,7 +1526,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 var CACHE_KEY = 'koya_v103';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
-var SOFA = 80000;
+var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
 var TAB_TITLES = {
   overview:'市場概況 — AI価格心理インテリジェンス',
@@ -1579,7 +1635,7 @@ var GEO = [
    desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
    impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
   {key:'usstress',label:'米国政治経済ストレス',val:72,trend:'→',color:'#FF7F50',
-   desc:'【2026年8月31日 fred-data.json実測で更新】UMCSENT=55.2（FRED、6月44.8から回復基調継続・事実A/observed）。CPI総合YoY=3.3%（FRED CPIAUCSL計算値、本ダッシュボード実測）。BLS公式では7月CPI総合3.4%・コア2.5%（2026/8/12発表、事実A）。S&P500=7,711.76（さらに高値更新）・VIX=14.53（市場極安定・消費意欲MAX）・WTI$91.22・10年債4.67%。実質賃金・クレカ延滞率・FOMC議長人事等の細目は2026年6月時点の記述を維持しており未再検証（証拠区分stale_observed、次回更新時に裏取り推奨）。',
+   desc:'【2026年8月31日 fred-data.json実測で更新】UMCSENT=55.2（FRED、6月44.8から回復基調継続・事実A/observed）。CPI総合YoY=3.3%（FRED CPIAUCSL計算値、本ダッシュボード実測）。BLS公式では7月CPI総合3.4%・コア2.5%（2026/8/12発表、事実A）。S&P500=7,711.76（さらに高値更新）・VIX=14.29（市場極安定・消費意欲MAX）・WTI$90.39・10年債4.67%。実質賃金・クレカ延滞率・FOMC議長人事等の細目は2026年6月時点の記述を維持しており未再検証（証拠区分stale_observed、次回更新時に裏取り推奨）。',
    impact:'消費者信頼感（UMCSENT）は44.8→55.2へ明確に回復しており、6月時点で懸念されていた「歴史的低水準」は和らいでいる（事実A）。CPIも3.3〜3.4%で6月の3.5%からわずかに鈍化。S&P500は最高値圏を更新中でマクロ環境は6月時点より改善方向（強い推論B）。SOFA家族はOHA・ドル収入の二重バッファでそもそも本国消費者ほどの圧迫を受けにくく、沖縄サービスの相対的割安感と価格心理効果はむしろ強まる方向。',src:'BLS CPI Jun2026/FRED UMCSENT May2026+UMich Jul2026速報/NY Fed HH Debt Q1-2026/RBC Economics Jul2026/FRB Jul2026 FOMC'}
 ];
 
@@ -1606,9 +1662,9 @@ var FRED_SERIES = [
 // UMCSENT=49.8（FRED公式Apr2026）/ WTI=95.96（FRED Jun-01）/ VIX=21.51（市場警戒ゾーン）/ SP500=7383.74
 var MOCK = {
   // v58 2026-07-29 更新: FRED最新値(07-24〜07-28) + Yahoo Finance リアルタイムUSD/JPY
-  DEXJPUS:156.22, FEDFUNDS:3.63, UNRATE:4.1, CPIAUCSL:332.813, CPIFABSL:346.681,
-  AHETPI:32.53, DGS10:4.77, T10YIE:2.35, UMCSENT:55.2, GS2:4.22, DCOILWTICO:91.22,
-  VIX:14.53, SP500:7718.6
+  DEXJPUS:155.97, FEDFUNDS:3.63, UNRATE:4.1, CPIAUCSL:332.813, CPIFABSL:346.681,
+  AHETPI:32.53, DGS10:4.79, T10YIE:2.35, UMCSENT:55.2, GS2:4.22, DCOILWTICO:90.39,
+  VIX:14.29, SP500:7709.42
 };
 
 // State
@@ -2028,7 +2084,7 @@ function renderOverview(){
   if(S.ffH.length) mkLine('c-ff',S.ffH.map(function(d){return d.date.slice(0,7);}),S.ffH.map(function(d){return d.value;}),'#F4C842');
   if(S.urH.length) mkLine('c-ur',S.urH.map(function(d){return d.date.slice(0,7);}),S.urH.map(function(d){return d.value;}),'#FF4D6A');
   // Gauge
-  var fx=S.fx||156.22; var ur=S.ur||4.2; var ff=S.ff||3.63; var cpi=S.cpi||3.5;
+  var fx=S.fx||155.97; var ur=S.ur||4.2; var ff=S.ff||3.63; var cpi=S.cpi||3.5;
   var score=60;
   if(fx>155) score+=15; else if(fx>148) score+=10; else if(fx>140) score+=5;
   if(ur<4) score+=12; else if(ur<5) score+=8; else if(ur<6) score+=4;
@@ -2126,7 +2182,7 @@ function runSim(){
   if(!seg) seg=SEGS[1];
   var area=AREAS[S.curArea];
   var inputJPY=parseFloat(document.getElementById('price-input').value)||20000;
-  var fx=S.fx||156.22;
+  var fx=S.fx||155.97;
   var ahe=S.ahe||32.23; var cpi=S.cpi||3.5;
 
   // CPI補正（全計算に適用）
@@ -2329,7 +2385,7 @@ function initCompassTab(){
 
   // ライブ値をスライダー初期値に反映
   var G=calcGBPI();
-  var fxLive=S.fx||156.22;
+  var fxLive=S.fx||155.97;
   var cpiLive=S.cpi||3.5;
   document.getElementById('cmp-fx').value=fxLive.toFixed(1);
   document.getElementById('cmp-fxbase').value=Math.round((fxLive-8)*10)/10;
@@ -2457,7 +2513,7 @@ function buildBizFilter(){
 
 function renderBiz(cat){
   cat=cat||'all';
-  var fx=S.fx||156.22; var cpi=S.cpi||3.5;  // CPI統一: runSim=4.0%と整合
+  var fx=S.fx||155.97; var cpi=S.cpi||3.5;  // CPI統一: runSim=4.0%と整合
   var catColors={'ftc':'#00D4AA','food':'#F4C842','life':'#4ADE80','beauty':'#A78BFA','retail':'#60A5FA','exp':'#FF7F50','edu':'#F472B6'};
   var filtered=Object.keys(BTYPE).filter(function(k){ return cat==='all'||BTYPE[k].cat===cat; });
   document.getElementById('biz-count').textContent=filtered.length+'業種';
@@ -2545,9 +2601,9 @@ function renderMil(){
   var e4Seg = SEGS.find(function(s){ return s.id==='E4'; });
   var e4OHA = OHA_RANKS && OHA_RANKS.find(function(r){ return r.id==='E4'; });
   if(e4Seg) {
-    var fx=S.fx||156.22;
+    var fx=S.fx||155.97;
     var totalMkt=0;
-    AREAS.forEach(function(a){ totalMkt += 3.0 * Math.round(80000*a.pct/100) * 20000 / 1000000; });
+    AREAS.forEach(function(a){ totalMkt += 3.0 * Math.round(SOFA*a.pct/100) * 20000 / 1000000; });
     var e4mkt = (totalMkt * (e4Seg.prem/100)).toFixed(1);
     document.getElementById('e4-market').textContent = e4mkt + '百万円/月';
     document.getElementById('e4-income').textContent = '$' + e4Seg.monthly.toLocaleString() + '/mo';
@@ -2563,7 +2619,7 @@ function renderMil(){
 // ════════════════════════════════════════════════
 function renderFred(){
   RD.fred=true;
-  var fx=S.fx||156.22; var ff=S.ff||3.63; var ur=S.ur||4.2;
+  var fx=S.fx||155.97; var ff=S.ff||3.63; var ur=S.ur||4.2;
   // Sync FRED_SERIES val from S.fredVals
   FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=new Date().toISOString().slice(0,10); });
   // FRED grid
@@ -3232,7 +3288,7 @@ var _H_AREA_CHART = null;
 function renderAreaChart(){
   var ri=parseInt(document.getElementById('h-rank-sel').value);
   var rank=OHA_RANKS[ri];
-  var fx=S.fx||156.22;
+  var fx=S.fx||155.97;
   var incRow=RANK_INCOME_DATA[ri]; var disp=0;
   if(incRow){ var last=incRow[incRow.length-1]; disp=last.usd||3000; }
   var data=AREAS.map(function(a){
@@ -3267,7 +3323,7 @@ function updateHousingAnalysis(){
   var ai=parseInt((document.getElementById('h-area-sel')||{value:'0'}).value)||0;
   var rank=OHA_RANKS[ri];
   var prop=OKI_PROPS[pi];
-  var fx=S.fx||156.22;
+  var fx=S.fx||155.97;
   var score=hPsychScore(prop,rank);
   var gapUsd=hAllowanceGap(prop,rank);
   var gapJpy=rank.rentJpy-prop.rentJpy;
