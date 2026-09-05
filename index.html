@@ -1361,6 +1361,57 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   </div>
 
   <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#128260; PCS回転 × 妊婦フローモデル — 変動の計算方法 <span class="badge">R-12 2026-09-05</span> <span class="verif-badge verif-est">推計モデル（証拠区分B）</span></div>
+    <div class="margin-note" style="margin-bottom:10px">
+      米軍軍属層は1〜3年で入れ替わる。したがって妊婦の数は「静的な人数」ではなく<b>回転する母集団の中を流れる量</b>として計算しなければならない。
+      DoD の標準勤務期間は<b>帯同36ヶ月・単身24ヶ月</b>（JTR Appendix Q／DoDI 1315.18）。FTOの対象は配偶者を伴う帯同層なので、基準は36ヶ月になる。
+    </div>
+    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem">
+      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">段</th><th style="text-align:left;padding:6px 8px">計算式</th><th style="text-align:right;padding:6px 8px">値</th><th style="text-align:left;padding:6px 8px">意味</th></tr>
+      <tr><td style="padding:6px 8px">A</td><td style="padding:6px 8px">年間回転率 r = 12 ÷ 勤務36ヶ月</td><td style="padding:6px 8px;text-align:right">33.3%</td><td style="padding:6px 8px">毎年3分の1が入れ替わる</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">A</td><td style="padding:6px 8px">年間 着任＝離任 F = 育齢女性9,800 × r</td><td style="padding:6px 8px;text-align:right">3,267人</td><td style="padding:6px 8px">ピーク607人/月・閑散135人/月（4.5倍差）</td></tr>
+      <tr><td style="padding:6px 8px">B</td><td style="padding:6px 8px">島内完結の妊娠成立ウィンドウ ＝ 36 − 9ヶ月</td><td style="padding:6px 8px;text-align:right">27ヶ月</td><td style="padding:6px 8px">妊娠34週以降は搭乗不可＝島内で産むしかない</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">C②</td><td style="padding:6px 8px">着任時すでに妊娠 ＝ F 3,267 × 妊娠有病率6.7% × 搭乗可0.94</td><td style="padding:6px 8px;text-align:right">207人</td><td style="padding:6px 8px">土地勘ゼロで到着する層。発見ウィンドウが最短</td></tr>
+      <tr><td style="padding:6px 8px">C①</td><td style="padding:6px 8px">島内妊娠成立 C ＝（880 − 島内出産分196）÷（1−0.12）</td><td style="padding:6px 8px;text-align:right">777人</td><td style="padding:6px 8px">最も接触時間が長い層（最大24ヶ月）</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">C③</td><td style="padding:6px 8px">島内妊娠・島外出産 ＝ C 777 × 12%</td><td style="padding:6px 8px;text-align:right">93人</td><td style="padding:6px 8px"><b>出生数には現れないがFTOの対象には入る層</b></td></tr>
+      <tr style="background:rgba(0,212,170,.10)"><td style="padding:6px 8px"><b>D</b></td><td style="padding:6px 8px"><b>年間対象母数 ＝ 島内出産880 ＋ 島外出産93 ＋ 一時滞在75</b></td><td style="padding:6px 8px;text-align:right;font-size:.85rem"><b>1,048人</b></td><td style="padding:6px 8px"><b>月87人。これがFTOの真の分母</b></td></tr>
+    </table></div>
+    <div class="margin-note" style="margin-top:10px">
+      <b>月次の変動を出す式：</b>　M(t) ＝ 65人（島内妊娠成立 777÷12・通年ほぼ一定） ＋ A₂(t)（着任時妊娠 207人 × 季節配分）<br>
+      　　→ <b>PCSピーク月（5〜8月）＝ 65＋38 ＝ 約103人/月</b>　／　閑散月（9〜4月）＝ 65＋9 ＝ 約73人/月<br>
+      季節差は<b>1.4倍</b>。ただし内訳が重要で、増える38人はすべて<b>「着任したばかりで何も知らない妊婦」</b>である。
+      これはFTO実績の売上ピークが2025年8月（¥1,045,000）、ボトムが2026年6月（¥595,000）だった構造と一致する。
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
+    <div class="box-title">&#128269; 発見ウィンドウと未発見流出 — いま最大の制約は「発見されていないこと」 <span class="badge">R-12</span></div>
+    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem;margin-bottom:10px">
+      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">時点</th><th style="text-align:left;padding:6px 8px">出来事</th><th style="text-align:left;padding:6px 8px">FTOにとって</th></tr>
+      <tr><td style="padding:6px 8px">妊娠7週</td><td style="padding:6px 8px">USNHの看護師が電話問診（公式）</td><td style="padding:6px 8px">まだ会えない</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">妊娠10〜12週</td><td style="padding:6px 8px">USNHで初回超音波（公式・無料）</td><td style="padding:6px 8px"><b>ここまでに知られていないと、医療で満たされてしまう</b></td></tr>
+      <tr style="background:rgba(0,212,170,.10)"><td style="padding:6px 8px"><b>妊娠12〜32週</b></td><td style="padding:6px 8px"><b>FTOの2D／4Dエコーの適期</b></td><td style="padding:6px 8px"><b>発見ウィンドウ ＝ 約4.6ヶ月</b></td></tr>
+      <tr><td style="padding:6px 8px">妊娠34週〜</td><td style="padding:6px 8px">航空搭乗不可</td><td style="padding:6px 8px">島内に固定される</td></tr>
+    </table></div>
+    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
+      <div class="card"><div class="c-lbl">平均 発見ウィンドウ</div><div class="c-val" style="color:#60a5fa">約4.0ヶ月</div><div class="c-sub">着任時妊娠層は2.8ヶ月と最短</div></div>
+      <div class="card"><div class="c-lbl">捕捉率 35%にした場合</div><div class="c-val" style="color:#00D4AA">+¥1.37M</div><div class="c-sub">+67人/年</div></div>
+      <div class="card"><div class="c-lbl">捕捉率 40%にした場合</div><div class="c-val" style="color:#00D4AA">+¥2.44M</div><div class="c-sub">+119人/年</div></div>
+      <div class="card"><div class="c-lbl">捕捉率 50%にした場合</div><div class="c-val" style="color:#00D4AA">+¥4.58M</div><div class="c-sub">+224人/年</div></div>
+      <div class="card"><div class="c-lbl">第3期目標に必要な捕捉率</div><div class="c-val" style="color:var(--gold)">70%</div><div class="c-sub">¥15,000,000 ÷ ¥21.4M</div></div>
+      <div class="card"><div class="c-lbl">PCSピーク月の新規流入</div><div class="c-val" style="color:#f59e0b">103人/月</div><div class="c-sub">うち38人が着任直後・情報ゼロ</div></div>
+    </div>
+    <div class="margin-note" style="margin-top:10px">
+      <b>WEB／AI検索対策の優先度がここで決まる：</b>着任直後の妊婦は、島の人間関係も口コミ網も持っていない。
+      彼女たちが最初に触れるのは<b>検索とSNSだけ</b>である。その層が年間207人おり、うち<b>134人が5〜8月の3.5ヶ月に集中して着任する</b>。
+      したがってAI検索（AEO／GEO）・レビュー・構造化データの整備は、<b>4月までに完了していないと、その年の最大の流入を取り逃がす</b>。
+      施策の効果は「捕捉率が何pt動いたか」で測り、1ptあたり年間¥214,349として金額換算できる。
+      <br><b>次にやるべき計測：</b>予約フォームに「妊娠週数」と「FTOを何で知ったか（検索／SNS／紹介／基地内掲示／その他）」の2項目を追加する。
+      これだけで、①捕捉率が推計から実測になり ②チャネル別の獲得単価が出て ③WEB投資のROIが計算できるようになる。<b>費用はほぼゼロ。</b>
+    </div>
+  </div>
+
+  <div class="box" style="margin-bottom:14px">
     <div class="box-title">&#127758; 太平洋圏の産科紹介ヒエラルキーと「一時滞在妊婦」セグメント <span class="badge">R-11 2026-09-05</span> <span class="verif-badge verif-est">一次ソース：米政府・米軍公式</span></div>
     <div class="margin-note" style="margin-bottom:10px">
       沖縄県側の統計が2011年で止まっている以上、母集団もニーズも<b>米国政府・米軍の公式情報から取りに行くほうが精度が高い</b>。
@@ -1418,19 +1469,19 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   <div class="box" style="margin-bottom:14px">
     <div class="box-title">&#128200; FTO 市場浸透率と残余TAM <span class="verif-badge verif-est">推計（証拠区分B〜C）</span></div>
     <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
-      <div class="card"><div class="c-lbl">新規妊婦の月間発生数</div><div class="c-val" style="color:var(--gold)">79人/月</div><div class="c-sub">居住73＋太平洋圏からの流入6</div></div>
-      <div class="card"><div class="c-lbl">FTOユニーク顧客（17ヶ月）</div><div class="c-val" style="color:var(--accent)">593名</div><div class="c-sub">Square実測 2025/3〜2026/7</div></div>
-      <div class="card"><div class="c-lbl">市場浸透率（粗）</div><div class="c-val" style="color:#00D4AA">43.8%</div><div class="c-sub">593 ÷ 全母数1,353（17ヶ月）</div></div>
-      <div class="card"><div class="c-lbl">市場浸透率（調整後）</div><div class="c-val" style="color:#60a5fa">32.9%</div><div class="c-sub">非妊婦・重複を25%控除</div></div>
-      <div class="card"><div class="c-lbl">年間未接触層</div><div class="c-val" style="color:#f59e0b">約536人</div><div class="c-sub">まだ会えていない妊婦</div></div>
-      <div class="card"><div class="c-lbl">残余TAM（金額）</div><div class="c-val" style="color:#f59e0b">約¥11.0M</div><div class="c-sub">536人 × 顧客単価¥20,449</div></div>
+      <div class="card"><div class="c-lbl">★年間 対象母数</div><div class="c-val" style="color:var(--gold)">1,048人</div><div class="c-sub">月87人。R-12フローモデル</div></div>
+      <div class="card"><div class="c-lbl">FTO年間 新規妊婦</div><div class="c-val" style="color:var(--accent)">約300人</div><div class="c-sub">経営実績値（Square全顧客は419人/年）</div></div>
+      <div class="card"><div class="c-lbl">★捕捉率</div><div class="c-val" style="color:#00D4AA">28.6%</div><div class="c-sub">300 ÷ 1,048</div></div>
+      <div class="card"><div class="c-lbl">★未発見のまま去る妊婦</div><div class="c-val" style="color:#ef4444">748人/年</div><div class="c-sub">月62人。FTOを知らずに離任</div></div>
+      <div class="card"><div class="c-lbl">★機会損失額</div><div class="c-val" style="color:#ef4444">¥15.3M/年</div><div class="c-sub">748人 × 顧客単価¥20,449</div></div>
+      <div class="card"><div class="c-lbl">捕捉率+1ptの価値</div><div class="c-val" style="color:#60a5fa">¥214,349</div><div class="c-sub">年間。WEB施策のKPI換算単位</div></div>
     </div>
     <div class="margin-note" style="margin-top:10px">
-      <b>経営示唆：</b>妊婦市場の理論総額は現行単価で<b>年間約¥19.5M</b>（在沖居住880人＋太平洋圏からの一時滞在75組 ＝955人 × 顧客あたり¥20,449）。
-      第3期目標¥15,000,000は、<b>妊婦市場だけでは浸透率77%を要求する</b>水準にあたる。すでに粗浸透率43.8%に達している以上、
-      残る打ち手は「未接触481〜586人の獲得」だけでは足りず、<b>①顧客単価の引き上げ ②産後・非妊婦サービスへの横展開 ③日本人・他国籍層への市場定義の拡張</b>のいずれかが構造的に必要になる。
-      <br><b>証拠上の限界：</b>浸透率の分母（出生数900）は推計であり、分子（593名）にも非妊婦顧客・複数回妊娠の重複が含まれる。
-      予約時に妊娠週数を任意入力させるだけでこの数字は推計から実測に変わる。<b>これは自社で今日から着手できる唯一の精度向上策である。</b>
+      <b>経営示唆：</b>妊婦市場の理論総額は現行単価で<b>年間約¥21.4M</b>（対象母数1,048人 × 顧客あたり¥20,449）。
+      第3期目標¥15,000,000は<b>捕捉率70%</b>を要求する水準。現在28.6%であり、<b>いま最大の制約は「価格」でも「サービス内容」でもなく「発見されていないこと」</b>である。
+      毎月62人が、FTOの存在を知らないまま妊娠期間を終えて島を去っている。<b>捕捉率を1pt上げるごとに年間¥214,349</b>、40%まで上げれば<b>年間+¥2.44M</b>が積み上がる。
+      <br><b>証拠上の限界：</b>分母1,048人は推計（証拠区分B）。分子300人は経営者の実績認識であり、Squareのユニーク顧客419人/年との差119人は非妊婦・同伴家族・複数年リピートと解釈している。
+      予約時に妊娠週数と「FTOを何で知ったか」を任意入力させるだけで、捕捉率もチャネル別効果も推計から実測に変わる。<b>これは自社で今日から着手できる唯一の精度向上策である。</b>
     </div>
   </div>
 
@@ -1579,7 +1630,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v104';
+var CACHE_KEY = 'koya_v105';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
