@@ -37,15 +37,29 @@ jobs:
           OUT_PATH: fred-data.json
         run: python scripts/fetch_fred.py
 
+      # index.html の CACHE_KEY を上げて、閲覧者の localStorage キャッシュ（4時間TTL）を破棄する。
+      # これがないと、JSONは新しいのに画面の数字だけ古いという食い違いが起きる。
+      - name: CACHE_KEY をインクリメント
+        run: |
+          cur=$(grep -o "koya_v[0-9]\+" index.html | head -1)
+          if [ -z "$cur" ]; then
+            echo "CACHE_KEY not found; skip"
+            exit 0
+          fi
+          num=${cur#koya_v}
+          next=$((num + 1))
+          sed -i "s/koya_v${num}/koya_v${next}/g" index.html
+          echo "CACHE_KEY: ${cur} -> koya_v${next}"
+
       - name: 変更があればコミット
         run: |
-          if git diff --quiet -- fred-data.json; then
+          if git diff --quiet -- fred-data.json index.html; then
             echo "no change"
             exit 0
           fi
           git config user.name  "koya-bot"
           git config user.email "okinawadao369@gmail.com"
-          git add fred-data.json
+          git add fred-data.json index.html
           git commit -m "${{ steps.fetch.outputs.summary }}"
           git push
 
