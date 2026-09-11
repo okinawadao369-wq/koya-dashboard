@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-11T01:31:33.706101Z",
+  "updated": "2026-09-11T01:36:08.178370Z",
   "series": {
     "DEXJPUS": [
       {
@@ -767,41 +767,41 @@
     "T10YIE": 2.4,
     "UMCSENT": 55.2,
     "GS2": 4.22,
-    "DCOILWTICO": 102.49,
+    "DCOILWTICO": 102.56,
     "VIX": 17.84,
     "SP500": 7591.7,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-11 10:31 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-09-11 10:36 JST"
   },
   "prev_latest": {
-    "DEXJPUS": 153.36,
+    "DEXJPUS": 154.28,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
     "CPIAUCSL": 332.813,
     "CPIFABSL": 346.681,
     "AHETPI": 32.53,
-    "DGS10": 4.78,
-    "T10YIE": 2.37,
+    "DGS10": 4.83,
+    "T10YIE": 2.4,
     "UMCSENT": 55.2,
     "GS2": 4.22,
-    "DCOILWTICO": 94.64,
-    "VIX": 15.72,
-    "SP500": 7673.52,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-09 09:08 JST"
+    "DCOILWTICO": 102.49,
+    "VIX": 17.84,
+    "SP500": 7591.7,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-09-11 10:31 JST"
   },
   "deltas": {
-    "DEXJPUS": 0.92,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": 0.05,
-    "T10YIE": 0.03,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 7.85,
-    "VIX": 2.12,
-    "SP500": -81.82
+    "DCOILWTICO": 0.07,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -839,18 +839,8 @@
   "vix_note": "VIX=17.84 正常範囲",
   "sp500_note": "S&P500=7591.7",
   "fx_intervention_alert": null,
-  "contributions": [
-    {
-      "indicator": "DCOILWTICO",
-      "score_before": 45,
-      "score_after": 20,
-      "koya_score_contribution": -3.25,
-      "contribution_pct": 100.0
-    }
-  ],
-  "anomaly_flags": [
-    "DCOILWTICO: 45→20pt (-25pt) 要確認"
-  ],
+  "contributions": [],
+  "anomaly_flags": [],
   "fallback_indicators": [],
   "decision_triggers": [
     {
@@ -860,18 +850,8 @@
     },
     {
       "level": "yellow",
-      "indicator": "急変異常値フラグ",
-      "message": "DCOILWTICO: 45→20pt (-25pt) 要確認"
-    },
-    {
-      "level": "yellow",
       "indicator": "USD/JPY ¥154.280",
       "message": "標準購買力ゾーン。通常運営継続。"
-    },
-    {
-      "level": "red",
-      "indicator": "USD/JPY急変",
-      "message": "前日比+0.92円の急変動。価格設定・予約に注意。"
     },
     {
       "level": "yellow",
@@ -885,7 +865,7 @@
     },
     {
       "level": "red",
-      "indicator": "WTI原油 $102.49",
+      "indicator": "WTI原油 $102.56",
       "message": "高値。燃料・物流コスト上昇。価格転嫁を検討。"
     },
     {
