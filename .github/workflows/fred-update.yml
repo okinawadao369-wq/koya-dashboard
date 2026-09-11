@@ -1,0 +1,60 @@
+name: fred-data daily update
+
+# PC・Claude・Windows更新から独立して、毎日 fred-data.json を更新する。
+# 2026-09-10〜11 の欠測（Windows KB5124008 による Cowork サンドボックス障害）を受けて新設。
+
+on:
+  schedule:
+    # UTC 00:05 = JST 09:05
+    - cron: "5 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fred-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+
+      - name: Python を準備
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: FRED / Yahoo からデータ取得して fred-data.json を生成
+        id: fetch
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          OUT_PATH: fred-data.json
+        run: python scripts/fetch_fred.py
+
+      - name: 変更があればコミット
+        run: |
+          if git diff --quiet -- fred-data.json; then
+            echo "no change"
+            exit 0
+          fi
+          git config user.name  "koya-bot"
+          git config user.email "okinawadao369@gmail.com"
+          git add fred-data.json
+          git commit -m "${{ steps.fetch.outputs.summary }}"
+          git push
+
+      - name: サマリを表示
+        if: always()
+        run: |
+          {
+            echo "### fred-data.json 更新結果"
+            echo ""
+            echo "- 取得成功系列: ${{ steps.fetch.outputs.ok_count }} / 13"
+            echo "- koya経営スコア: ${{ steps.fetch.outputs.koya_score }} / 100"
+          } >> "$GITHUB_STEP_SUMMARY"
