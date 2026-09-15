@@ -1,7 +1,23 @@
 {
-  "updated": "2026-09-14T00:24:08.022458Z",
+  "updated": "2026-09-15T00:52:33.484979Z",
   "series": {
     "DEXJPUS": [
+      {
+        "date": "2026-09-11",
+        "value": 153.71
+      },
+      {
+        "date": "2026-09-10",
+        "value": 154.06
+      },
+      {
+        "date": "2026-09-09",
+        "value": 153.5
+      },
+      {
+        "date": "2026-09-08",
+        "value": 154.24
+      },
       {
         "date": "2026-09-04",
         "value": 156.11
@@ -41,22 +57,6 @@
       {
         "date": "2026-08-24",
         "value": 159.17
-      },
-      {
-        "date": "2026-08-21",
-        "value": 158.91
-      },
-      {
-        "date": "2026-08-20",
-        "value": 158.85
-      },
-      {
-        "date": "2026-08-19",
-        "value": 158.45
-      },
-      {
-        "date": "2026-08-18",
-        "value": 159.58
       }
     ],
     "FEDFUNDS": [
@@ -351,6 +351,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-09-11",
+        "value": 4.96
+      },
+      {
         "date": "2026-09-10",
         "value": 4.95
       },
@@ -401,13 +405,13 @@
       {
         "date": "2026-08-24",
         "value": 4.7
-      },
-      {
-        "date": "2026-08-21",
-        "value": 4.74
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-09-14",
+        "value": 2.37
+      },
       {
         "date": "2026-09-11",
         "value": 2.36
@@ -458,10 +462,6 @@
       },
       {
         "date": "2026-08-25",
-        "value": 2.32
-      },
-      {
-        "date": "2026-08-24",
         "value": 2.32
       }
     ],
@@ -757,6 +757,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 154.57,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 334.131,
+    "CPIFABSL": 347.104,
+    "AHETPI": 32.53,
+    "DGS10": 4.96,
+    "T10YIE": 2.37,
+    "UMCSENT": 55.2,
+    "GS2": 4.22,
+    "DCOILWTICO": 102.71,
+    "VIX": 17.1,
+    "SP500": 7619.98,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-09-15 09:52 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 153.56,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
@@ -772,36 +788,20 @@
     "SP500": 7656.98,
     "DEXJPUS_source": "Yahoo Finance RT 2026-09-14 09:24 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 153.55,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 334.131,
-    "CPIFABSL": 347.104,
-    "AHETPI": 32.53,
-    "DGS10": 4.95,
-    "T10YIE": 2.36,
-    "UMCSENT": 55.2,
-    "GS2": 4.22,
-    "DCOILWTICO": 100.05,
-    "VIX": 15.84,
-    "SP500": 7656.98,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-13 09:49 JST"
-  },
   "deltas": {
-    "DEXJPUS": 0.01,
+    "DEXJPUS": 1.01,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": null,
-    "T10YIE": null,
+    "DGS10": 0.01,
+    "T10YIE": 0.01,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 2.36,
-    "VIX": null,
-    "SP500": null
+    "DCOILWTICO": 0.3,
+    "VIX": 1.26,
+    "SP500": -37.0
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -835,9 +835,9 @@
   },
   "koya_score": 66.6,
   "koya_signal": "WATCH",
-  "spread_dgs10_gs2": "+0.730%",
-  "vix_note": "VIX=15.84 正常範囲",
-  "sp500_note": "S&P500=7656.98",
+  "spread_dgs10_gs2": "+0.740%",
+  "vix_note": "VIX=17.1 正常範囲",
+  "sp500_note": "S&P500=7619.98",
   "fx_intervention_alert": null,
   "contributions": [],
   "anomaly_flags": [],
@@ -850,22 +850,27 @@
     },
     {
       "level": "yellow",
-      "indicator": "USD/JPY ¥153.560",
+      "indicator": "USD/JPY ¥154.570",
       "message": "標準購買力ゾーン。通常運営継続。"
     },
     {
+      "level": "red",
+      "indicator": "USD/JPY急変",
+      "message": "前日比+1.01円の急変動。価格設定・予約に注意。"
+    },
+    {
       "level": "yellow",
-      "indicator": "VIX恐怖指数 15.84",
+      "indicator": "VIX恐怖指数 17.10",
       "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
       "level": "green",
-      "indicator": "S&P500 7,657",
+      "indicator": "S&P500 7,620",
       "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
     },
     {
       "level": "red",
-      "indicator": "WTI原油 $102.41",
+      "indicator": "WTI原油 $102.71",
       "message": "高値。燃料・物流コスト上昇。価格転嫁を検討。"
     },
     {
