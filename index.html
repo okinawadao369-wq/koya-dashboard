@@ -1952,7 +1952,7 @@ var BTYPE = {
   ft_2d:  {label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:75, usHigh:175,ftcDef:12000,monthlyPerPerson:2.5,note:'Private 1-hour session(2026/08調査:性別判定エコー$75-125・早期エコー$50-85・標準パッケージ$150-250 出典bettercare.com/careroute.ai)'},
   ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:200,usHigh:450,ftcDef:20000,monthlyPerPerson:3.0,note:'Private 1-hour memory session(2026/08調査:4Dライブ動画$200-500・3D/4Dコンボ$250-600・都市部+50% 出典boutiqueultrasound.com/costinsighthub.com)'},
   ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:114,usHigh:179,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)(2026/08調査:時給$19-29.87(全米平均$23-26)・前年比+4.9%で一般物価上昇3%を上回る 出典urbansitter.com/sittercity.com)'},
-  ft_med: {label:'FamilyTreeOki｜産後・新生児ケア',  cat:'ftc',usLow:180,usHigh:500,ftcDef:35000,monthlyPerPerson:2.0,note:'医療系乳児・産後ケア(2026/08調査:産後ドゥーラ時給$25-80(平均$35)・オーバーナイト$250-450・パッケージ$400-1200 出典trustedcare.com/yuzicare.com)'},
+  ft_med: {label:'FamilyTreeOki｜産後ケア(宿泊1泊)',  cat:'ftc',usLow:700,usHigh:1400,ftcDef:70000,monthlyPerPerson:2.0,note:'宿泊型産後リトリート1泊＝宿泊+24h新生児ケア+食事(2026/09調査:米国$700-1,400/泊。Boram NY $843・Sanu DC $1,045・Ahma&Co CA $1,740。※在宅オーバーナイトドゥーラ$250-450は宿泊・食事を含まない別カテゴリ。FTO実売価格70,000円/泊は2026-09-17に初回利用開始 出典time.com/peacockparent.com/yuzicare.com)'},
   cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:4,  usHigh:7,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当(2026調査:全米平均$4-5.60・都市部$5-7)'},
   lunch:  {label:'飲食｜カジュアルランチ',           cat:'food',usLow:15, usHigh:25, ftcDef:1500, monthlyPerPerson:40, note:'ランチ1食'},
   dinner: {label:'飲食｜ファミリーディナー',         cat:'food',usLow:75, usHigh:160,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分'},
@@ -3108,6 +3108,7 @@ document.querySelectorAll('.nav-item').forEach(function(n){
 // ════════════════════════════════════════════════
 function initMaternityTab() {
   var MAT_PRICES = [
+    {svc:'産後ケア 宿泊1泊 ★実売中', us:'$700〜1,400/泊 (中央値$1,050)', fto:'¥70,000/泊 ($449)', prm:'米国比57%割安', tc:'△ 宿泊は自費/授乳支援は対象', note:'宿泊+24h新生児ケア+食事。2026-09-17 初回利用開始'},
     {svc:'産後ドゥーラ / 産後ケア',      us:'$25〜80/時 (avg $35)',  fto:'¥8,000〜12,000/時', prm:'+30〜50%余地',  tc:'◎ デモ実施中', note:'TRICARE授乳デモ対象 / 最高需要'},
     {svc:'産後マッサージ 60分',           us:'$80〜165 (avg $95)',    fto:'¥10,000〜14,000',  prm:'+20〜40%余地',  tc:'△ 一部対象',   note:'プレナタル特化で差別化可'},
     {svc:'60分 Acu-Wellness コンボ ★新', us:'単体$75〜150 / コンボ$180〜260', fto:'¥15,800 (コンボ推奨)', prm:'+24%余地→¥19,800', tc:'× 非対象', note:'鍼灸×マッサージ×PEMF 2026新メニュー'},
@@ -4199,6 +4200,7 @@ function renderUSReality(){
   var premiumData=[
     {svc:'マタニティフォト',  usLow:400, usHigh:1200, okinawa:35000, biz:'photo'},
     {svc:'産後ケア（4週間）', usLow:5000,usHigh:10000,okinawa:280000,biz:'postpartum'},
+    {svc:'産後ケア宿泊/1泊', usLow:700, usHigh:1400, okinawa:70000, biz:'ft_med'},
     {svc:'マタニティヨガ/月', usLow:180, usHigh:480, okinawa:15000, biz:'ft_med'},
     {svc:'ベビーシッター/時', usLow:20,  usHigh:35,  okinawa:1500,  biz:'ft_sit1'},
     {svc:'ファミリー4D撮影', usLow:175, usHigh:350, okinawa:20000, biz:'ft_4d'},
