@@ -5,10 +5,7 @@ name: fred-data daily update
 
 on:
   schedule:
-    # UTC 22:37 = JST 07:37
-    # 当初 UTC 00:05（JST 09:05）にしたが、毎時00分・特に 00:00 UTC は
-    # 世界中のジョブが集中し、2026-09-12の実測で4時間21分遅延した。
-    # 混雑帯を避けた端数分に変更し、JST 09:06 のレポート生成に確実に間に合わせる。
+    # UTC 22:37 = JST 07:37（実際はGitHubの混雑で JST 09:45〜09:55 頃に実行されている）
     - cron: "37 22 * * *"
   workflow_dispatch:
 
@@ -40,8 +37,17 @@ jobs:
           OUT_PATH: fred-data.json
         run: python scripts/fetch_fred.py
 
+      # 【重要・2026-09-17追加】日付入りのスナップショットを残す。
+      # raw.githubusercontent.com は同じURLを数日前のコピーで返すことがあり、
+      # 日次レポートが2度誤った鮮度警告を出した（9/14・9/17）。
+      # 日付入りファイルは「その日初めて存在するURL」なので、古いキャッシュが原理上存在しない。
+      - name: 日付入りスナップショットを保存
+        run: |
+          mkdir -p data
+          cp fred-data.json "data/$(date -u +%Y-%m-%d).json"
+          echo "snapshot: data/$(date -u +%Y-%m-%d).json"
+
       # index.html の CACHE_KEY を上げて、閲覧者の localStorage キャッシュ（4時間TTL）を破棄する。
-      # これがないと、JSONは新しいのに画面の数字だけ古いという食い違いが起きる。
       - name: CACHE_KEY をインクリメント
         run: |
           cur=$(grep -o "koya_v[0-9]\+" index.html | head -1)
@@ -56,13 +62,13 @@ jobs:
 
       - name: 変更があればコミット
         run: |
-          if git diff --quiet -- fred-data.json index.html; then
+          git add fred-data.json index.html data
+          if git diff --cached --quiet; then
             echo "no change"
             exit 0
           fi
           git config user.name  "koya-bot"
           git config user.email "okinawadao369@gmail.com"
-          git add fred-data.json index.html
           git commit -m "${{ steps.fetch.outputs.summary }}"
           git push
 
@@ -74,4 +80,5 @@ jobs:
             echo ""
             echo "- 取得成功系列: ${{ steps.fetch.outputs.ok_count }} / 13"
             echo "- koya経営スコア: ${{ steps.fetch.outputs.koya_score }} / 100"
+            echo "- スナップショット: data/$(date -u +%Y-%m-%d).json"
           } >> "$GITHUB_STEP_SUMMARY"
