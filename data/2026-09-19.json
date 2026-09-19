@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-19T00:36:33.328730Z",
+  "updated": "2026-09-19T05:37:12.543408Z",
   "series": {
     "DEXJPUS": [
       {
@@ -767,41 +767,41 @@
     "T10YIE": 2.33,
     "UMCSENT": 55.2,
     "GS2": 4.22,
-    "DCOILWTICO": 95.47,
+    "DCOILWTICO": 96.08,
     "VIX": 14.81,
     "SP500": 7650.5,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-19 09:36 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-09-19 14:37 JST"
   },
   "prev_latest": {
-    "DEXJPUS": 156.25,
+    "DEXJPUS": 156.85,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
     "CPIAUCSL": 334.131,
     "CPIFABSL": 347.104,
     "AHETPI": 32.53,
-    "DGS10": 5.01,
+    "DGS10": 4.94,
     "T10YIE": 2.33,
     "UMCSENT": 55.2,
     "GS2": 4.22,
-    "DCOILWTICO": 100.92,
-    "VIX": 15.44,
-    "SP500": 7637.76,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-18 09:45 JST"
+    "DCOILWTICO": 95.47,
+    "VIX": 14.81,
+    "SP500": 7650.5,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-09-19 09:36 JST"
   },
   "deltas": {
-    "DEXJPUS": 0.6,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.07,
+    "DGS10": null,
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -5.45,
-    "VIX": -0.63,
-    "SP500": 12.74
+    "DCOILWTICO": 0.61,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -839,37 +839,14 @@
   "vix_note": "VIX=14.81 正常範囲",
   "sp500_note": "S&P500=7650.5",
   "fx_intervention_alert": null,
-  "contributions": [
-    {
-      "indicator": "DCOILWTICO",
-      "score_before": 20,
-      "score_after": 45,
-      "koya_score_contribution": 3.25,
-      "contribution_pct": 67.0
-    },
-    {
-      "indicator": "VIX",
-      "score_before": 75,
-      "score_after": 95,
-      "koya_score_contribution": 1.6,
-      "contribution_pct": 33.0
-    }
-  ],
-  "anomaly_flags": [
-    "DCOILWTICO: 20→45pt (+25pt) 要確認",
-    "VIX: 75→95pt (+20pt) 要確認"
-  ],
+  "contributions": [],
+  "anomaly_flags": [],
   "fallback_indicators": [],
   "decision_triggers": [
     {
       "level": "green",
       "indicator": "koya総合スコア 75/100 [GO]",
       "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
-    },
-    {
-      "level": "yellow",
-      "indicator": "急変異常値フラグ",
-      "message": "DCOILWTICO: 20→45pt (+25pt) 要確認; VIX: 75→95pt (+20pt) 要確認"
     },
     {
       "level": "green",
@@ -888,7 +865,7 @@
     },
     {
       "level": "red",
-      "indicator": "WTI原油 $95.47",
+      "indicator": "WTI原油 $96.08",
       "message": "高値。燃料・物流コスト上昇。価格転嫁を検討。"
     },
     {
