@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-20T00:22:19.027119Z",
+  "updated": "2026-09-21T00:28:37.547966Z",
   "series": {
     "DEXJPUS": [
       {
@@ -757,7 +757,7 @@
     ]
   },
   "latest": {
-    "DEXJPUS": 156.85,
+    "DEXJPUS": 156.88,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
     "CPIAUCSL": 334.131,
@@ -767,10 +767,10 @@
     "T10YIE": 2.33,
     "UMCSENT": 55.2,
     "GS2": 4.22,
-    "DCOILWTICO": 96.08,
+    "DCOILWTICO": 95.66,
     "VIX": 14.81,
     "SP500": 7650.5,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-20 09:22 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-09-21 09:28 JST"
   },
   "prev_latest": {
     "DEXJPUS": 156.85,
@@ -786,10 +786,10 @@
     "DCOILWTICO": 96.08,
     "VIX": 14.81,
     "SP500": 7650.5,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-19 14:37 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-09-20 09:22 JST"
   },
   "deltas": {
-    "DEXJPUS": null,
+    "DEXJPUS": 0.03,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -799,7 +799,7 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": null,
+    "DCOILWTICO": -0.42,
     "VIX": null,
     "SP500": null
   },
@@ -850,7 +850,7 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥156.850",
+      "indicator": "USD/JPY ¥156.880",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
@@ -865,7 +865,7 @@
     },
     {
       "level": "red",
-      "indicator": "WTI原油 $96.08",
+      "indicator": "WTI原油 $95.66",
       "message": "高値。燃料・物流コスト上昇。価格転嫁を検討。"
     },
     {
