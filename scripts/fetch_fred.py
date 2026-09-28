@@ -148,12 +148,33 @@ else:
     _prev_source = current_latest.get("DEXJPUS_source", "unknown")
     if not str(_prev_source).startswith("取得失敗"):
         current_latest["DEXJPUS_source"] = f"取得失敗（前回成功: {_prev_source}）"
+
+
+def _append_yahoo_history(sid, value):
+    """VIX・SP500 用の履歴追記（2026-09-28 修正）。
+
+    この2系列はFREDに対応する系列IDが存在せずYahoo実測のみで運用しているため、
+    current_latest（当日値）は毎日更新されるのに series_data（推移グラフ用の履歴配列）
+    には一度も書き込まれておらず、2026-07-04（初回データ投入日）のまま凍結していた。
+    FREDループと同じ自己修復マージ方式で、当日分を履歴に追記・直近14日分だけ保持する。
+    """
+    if value is None:
+        return
+    today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    hist = series_data.get(sid, [])
+    by_date = {d["date"]: d for d in hist}
+    by_date[today_str] = {"date": today_str, "value": float(value)}
+    series_data[sid] = sorted(by_date.values(), key=lambda x: x["date"], reverse=True)[:14]
+
+
 if live_vix is not None:
     current_latest["VIX"] = live_vix
     fetch_results["VIX"] = "ok(Yahoo)"
+    _append_yahoo_history("VIX", live_vix)
 if live_sp500 is not None:
     current_latest["SP500"] = live_sp500
     fetch_results["SP500"] = "ok(Yahoo)"
+    _append_yahoo_history("SP500", live_sp500)
 if live_wti is not None:
     current_latest["DCOILWTICO"] = live_wti
     fetch_results["DCOILWTICO"] = "ok(Yahoo)"
