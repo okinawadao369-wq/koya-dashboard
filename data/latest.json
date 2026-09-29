@@ -1,7 +1,27 @@
 {
-  "updated": "2026-09-28T01:22:09.262627Z",
+  "updated": "2026-09-29T02:17:01.726964Z",
   "series": {
     "DEXJPUS": [
+      {
+        "date": "2026-09-25",
+        "value": 157.18
+      },
+      {
+        "date": "2026-09-24",
+        "value": 158.92
+      },
+      {
+        "date": "2026-09-23",
+        "value": 158.3
+      },
+      {
+        "date": "2026-09-22",
+        "value": 157.55
+      },
+      {
+        "date": "2026-09-21",
+        "value": 157.46
+      },
       {
         "date": "2026-09-18",
         "value": 156.87
@@ -37,26 +57,6 @@
       {
         "date": "2026-09-08",
         "value": 154.24
-      },
-      {
-        "date": "2026-09-04",
-        "value": 156.11
-      },
-      {
-        "date": "2026-09-03",
-        "value": 155.39
-      },
-      {
-        "date": "2026-09-02",
-        "value": 158.79
-      },
-      {
-        "date": "2026-09-01",
-        "value": 160.03
-      },
-      {
-        "date": "2026-08-31",
-        "value": 159.74
       }
     ],
     "FEDFUNDS": [
@@ -351,6 +351,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-09-25",
+        "value": 5.17
+      },
+      {
         "date": "2026-09-24",
         "value": 5.18
       },
@@ -401,13 +405,13 @@
       {
         "date": "2026-09-08",
         "value": 4.8
-      },
-      {
-        "date": "2026-09-04",
-        "value": 4.78
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-09-28",
+        "value": 2.34
+      },
       {
         "date": "2026-09-25",
         "value": 2.34
@@ -458,10 +462,6 @@
       },
       {
         "date": "2026-09-09",
-        "value": 2.37
-      },
-      {
-        "date": "2026-09-08",
         "value": 2.37
       }
     ],
@@ -641,6 +641,10 @@
     ],
     "VIX": [
       {
+        "date": "2026-09-29",
+        "value": 16.07
+      },
+      {
         "date": "2026-09-28",
         "value": 14.87
       },
@@ -691,13 +695,13 @@
       {
         "date": "2026-06-23",
         "value": 11.839
-      },
-      {
-        "date": "2026-06-22",
-        "value": 11.18
       }
     ],
     "SP500": [
+      {
+        "date": "2026-09-29",
+        "value": 7683.69
+      },
       {
         "date": "2026-09-28",
         "value": 7743.41
@@ -749,14 +753,26 @@
       {
         "date": "2026-06-23",
         "value": 7341.01
-      },
-      {
-        "date": "2026-06-22",
-        "value": 7327.84
       }
     ]
   },
   "latest": {
+    "DEXJPUS": 157.41,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 334.131,
+    "CPIFABSL": 347.104,
+    "AHETPI": 32.53,
+    "DGS10": 5.17,
+    "T10YIE": 2.34,
+    "UMCSENT": 51.7,
+    "GS2": 4.22,
+    "DCOILWTICO": 93.55,
+    "VIX": 16.07,
+    "SP500": 7683.69,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-09-29 11:17 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 157.8,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
@@ -772,36 +788,20 @@
     "SP500": 7743.41,
     "DEXJPUS_source": "Yahoo Finance RT 2026-09-28 10:22 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 157.85,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 334.131,
-    "CPIFABSL": 347.104,
-    "AHETPI": 32.53,
-    "DGS10": 5.18,
-    "T10YIE": 2.34,
-    "UMCSENT": 51.7,
-    "GS2": 4.22,
-    "DCOILWTICO": 93.3,
-    "VIX": 14.87,
-    "SP500": 7743.41,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-28 10:10 JST"
-  },
   "deltas": {
-    "DEXJPUS": -0.05,
+    "DEXJPUS": -0.39,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": null,
+    "DGS10": -0.01,
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -0.18,
-    "VIX": null,
-    "SP500": null
+    "DCOILWTICO": 0.43,
+    "VIX": 1.2,
+    "SP500": -59.72
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -830,42 +830,57 @@
     "UMCSENT": 55,
     "GS2": 70,
     "DCOILWTICO": 45,
-    "VIX": 95,
+    "VIX": 75,
     "SP500": 80
   },
-  "koya_score": 75.2,
+  "koya_score": 73.6,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+0.960%",
-  "vix_note": "VIX=14.87 正常範囲",
-  "sp500_note": "S&P500=7743.41",
+  "spread_dgs10_gs2": "+0.950%",
+  "vix_note": "VIX=16.07 正常範囲",
+  "sp500_note": "S&P500=7683.69",
   "fx_intervention_alert": null,
-  "contributions": [],
-  "anomaly_flags": [],
+  "contributions": [
+    {
+      "indicator": "VIX",
+      "score_before": 95,
+      "score_after": 75,
+      "koya_score_contribution": -1.6,
+      "contribution_pct": 100.0
+    }
+  ],
+  "anomaly_flags": [
+    "VIX: 95→75pt (-20pt) 要確認"
+  ],
   "fallback_indicators": [],
   "decision_triggers": [
     {
       "level": "green",
-      "indicator": "koya総合スコア 75/100 [GO]",
+      "indicator": "koya総合スコア 74/100 [GO]",
       "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
+      "level": "yellow",
+      "indicator": "急変異常値フラグ",
+      "message": "VIX: 95→75pt (-20pt) 要確認"
+    },
+    {
       "level": "green",
-      "indicator": "USD/JPY ¥157.800",
+      "indicator": "USD/JPY ¥157.410",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
-      "level": "green",
-      "indicator": "VIX恐怖指数 14.87",
-      "message": "市場極めて安定。消費意欲MAX環境。"
+      "level": "yellow",
+      "indicator": "VIX恐怖指数 16.07",
+      "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
       "level": "green",
-      "indicator": "S&P500 7,743",
+      "indicator": "S&P500 7,684",
       "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $93.12",
+      "indicator": "WTI原油 $93.55",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
