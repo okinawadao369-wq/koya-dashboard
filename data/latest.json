@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T01:31:33.069439Z",
+  "updated": "2026-10-01T01:32:05.766223Z",
   "series": {
     "DEXJPUS": [
       {
@@ -351,6 +351,10 @@
     ],
     "DGS10": [
       {
+        "date": "2026-09-29",
+        "value": 5.26
+      },
+      {
         "date": "2026-09-28",
         "value": 5.24
       },
@@ -401,13 +405,13 @@
       {
         "date": "2026-09-10",
         "value": 4.95
-      },
-      {
-        "date": "2026-09-09",
-        "value": 4.83
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-09-30",
+        "value": 2.36
+      },
       {
         "date": "2026-09-29",
         "value": 2.35
@@ -459,10 +463,6 @@
       {
         "date": "2026-09-11",
         "value": 2.36
-      },
-      {
-        "date": "2026-09-10",
-        "value": 2.4
       }
     ],
     "UMCSENT": [
@@ -583,6 +583,26 @@
     ],
     "DCOILWTICO": [
       {
+        "date": "2026-09-29",
+        "value": 96.16
+      },
+      {
+        "date": "2026-09-28",
+        "value": 99.37
+      },
+      {
+        "date": "2026-09-25",
+        "value": 85.23
+      },
+      {
+        "date": "2026-09-24",
+        "value": 95.88
+      },
+      {
+        "date": "2026-09-23",
+        "value": 93.38
+      },
+      {
         "date": "2026-09-22",
         "value": 96.41
       },
@@ -617,29 +637,13 @@
       {
         "date": "2026-09-10",
         "value": 103.57
-      },
-      {
-        "date": "2026-09-09",
-        "value": 97.26
-      },
-      {
-        "date": "2026-09-08",
-        "value": 94.21
-      },
-      {
-        "date": "2026-09-04",
-        "value": 92.69
-      },
-      {
-        "date": "2026-09-03",
-        "value": 92.55
-      },
-      {
-        "date": "2026-09-02",
-        "value": 92.15
       }
     ],
     "VIX": [
+      {
+        "date": "2026-10-01",
+        "value": 16.34
+      },
       {
         "date": "2026-09-30",
         "value": 16.04
@@ -691,13 +695,13 @@
       {
         "date": "2026-06-25",
         "value": 13.322
-      },
-      {
-        "date": "2026-06-24",
-        "value": 12.162
       }
     ],
     "SP500": [
+      {
+        "date": "2026-10-01",
+        "value": 7651.54
+      },
       {
         "date": "2026-09-30",
         "value": 7670.84
@@ -749,14 +753,26 @@
       {
         "date": "2026-06-25",
         "value": 7353.923
-      },
-      {
-        "date": "2026-06-24",
-        "value": 7331.054
       }
     ]
   },
   "latest": {
+    "DEXJPUS": 158.06,
+    "FEDFUNDS": 3.63,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 334.131,
+    "CPIFABSL": 347.104,
+    "AHETPI": 32.53,
+    "DGS10": 5.26,
+    "T10YIE": 2.36,
+    "UMCSENT": 51.7,
+    "GS2": 4.22,
+    "DCOILWTICO": 90.17,
+    "VIX": 16.34,
+    "SP500": 7651.54,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-01 10:32 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 156.88,
     "FEDFUNDS": 3.63,
     "UNRATE": 4.1,
@@ -772,36 +788,20 @@
     "SP500": 7670.84,
     "DEXJPUS_source": "Yahoo Finance RT 2026-09-30 10:31 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 157.41,
-    "FEDFUNDS": 3.63,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 334.131,
-    "CPIFABSL": 347.104,
-    "AHETPI": 32.53,
-    "DGS10": 5.17,
-    "T10YIE": 2.34,
-    "UMCSENT": 51.7,
-    "GS2": 4.22,
-    "DCOILWTICO": 93.55,
-    "VIX": 16.07,
-    "SP500": 7683.69,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-09-29 11:17 JST"
-  },
   "deltas": {
-    "DEXJPUS": -0.53,
+    "DEXJPUS": 1.18,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": 0.07,
+    "DGS10": 0.02,
     "T10YIE": 0.01,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -3.78,
-    "VIX": -0.03,
-    "SP500": -12.85
+    "DCOILWTICO": 0.4,
+    "VIX": 0.3,
+    "SP500": -19.3
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -814,7 +814,7 @@
     "T10YIE": "green",
     "UMCSENT": "yellow",
     "GS2": "green",
-    "DCOILWTICO": "green",
+    "DCOILWTICO": "yellow",
     "VIX": "green",
     "SP500": "green"
   },
@@ -829,58 +829,63 @@
     "T10YIE": 92,
     "UMCSENT": 55,
     "GS2": 70,
-    "DCOILWTICO": 70,
+    "DCOILWTICO": 45,
     "VIX": 75,
     "SP500": 80
   },
-  "koya_score": 76.9,
+  "koya_score": 73.6,
   "koya_signal": "GO",
-  "spread_dgs10_gs2": "+1.020%",
-  "vix_note": "VIX=16.04 正常範囲",
-  "sp500_note": "S&P500=7670.84",
+  "spread_dgs10_gs2": "+1.040%",
+  "vix_note": "VIX=16.34 正常範囲",
+  "sp500_note": "S&P500=7651.54",
   "fx_intervention_alert": null,
   "contributions": [
     {
       "indicator": "DCOILWTICO",
-      "score_before": 45,
-      "score_after": 70,
-      "koya_score_contribution": 3.25,
+      "score_before": 70,
+      "score_after": 45,
+      "koya_score_contribution": -3.25,
       "contribution_pct": 100.0
     }
   ],
   "anomaly_flags": [
-    "DCOILWTICO: 45→70pt (+25pt) 要確認"
+    "DCOILWTICO: 70→45pt (-25pt) 要確認"
   ],
   "fallback_indicators": [],
   "decision_triggers": [
     {
       "level": "green",
-      "indicator": "koya総合スコア 77/100 [GO]",
+      "indicator": "koya総合スコア 74/100 [GO]",
       "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
       "level": "yellow",
       "indicator": "急変異常値フラグ",
-      "message": "DCOILWTICO: 45→70pt (+25pt) 要確認"
+      "message": "DCOILWTICO: 70→45pt (-25pt) 要確認"
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥156.880",
+      "indicator": "USD/JPY ¥158.060",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
+      "level": "red",
+      "indicator": "USD/JPY急変",
+      "message": "前日比+1.18円の急変動。価格設定・予約に注意。"
+    },
+    {
       "level": "yellow",
-      "indicator": "VIX恐怖指数 16.04",
+      "indicator": "VIX恐怖指数 16.34",
       "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
       "level": "green",
-      "indicator": "S&P500 7,671",
+      "indicator": "S&P500 7,652",
       "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $89.77",
+      "indicator": "WTI原油 $90.17",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
