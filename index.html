@@ -2337,9 +2337,7 @@ function applyData(data,isMock){
   S.signal=S.koyaSignal||calcSig(S.fx,S.ur);
   // geo impact事前計算（タブ未訪問でもov-geoを即時更新）
   (function(){
-    var _gW={forward:0.30,defense:0.20,taiwan:0.20,first:0.15,okinawa:0.10,usstress:-0.03,rebase:-0.02};
-    var _geoW=0; GEO.forEach(function(g){ if(_gW[g.key]!==undefined) _geoW+=g.val*_gW[g.key]; });
-    var _gi=Math.max(0,_geoW/100*10);
+    var _gi=calcGeoImpact().gImpact;
     var _eG=document.getElementById('ov-geo'); if(_eG) _eG.textContent='+'+_gi.toFixed(1)+'%';
     var _eGp=document.getElementById('geo-impact-pct'); if(_eGp) _eGp.textContent='+'+_gi.toFixed(1)+'%';
   })();
@@ -2409,9 +2407,20 @@ function updateOverviewCards(){
   if(wtiEl) wtiEl.textContent='$'+wtiVal.toFixed(2)+'/bbl';
   var wtiNoteEl=document.getElementById('ov-wti-note');
   if(wtiNoteEl){
-    var wtiRef=79.2; var wtiChgPct=((wtiVal-wtiRef)/wtiRef*100);
-    wtiNoteEl.textContent=(wtiChgPct>=0?'+':'')+wtiChgPct.toFixed(1)+'% 前月比 → 米国インフレ'+(wtiChgPct>=3?'↑↑':wtiChgPct>=0?'↑':'↓');
-    wtiNoteEl.style.color=wtiChgPct>=5?'#E8A000':wtiChgPct>=0?'#B8800A':'#4CAF50';
+    // [2026-10-03修正] 固定値79.2との比較は実データではなく偽の前月比だった。
+    // fred-data.json の series.DCOILWTICO にある実際の最古点と比較する。
+    var wtiSeries=(_dataJsonCache&&_dataJsonCache.series&&_dataJsonCache.series['DCOILWTICO'])||[];
+    var wtiSorted=wtiSeries.slice().sort(function(a,b){return a.date<b.date?-1:1;});
+    var wtiOldest=wtiSorted.length?wtiSorted[0]:null;
+    if(wtiOldest&&wtiOldest.value){
+      var wtiRef=wtiOldest.value; var wtiChgPct=((wtiVal-wtiRef)/wtiRef*100);
+      var wtiDays=Math.max(1,Math.round((Date.now()-new Date(wtiOldest.date+'T00:00:00Z').getTime())/86400000));
+      wtiNoteEl.textContent=(wtiChgPct>=0?'+':'')+wtiChgPct.toFixed(1)+'% 対'+wtiDays+'日前('+wtiOldest.date.slice(5)+') → 米国インフレ'+(wtiChgPct>=3?'↑↑':wtiChgPct>=0?'↑':'↓');
+      wtiNoteEl.style.color=wtiChgPct>=5?'#E8A000':wtiChgPct>=0?'#B8800A':'#4CAF50';
+    } else {
+      wtiNoteEl.textContent='前月比データ取得不可';
+      wtiNoteEl.style.color='#8899B0';
+    }
   }
   // FTO価格インデックス（コンボ¥15,800のドル換算 vs 米国アンカー）
   var fxLive=S.fredVals['DEXJPUS']||S.fx||(MOCK.DEXJPUS||163.39);
@@ -2474,8 +2483,9 @@ function renderOverview(){
   if(ff>4) score+=5;
   var vixB=S.fredVals&&S.fredVals['VIX']?S.fredVals['VIX']:20;
   if(vixB<15) score+=8; else if(vixB<20) score+=5; else if(vixB<25) score+=2;
-  var geoBase=typeof gImpact!=='undefined'?Math.round(gImpact):7;
-  score+=geoBase; // geo impact (動的)
+  var _geoImp=calcGeoImpact().gImpact;
+  var geoBase=Math.round(_geoImp);
+  score+=geoBase; // geo impact (動的・calcGeoImpact()参照)
   score=Math.min(100,Math.round(score));
   var lbl=score>80?'Strong':score>65?'Good':score>50?'Moderate':'Weak';
   drawGauge(score,lbl);
@@ -2489,8 +2499,8 @@ function renderOverview(){
   document.getElementById('area-cards').innerHTML=html;
   // Auto memo
   var sig=S.signal; var memo='';
-  if(sig==='GO') memo='<strong style="color:#00D4AA">▶ GO シグナル点灯中</strong> — USD/JPY '+fx.toFixed(2)+'（高水準）×失業率'+ur.toFixed(1)+'%（低水準）により、SOFA層の購買意欲は最高水準。FamilyTreeOkiへの積極マーケティング（英語SNS・基地内広告・口コミ促進）を推奨。上位パッケージ・記念日プランの前面訴求が有効。地政学インパクト+7.5%が推奨価格帯を上乗せ中。';
-  else if(sig==='WATCH') memo='<strong style="color:#F4C842">◎ WATCH シグナル</strong> — USD/JPY '+fx.toFixed(2)+'（やや高水準）。積極展開の準備フェーズ。英語対応強化、プロモーション素材整備、SOFA向けSNS運用を開始する好機。推奨価格帯は米国比で依然大幅割安。地政学インパクト+7.5%を訴求材料に。';
+  if(sig==='GO') memo='<strong style="color:#00D4AA">▶ GO シグナル点灯中</strong> — USD/JPY '+fx.toFixed(2)+'（高水準）×失業率'+ur.toFixed(1)+'%（低水準）により、SOFA層の購買意欲は最高水準。FamilyTreeOkiへの積極マーケティング（英語SNS・基地内広告・口コミ促進）を推奨。上位パッケージ・記念日プランの前面訴求が有効。地政学インパクト+'+_geoImp.toFixed(1)+'%が推奨価格帯を上乗せ中。';
+  else if(sig==='WATCH') memo='<strong style="color:#F4C842">◎ WATCH シグナル</strong> — USD/JPY '+fx.toFixed(2)+'（やや高水準）。積極展開の準備フェーズ。英語対応強化、プロモーション素材整備、SOFA向けSNS運用を開始する好機。推奨価格帯は米国比で依然大幅割安。地政学インパクト+'+_geoImp.toFixed(1)+'%を訴求材料に。';
   else memo='<strong style="color:#8899B0">▬ HOLD シグナル</strong> — 現状維持フェーズ。既存顧客のリテンション強化と英語対応品質向上に注力。経済指標の改善を週次モニタリング。コスト最適化を実施。';
   document.getElementById('auto-memo').innerHTML=memo;
 }
@@ -2626,7 +2636,7 @@ function runSim(){
   var outHtml=
     '<div class="sim-item"><div class="sim-lbl">米国単価アンカー(CPI補正済)</div><div class="sim-val gold">$'+bt.usLow+'〜$'+bt.usHigh+'</div><div class="sim-note">CPI×'+cpiAdj.toFixed(3)+' / AHE $'+ahe.toFixed(2)+'/h</div></div>'
    +'<div class="sim-item"><div class="sim-lbl">入力価格 ドル換算</div><div class="sim-val">$'+inputUSD.toFixed(0)+'</div><div class="sim-note">¥'+inputJPY.toLocaleString()+' ÷ '+fx.toFixed(2)+'</div></div>'
-   +'<div class="sim-item"><div class="sim-lbl">沖縄推奨価格帯(CPI込)</div><div class="sim-val green">¥'+recLow.toLocaleString()+'〜¥'+recHigh.toLocaleString()+'</div><div class="sim-note">地政学+7.5% / セグメント補正済</div></div>'
+   +'<div class="sim-item"><div class="sim-lbl">沖縄推奨価格帯(CPI込)</div><div class="sim-val green">¥'+recLow.toLocaleString()+'〜¥'+recHigh.toLocaleString()+'</div><div class="sim-note">地政学+'+calcGeoImpact().gImpact.toFixed(1)+'% / セグメント補正済</div></div>'
    +'<div class="sim-item"><div class="sim-lbl">米国アンカー 円換算</div><div class="sim-val">¥'+usAnchorJPY.toLocaleString()+'</div><div class="sim-note">米国中央値×'+fx.toFixed(1)+' (CPI補正後)</div></div>'
    +'<div class="sim-item"><div class="sim-lbl">値上げ余地(推奨帯上限比)</div><div class="sim-val '+(priceHeadroom>=0?'green':'red')+'">'+(priceHeadroom>=0?'+':'')+' ¥'+priceHeadroom.toLocaleString()+'</div><div class="sim-note">'+(priceHeadroom>=0?'推奨上限まで値上げ可':'推奨帯を超過・価格見直し')+'</div></div>'
    +'<div class="sim-item"><div class="sim-lbl">割安率(US比)</div><div class="sim-val gold">'+valueRatio.toFixed(2)+'x</div><div class="sim-note">米国の'+valueRatio.toFixed(1)+'倍のサービスが沖縄で</div></div>'
@@ -2678,6 +2688,21 @@ function runSim(){
 // ════════════════════════════════════════════════
 // RENDER: GEO
 // ════════════════════════════════════════════════
+// 地政学インパクトの統一計算関数 [2026-10-03追加]。
+// 以前は applyData() のIIFE・renderOverview()・runSim()・renderGeo() の4箇所がそれぞれ
+// 別々に計算（または文字列として固定）しており、値が食い違う原因になっていた。
+// 以後はこの関数の戻り値だけを全箇所が参照する（単一ソース化）。
+function calcGeoImpact(){
+  var gW={forward:0.30,defense:0.20,taiwan:0.20,first:0.15,okinawa:0.10,usstress:-0.03,rebase:-0.02};
+  var geoW=0; GEO.forEach(function(g){ if(gW[g.key]!==undefined) geoW+=g.val*gW[g.key]; });
+  var gImpact  = Math.max(0, geoW/100*10);                    // 総合価格心理インパクト(%)
+  var gMktTemp = ((GEO[0].val+GEO[4].val)/2)*0.12;            // forward+taiwan → 市場温度寄与(pt)
+  var gStrat   = ((GEO[2].val+GEO[1].val)/2)*0.165;           // first+defense  → 戦略需要寄与(pt)
+  var gPremium = gImpact*0.28;                                // 推奨価格帯への上乗せ(%)
+  var gRisk    = Math.round((GEO[0].val+GEO[4].val+GEO[2].val+GEO[1].val)/4);
+  return {gImpact:gImpact, gMktTemp:gMktTemp, gStrat:gStrat, gPremium:gPremium, gRisk:gRisk};
+}
+
 function renderGeo(){
   if(RD.geo) return; RD.geo=true;
   var html='';
@@ -2689,14 +2714,9 @@ function renderGeo(){
   document.getElementById('geo-cards').innerHTML=html;
   // Radar
   mkRadar('c-radar',GEO.map(function(g){return g.label;}),GEO.map(function(g){return g.val;}));
-  // Impact — GEOスコアから動的計算
-  var gW={forward:0.30,defense:0.20,taiwan:0.20,first:0.15,okinawa:0.10,usstress:-0.03,rebase:-0.02};
-  var geoW=0; GEO.forEach(function(g){ if(gW[g.key]!==undefined) geoW+=g.val*gW[g.key]; });
-  var gImpact  = Math.max(0, geoW/100*10);                   // 総合価格心理インパクト
-  var gMktTemp = ((GEO[0].val+GEO[4].val)/2)*0.12;          // forward+taiwan → 市場温度寄与
-  var gStrat   = ((GEO[2].val+GEO[1].val)/2)*0.165;         // first+defense  → 戦略需要寄与
-  var gPremium = gImpact*0.28;                               // 価格帯上乗せ
-  var gRisk    = Math.round((GEO[0].val+GEO[4].val+GEO[2].val+GEO[1].val)/4);
+  // Impact — 単一ソース calcGeoImpact() を使用（applyData/renderOverview/runSimと共通）
+  var _GI=calcGeoImpact();
+  var gImpact=_GI.gImpact, gMktTemp=_GI.gMktTemp, gStrat=_GI.gStrat, gPremium=_GI.gPremium, gRisk=_GI.gRisk;
   // 上部KPIカード更新
   var _e1=document.getElementById('geo-impact-pct'); if(_e1) _e1.textContent='+'+gImpact.toFixed(1)+'%';
   var _e2=document.getElementById('geo-mkt-temp');   if(_e2) _e2.textContent='+'+gMktTemp.toFixed(1)+'pt';
