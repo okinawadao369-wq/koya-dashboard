@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T01:58:46.201041Z",
+  "updated": "2026-10-05T01:14:54.633475Z",
   "series": {
     "DEXJPUS": [
       {
@@ -641,6 +641,10 @@
     ],
     "VIX": [
       {
+        "date": "2026-10-05",
+        "value": 15.31
+      },
+      {
         "date": "2026-10-04",
         "value": 15.31
       },
@@ -691,13 +695,13 @@
       {
         "date": "2026-06-29",
         "value": 14.352
-      },
-      {
-        "date": "2026-06-28",
-        "value": 13.1
       }
     ],
     "SP500": [
+      {
+        "date": "2026-10-05",
+        "value": 7722.72
+      },
       {
         "date": "2026-10-04",
         "value": 7722.72
@@ -749,14 +753,26 @@
       {
         "date": "2026-06-29",
         "value": 7421.758
-      },
-      {
-        "date": "2026-06-28",
-        "value": 7370.379
       }
     ]
   },
   "latest": {
+    "DEXJPUS": 157.58,
+    "FEDFUNDS": 3.75,
+    "UNRATE": 4.2,
+    "CPIAUCSL": 334.131,
+    "CPIFABSL": 347.104,
+    "AHETPI": 32.6,
+    "DGS10": 5.24,
+    "T10YIE": 2.36,
+    "UMCSENT": 51.7,
+    "GS2": 4.65,
+    "DCOILWTICO": 90.53,
+    "VIX": 15.31,
+    "SP500": 7722.72,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-05 10:14 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 157.83,
     "FEDFUNDS": 3.75,
     "UNRATE": 4.2,
@@ -772,24 +788,8 @@
     "SP500": 7722.72,
     "DEXJPUS_source": "Yahoo Finance RT 2026-10-04 10:58 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 157.83,
-    "FEDFUNDS": 3.75,
-    "UNRATE": 4.2,
-    "CPIAUCSL": 334.131,
-    "CPIFABSL": 347.104,
-    "AHETPI": 32.6,
-    "DGS10": 5.24,
-    "T10YIE": 2.36,
-    "UMCSENT": 51.7,
-    "GS2": 4.65,
-    "DCOILWTICO": 91.26,
-    "VIX": 15.31,
-    "SP500": 7722.72,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-03 10:24 JST"
-  },
   "deltas": {
-    "DEXJPUS": null,
+    "DEXJPUS": -0.25,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -799,7 +799,7 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -0.15,
+    "DCOILWTICO": -0.58,
     "VIX": null,
     "SP500": null
   },
@@ -850,7 +850,7 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥157.830",
+      "indicator": "USD/JPY ¥157.580",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
@@ -865,7 +865,7 @@
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $91.11",
+      "indicator": "WTI原油 $90.53",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
