@@ -6,7 +6,8 @@ name: fred-data daily update
 on:
   schedule:
     # UTC 22:37 = JST 07:37（実際はGitHubの混雑で JST 09:35〜09:55 頃に実行されている）
-    - cron: "37 22 * * *"
+      - cron: "47 21 * * *"
+      - cron: "17 0 * * *"
   workflow_dispatch:
 
 permissions:
