@@ -2018,16 +2018,16 @@ var GEO = [
    desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
    impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
   {key:'usstress',label:'米国政治経済ストレス',val:72,trend:'→',color:'#FF7F50',
-   desc:'【2026年8月31日 fred-data.json実測で更新】UMCSENT=55.2（FRED、6月44.8から回復基調継続・事実A/observed）。CPI総合YoY=3.3%（FRED CPIAUCSL計算値、本ダッシュボード実測）。BLS公式では7月CPI総合3.4%・コア2.5%（2026/8/12発表、事実A）。S&P500=7,711.76（さらに高値更新）・VIX=15.72（警戒水準解除・正常ゾーン回復）・WTI$94.64・10年債4.67%。実質賃金・クレカ延滞率・FOMC議長人事等の細目は2026年6月時点の記述を維持しており未再検証（証拠区分stale_observed、次回更新時に裏取り推奨）。',
-   impact:'消費者信頼感（UMCSENT）は44.8→55.2へ明確に回復しており、6月時点で懸念されていた「歴史的低水準」は和らいでいる（事実A）。CPIも3.3〜3.4%で6月の3.5%からわずかに鈍化。S&P500は最高値圏を更新中でマクロ環境は6月時点より改善方向（強い推論B）。SOFA家族はOHA・ドル収入の二重バッファでそもそも本国消費者ほどの圧迫を受けにくく、沖縄サービスの相対的割安感と価格心理効果はむしろ強まる方向。',src:'BLS CPI Jun2026/FRED UMCSENT May2026+UMich Jul2026速報/NY Fed HH Debt Q1-2026/RBC Economics Jul2026/FRB Jul2026 FOMC'}
+   desc:'【2026-10-16 数値の固定記載を撤去】米国消費者心理・インフレ・金利・株価・原油の実測値はFRED経済データタブ／市場概況（fred-data.json・毎日更新）を参照。FRED最新: UMCSENT 7月55.2→8月51.7と低下、CPI総合YoY約3.7%（2026-09）、10年債5.19%と高水準（事実A/observed、2026-10-16照合）。このスコア(72)自体は2026-08-31の評価値で、実質賃金・クレカ延滞率等の細目は未再検証（stale_observed）。',
+   impact:'消費者信頼感は7月55.2→8月51.7へ低下し、8月末時点の「回復基調」は終了（事実A、FRED UMCSENT）。CPI・長期金利も上昇しており、本国の消費者心理は再び重い。SOFA家族はOHA・ドル収入の二重バッファで圧迫を受けにくく、沖縄サービスの相対的割安感は維持される方向（強い推論B）。',src:'BLS CPI Jun2026/FRED UMCSENT May2026+UMich Jul2026速報/NY Fed HH Debt Q1-2026/RBC Economics Jul2026/FRB Jul2026 FOMC'}
 ];
 
 var FRED_SERIES = [
   {id:'DEXJPUS',  name:'USD/JPY',         unit:'',    color:'#00D4AA', val:null, date:'—'},
   {id:'FEDFUNDS', name:'FF金利',           unit:'%',   color:'#F4C842', val:null, date:'—'},
   {id:'UNRATE',   name:'失業率',           unit:'%',   color:'#FF4D6A', val:null, date:'—'},
-  {id:'CPIAUCSL', name:'CPI (総合)',       unit:'YoY%',color:'#60A5FA', val:null, date:'—'},
-  {id:'CPIFABSL', name:'外食CPI',         unit:'YoY%',color:'#4ADE80', val:null, date:'—'},
+  {id:'CPIAUCSL', name:'CPI (総合)',       unit:'指数',color:'#60A5FA', val:null, date:'—'},
+  {id:'CPIFABSL', name:'食品・飲料CPI',   unit:'指数',color:'#4ADE80', val:null, date:'—'},
   {id:'AHETPI',   name:'平均時給',         unit:'$/h', color:'#A78BFA', val:null, date:'—'},
   {id:'DGS10',    name:'10年国債',         unit:'%',   color:'#FF7F50', val:null, date:'—'},
   {id:'T10YIE',   name:'10年インフレ期待', unit:'%',   color:'#F472B6', val:null, date:'—'},
@@ -2045,9 +2045,10 @@ var FRED_SERIES = [
 // UMCSENT=49.8（FRED公式Apr2026）/ WTI=95.96（FRED Jun-01）/ VIX=21.51（市場警戒ゾーン）/ SP500=7383.74
 var MOCK = {
   // v58 2026-07-29 更新: FRED最新値(07-24〜07-28) + Yahoo Finance リアルタイムUSD/JPY
-  DEXJPUS:153.36, FEDFUNDS:3.63, UNRATE:4.1, CPIAUCSL:332.813, CPIFABSL:346.681,
-  AHETPI:32.53, DGS10:4.78, T10YIE:2.37, UMCSENT:55.2, GS2:4.22, DCOILWTICO:94.64,
-  VIX:15.72, SP500:7673.52
+  // 2026-10-16 更新（取得失敗時の骨組みのみ。MOCK表示中は必ずフォールバック表示が出る）
+  DEXJPUS:158.12, FEDFUNDS:3.75, UNRATE:4.2, CPIAUCSL:336.298, CPIFABSL:347.262,
+  AHETPI:32.60, DGS10:5.19, T10YIE:2.32, UMCSENT:51.7, GS2:4.65, DCOILWTICO:96.15,
+  VIX:16.46, SP500:7744.06
 };
 
 // State
@@ -2246,7 +2247,11 @@ function cacheGet(){
   try{var r=localStorage.getItem(CACHE_KEY); if(!r) return null; var o=JSON.parse(r); if(Date.now()-o.ts>CACHE_TTL) return null; return o.data;}catch(e){ console.warn('[koya][F16] キャッシュ読み込み失敗(localStorage破損の可能性):',e); return null;}
 }
 function cacheSet(d){
-  try{localStorage.setItem(CACHE_KEY,JSON.stringify({ts:Date.now(),data:d}));}catch(e){}
+  try{
+    // 旧世代キャッシュ(koya_v114等)の堆積を掃除する [2026-10-16]
+    Object.keys(localStorage).forEach(function(k){ if(/^koya_v\d+$/.test(k)&&k!==CACHE_KEY) localStorage.removeItem(k); });
+    localStorage.setItem(CACHE_KEY,JSON.stringify({ts:Date.now(),data:d}));
+  }catch(e){}
 }
 
 function sortAsc(a){return (a||[]).slice().sort(function(x,y){return x.date<y.date?-1:1;});}
@@ -2423,9 +2428,13 @@ function updateOverviewCards(){
     if(wtiSer.length<2){
       wtiNoteEl.textContent='比較データなし';
     } else {
-      var wtiRefPt=wtiSer[0]; var wtiRef=wtiRefPt.value; var wtiChgPct=((wtiVal-wtiRef)/wtiRef*100);
-      var wtiDays=Math.round((Date.now()-new Date(wtiRefPt.date).getTime())/86400000);
-      wtiNoteEl.textContent=(wtiChgPct>=0?'+':'')+wtiChgPct.toFixed(1)+'% 対'+wtiDays+'日前('+wtiRefPt.date.slice(5)+') → 米国インフレ'+(wtiChgPct>=3?'↑↑':wtiChgPct>=0?'↑':'↓');
+      // [2026-10-16修正] 最古点1点を基準にすると外れ値(FRED 2026-09-25=85.23)で+12.8%と過大表示された。
+      // 系列全体の中央値を基準にして外れ値の影響を避ける。
+      var _wv=wtiSer.map(function(p){return p.value;}).sort(function(a,b){return a-b;});
+      var wtiRef=(_wv.length%2)?_wv[(_wv.length-1)/2]:(_wv[_wv.length/2-1]+_wv[_wv.length/2])/2;
+      var wtiChgPct=((wtiVal-wtiRef)/wtiRef*100);
+      var wtiSpan=wtiSer[0].date.slice(5)+'〜'+wtiSer[wtiSer.length-1].date.slice(5);
+      wtiNoteEl.textContent=(wtiChgPct>=0?'+':'')+wtiChgPct.toFixed(1)+'% 対直近'+wtiSer.length+'営業日の中央値('+wtiSpan+') → 米国インフレ'+(wtiChgPct>=3?'↑↑':wtiChgPct>=0?'↑':'↓');
       wtiNoteEl.style.color=wtiChgPct>=5?'#E8A000':wtiChgPct>=0?'#B8800A':'#4CAF50';
     }
   }
@@ -3016,11 +3025,23 @@ function renderMil(){
 // ════════════════════════════════════════════════
 // RENDER: FRED
 // ════════════════════════════════════════════════
+// [2026-10-16追加] FRED表の「観測日」。以前は全系列に表示日(今日)が入り、月次系列
+// (消費者信頼感=8月分など)が最新に見えていた。実際の最新観測日を表示する。
+function obsDateLabel(id){
+  var dj=_dataJsonCache;
+  if(!dj||!dj.series||!dj.series[id]||!dj.series[id].length) return '—';
+  var liveIds={DEXJPUS:1,DCOILWTICO:1,VIX:1,SP500:1};
+  if(liveIds[id]&&dj.updated) return dj.updated.slice(0,10)+' (Live)';
+  var m=dj.series[id].reduce(function(a,p){return p.date>a?p.date:a;},'');
+  var monthly={FEDFUNDS:1,UNRATE:1,CPIAUCSL:1,CPIFABSL:1,AHETPI:1,UMCSENT:1,GS2:1};
+  return monthly[id]?m.slice(0,7)+' (月次)':m;
+}
+
 function renderFred(){
   RD.fred=true;
   var fx=S.fx||153.36; var ff=S.ff||3.63; var ur=S.ur||4.2;
   // Sync FRED_SERIES val from S.fredVals
-  FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=new Date().toISOString().slice(0,10); });
+  FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=obsDateLabel(f.id); });
   // FRED grid
   var ALERT_COLORS={red:'rgba(255,77,106,.12)',yellow:'rgba(244,200,66,.10)',green:'rgba(74,222,128,.08)'};
   var ALERT_BORDER={red:'#FF4D6A',yellow:'#F4C842',green:'#4ADE80'};
@@ -4155,10 +4176,12 @@ function renderUSReality(){
   }
   var rwKpi = document.getElementById('ur-real-wage');
   if (rwKpi) {
-    var rw = 3.6 - cpi;
+    var _ahe=(_dataJsonCache&&_dataJsonCache.series&&_dataJsonCache.series.AHETPI)?calcYoY(_dataJsonCache.series.AHETPI):null;
+    var nomW=(_ahe===null?3.6:_ahe);   // 平均時給の前年比(FRED AHETPI)。取得不可時のみ旧固定値3.6
+    var rw = nomW - cpi;
     rwKpi.textContent = (rw < 0 ? '▲' : '+') + Math.abs(rw).toFixed(1) + '%';
     var rwSub = rwKpi.nextElementSibling;
-    if (rwSub) rwSub.textContent = '名目+3.6% − 物価' + cpi.toFixed(1) + '%';
+    if (rwSub) rwSub.textContent = '名目+'+nomW.toFixed(1)+'% − 物価' + cpi.toFixed(1) + '%';
   }
 
   // FX表示・円安割安率
@@ -4223,6 +4246,12 @@ function renderUSReality(){
     {svc:'プレミアムディナー', usLow:200, usHigh:500, okinawa:18000, biz:'premium'},
     {svc:'ファミリーディナー', usLow:75,  usHigh:160, okinawa:10000, biz:'dinner'},
   ];
+  // [2026-10-16修正] signals[]内で未定義の`discount`を参照し ReferenceError で
+  // 経営シグナルカード以降が描画されなかった。全サービスの平均割安率をここで定義する。
+  var _saAll=1+(cpi/100)*0.5;
+  var discount=Math.round(premiumData.reduce(function(a,d){
+    var avgJ=((Math.round(d.usLow*_saAll)+Math.round(d.usHigh*_saAll))/2)*fx;
+    return a+(1-d.okinawa/avgJ)*100;},0)/premiumData.length);
   var pTbody=document.getElementById('ur-premium-tbody');
   if(pTbody){
     // 体感インフレ補正係数（公式CPIに乖離分を加算）
@@ -4272,7 +4301,7 @@ function renderUSReality(){
       icon:'⚠️', title:'感情的緊縮リスク',
       status: umcsent<50?'WATCH':'LOW',
       color: umcsent<50?'var(--gold)':'var(--muted)',
-      body:'UMCSENT='+umcsent.toFixed(1)+'（史上最低圏）。経済的余裕があっても「本国が大変なのに贅沢できない」という社会的罪悪感が潜在的に存在。「バリュー投資」「思い出・家族」の文脈での訴求が重要。'
+      body:'UMCSENT='+umcsent.toFixed(1)+'（'+(umcsent<50?'史上最低圏':'低水準')+'）。経済的余裕があっても「本国が大変なのに贅沢できない」という社会的罪悪感が潜在的に存在。「バリュー投資」「思い出・家族」の文脈での訴求が重要。'
     },
   ];
 
