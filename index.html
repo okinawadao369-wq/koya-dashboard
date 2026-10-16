@@ -1601,7 +1601,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
     <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem;margin-bottom:10px">
       <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">サービス</th><th style="text-align:right;padding:6px 8px">FTO価格</th><th style="text-align:right;padding:6px 8px">米ドル換算</th><th style="text-align:left;padding:6px 8px">米国相場との位置</th></tr>
       <tr><td style="padding:6px 8px">2Dエコー（平均単価）</td><td style="padding:6px 8px;text-align:right">¥13,512</td><td style="padding:6px 8px;text-align:right">$84</td><td style="padding:6px 8px">米国$75〜175の下限帯</td></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">4Dエコー記念（平均単価）</td><td style="padding:6px 8px;text-align:right">¥21,226</td><td style="padding:6px 8px;text-align:right">$133</td><td style="padding:6px 8px">米国$200〜450の大幅下</td></tr>
+      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">4Dエコー記念（平均単価）</td><td style="padding:6px 8px;text-align:right">¥21,226</td><td style="padding:6px 8px;text-align:right">$133</td><td style="padding:6px 8px">米国$100〜300(中央値$200)の約3割下</td></tr>
       <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>産後ケア 1週間（新規）</b></td><td style="padding:6px 8px;text-align:right"><b>¥490,000</b><br><span style="color:var(--muted)">¥70,000/日×7</span></td><td style="padding:6px 8px;text-align:right"><b>$3,062</b></td><td style="padding:6px 8px"><b>米国の産後ドゥーラ フルパッケージ$2,000〜5,000の中心帯。価格として妥当</b></td></tr>
       <tr><td style="padding:6px 8px">ベビーシッター（新規）</td><td style="padding:6px 8px;text-align:right">¥2,500〜3,500/h</td><td style="padding:6px 8px;text-align:right">$15.6〜21.9</td><td style="padding:6px 8px">米国$18〜25/h。<b>やや安い。¥4,000/h（$25）まで余地あり</b></td></tr>
       <tr style="background:rgba(244,200,66,.12)"><td style="padding:6px 8px"><b>1妊娠あたりのフルジャーニーLTV</b></td><td style="padding:6px 8px;text-align:right;font-size:.85rem"><b>¥601,226</b></td><td style="padding:6px 8px;text-align:right"><b>$3,757</b></td><td style="padding:6px 8px"><b>4Dエコー＋産後ケア1週間＋ベビーシッター30時間。現行ARPUの29倍</b></td></tr>
@@ -1894,6 +1894,13 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       </tbody>
     </table>
     <div class="margin-note">閾値は koya-agent-os の証拠規律における「競合仮説C／未立証D」。実績の検証は<strong>月次顧客人数（新規・リピーター内訳）</strong>を基準に、GBPI・実質価格ギャップとの相関を90日実験（2026-08-20〜2026-11-18）で確認し、随時補正する。</div>
+    <div class="box" id="cmp-ladder" style="margin-top:14px;font-size:12px;line-height:1.7">
+      <div style="font-weight:700;margin-bottom:6px">FTO現行価格の流れ <span style="font-weight:400;color:var(--muted)">STORES予約ページ 2026-10-16確認／為替・CPIはライブ値</span></div>
+      <div id="cmp-ladder-body"></div>
+      <div style="margin-top:8px"><b>判断（採用）：</b>4Dは値上げせず据え置き。USBメモリー（+¥3,000でデータUSB付き）を「おすすめ」にし、訴求は「安さ」ではなく「本国の家族・配備中の夫と共有できる思い出」。医療・健康の効果を示す表現は使わない。</div>
+      <div style="color:var(--muted);margin-top:4px">健全レンジ25〜55%は初期仮説、4D米国アンカー$100〜300は2026/10再検索の中央値（いずれも競合仮説C）。2D ¥15,000は上端（約25%）に接しており値上げ余地なし。</div>
+      <div style="color:var(--gold);margin-top:4px">⚠ 米国防総省は2026年7月、日本のCOLA削減・一部支給ゼロを発表。軍人・軍属タブの月収表のCOLAは未更新（沖縄の確定額は未確認）。</div>
+    </div>
   </div>
 </div>
 <!-- /tab-compass -->
@@ -1949,8 +1956,8 @@ var SEGS = [
 ];
 
 var BTYPE = {
-  ft_2d:  {label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:75, usHigh:175,ftcDef:12000,monthlyPerPerson:2.5,note:'Private 1-hour session(2026/08調査:性別判定エコー$75-125・早期エコー$50-85・標準パッケージ$150-250 出典bettercare.com/careroute.ai)'},
-  ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:200,usHigh:450,ftcDef:20000,monthlyPerPerson:3.0,note:'Private 1-hour memory session(2026/08調査:4Dライブ動画$200-500・3D/4Dコンボ$250-600・都市部+50% 出典boutiqueultrasound.com/costinsighthub.com)'},
+  ft_2d:  {label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:75, usHigh:175,ftcDef:15000,monthlyPerPerson:2.5,note:'FTO基本価格¥15,000(14週〜20分)。0〜13週10分は¥12,000(2026-10-16 STORES予約ページ確認)。米国2Dアンカー(2026/08調査:早期エコー$50-85・標準パッケージ$150-250 出典bettercare.com/careroute.ai)'},
+  ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:100,usHigh:300,ftcDef:20000,monthlyPerPerson:3.0,note:'FTO基本価格¥20,000(ライトメモリー20分)・USBメモリー¥23,000。米国アンカーは2026/10再検索で$100-300(中央値$200)に統一: 記念撮影$60-250(coveredusa.org 2026)・ブティック基本$80-150(careroute.ai 2026/5)・旧解説サイト$150-500。一次調査は未確認のため競合仮説C'},
   ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:114,usHigh:179,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)(2026/08調査:時給$19-29.87(全米平均$23-26)・前年比+4.9%で一般物価上昇3%を上回る 出典urbansitter.com/sittercity.com)'},
   ft_med: {label:'FamilyTreeOki｜産後ケア(宿泊1泊)',  cat:'ftc',usLow:700,usHigh:1400,ftcDef:70000,monthlyPerPerson:2.0,note:'宿泊型産後リトリート1泊＝宿泊+24h新生児ケア+食事(2026/09調査:米国$700-1,400/泊。Boram NY $843・Sanu DC $1,045・Ahma&Co CA $1,740。※在宅オーバーナイトドゥーラ$250-450は宿泊・食事を含まない別カテゴリ。FTO実売価格70,000円/泊は2026-09-17に初回利用開始 出典time.com/peacockparent.com/yuzicare.com)'},
   cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:4,  usHigh:7,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当(2026調査:全米平均$4-5.60・都市部$5-7)'},
@@ -2767,6 +2774,27 @@ function calcGBPI(){
 // 価格データはBTYPEを単一ソースとして参照する（別配列に複製しない）
 // ════════════════════════════════════════════════
 var CMP={seg:'general'};
+function renderFtoLadder(){
+  try{
+    var el=document.getElementById('cmp-ladder-body'); if(!el) return;
+    var fx=S.fx||153.36, cpi=(S.cpi===null||S.cpi===undefined)?3.5:S.cpi, adj=1+(cpi/100)*0.5;
+    var rows=[
+      {n:'2D（妊娠0〜13週・10分）',p:12000,b:'ft_2d'},
+      {n:'2D（14週〜・20分）【基本】',p:15000,b:'ft_2d'},
+      {n:'4D ライトメモリー（20分）【基本】',p:20000,b:'ft_4d'},
+      {n:'4D USBメモリーパッケージ（20分）',p:23000,b:'ft_4d'}
+    ];
+    var h='<table style="width:100%;border-collapse:collapse;font-size:.78rem"><tr style="color:var(--muted)"><th style="text-align:left;padding:4px 6px">メニュー</th><th style="text-align:right;padding:4px 6px">価格</th><th style="text-align:right;padding:4px 6px">ドル換算</th><th style="text-align:right;padding:4px 6px">米国アンカー(円)</th><th style="text-align:right;padding:4px 6px">割安率</th><th style="text-align:left;padding:4px 6px">位置(25〜55%)</th></tr>';
+    rows.forEach(function(r){
+      var bt=BTYPE[r.b]; var mid=((bt.usLow+bt.usHigh)/2)*adj*fx; var gap=Math.round((1-r.p/mid)*100);
+      var pos=gap>55?'帯の下(割安すぎ・信頼面に注意)':gap>=25?'帯の中':'帯の上(値上げ余地なし)';
+      h+='<tr style="border-top:1px solid rgba(255,255,255,.08)"><td style="padding:4px 6px">'+r.n+'</td><td style="text-align:right;padding:4px 6px;font-family:monospace">¥'+r.p.toLocaleString()+'</td><td style="text-align:right;padding:4px 6px;font-family:monospace">$'+Math.round(r.p/fx)+'</td><td style="text-align:right;padding:4px 6px;font-family:monospace">¥'+Math.round(mid).toLocaleString()+'</td><td style="text-align:right;padding:4px 6px;font-family:monospace">'+gap+'%</td><td style="padding:4px 6px">'+pos+'</td></tr>';
+    });
+    h+='</table>';
+    el.innerHTML=h;
+  }catch(e){ console.warn('renderFtoLadder',e); }
+}
+
 function initCompassTab(){
   var sel=document.getElementById('cmp-cat');
   var html='';
@@ -2806,6 +2834,7 @@ function initCompassTab(){
   });
 
   renderCompass();
+  renderFtoLadder();
 }
 
 function fmtPctCmp(v){ return (v>=0?'+':'')+v.toFixed(1)+'%'; }
@@ -3135,7 +3164,7 @@ document.querySelectorAll('.nav-item').forEach(function(n){
     if(id==='pcs'&&!RD.pcs){ RD.pcs=true; renderPCS(); }
     if(id==='maternity'&&!RD.maternity){ RD.maternity=true; initMaternityTab(); }
     if(id==='compass'&&!RD.compass){ RD.compass=true; initCompassTab(); }
-    if(id==='compass') renderCompass();
+    if(id==='compass'){ renderCompass(); renderFtoLadder(); }
   });
 });
 
@@ -4242,7 +4271,7 @@ function renderUSReality(){
     {svc:'産後ケア宿泊/1泊', usLow:700, usHigh:1400, okinawa:70000, biz:'ft_med'},
     {svc:'マタニティヨガ/月', usLow:180, usHigh:480, okinawa:15000, biz:'ft_med'},
     {svc:'ベビーシッター/時', usLow:20,  usHigh:35,  okinawa:1500,  biz:'ft_sit1'},
-    {svc:'ファミリー4D撮影', usLow:175, usHigh:350, okinawa:20000, biz:'ft_4d'},
+    {svc:'ファミリー4D撮影', usLow:100, usHigh:300, okinawa:20000, biz:'ft_4d'},
     {svc:'プレミアムディナー', usLow:200, usHigh:500, okinawa:18000, biz:'premium'},
     {svc:'ファミリーディナー', usLow:75,  usHigh:160, okinawa:10000, biz:'dinner'},
   ];
