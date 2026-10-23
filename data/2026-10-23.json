@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23T00:13:08.240046Z",
+  "updated": "2026-10-23T04:48:20.291830Z",
   "series": {
     "DEXJPUS": [
       {
@@ -757,6 +757,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 156.98,
+    "FEDFUNDS": 3.75,
+    "UNRATE": 4.2,
+    "CPIAUCSL": 336.298,
+    "CPIFABSL": 347.262,
+    "AHETPI": 32.6,
+    "DGS10": 5.13,
+    "T10YIE": 2.32,
+    "UMCSENT": 51.7,
+    "GS2": 4.65,
+    "DCOILWTICO": 100.14,
+    "VIX": 19.03,
+    "SP500": 7663.43,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-23 13:48 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 156.27,
     "FEDFUNDS": 3.75,
     "UNRATE": 4.2,
@@ -772,36 +788,20 @@
     "SP500": 7663.43,
     "DEXJPUS_source": "Yahoo Finance RT 2026-10-23 09:13 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 158.09,
-    "FEDFUNDS": 3.75,
-    "UNRATE": 4.2,
-    "CPIAUCSL": 336.298,
-    "CPIFABSL": 347.262,
-    "AHETPI": 32.6,
-    "DGS10": 5.15,
-    "T10YIE": 2.35,
-    "UMCSENT": 51.7,
-    "GS2": 4.65,
-    "DCOILWTICO": 99.17,
-    "VIX": 17.31,
-    "SP500": 7712.57,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-21 13:45 JST"
-  },
   "deltas": {
-    "DEXJPUS": -1.82,
+    "DEXJPUS": 0.71,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.02,
-    "T10YIE": -0.03,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 0.2,
-    "VIX": 1.72,
-    "SP500": -49.14
+    "DCOILWTICO": 0.77,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -814,7 +814,7 @@
     "T10YIE": "green",
     "UMCSENT": "yellow",
     "GS2": "green",
-    "DCOILWTICO": "yellow",
+    "DCOILWTICO": "red",
     "VIX": "green",
     "SP500": "green"
   },
@@ -829,34 +829,44 @@
     "T10YIE": 92,
     "UMCSENT": 55,
     "GS2": 70,
-    "DCOILWTICO": 45,
+    "DCOILWTICO": 20,
     "VIX": 75,
     "SP500": 80
   },
-  "koya_score": 73.6,
+  "koya_score": 70.4,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.480%",
   "vix_note": "VIX=19.03 正常範囲",
   "sp500_note": "S&P500=7663.43",
   "fx_intervention_alert": null,
-  "contributions": [],
-  "anomaly_flags": [],
+  "contributions": [
+    {
+      "indicator": "DCOILWTICO",
+      "score_before": 45,
+      "score_after": 20,
+      "koya_score_contribution": -3.25,
+      "contribution_pct": 100.0
+    }
+  ],
+  "anomaly_flags": [
+    "DCOILWTICO: 45→20pt (-25pt) 要確認"
+  ],
   "fallback_indicators": [],
   "decision_triggers": [
     {
       "level": "green",
-      "indicator": "koya総合スコア 74/100 [GO]",
+      "indicator": "koya総合スコア 70/100 [GO]",
       "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
-      "level": "green",
-      "indicator": "USD/JPY ¥156.270",
-      "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
+      "level": "yellow",
+      "indicator": "急変異常値フラグ",
+      "message": "DCOILWTICO: 45→20pt (-25pt) 要確認"
     },
     {
-      "level": "red",
-      "indicator": "USD/JPY急変",
-      "message": "前日比-1.82円の急変動。価格設定・予約に注意。"
+      "level": "green",
+      "indicator": "USD/JPY ¥156.980",
+      "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
       "level": "yellow",
@@ -870,7 +880,7 @@
     },
     {
       "level": "red",
-      "indicator": "WTI原油 $99.37",
+      "indicator": "WTI原油 $100.14",
       "message": "高値。燃料・物流コスト上昇。価格転嫁を検討。"
     },
     {
