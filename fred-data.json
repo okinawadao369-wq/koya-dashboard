@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T04:35:45.530377Z",
+  "updated": "2026-10-24T23:47:30.750943Z",
   "series": {
     "DEXJPUS": [
       {
@@ -770,7 +770,7 @@
     "DCOILWTICO": 103.27,
     "VIX": 19.45,
     "SP500": 7623.68,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-24 13:35 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-25 08:47 JST"
   },
   "prev_latest": {
     "DEXJPUS": 156.81,
@@ -783,10 +783,10 @@
     "T10YIE": 2.34,
     "UMCSENT": 48.1,
     "GS2": 4.65,
-    "DCOILWTICO": 103.44,
+    "DCOILWTICO": 103.27,
     "VIX": 19.45,
     "SP500": 7623.68,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-24 09:04 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-24 13:35 JST"
   },
   "deltas": {
     "DEXJPUS": null,
@@ -799,7 +799,7 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -0.17,
+    "DCOILWTICO": null,
     "VIX": null,
     "SP500": null
   },
