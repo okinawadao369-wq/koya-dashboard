@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T23:36:42.829261Z",
+  "updated": "2026-10-26T04:46:06.216267Z",
   "series": {
     "DEXJPUS": [
       {
@@ -641,6 +641,10 @@
     ],
     "VIX": [
       {
+        "date": "2026-10-26",
+        "value": 19.45
+      },
+      {
         "date": "2026-10-25",
         "value": 19.45
       },
@@ -691,13 +695,13 @@
       {
         "date": "2026-10-12",
         "value": 14.84
-      },
-      {
-        "date": "2026-10-11",
-        "value": 14.84
       }
     ],
     "SP500": [
+      {
+        "date": "2026-10-26",
+        "value": 7623.68
+      },
       {
         "date": "2026-10-25",
         "value": 7623.68
@@ -749,14 +753,26 @@
       {
         "date": "2026-10-12",
         "value": 7811.54
-      },
-      {
-        "date": "2026-10-11",
-        "value": 7811.54
       }
     ]
   },
   "latest": {
+    "DEXJPUS": 156.86,
+    "FEDFUNDS": 3.75,
+    "UNRATE": 4.2,
+    "CPIAUCSL": 336.298,
+    "CPIFABSL": 347.262,
+    "AHETPI": 32.6,
+    "DGS10": 4.96,
+    "T10YIE": 2.34,
+    "UMCSENT": 48.1,
+    "GS2": 4.65,
+    "DCOILWTICO": 101.0,
+    "VIX": 19.45,
+    "SP500": 7623.68,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-26 13:46 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 156.86,
     "FEDFUNDS": 3.75,
     "UNRATE": 4.2,
@@ -772,24 +788,8 @@
     "SP500": 7623.68,
     "DEXJPUS_source": "Yahoo Finance RT 2026-10-26 08:36 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 156.81,
-    "FEDFUNDS": 3.75,
-    "UNRATE": 4.2,
-    "CPIAUCSL": 336.298,
-    "CPIFABSL": 347.262,
-    "AHETPI": 32.6,
-    "DGS10": 4.96,
-    "T10YIE": 2.34,
-    "UMCSENT": 48.1,
-    "GS2": 4.65,
-    "DCOILWTICO": 103.27,
-    "VIX": 19.45,
-    "SP500": 7623.68,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-25 13:40 JST"
-  },
   "deltas": {
-    "DEXJPUS": 0.05,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -799,7 +799,7 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -0.95,
+    "DCOILWTICO": -1.32,
     "VIX": null,
     "SP500": null
   },
@@ -865,7 +865,7 @@
     },
     {
       "level": "red",
-      "indicator": "WTI原油 $102.32",
+      "indicator": "WTI原油 $101.00",
       "message": "高値。燃料・物流コスト上昇。価格転嫁を検討。"
     },
     {
