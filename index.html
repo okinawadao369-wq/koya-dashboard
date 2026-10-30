@@ -487,7 +487,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <div class="card" style="border:1px solid rgba(0,212,170,.3);background:rgba(0,212,170,.05)">
         <div class="c-lbl" style="color:var(--teal)">💴 FTO価格インデックス</div>
         <div class="c-val" id="ov-fto-idx" style="color:var(--teal);font-size:1.15rem">—</div>
-        <div class="c-sub" id="ov-fto-disc">コンボ¥15,800のドル換算</div>
+        <div class="c-sub" id="ov-fto-disc">4D基本¥20,000のドル換算</div>
       </div>
     </div>
 
@@ -776,7 +776,7 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
 
     <div class="box">
       <div class="box-title">業種別 米国単価→沖縄有効価格帯 <span class="badge" id="biz-count">21業種</span> <span class="verif-badge verif-est">未検証（推計モデル）</span></div>
-      <div class="src-note">データ源: 業種別に米国公開価格調査(thervo.com/busybook.co等)＋FRED CPI補正。「価格ポジショニング指数」列は米国換算価格との比較値で、実績成約データとの照合は未実施。FamilyTreeOki固定4業種（2Dエコー/4Dエコー記念/ベビーシッター/産後・新生児ケア）は2026年8月にWebSearchで米国相場を再確認済み（事実A・observed、取得日2026-08-31）。他業種は前回調査時点のまま。</div>
+      <div class="src-note">データ源: 業種別に米国公開価格調査(thervo.com/busybook.co等)＋FRED CPI補正。「価格ポジショニング指数」列は米国換算価格との比較値で、実績成約データとの照合は未実施。FamilyTreeOki固定4業種（2Dエコー/4Dエコー記念/ベビーシッター/産後・新生児ケア）は2026年8月にWebSearchで米国相場を再確認済み（事実A・observed、取得日2026-08-31）。他業種は前回調査時点のまま（stale_observed）。2026-10-31時点でFTO価格はSTORES現行メニューに整合済み。</div>
       <div class="tbl-wrap"><table class="tbl">
         <thead>
           <tr>
@@ -803,7 +803,7 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
     <div class="cards" id="e4-kpi-cards">
       <div class="card"><div class="c-lbl">E-4 推計人口（沖縄） <span class="verif-badge verif-est">未検証</span></div><div class="c-val teal" id="e4-pop">6,900人</div><div class="c-sub">SOFA家族帯同層 推計</div><div class="margin-note">±20%程度の誤差を含む推計値（SOFA総人口×等級構成比の按分）</div></div>
       <div class="card"><div class="c-lbl">E-4 月収合計（USD）</div><div class="c-val gold" id="e4-income">$6,051/mo</div><div class="c-sub">基本給＋OHA＋COLA</div></div>
-      <div class="card"><div class="c-lbl">E-4 OHA（沖縄・扶養あり）</div><div class="c-val blue" id="e4-oha">$2,461/mo</div><div class="c-sub">＝¥401,000 住宅手当</div></div>
+      <div class="card"><div class="c-lbl">E-4 OHA（沖縄・扶養あり）</div><div class="c-val blue" id="e4-oha">$1,850/mo</div><div class="c-sub" id="e4-oha-sub">賃料部分（公式OHAの最新額は要確認）</div></div>
       <div class="card"><div class="c-lbl">E-4 月間市場ポテンシャル</div><div class="c-val green" id="e4-market">--</div><div class="c-sub">4Dエコー換算 全商圏</div></div>
       <div class="card"><div class="c-lbl">E-4 価格許容度</div><div class="c-val gold">68%</div><div class="c-sub">米国比プレミアム許容</div></div>
       <div class="card"><div class="c-lbl">FTC 優先セグメント</div><div class="c-val teal">★ E-4</div><div class="c-sub">出産・育児開始期 消費ピーク</div></div>
@@ -851,10 +851,10 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
   <!-- ── TAB 6: FRED経済データ ── -->
   <div id="tab-fred" class="tab-panel">
     <div class="sec-title">FRED経済データ</div>
-    <div class="sec-sub">Federal Reserve Economic Data — 11系列自動取得 (4時間キャッシュ)</div>
+    <div class="sec-sub">Federal Reserve Economic Data — 13系列自動取得（GitHub Actionsで日次更新・fred-data.json）</div>
 
     <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr))">
-      <div class="card"><div class="c-lbl">FRED Live</div><div class="c-val" id="fred-live-count">—/11</div><div class="c-sub">取得成功系列数</div></div>
+      <div class="card"><div class="c-lbl">FRED Live</div><div class="c-val" id="fred-live-count">—/13</div><div class="c-sub">取得成功系列数</div></div>
       <div class="card"><div class="c-lbl">キャッシュTTL</div><div class="c-val blue">4h</div><div class="c-sub">自動更新間隔</div></div>
       <div class="card"><div class="c-lbl">USD/JPY</div><div class="c-val" id="f-fx">—</div><div class="c-sub">DEXJPUS</div></div>
       <div class="card"><div class="c-lbl">FF金利</div><div class="c-val gold" id="f-ff">—</div><div class="c-sub">FEDFUNDS</div></div>
@@ -890,7 +890,7 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
     </div>
 
     <div class="note">
-      本ダッシュボードはリポジトリ内のfred-data.json（Same-Origin）経由でFREDデータを取得します。CORSプロキシ不要の安定アーキテクチャです。データは毎朝09:00に自動更新されます。
+      本ダッシュボードはリポジトリ内のfred-data.json（Same-Origin）経由でFREDデータを取得します。CORSプロキシ不要の安定アーキテクチャです。データはGitHub Actionsにより1日2回更新されますが、実行は数時間遅れることがあります。各系列の観測日は表の「観測日」列を参照してください。
     </div>
   </div>
 
@@ -1081,11 +1081,11 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
 
     <!-- KPI Cards Row 2: 家計ストレス -->
     <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(155px,1fr));margin-bottom:1.2rem">
-      <div class="card"><div class="c-lbl">クレカ延滞率</div><div class="c-val red" id="ur-delinquency">13.1%</div><div class="c-sub">16年ぶり最高 / 2008年危機並み</div></div>
-      <div class="card"><div class="c-lbl">家計総債務</div><div class="c-val" id="ur-debt">$18.8兆</div><div class="c-sub">Q1 2026 NY Fed</div></div>
+      <div class="card"><div class="c-lbl">クレカ延滞率</div><div class="c-val red" id="ur-delinquency">約7%</div><div class="c-sub">カード90日以上延滞への移行率 / NY Fed Q2 2026（推計・要再確認）</div></div>
+      <div class="card"><div class="c-lbl">家計総債務</div><div class="c-val" id="ur-debt">$18.8兆</div><div class="c-sub">Q2 2026 NY Fed</div></div>
       <div class="card"><div class="c-lbl">住宅費負担世帯</div><div class="c-val red" id="ur-housing-burden">49%</div><div class="c-sub">収入30%超 / 3年連続最高</div></div>
       <div class="card"><div class="c-lbl">深刻負担世帯</div><div class="c-val red" id="ur-severe-burden">26%</div><div class="c-sub">収入50%超が家賃に</div></div>
-      <div class="card"><div class="c-lbl">GDP成長率（推計）</div><div class="c-val green" id="ur-gdp">+2.0%</div><div class="c-sub">公式統計 ↔️ 感情最低の乖離</div></div>
+      <div class="card"><div class="c-lbl">GDP成長率（推計）</div><div class="c-val green" id="ur-gdp">+2.2%</div><div class="c-sub">公式統計 ↔️ 感情最低の乖離</div></div>
     </div>
 
     <div class="g2" style="gap:1rem;margin-bottom:1rem">
@@ -1183,7 +1183,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
         アンカリング効果（Kahneman）により、消費者は「以前知っていた価格」ではなく
         「今感じている米国価格」を基準に判断します。実感インフレが公式より高い現在、
         沖縄のサービス価格の"お得感"は数値以上に増幅されています。
-        <br><strong style="color:var(--text)">→ 価格改定・新サービス導入は今が最適タイミング。</strong>
+        <br><strong style="color:var(--text)">→ 価格改定の判断は、割安帯（目安25〜55%・仮説C）と自社実績を確認してから。</strong>
       </div>
     </div>
 
@@ -2445,13 +2445,13 @@ function updateOverviewCards(){
       wtiNoteEl.style.color=wtiChgPct>=5?'#E8A000':wtiChgPct>=0?'#B8800A':'#4CAF50';
     }
   }
-  // FTO価格インデックス（コンボ¥15,800のドル換算 vs 米国アンカー）
+  // FTO価格インデックス（4D基本¥20,000のドル換算 vs 米国アンカー）
   var fxLive=S.fredVals['DEXJPUS']||S.fx||(MOCK.DEXJPUS||163.39);
-  var comboPriceUsd=Math.round(15800/fxLive);
+  var comboPriceUsd=Math.round(20000/fxLive);
   var ftoIdxEl=document.getElementById('ov-fto-idx');
-  if(ftoIdxEl) ftoIdxEl.textContent='$'+comboPriceUsd+' vs US$220';
+  if(ftoIdxEl) ftoIdxEl.textContent='$'+comboPriceUsd+' vs US$200';
   var ftoDiscEl=document.getElementById('ov-fto-disc');
-  if(ftoDiscEl){ var disc=Math.round((1-comboPriceUsd/220)*100); ftoDiscEl.textContent='米国比 '+disc+'%割安（¥15,800コンボ/生体）'; }
+  if(ftoDiscEl){ var disc=Math.round((1-comboPriceUsd/200)*100); ftoDiscEl.textContent='米国中央値比 '+disc+'%割安（4D基本¥20,000）'; }
   document.getElementById('ov-cpi').textContent = S.isMock
     ? (typeof S.lastGoodCpi==='number' ? S.lastGoodCpi.toFixed(1)+'%（フォールバック中・最終実測値）' : 'フォールバック中（数値なし）')
     : ((S.cpi!==null&&S.cpi!==undefined)?S.cpi.toFixed(1)+'%':'前年同月データなし');
@@ -2522,7 +2522,7 @@ function renderOverview(){
   // Auto memo
   var sig=S.signal; var memo='';
   if(sig==='GO') memo='<strong style="color:#00D4AA">▶ GO シグナル点灯中</strong> — USD/JPY '+fx.toFixed(2)+'（高水準）×失業率'+ur.toFixed(1)+'%（低水準）により、SOFA層の購買意欲は最高水準。FamilyTreeOkiへの積極マーケティング（英語SNS・基地内広告・口コミ促進）を推奨。上位パッケージ・記念日プランの前面訴求が有効。地政学インパクト+'+geoImpactPct().toFixed(1)+'%が推奨価格帯を上乗せ中。';
-  else if(sig==='WATCH') memo='<strong style="color:#F4C842">◎ WATCH シグナル</strong> — USD/JPY '+fx.toFixed(2)+'（やや高水準）。積極展開の準備フェーズ。英語対応強化、プロモーション素材整備、SOFA向けSNS運用を開始する好機。推奨価格帯は米国比で依然大幅割安。地政学インパクト+'+geoImpactPct().toFixed(1)+'%を訴求材料に。';
+  else if(sig==='WATCH') memo='<strong style="color:#F4C842">◎ WATCH シグナル</strong> — USD/JPY '+fx.toFixed(2)+'（やや高水準）。積極展開の準備フェーズ。英語対応強化、プロモーション素材整備、SOFA向けSNS運用を開始する好機。現行価格は米国比で割安帯（目安25〜55%・競合仮説C）に位置。価格は据え置き、共有訴求とUSBメモリー誘導を優先。地政学インパクト+'+geoImpactPct().toFixed(1)+'%を訴求材料に。';
   else memo='<strong style="color:#8899B0">▬ HOLD シグナル</strong> — 現状維持フェーズ。既存顧客のリテンション強化と英語対応品質向上に注力。経済指標の改善を週次モニタリング。コスト最適化を実施。';
   document.getElementById('auto-memo').innerHTML=memo;
 }
@@ -2606,6 +2606,8 @@ function runSim(){
   var geoFactor=1.075;
   var recLow =Math.round(bt.usLow *fx*0.60*geoFactor*cpiAdj);
   var recHigh=Math.round(bt.usHigh*fx*0.85*geoFactor*cpiAdj*(0.8+seg.prem/100*0.3));
+  /* [2026-10-31] 割安率25%以上を保つため上限は米国中央値アンカー×0.75でキャップ（仮説C） */
+  var _capHigh=Math.round((bt.usLow+bt.usHigh)/2*cpiAdj*fx*0.75); if(recHigh>_capHigh) recHigh=_capHigh;
   var usMid  =(bt.usLow+bt.usHigh)/2*cpiAdj;
   var usAnchorJPY=Math.round(usMid*fx);
   var inputUSD=inputJPY/fx;
@@ -2648,7 +2650,7 @@ function runSim(){
 
   // 経営推奨アクション
   var action,actionColor;
-  if(priceHeadroom>20000&&score>=70){ action='✅ 値上げ余地あり — 積極的値上げ推奨'; actionColor='#00D4AA'; }
+  if(priceHeadroom>20000&&score>=70){ action='✅ 値上げ余地あり — 帯上限内で段階的に検討'; actionColor='#00D4AA'; }
   else if(priceHeadroom>0&&score>=55){ action='💡 適正価格帯 — パッケージ強化で単価UP'; actionColor='#4ADE80'; }
   else if(priceHeadroom>=0&&score>=40){ action='⚠️ 現状維持 — 訴求強化が先'; actionColor='#F4C842'; }
   else if(priceHeadroom<0&&score>=55){ action='📦 パッケージ見直し — 単価下げかオプション整理'; actionColor='#FF7F50'; }
@@ -2680,11 +2682,11 @@ function runSim(){
   memo+='【'+seg.label+' '+seg.sub+'】'+seg.desc+'<br>';
   memo+='<span style="color:var(--muted)">USD/JPY '+fx.toFixed(2)+'</span> — 米国相場(CPI補正)の円換算は ¥'+usAnchorJPY.toLocaleString()+'。';
   if(valueRatio>1.5){
-    memo+='入力価格 ¥'+inputJPY.toLocaleString()+' は米国比 <strong>'+valueRatio.toFixed(1)+'倍割安</strong>。';
+    memo+='入力価格 ¥'+inputJPY.toLocaleString()+' は米国中央値の円換算比 <strong>約'+Math.round((1-1/valueRatio)*100)+'%割安</strong>（目安25〜55%・仮説C）。';
     if(priceHeadroom>0) memo+='推奨帯上限(¥'+recHigh.toLocaleString()+')まで <strong>¥'+priceHeadroom.toLocaleString()+'の値上げ余地</strong>あり。';
   } else if(valueRatio>1.0){
     memo+='入力価格は米国比で割安（'+valueRatio.toFixed(2)+'x）。';
-    memo+='「米国の'+valueRatio.toFixed(1)+'倍高いサービスを沖縄価格で」を訴求材料に。';
+    memo+='「家族と共有できる記念」を軸に訴求（安さ訴求は避ける）。';
   } else {
     memo+='入力価格は米国比でやや割高（'+valueRatio.toFixed(2)+'x）。';
     memo+='ターゲット層の価格感度（'+seg.sens+'）を考慮したパッケージ設計を推奨。';
@@ -3046,7 +3048,7 @@ function renderMil(){
     document.getElementById('e4-income').textContent = '$' + e4Seg.monthly.toLocaleString() + '/mo';
     if(e4OHA) {
       var ohaJpy = Math.round(e4OHA.rentUsd * fx);
-      document.getElementById('e4-oha').textContent = '$' + e4OHA.rentUsd + '/mo';
+      document.getElementById('e4-oha').textContent = '$' + e4OHA.rentUsd + '/mo'; var _s=document.getElementById('e4-oha-sub'); if(_s) _s.textContent='＝約¥'+ohaJpy.toLocaleString()+'（賃料部分・現在レート換算／公式OHAの最新額は要確認）';
     }
   }
 }
@@ -4073,7 +4075,7 @@ function renderPCS() {
       icon: '🎖️',
       desc: '帯同家族（3年勤務）',
       items: [
-        { arrive: (yr-3) + '年6月着任', depart: yr + '年6月帰国', active: true, note: '← 今まさに帰国中！' },
+        { arrive: (yr-3) + '年6月着任', depart: yr + '年6月帰国', active: true, note: '← 今夏帰国（ピーク6〜8月）' },
         { arrive: (yr-2) + '年6月着任', depart: (yr+1) + '年6月帰国', active: false, note: '来年夏に帰国予定' },
         { arrive: (yr-1) + '年6月着任', depart: (yr+2) + '年6月帰国', active: false, note: '再来年夏に帰国予定' }
       ]
@@ -4084,7 +4086,7 @@ function renderPCS() {
       icon: '🪖',
       desc: '単独→家族合流（2年）',
       items: [
-        { arrive: (yr-2) + '年6月着任', depart: yr + '年6月帰国', active: true, note: '← 今まさに帰国中！' },
+        { arrive: (yr-2) + '年6月着任', depart: yr + '年6月帰国', active: true, note: '← 今夏帰国（ピーク6〜8月）' },
         { arrive: (yr-1) + '年6月着任', depart: (yr+1) + '年6月帰国', active: false, note: '来年夏に帰国予定' }
       ]
     },
@@ -4117,7 +4119,7 @@ function renderPCS() {
   ftoEl.innerHTML = [
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">',
     '<div style="background:rgba(0,0,0,0.25);border-radius:8px;padding:12px">',
-    '<div style="font-size:11px;font-weight:700;color:#ef4444;margin-bottom:8px">📌 なぜ今（2026年6月）帰国が増えているか</div>',
+    '<div style="font-size:11px;font-weight:700;color:#ef4444;margin-bottom:8px">📌 夏（6〜8月）に帰国が集中する理由</div>',
     '<div style="font-size:11px;color:var(--text-secondary);line-height:1.8">',
     '① <strong style="color:var(--text)">3年ツアー組（2023年6月着任）</strong>が今夏に帰国ピーク<br>',
     '② <strong style="color:var(--text)">2年ツアー組（2024年6月着任）</strong>も今夏に帰国ピーク<br>',
@@ -4224,7 +4226,7 @@ function renderUSReality(){
   // SOFA保護指数計算
   // 典型的米国家族支出構成（BLS 2024）
   var protectionItems=[
-    {label:'住宅費（OHA全額カバー）',  pct:36, protected:true,  note:'家賃ゼロ負担 / OHA月¥2,461+'},
+    {label:'住宅費（OHA全額カバー）',  pct:36, protected:true,  note:'家賃ゼロ負担 / OHA月$2,461+（E-4扶養あり）'},
     {label:'医療費（TriCare完全適用）', pct:7,  protected:true,  note:'SOFA協定医療無償'},
     {label:'輸送費（基地ガソリン補助）',pct:10, protected:0.67, note:'BX/AAFES価格 約33%割引'},
     {label:'食料費（Commissary割引）',  pct:13, protected:0.30, note:'コミサリー約30%オフ'},
@@ -4312,7 +4314,7 @@ function renderUSReality(){
       icon:'📈', title:'価格改定ウィンドウ',
       status: discount>40?'GO':'WATCH',
       color:'var(--teal)',
-      body:'米国体感インフレ上昇により沖縄サービスの相対価値が高まっています。価格引き上げはSOFA家族の「割安感」を損なわない現在が最適タイミングです。'
+      body:'米国体感インフレ上昇により沖縄サービスの相対価値が高まっています。価格調整は割安帯（25〜55%・仮説C）の範囲内で、実績を見て慎重に判断してください。'
     },
     {
       icon:'💡', title:'マーケティング訴求軸',
