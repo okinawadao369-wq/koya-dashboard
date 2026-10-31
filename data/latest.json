@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T01:06:13.337987Z",
+  "updated": "2026-10-31T05:40:01.721213Z",
   "series": {
     "DEXJPUS": [
       {
@@ -767,10 +767,10 @@
     "T10YIE": 2.34,
     "UMCSENT": 48.1,
     "GS2": 4.65,
-    "DCOILWTICO": 102.95,
+    "DCOILWTICO": 104.12,
     "VIX": 19.42,
     "SP500": 7580.07,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 10:05 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 14:39 JST"
   },
   "prev_latest": {
     "DEXJPUS": 157.52,
@@ -786,7 +786,7 @@
     "DCOILWTICO": 102.95,
     "VIX": 19.42,
     "SP500": 7580.07,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 09:55 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 10:05 JST"
   },
   "deltas": {
     "DEXJPUS": null,
@@ -799,7 +799,7 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": null,
+    "DCOILWTICO": 1.17,
     "VIX": null,
     "SP500": null
   },
@@ -865,7 +865,7 @@
     },
     {
       "level": "red",
-      "indicator": "WTI原油 $102.95",
+      "indicator": "WTI原油 $104.12",
       "message": "高値。燃料・物流コスト上昇。価格転嫁を検討。"
     },
     {
