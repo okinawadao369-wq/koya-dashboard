@@ -1085,7 +1085,7 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
       <div class="card"><div class="c-lbl">家計総債務</div><div class="c-val" id="ur-debt">$18.8兆</div><div class="c-sub">Q2 2026 NY Fed</div></div>
       <div class="card"><div class="c-lbl">住宅費負担世帯</div><div class="c-val red" id="ur-housing-burden">49%</div><div class="c-sub">収入30%超 / 3年連続最高</div></div>
       <div class="card"><div class="c-lbl">深刻負担世帯</div><div class="c-val red" id="ur-severe-burden">26%</div><div class="c-sub">収入50%超が家賃に</div></div>
-      <div class="card"><div class="c-lbl">GDP成長率（推計）</div><div class="c-val green" id="ur-gdp">+2.2%</div><div class="c-sub">公式統計 ↔️ 感情最低の乖離</div></div>
+      <div class="card"><div class="c-lbl">GDP成長率</div><div class="c-val green" id="ur-gdp">+2.2%</div><div class="c-sub">BEA Q2 2026（自動更新待ち）</div></div>
     </div>
 
     <div class="g2" style="gap:1rem;margin-bottom:1rem">
@@ -1899,7 +1899,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       <div id="cmp-ladder-body"></div>
       <div style="margin-top:8px"><b>判断（採用）：</b>4Dは値上げせず据え置き。USBメモリー（+¥3,000でデータUSB付き）を「おすすめ」にし、訴求は「安さ」ではなく「本国の家族・配備中の夫と共有できる思い出」。医療・健康の効果を示す表現は使わない。</div>
       <div style="color:var(--muted);margin-top:4px">健全レンジ25〜55%は初期仮説、4D米国アンカー$100〜300は2026/10再検索の中央値（いずれも競合仮説C）。2D ¥15,000は上端（約25%）に接しており値上げ余地なし。</div>
-      <div style="color:var(--gold);margin-top:4px">⚠ 米国防総省は2026年7月、日本のCOLA削減・一部支給ゼロを発表。軍人・軍属タブの月収表のCOLAは未更新（沖縄の確定額は未確認）。</div>
+      <div style="color:var(--gold);margin-top:4px">ℹ 沖縄COLA指数は104（DTMO 2026-10-01版・事実A）。月額は扶養1名で約$111、扶養2名で約$117（基本給ベースの推計B）。軍人・軍属タブの月収表に反映済み。</div>
     </div>
   </div>
 </div>
@@ -1939,17 +1939,17 @@ var AREAS = [
   {name:'恩納・北谷海岸・観光導線',   pct:5, bases:'Leisure / PCS memory',note:'家族写真・記念品・沖縄体験に強い。',color:'#A78BFA'}
 ];
 
-// SEGS月収: DFAS2026基本給+OHA沖縄2026年5月改定後実勢値（扶養あり）+COLA
+// SEGS月収: DFAS2026基本給+OHA沖縄2026年5月改定後実勢値（扶養あり）+COLA（2026-10-31: COLAを旧$460→DTMO指数104ベース約$111に補正、各-$349）
 var SEGS = [
-  {id:'E1E3',label:'E-1〜E-3',sub:'若年・価格敏感',monthly:5500,sens:1.4,prem:52,color:'#60A5FA',e4pop:0,
+  {id:'E1E3',label:'E-1〜E-3',sub:'若年・価格敏感',monthly:5151,sens:1.4,prem:52,color:'#60A5FA',e4pop:0,
    desc:'低単価・即決・友人紹介。飲食、車、娯楽、低価格体験に反応。SNSシェア層として口コミ起点になりやすい。'},
-  {id:'E4',label:'E-4',sub:'兵長・家族移行期 ★',monthly:6051,sens:1.2,prem:68,color:'#34D399',e4pop:6900,
+  {id:'E4',label:'E-4',sub:'兵長・家族移行期 ★',monthly:5702,sens:1.2,prem:68,color:'#34D399',e4pop:6900,
    desc:'【FamilyTreeOki優先セグメント】妊娠・出産・育児開始期に重なる消費ピーク層。4Dエコー・産後ケア・ニューボーン写真への支出意欲が最も高い。OHA余力ありで体験型サービスに積極的。'},
-  {id:'E4E6',label:'E-5〜E-6',sub:'中堅ファミリー',monthly:6700,sens:0.95,prem:86,color:'#00D4AA',e4pop:0,
+  {id:'E4E6',label:'E-5〜E-6',sub:'中堅ファミリー',monthly:6351,sens:0.95,prem:86,color:'#00D4AA',e4pop:0,
    desc:'妊婦、乳幼児、家族写真、外食、記念体験の中心層。FamilyTreeOkiの主戦場。月次消費が最も厚い。'},
-  {id:'E7E9',label:'E-7〜E-9',sub:'シニアNCO',monthly:7800,sens:0.7,prem:91,color:'#F4C842',e4pop:0,
+  {id:'E7E9',label:'E-7〜E-9',sub:'シニアNCO',monthly:7451,sens:0.7,prem:91,color:'#F4C842',e4pop:0,
    desc:'価格より信頼・評判・紹介・プライバシー重視。高単価パッケージへの反応が良い。'},
-  {id:'O1O4',label:'O-1〜O-4',sub:'士官層',monthly:8400,sens:0.5,prem:95,color:'#A78BFA',e4pop:0,
+  {id:'O1O4',label:'O-1〜O-4',sub:'士官層',monthly:8051,sens:0.5,prem:95,color:'#A78BFA',e4pop:0,
    desc:'高LTV。家族向け、写真、産前産後、ウェルネス、教育に強い。'},
   {id:'DODGS',label:'DoD/GS',sub:'軍属・民間',monthly:6200,sens:0.6,prem:93,color:'#FF7F50',e4pop:0,
    desc:'民間消費に近い意思決定。品質・レビュー・英語導線・予約の簡単さが重要。'}
@@ -1987,20 +1987,31 @@ var CAT_LABELS = {
 
 // 基本給: DFAS 2026公式(3.8%増, <2yr〜2yr代表値)
 // OHA: 沖縄2026/5/16増額後 賃貸+公共料金(扶養あり) 出典:Stars&Stripes 2026/5/11
+// [2026-10-31] 沖縄COLA: DTMO OCONUS COLA Indices 2026-10-01版で Okinawa(JP027)=104（事実A・observed）。
+// 月額 = 年間可処分所得(Spendable Income, CY2026表・扶養者数別) × (指数-100)/100 ÷ 12（FMR Vol7A Ch68 Table68-8/68-9）。
+// 年間報酬は基本給×12で近似（推計B）。扶養1名(配偶者)を既定、括弧内は扶養2名。正確な額は各自LES/DTMO計算機で確認。
+var COLA_OKI = {index:104, eff:'2026-10-01', src:'DTMO OCONUS COLA Indices (2026-10-01)',
+  spend:[{max:74999,s:[31680,33440,35200,36960]},{max:79999,s:[32850,34675,36500,38325]},{max:84999,s:[33930,35815,37700,39585]},{max:89999,s:[35010,36955,38900,40845]},{max:94999,s:[36090,38095,40100,42105]}]};
+function colaMonthly(basePayMonthly, deps){
+  var annual=basePayMonthly*12, row=COLA_OKI.spend[COLA_OKI.spend.length-1];
+  for(var i=0;i<COLA_OKI.spend.length;i++){ if(annual<=COLA_OKI.spend[i].max){ row=COLA_OKI.spend[i]; break; } }
+  var d=Math.max(0,Math.min(3,deps==null?1:deps));
+  return Math.round(row.s[d]*(COLA_OKI.index-100)/100/12);
+}
 var PAY = [
-  {g:'E-1',t:'二等兵',  b:2397,h:2461,a:460},
-  {g:'E-2',t:'一等兵',  b:2687,h:2461,a:460},
-  {g:'E-3',t:'上等兵',  b:2826,h:2461,a:460},
-  {g:'E-4',t:'兵長',    b:3130,h:2461,a:460},
-  {g:'E-5',t:'軍曹',    b:3325,h:2605,a:460},
-  {g:'E-6',t:'一等軍曹',b:3743,h:2767,a:460},
-  {g:'E-7',t:'上級軍曹',b:4292,h:2767,a:460},
-  {g:'W-1',t:'准尉1',   b:4057,h:2767,a:460},
-  {g:'W-2',t:'准尉2',   b:4622,h:2900,a:460},
-  {g:'O-1',t:'少尉',    b:4150,h:2605,a:460},
-  {g:'O-2',t:'中尉',    b:4782,h:2605,a:460},
-  {g:'O-3',t:'大尉',    b:5534,h:2767,a:460},
-  {g:'O-4',t:'少佐',    b:6295,h:2900,a:460}
+  {g:'E-1',t:'二等兵',  b:2397,h:2461,a:colaMonthly(2397,1)},
+  {g:'E-2',t:'一等兵',  b:2687,h:2461,a:colaMonthly(2687,1)},
+  {g:'E-3',t:'上等兵',  b:2826,h:2461,a:colaMonthly(2826,1)},
+  {g:'E-4',t:'兵長',    b:3130,h:2461,a:colaMonthly(3130,1)},
+  {g:'E-5',t:'軍曹',    b:3325,h:2605,a:colaMonthly(3325,1)},
+  {g:'E-6',t:'一等軍曹',b:3743,h:2767,a:colaMonthly(3743,1)},
+  {g:'E-7',t:'上級軍曹',b:4292,h:2767,a:colaMonthly(4292,1)},
+  {g:'W-1',t:'准尉1',   b:4057,h:2767,a:colaMonthly(4057,1)},
+  {g:'W-2',t:'准尉2',   b:4622,h:2900,a:colaMonthly(4622,1)},
+  {g:'O-1',t:'少尉',    b:4150,h:2605,a:colaMonthly(4150,1)},
+  {g:'O-2',t:'中尉',    b:4782,h:2605,a:colaMonthly(4782,1)},
+  {g:'O-3',t:'大尉',    b:5534,h:2767,a:colaMonthly(5534,1)},
+  {g:'O-4',t:'少佐',    b:6295,h:2900,a:colaMonthly(6295,1)}
 ];
 
 // GEOスコア: 2026年6月時点データを基盤に、2026年8月31日にWebSearchで裏付け再確認（一部記述更新）
@@ -2338,6 +2349,10 @@ function applyData(data,isMock){
   }
   S.ahe=data.fredVals&&data.fredVals.AHETPI?data.fredVals.AHETPI:32.23;
   S.fredVals=data.fredVals||{};
+  // [2026-10-31] FREDのUMCSENTは約1か月遅れ。fred-data.jsonのumich（ミシガン大学公式CSV）が新しければ採用。
+  S.umichDate=null;
+  try{ var _um=_dataJsonCache&&_dataJsonCache.umich;
+    if(_um&&_um.newer_than_fred&&typeof _um.value==='number'){ S.fredVals['UMCSENT']=_um.value; S.umichDate=_um.date; } }catch(e){}
   // koya_score・deltas・alertsをfredDataJsonから読み込む
   if(_dataJsonCache){
     S.koyaScore=typeof _dataJsonCache.koya_score==='number'?_dataJsonCache.koya_score:null;
@@ -3063,6 +3078,7 @@ function obsDateLabel(id){
   if(!dj||!dj.series||!dj.series[id]||!dj.series[id].length) return '—';
   var liveIds={DEXJPUS:1,DCOILWTICO:1,VIX:1,SP500:1};
   if(liveIds[id]&&dj.updated) return dj.updated.slice(0,10)+' (Live)';
+  if(id==='UMCSENT'&&S.umichDate) return S.umichDate.slice(0,7)+' (月次・UMich公式)';
   var m=dj.series[id].reduce(function(a,p){return p.date>a?p.date:a;},'');
   var monthly={FEDFUNDS:1,UNRATE:1,CPIAUCSL:1,CPIFABSL:1,AHETPI:1,UMCSENT:1,GS2:1};
   return monthly[id]?m.slice(0,7)+' (月次)':m;
@@ -3620,60 +3636,60 @@ var RANK_INCOME_DATA = {
     {item:'OHA 家賃手当',usd:1799,note:'扶養あり・沖縄'},
     {item:'OHA 光熱費',usd:661,note:'固定額'},
     {item:'BAS(食費手当)',usd:460,note:''},
-    {item:'COLA(生活費調整)',usd:180,note:'沖縄海外COLA'},
-    {item:'月間総収入',usd:5794,bold:true},
+    {item:'COLA(生活費調整)',usd:111,note:'DTMO指数104(2026-10-01)・扶養1名'},
+    {item:'月間総収入',usd:5725,bold:true},
     {item:'OHA支出(家賃想定)',usd:-2200,red:true,note:'実勢平均'},
-    {item:'可処分(推定)',usd:2394,bold:true,green:true,note:'税・保険控除後'}
+    {item:'可処分(推定)',usd:2325,bold:true,green:true,note:'税・保険控除後'}
   ],
   1:[  // E-4 ★
     {item:'基本給',usd:3138,note:'E-4 2025年度'},
     {item:'OHA 家賃手当',usd:1850,note:'扶養あり・沖縄'},
     {item:'OHA 光熱費',usd:661,note:'固定額'},
     {item:'BAS(食費手当)',usd:460,note:''},
-    {item:'COLA(生活費調整)',usd:220,note:'沖縄海外COLA'},
-    {item:'月間総収入',usd:6329,bold:true},
+    {item:'COLA(生活費調整)',usd:111,note:'DTMO指数104(2026-10-01)・扶養1名'},
+    {item:'月間総収入',usd:6220,bold:true},
     {item:'OHA支出(家賃想定)',usd:-2250,red:true,note:'中部3BR実勢'},
-    {item:'可処分(推定)',usd:3079,bold:true,green:true,note:'税・保険控除後'}
+    {item:'可処分(推定)',usd:2970,bold:true,green:true,note:'税・保険控除後'}
   ],
   2:[  // E5/O1/O2
     {item:'基本給',usd:3700,note:'E-5/O-2平均'},
     {item:'OHA 家賃手当',usd:1943,note:'扶養あり・沖縄'},
     {item:'OHA 光熱費',usd:661,note:'固定額'},
     {item:'BAS(食費手当)',usd:460,note:''},
-    {item:'COLA(生活費調整)',usd:250,note:'沖縄海外COLA'},
-    {item:'月間総収入',usd:7014,bold:true},
+    {item:'COLA(生活費調整)',usd:111,note:'DTMO指数104(2026-10-01)・扶養1名'},
+    {item:'月間総収入',usd:6875,bold:true},
     {item:'OHA支出(家賃想定)',usd:-2400,red:true,note:'推奨帯中央値'},
-    {item:'可処分(推定)',usd:3414,bold:true,green:true,note:'税・保険控除後'}
+    {item:'可処分(推定)',usd:3275,bold:true,green:true,note:'税・保険控除後'}
   ],
   3:[  // E6/O3
     {item:'基本給',usd:4200,note:'E-6/O-3平均'},
     {item:'OHA 家賃手当',usd:2105,note:'扶養あり・沖縄'},
     {item:'OHA 光熱費',usd:661,note:'固定額'},
     {item:'BAS(食費手当)',usd:460,note:''},
-    {item:'COLA(生活費調整)',usd:280,note:'沖縄海外COLA'},
-    {item:'月間総収入',usd:7706,bold:true},
+    {item:'COLA(生活費調整)',usd:111,note:'DTMO指数104(2026-10-01)・扶養1名'},
+    {item:'月間総収入',usd:7537,bold:true},
     {item:'OHA支出(家賃想定)',usd:-2700,red:true,note:'推奨帯中央値'},
-    {item:'可処分(推定)',usd:3806,bold:true,green:true,note:'税・保険控除後'}
+    {item:'可処分(推定)',usd:3637,bold:true,green:true,note:'税・保険控除後'}
   ],
   4:[  // E9/O5/GS
     {item:'基本給',usd:5200,note:'E-9/O-5平均'},
     {item:'OHA 家賃手当',usd:2500,note:'扶養あり・沖縄'},
     {item:'OHA 光熱費',usd:661,note:'固定額'},
     {item:'BAS(食費手当)',usd:460,note:''},
-    {item:'COLA(生活費調整)',usd:350,note:'沖縄海外COLA'},
-    {item:'月間総収入',usd:9171,bold:true},
+    {item:'COLA(生活費調整)',usd:111,note:'DTMO指数104(2026-10-01)・扶養1名'},
+    {item:'月間総収入',usd:8932,bold:true},
     {item:'OHA支出(家賃想定)',usd:-3500,red:true,note:'推奨帯中央値'},
-    {item:'可処分(推定)',usd:4871,bold:true,green:true,note:'税・保険控除後'}
+    {item:'可処分(推定)',usd:4632,bold:true,green:true,note:'税・保険控除後'}
   ],
   5:[  // O6+
     {item:'基本給',usd:7000,note:'O-6平均'},
     {item:'OHA 家賃手当',usd:3000,note:'扶養あり・沖縄'},
     {item:'OHA 光熱費',usd:661,note:'固定額'},
     {item:'BAS(食費手当)',usd:460,note:''},
-    {item:'COLA(生活費調整)',usd:450,note:'沖縄海外COLA'},
-    {item:'月間総収入',usd:11571,bold:true},
+    {item:'COLA(生活費調整)',usd:119,note:'DTMO指数104(2026-10-01)・扶養1名'},
+    {item:'月間総収入',usd:11240,bold:true},
     {item:'OHA支出(家賃想定)',usd:-5000,red:true,note:'推奨帯中央値'},
-    {item:'可処分(推定)',usd:6271,bold:true,green:true,note:'税・保険控除後'}
+    {item:'可処分(推定)',usd:5940,bold:true,green:true,note:'税・保険控除後'}
   ]
 };
 
@@ -4191,7 +4207,7 @@ function renderUSReality(){
   if (umKpi) {
     umKpi.textContent = umcsent.toFixed(1);
     var umSub = umKpi.nextElementSibling;
-    if (umSub) umSub.textContent = 'FRED UMCSENT 最新値';
+    if (umSub) umSub.textContent = S.umichDate ? ('UMich公式 '+S.umichDate.slice(0,7)+'（FRED未反映分）') : 'FRED UMCSENT 最新値';
   }
   var cpiKpi = document.getElementById('ur-cpi-official');
   if (cpiKpi) {
@@ -4199,6 +4215,21 @@ function renderUSReality(){
     var cpiSub = cpiKpi.nextElementSibling;
     if (cpiSub) cpiSub.textContent = 'FRED CPIAUCSL 前年比';
   }
+  // [2026-10-31] 静的だった家計ストレス系カードをfred-data.json(us_reality)から自動更新
+  try{
+    var _ur=_dataJsonCache&&_dataJsonCache.us_reality;
+    var _q=function(d){ if(!d) return ''; var y=d.slice(0,4), m=parseInt(d.slice(5,7),10); return y+' Q'+(Math.floor((m-1)/3)+1); };
+    if(_ur&&_ur.DRCCLACBS&&typeof _ur.DRCCLACBS.value==='number'){
+      var _de=document.getElementById('ur-delinquency');
+      if(_de){ _de.textContent=_ur.DRCCLACBS.value.toFixed(2)+'%';
+        var _ds=_de.nextElementSibling; if(_ds) _ds.textContent='カード延滞率(米商業銀行・季調) FRED '+_q(_ur.DRCCLACBS.date)+(typeof _ur.DRCCLACBS.prev==='number'?'／前期'+_ur.DRCCLACBS.prev.toFixed(2)+'%':''); }
+    }
+    if(_ur&&_ur.A191RL1Q225SBEA&&typeof _ur.A191RL1Q225SBEA.value==='number'){
+      var _ge=document.getElementById('ur-gdp');
+      if(_ge){ var _gv=_ur.A191RL1Q225SBEA.value; _ge.textContent=(_gv>=0?'+':'')+_gv.toFixed(1)+'%';
+        var _gs=_ge.nextElementSibling; if(_gs) _gs.textContent='実質GDP(前期比年率) BEA/FRED '+_q(_ur.A191RL1Q225SBEA.date); }
+    }
+  }catch(e){ console.warn('us_reality bind',e); }
   var gapKpi = document.getElementById('ur-cpi-gap');
   if (gapKpi) {
     gapKpi.textContent = '+' + (5 - cpi).toFixed(1) + '〜' + (7 - cpi).toFixed(1) + 'pp';
