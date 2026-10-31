@@ -1070,6 +1070,20 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
     <div class="sec-title">米国消費者実態モジュール — 官民データ乖離インテリジェンス</div>
     <div class="sec-sub">政府公式統計と生活実感の乖離・SOFA保護指数・価格心理プレミアムを横断分析し経営判断に直結させる</div>
 
+    <!-- [2026-10-31追加] 中東→インフレ経路アラート & 部門別機能診断 -->
+    <div class="box" id="ur-mideast-box" style="border:1px solid rgba(255,77,106,.35);margin-bottom:1rem">
+      <div class="box-title" style="color:var(--red,#FF4D6A)">⚠ 中東（ホルムズ海峡）→ 米国インフレ経路アラート <span class="badge" id="ur-mideast-level">--</span></div>
+      <div id="ur-mideast-body" style="font-size:12px;line-height:1.8;color:var(--text-secondary)">--</div>
+    </div>
+    <div class="box" style="margin-bottom:1.2rem">
+      <div class="box-title">米国経済 部門別機能診断 <span class="badge">11部門</span> <span class="verif-badge verif-est">判定=2026-10-31調査（月次見直し）・数値=FRED自動更新</span></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th>部門</th><th>状態</th><th>根拠となる数字</th><th>観測日</th><th>証拠</th></tr></thead>
+        <tbody id="ur-sector-tbody"></tbody>
+      </table></div>
+      <div class="src-note">詳細レポート: <a href="https://claude.ai/artifact/Pmm8pUVx9YLiwo38tWx5MC" target="_blank" rel="noopener">米国経済の機能診断 2026年10月</a>。「自動」=fred-data.jsonから日次更新、「調査」=2026-10-31時点の報道・業界統計（stale化に注意）。状態判定は数値の自動閾値ではなく調査時点の判断（強い推論B）。</div>
+    </div>
+
     <!-- KPI Cards Row 1: 官民乖離 -->
     <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(155px,1fr));margin-bottom:.75rem">
       <div class="card"><div class="c-lbl">CPI公式（前年比）</div><div class="c-val blue" id="ur-cpi-official">--</div><div class="c-sub">FRED CPIAUCSL 前年比</div></div>
@@ -4188,6 +4202,50 @@ function renderPCS() {
   }).join('');
 }
 
+
+// [2026-10-31追加] 部門別機能診断 & 中東→インフレ経路アラート
+function renderSectorDiag(){
+  try{
+    var dj=_dataJsonCache||{}, ur=dj.us_reality||{}, L=dj.latest||{};
+    var g=function(id){ return ur[id]&&typeof ur[id].value==='number'?ur[id]:null; };
+    var q=function(d){ if(!d) return '—'; return d.slice(0,10); };
+    var cpiYoY=(typeof S.cpi==='number')?S.cpi:null;
+    var pay=g('PAYEMS'), hs=g('HOUST'), mg=g('MORTGAGE30US'), ds=g('GASDESW'), br=g('DCOILBRENTEU'), cc=g('CPILFESL'), cp=g('PCEPILFE'), dq=g('DRCCLACBS'), gdp=g('A191RL1Q225SBEA');
+    var wti=(typeof L.DCOILWTICO==='number')?L.DCOILWTICO:null;
+    var um=(S.fredVals&&typeof S.fredVals.UMCSENT==='number')?S.fredVals.UMCSENT:null;
+    var COL={'良好':'#00D4AA','機能（コスト高）':'#4ADE80','横ばい':'#F4C842','鈍化':'#FF7F50','機能不全':'#FF4D6A'};
+    var rows=[
+      {s:'AI・データセンター投資',st:'良好',v:'4社計 約$7,300億（前年比+60%）。決算後に株価急落＝回収への疑問',d:'2026-10-29',e:'調査・B'},
+      {s:'銀行の収益',st:'良好',v:'FDIC Q2 純利益$901億、問題銀行47行',d:'2026-08-25',e:'調査・B'},
+      {s:'陸運（トラック・鉄道）',st:'機能（コスト高）',v:'Cass出荷+1.9%・運賃+10.1%、AAR鉄道+8.5%'+(ds?'／軽油 $'+ds.value.toFixed(2)+'/gal':''),d:ds?q(ds.date):'2026-10-17',e:ds?'自動+調査':'調査・B'},
+      {s:'海運（コンテナ）',st:'機能（コスト高）',v:'上海→LA $7,835/FEU（ホルムズ危機後のピーク圏）',d:'2026-10-01',e:'調査・B'},
+      {s:'マクロ成長',st:'横ばい',v:gdp?('実質GDP '+(gdp.value>=0?'+':'')+gdp.value.toFixed(1)+'%（前期比年率）'):'GDP --',d:gdp?q(gdp.date):'—',e:'自動・A'},
+      {s:'クレジットカード返済',st:'横ばい',v:dq?('延滞率 '+dq.value.toFixed(2)+'%（前期'+(typeof dq.prev==='number'?dq.prev.toFixed(2):'--')+'%）'):'--',d:dq?q(dq.date):'—',e:'自動・A'},
+      {s:'商業不動産',st:'横ばい',v:'CMBS延滞8.02%、オフィス12.16%（Trepp 9月）',d:'2026-09-30',e:'調査・B'},
+      {s:'雇用',st:'鈍化',v:pay&&typeof pay.prev==='number'?('雇用者数 前月比 '+((pay.value-pay.prev)>=0?'+':'')+Math.round(pay.value-pay.prev).toLocaleString()+'千人'):'雇用 --',d:pay?q(pay.date):'—',e:'自動・A'},
+      {s:'インフレ（物価安定）',st:'鈍化',v:'CPI '+(cpiYoY!==null?cpiYoY.toFixed(1)+'%':'--')+(cc&&typeof cc.yoy==='number'?'／コアCPI '+cc.yoy.toFixed(1)+'%':'')+(cp&&typeof cp.yoy==='number'?'／コアPCE '+cp.yoy.toFixed(1)+'%':''),d:cc?q(cc.date):'—',e:'自動・A'},
+      {s:'消費者心理',st:'鈍化',v:'ミシガン大 '+(um!==null?um.toFixed(1):'--'),d:S.umichDate?S.umichDate.slice(0,7):'—',e:'自動・A'},
+      {s:'住宅建設・取引',st:'機能不全',v:(hs?'着工 '+Math.round(hs.value).toLocaleString()+'千戸（年率）':'着工 --')+(mg?'／30年ローン '+mg.value.toFixed(2)+'%':''),d:hs?q(hs.date):'—',e:'自動・A'}
+    ];
+    var tb=document.getElementById('ur-sector-tbody');
+    if(tb) tb.innerHTML=rows.map(function(r){ var c=COL[r.st]||'#8899B0';
+      return '<tr><td>'+r.s+'</td><td><span style="color:'+c+';font-weight:700">● '+r.st+'</span></td><td style="font-size:11px">'+r.v+'</td><td class="mono" style="font-size:11px">'+r.d+'</td><td style="font-size:11px">'+r.e+'</td></tr>'; }).join('');
+    // 中東アラート: 原油・軽油の水準で警戒度を判定（閾値は仮置き・競合仮説C）
+    var oil=br?br.value:wti, lvl='WATCH', col='#F4C842';
+    if((oil!==null&&oil>=95)||(ds&&ds.value>=5)){ lvl='警戒'; col='#FF4D6A'; }
+    else if(oil!==null&&oil<80&&(!ds||ds.value<4.2)){ lvl='平常'; col='#4ADE80'; }
+    var le=document.getElementById('ur-mideast-level'); if(le){ le.textContent=lvl; le.style.background=col; le.style.color='#0B1220'; }
+    var b=document.getElementById('ur-mideast-body');
+    if(b) b.innerHTML='現在の米国インフレの主因は関税ではなく<strong style="color:var(--text)">中東（ホルムズ海峡）発のエネルギー衝撃</strong>。'
+      +'原油 '+(br?'ブレント $'+br.value.toFixed(2)+'（'+q(br.date)+'）':'')+(wti!==null?' / WTI $'+wti.toFixed(2):'')
+      +(ds?' ・ 軽油 $'+ds.value.toFixed(2)+'/gal（'+q(ds.date)+'）':'')+' ・ CPI '+(cpiYoY!==null?cpiYoY.toFixed(1)+'%':'--')+'<br>'
+      +'経路: ①原油→ガソリン（CPI直接） ②軽油→トラック運賃→食品・日用品 ③海運リスク→輸入品 ④企業の仕入価格（ISM 74〜78）→サービス価格 ⑤インフレ再燃→FRB利上げ→住宅・商業不動産の金利負担。<br>'
+      +'関税要因は縮小（IEEPA関税は2026/2/20に最高裁で違法判断、代替のSection 122は7/24失効。232・301は継続）。<br>'
+      +'<span style="color:var(--gold,#F4C842)">FTOへの含意:</span> 米国の体感物価高は「沖縄の方が割安」の比較を強めるが、訴求は安さではなく「家族と共有できる記念」。円安・米高金利でドル建て購買力は高水準。'
+      +'<span style="color:var(--muted,#8899B0)">（警戒度の閾値: 原油$95以上または軽油$5以上=警戒、原油$80未満かつ軽油$4.2未満=平常。仮置き・競合仮説C）</span>';
+  }catch(e){ console.warn('renderSectorDiag',e); }
+}
+
 function renderUSReality(){
   var fx = S.fx||MOCK.DEXJPUS||160.32;
   var umcsent = S.fredVals&&S.fredVals['UMCSENT'] ? S.fredVals['UMCSENT'] : (MOCK.UMCSENT||44.8);
@@ -4230,6 +4288,7 @@ function renderUSReality(){
         var _gs=_ge.nextElementSibling; if(_gs) _gs.textContent='実質GDP(前期比年率) BEA/FRED '+_q(_ur.A191RL1Q225SBEA.date); }
     }
   }catch(e){ console.warn('us_reality bind',e); }
+  renderSectorDiag();
   var gapKpi = document.getElementById('ur-cpi-gap');
   if (gapKpi) {
     gapKpi.textContent = '+' + (5 - cpi).toFixed(1) + '〜' + (7 - cpi).toFixed(1) + 'pp';
