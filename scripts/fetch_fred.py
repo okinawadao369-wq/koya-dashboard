@@ -353,16 +353,33 @@ def score_indicator(sid, value):
 # 補助系列(クレカ延滞率・実質GDP成長率)は四半期系列。取得失敗時は前回値を保持する。
 _prev_extra = dict(existing.get("us_reality", {}))
 us_reality = {}
+# [2026-10-31追加②] 部門別機能診断パネル用: 雇用・住宅・住宅ローン金利・軽油・ブレント・コアCPI・コアPCE
 for _sid, _label in [("DRCCLACBS", "クレジットカード延滞率(商業銀行・季調)"),
                      ("A191RL1Q225SBEA", "実質GDP成長率(前期比年率)"),
-                     ("TDSP", "家計債務返済比率(可処分所得比)")]:
+                     ("TDSP", "家計債務返済比率(可処分所得比)"),
+                     ("PAYEMS", "非農業部門雇用者数(千人)"),
+                     ("HOUST", "住宅着工(年率・千戸)"),
+                     ("MORTGAGE30US", "30年固定住宅ローン金利(%)"),
+                     ("GASDESW", "軽油小売価格(全米平均・$/gal)"),
+                     ("DCOILBRENTEU", "ブレント原油($/bbl)"),
+                     ("CPILFESL", "コアCPI(指数)"),
+                     ("PCEPILFE", "コアPCE(指数)")]:
     time.sleep(1.5)
-    _obs = fetch_fred(_sid, 4)
+    _obs = fetch_fred(_sid, 14)
     if _obs:
         _o = sorted(_obs, key=lambda x: x["date"], reverse=True)
-        us_reality[_sid] = {"label": _label, "value": _o[0]["value"], "date": _o[0]["date"],
-                            "prev": _o[1]["value"] if len(_o) > 1 else None,
-                            "source": "FRED", "status": "ok"}
+        _rec = {"label": _label, "value": _o[0]["value"], "date": _o[0]["date"],
+                "prev": _o[1]["value"] if len(_o) > 1 else None,
+                "source": "FRED", "status": "ok"}
+        # 前年同月比（月次指数系列のみ）: 12か月前の観測があれば計算
+        try:
+            _y, _m = int(_o[0]["date"][:4]), _o[0]["date"][5:7]
+            _ya = [p for p in _o if p["date"] == f"{_y-1}-{_m}-01"]
+            if _ya and _ya[0]["value"]:
+                _rec["yoy"] = round((_o[0]["value"] / _ya[0]["value"] - 1) * 100, 2)
+        except Exception:
+            pass
+        us_reality[_sid] = _rec
     elif _sid in _prev_extra:
         us_reality[_sid] = dict(_prev_extra[_sid], status="kept")
     print(f"  [extra] {_sid}: {us_reality.get(_sid, {}).get('value', 'N/A')}")
