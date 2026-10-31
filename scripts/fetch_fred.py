@@ -347,9 +347,57 @@ def score_indicator(sid, value):
         return 70
     return 50
 
+# ── [2026-10-31追加] 米国実態タブ用の補助系列 & UMich一次ソース ─────────────
+# FREDのUMCSENTはミシガン大学の公表から約1か月遅れて反映されるため、
+# UMich公式CSV(tbmics.csv)を直接読み、より新しい月があればそれを採用する。
+# 補助系列(クレカ延滞率・実質GDP成長率)は四半期系列。取得失敗時は前回値を保持する。
+_prev_extra = dict(existing.get("us_reality", {}))
+us_reality = {}
+for _sid, _label in [("DRCCLACBS", "クレジットカード延滞率(商業銀行・季調)"),
+                     ("A191RL1Q225SBEA", "実質GDP成長率(前期比年率)"),
+                     ("TDSP", "家計債務返済比率(可処分所得比)")]:
+    time.sleep(1.5)
+    _obs = fetch_fred(_sid, 4)
+    if _obs:
+        _o = sorted(_obs, key=lambda x: x["date"], reverse=True)
+        us_reality[_sid] = {"label": _label, "value": _o[0]["value"], "date": _o[0]["date"],
+                            "prev": _o[1]["value"] if len(_o) > 1 else None,
+                            "source": "FRED", "status": "ok"}
+    elif _sid in _prev_extra:
+        us_reality[_sid] = dict(_prev_extra[_sid], status="kept")
+    print(f"  [extra] {_sid}: {us_reality.get(_sid, {}).get('value', 'N/A')}")
+
+_MONTHS = {m: i for i, m in enumerate(["January", "February", "March", "April", "May", "June", "July",
+                                         "August", "September", "October", "November", "December"], 1)}
+umich = dict(existing.get("umich", {}))
+try:
+    _req = urllib.request.Request("https://www.sca.isr.umich.edu/files/tbmics.csv",
+                                  headers={"User-Agent": "Mozilla/5.0 koya-v8"})
+    with urllib.request.urlopen(_req, timeout=20) as _r:
+        _rows = [l.strip().split(",") for l in _r.read().decode("utf-8", "ignore").splitlines()]
+    _rows = [r for r in _rows if len(r) >= 3 and r[0] in _MONTHS and r[1].isdigit() and r[2]]
+    _last = _rows[-1]
+    umich = {"value": float(_last[2]), "date": f"{int(_last[1]):04d}-{_MONTHS[_last[0]]:02d}-01",
+             "source": "University of Michigan Surveys of Consumers (tbmics.csv)", "status": "ok"}
+    print(f"  [UMich] {umich['date']} = {umich['value']}")
+except Exception as _e:
+    if umich:
+        umich["status"] = "kept"
+    print(f"  [UMich] 取得失敗: {_e}")
+
+_fred_umc_date = (series_data.get("UMCSENT") or [{}])[0].get("date", "")
+umcsent_effective = current_latest.get("UMCSENT")
+if umich.get("value") is not None and umich.get("date", "") > _fred_umc_date:
+    umcsent_effective = umich["value"]
+    umich["newer_than_fred"] = True
+    print(f"  UMCSENT: UMich {umich['date']}={umich['value']} がFRED({_fred_umc_date})より新しいため採用")
+else:
+    umich["newer_than_fred"] = False
+
 scores = {}
 for sid in [s for s, _ in series_ids] + ["VIX", "SP500"]:
     scores[sid] = score_indicator(sid, current_latest.get(sid))
+scores["UMCSENT"] = score_indicator("UMCSENT", umcsent_effective)
 
 alerts = {sid: ("green" if sc >= 70 else ("yellow" if sc >= 45 else "red"))
           for sid, sc in scores.items()}
@@ -420,7 +468,7 @@ if anomaly_flags:
 fx = current_latest.get("DEXJPUS")
 wti = current_latest.get("DCOILWTICO")
 ur = current_latest.get("UNRATE")
-sent = current_latest.get("UMCSENT")
+sent = umcsent_effective
 vix = current_latest.get("VIX")
 sp = current_latest.get("SP500")
 
@@ -521,6 +569,8 @@ output = {
     "fallback_indicators": fallback_indicators,
     "decision_triggers": triggers,
     "data_version": "v8.0-actions",
+    "us_reality": us_reality,
+    "umich": umich,
     "fetch_quality": {"ok": ok_count, "total": len(series_ids) + 2, "results": fetch_results},
 }
 
