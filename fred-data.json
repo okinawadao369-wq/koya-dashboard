@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T00:17:49.070752Z",
+  "updated": "2026-10-31T00:56:01.574410Z",
   "series": {
     "DEXJPUS": [
       {
@@ -770,38 +770,38 @@
     "DCOILWTICO": 102.95,
     "VIX": 19.42,
     "SP500": 7580.07,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 09:17 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 09:55 JST"
   },
   "prev_latest": {
-    "DEXJPUS": 157.64,
+    "DEXJPUS": 157.52,
     "FEDFUNDS": 3.75,
     "UNRATE": 4.2,
     "CPIAUCSL": 336.298,
     "CPIFABSL": 347.262,
     "AHETPI": 32.6,
-    "DGS10": 5.05,
-    "T10YIE": 2.35,
+    "DGS10": 4.98,
+    "T10YIE": 2.34,
     "UMCSENT": 48.1,
     "GS2": 4.65,
-    "DCOILWTICO": 103.19,
-    "VIX": 17.2,
-    "SP500": 7720.39,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-30 14:47 JST"
+    "DCOILWTICO": 102.95,
+    "VIX": 19.42,
+    "SP500": 7580.07,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 09:17 JST"
   },
   "deltas": {
-    "DEXJPUS": -0.12,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.07,
-    "T10YIE": -0.01,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -0.24,
-    "VIX": 2.22,
-    "SP500": -140.32
+    "DCOILWTICO": null,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -859,9 +859,9 @@
       "message": "通常範囲内。市場安定・購買行動平常通り。"
     },
     {
-      "level": "yellow",
+      "level": "green",
       "indicator": "S&P500 7,580",
-      "message": "下落傾向(-140pt)。本国消費マインドに影響可能性。"
+      "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
     },
     {
       "level": "red",
@@ -882,7 +882,8 @@
       "date": "2026-04-01",
       "prev": 2.91,
       "source": "FRED",
-      "status": "ok"
+      "status": "ok",
+      "yoy": -6.25
     },
     "A191RL1Q225SBEA": {
       "label": "実質GDP成長率(前期比年率)",
@@ -890,7 +891,8 @@
       "date": "2026-07-01",
       "prev": 2.2,
       "source": "FRED",
-      "status": "ok"
+      "status": "ok",
+      "yoy": -12.82
     },
     "TDSP": {
       "label": "家計債務返済比率(可処分所得比)",
@@ -898,7 +900,68 @@
       "date": "2026-04-01",
       "prev": 11.158929,
       "source": "FRED",
+      "status": "ok",
+      "yoy": -0.12
+    },
+    "PAYEMS": {
+      "label": "非農業部門雇用者数(千人)",
+      "value": 159044.0,
+      "date": "2026-09-01",
+      "prev": 159015.0,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": 0.31
+    },
+    "HOUST": {
+      "label": "住宅着工(年率・千戸)",
+      "value": 1221.0,
+      "date": "2026-09-01",
+      "prev": 1288.0,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": -7.43
+    },
+    "MORTGAGE30US": {
+      "label": "30年固定住宅ローン金利(%)",
+      "value": 7.24,
+      "date": "2026-10-29",
+      "prev": 7.32,
+      "source": "FRED",
       "status": "ok"
+    },
+    "GASDESW": {
+      "label": "軽油小売価格(全米平均・$/gal)",
+      "value": 6.352,
+      "date": "2026-10-26",
+      "prev": 6.276,
+      "source": "FRED",
+      "status": "ok"
+    },
+    "DCOILBRENTEU": {
+      "label": "ブレント原油($/bbl)",
+      "value": 123.1,
+      "date": "2026-10-27",
+      "prev": 128.12,
+      "source": "FRED",
+      "status": "ok"
+    },
+    "CPILFESL": {
+      "label": "コアCPI(指数)",
+      "value": 338.896,
+      "date": "2026-09-01",
+      "prev": 337.765,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": 2.57
+    },
+    "PCEPILFE": {
+      "label": "コアPCE(指数)",
+      "value": 130.902,
+      "date": "2026-09-01",
+      "prev": 130.489,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": 3.12
     }
   },
   "umich": {
