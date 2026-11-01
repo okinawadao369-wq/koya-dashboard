@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T05:40:01.721213Z",
+  "updated": "2026-11-01T00:28:38.910682Z",
   "series": {
     "DEXJPUS": [
       {
@@ -641,6 +641,10 @@
     ],
     "VIX": [
       {
+        "date": "2026-11-01",
+        "value": 19.42
+      },
+      {
         "date": "2026-10-31",
         "value": 19.42
       },
@@ -691,13 +695,13 @@
       {
         "date": "2026-10-18",
         "value": 19.99
-      },
-      {
-        "date": "2026-10-17",
-        "value": 19.99
       }
     ],
     "SP500": [
+      {
+        "date": "2026-11-01",
+        "value": 7580.07
+      },
       {
         "date": "2026-10-31",
         "value": 7580.07
@@ -749,10 +753,6 @@
       {
         "date": "2026-10-18",
         "value": 7659.44
-      },
-      {
-        "date": "2026-10-17",
-        "value": 7659.44
       }
     ]
   },
@@ -770,7 +770,7 @@
     "DCOILWTICO": 104.12,
     "VIX": 19.42,
     "SP500": 7580.07,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 14:39 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-01 09:28 JST"
   },
   "prev_latest": {
     "DEXJPUS": 157.52,
@@ -783,10 +783,10 @@
     "T10YIE": 2.34,
     "UMCSENT": 48.1,
     "GS2": 4.65,
-    "DCOILWTICO": 102.95,
+    "DCOILWTICO": 104.12,
     "VIX": 19.42,
     "SP500": 7580.07,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 10:05 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-10-31 14:39 JST"
   },
   "deltas": {
     "DEXJPUS": null,
@@ -799,7 +799,7 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 1.17,
+    "DCOILWTICO": null,
     "VIX": null,
     "SP500": null
   },
