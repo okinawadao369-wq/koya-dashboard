@@ -1,0 +1,1016 @@
+{
+  "updated": "2026-11-03T03:06:36.874395Z",
+  "series": {
+    "DEXJPUS": [
+      {
+        "date": "2026-10-30",
+        "value": 157.47
+      },
+      {
+        "date": "2026-10-29",
+        "value": 157.83
+      },
+      {
+        "date": "2026-10-28",
+        "value": 158.24
+      },
+      {
+        "date": "2026-10-27",
+        "value": 157.86
+      },
+      {
+        "date": "2026-10-26",
+        "value": 157.58
+      },
+      {
+        "date": "2026-10-23",
+        "value": 156.87
+      },
+      {
+        "date": "2026-10-22",
+        "value": 157.11
+      },
+      {
+        "date": "2026-10-21",
+        "value": 158.13
+      },
+      {
+        "date": "2026-10-20",
+        "value": 158.2
+      },
+      {
+        "date": "2026-10-19",
+        "value": 158.49
+      },
+      {
+        "date": "2026-10-16",
+        "value": 158.0
+      },
+      {
+        "date": "2026-10-15",
+        "value": 158.18
+      },
+      {
+        "date": "2026-10-14",
+        "value": 158.84
+      },
+      {
+        "date": "2026-10-13",
+        "value": 158.36
+      }
+    ],
+    "FEDFUNDS": [
+      {
+        "date": "2026-10-01",
+        "value": 3.88
+      },
+      {
+        "date": "2026-09-01",
+        "value": 3.75
+      },
+      {
+        "date": "2026-08-01",
+        "value": 3.63
+      },
+      {
+        "date": "2026-07-01",
+        "value": 3.63
+      },
+      {
+        "date": "2026-06-01",
+        "value": 3.63
+      },
+      {
+        "date": "2026-05-01",
+        "value": 3.63
+      },
+      {
+        "date": "2026-04-01",
+        "value": 3.64
+      },
+      {
+        "date": "2026-03-01",
+        "value": 3.64
+      },
+      {
+        "date": "2026-02-01",
+        "value": 3.64
+      },
+      {
+        "date": "2026-01-01",
+        "value": 3.64
+      },
+      {
+        "date": "2025-12-01",
+        "value": 3.72
+      },
+      {
+        "date": "2025-11-01",
+        "value": 3.88
+      },
+      {
+        "date": "2025-10-01",
+        "value": 4.09
+      },
+      {
+        "date": "2025-09-01",
+        "value": 4.22
+      }
+    ],
+    "UNRATE": [
+      {
+        "date": "2026-09-01",
+        "value": 4.2
+      },
+      {
+        "date": "2026-08-01",
+        "value": 4.1
+      },
+      {
+        "date": "2026-07-01",
+        "value": 4.1
+      },
+      {
+        "date": "2026-06-01",
+        "value": 4.2
+      },
+      {
+        "date": "2026-05-01",
+        "value": 4.3
+      },
+      {
+        "date": "2026-04-01",
+        "value": 4.3
+      },
+      {
+        "date": "2026-03-01",
+        "value": 4.3
+      },
+      {
+        "date": "2026-02-01",
+        "value": 4.4
+      },
+      {
+        "date": "2026-01-01",
+        "value": 4.3
+      },
+      {
+        "date": "2025-12-01",
+        "value": 4.4
+      },
+      {
+        "date": "2025-11-01",
+        "value": 4.5
+      },
+      {
+        "date": "2025-09-01",
+        "value": 4.4
+      },
+      {
+        "date": "2025-08-01",
+        "value": 4.3
+      },
+      {
+        "date": "2025-07-01",
+        "value": 4.3
+      }
+    ],
+    "CPIAUCSL": [
+      {
+        "date": "2026-09-01",
+        "value": 336.298
+      },
+      {
+        "date": "2026-08-01",
+        "value": 334.131
+      },
+      {
+        "date": "2026-07-01",
+        "value": 332.813
+      },
+      {
+        "date": "2026-06-01",
+        "value": 332.568
+      },
+      {
+        "date": "2026-05-01",
+        "value": 333.979
+      },
+      {
+        "date": "2026-04-01",
+        "value": 332.407
+      },
+      {
+        "date": "2026-03-01",
+        "value": 330.293
+      },
+      {
+        "date": "2026-02-01",
+        "value": 327.46
+      },
+      {
+        "date": "2026-01-01",
+        "value": 326.588
+      },
+      {
+        "date": "2025-12-01",
+        "value": 326.031
+      },
+      {
+        "date": "2025-11-01",
+        "value": 325.063
+      },
+      {
+        "date": "2025-09-01",
+        "value": 324.245
+      },
+      {
+        "date": "2025-08-01",
+        "value": 323.291
+      },
+      {
+        "date": "2025-07-01",
+        "value": 322.169
+      }
+    ],
+    "CPIFABSL": [
+      {
+        "date": "2026-09-01",
+        "value": 347.262
+      },
+      {
+        "date": "2026-08-01",
+        "value": 347.104
+      },
+      {
+        "date": "2026-07-01",
+        "value": 346.681
+      },
+      {
+        "date": "2026-06-01",
+        "value": 346.391
+      },
+      {
+        "date": "2026-05-01",
+        "value": 345.715
+      },
+      {
+        "date": "2026-04-01",
+        "value": 345.197
+      },
+      {
+        "date": "2026-03-01",
+        "value": 343.51
+      },
+      {
+        "date": "2026-02-01",
+        "value": 343.477
+      },
+      {
+        "date": "2026-01-01",
+        "value": 342.194
+      },
+      {
+        "date": "2025-12-01",
+        "value": 341.563
+      },
+      {
+        "date": "2025-11-01",
+        "value": 339.478
+      },
+      {
+        "date": "2025-09-01",
+        "value": 339.145
+      },
+      {
+        "date": "2025-08-01",
+        "value": 338.39
+      },
+      {
+        "date": "2025-07-01",
+        "value": 336.941
+      }
+    ],
+    "AHETPI": [
+      {
+        "date": "2026-09-01",
+        "value": 32.6
+      },
+      {
+        "date": "2026-08-01",
+        "value": 32.53
+      },
+      {
+        "date": "2026-07-01",
+        "value": 32.42
+      },
+      {
+        "date": "2026-06-01",
+        "value": 32.38
+      },
+      {
+        "date": "2026-05-01",
+        "value": 32.31
+      },
+      {
+        "date": "2026-04-01",
+        "value": 32.23
+      },
+      {
+        "date": "2026-03-01",
+        "value": 32.12
+      },
+      {
+        "date": "2026-02-01",
+        "value": 32.04
+      },
+      {
+        "date": "2026-01-01",
+        "value": 31.94
+      },
+      {
+        "date": "2025-12-01",
+        "value": 31.83
+      },
+      {
+        "date": "2025-11-01",
+        "value": 31.79
+      },
+      {
+        "date": "2025-10-01",
+        "value": 31.7
+      },
+      {
+        "date": "2025-09-01",
+        "value": 31.56
+      },
+      {
+        "date": "2025-08-01",
+        "value": 31.49
+      }
+    ],
+    "DGS10": [
+      {
+        "date": "2026-10-30",
+        "value": 4.94
+      },
+      {
+        "date": "2026-10-29",
+        "value": 4.98
+      },
+      {
+        "date": "2026-10-28",
+        "value": 5.05
+      },
+      {
+        "date": "2026-10-27",
+        "value": 4.99
+      },
+      {
+        "date": "2026-10-26",
+        "value": 5.0
+      },
+      {
+        "date": "2026-10-23",
+        "value": 5.0
+      },
+      {
+        "date": "2026-10-22",
+        "value": 4.96
+      },
+      {
+        "date": "2026-10-21",
+        "value": 5.13
+      },
+      {
+        "date": "2026-10-20",
+        "value": 5.12
+      },
+      {
+        "date": "2026-10-19",
+        "value": 5.15
+      },
+      {
+        "date": "2026-10-16",
+        "value": 5.09
+      },
+      {
+        "date": "2026-10-15",
+        "value": 5.1
+      },
+      {
+        "date": "2026-10-14",
+        "value": 5.19
+      },
+      {
+        "date": "2026-10-13",
+        "value": 5.21
+      }
+    ],
+    "T10YIE": [
+      {
+        "date": "2026-11-02",
+        "value": 2.29
+      },
+      {
+        "date": "2026-10-30",
+        "value": 2.34
+      },
+      {
+        "date": "2026-10-29",
+        "value": 2.35
+      },
+      {
+        "date": "2026-10-28",
+        "value": 2.38
+      },
+      {
+        "date": "2026-10-27",
+        "value": 2.35
+      },
+      {
+        "date": "2026-10-26",
+        "value": 2.34
+      },
+      {
+        "date": "2026-10-23",
+        "value": 2.34
+      },
+      {
+        "date": "2026-10-22",
+        "value": 2.32
+      },
+      {
+        "date": "2026-10-21",
+        "value": 2.37
+      },
+      {
+        "date": "2026-10-20",
+        "value": 2.35
+      },
+      {
+        "date": "2026-10-19",
+        "value": 2.35
+      },
+      {
+        "date": "2026-10-16",
+        "value": 2.35
+      },
+      {
+        "date": "2026-10-15",
+        "value": 2.32
+      },
+      {
+        "date": "2026-10-14",
+        "value": 2.35
+      }
+    ],
+    "UMCSENT": [
+      {
+        "date": "2026-09-01",
+        "value": 48.1
+      },
+      {
+        "date": "2026-08-01",
+        "value": 51.7
+      },
+      {
+        "date": "2026-07-01",
+        "value": 55.2
+      },
+      {
+        "date": "2026-06-01",
+        "value": 49.5
+      },
+      {
+        "date": "2026-05-01",
+        "value": 44.8
+      },
+      {
+        "date": "2026-04-01",
+        "value": 49.8
+      },
+      {
+        "date": "2026-03-01",
+        "value": 53.3
+      },
+      {
+        "date": "2026-02-01",
+        "value": 56.6
+      },
+      {
+        "date": "2026-01-01",
+        "value": 56.4
+      },
+      {
+        "date": "2025-12-01",
+        "value": 52.9
+      },
+      {
+        "date": "2025-11-01",
+        "value": 51.0
+      },
+      {
+        "date": "2025-10-01",
+        "value": 53.6
+      },
+      {
+        "date": "2025-09-01",
+        "value": 55.1
+      },
+      {
+        "date": "2025-08-01",
+        "value": 58.2
+      }
+    ],
+    "GS2": [
+      {
+        "date": "2026-10-01",
+        "value": 4.74
+      },
+      {
+        "date": "2026-09-01",
+        "value": 4.65
+      },
+      {
+        "date": "2026-08-01",
+        "value": 4.22
+      },
+      {
+        "date": "2026-07-01",
+        "value": 4.22
+      },
+      {
+        "date": "2026-06-01",
+        "value": 4.11
+      },
+      {
+        "date": "2026-05-01",
+        "value": 4.0
+      },
+      {
+        "date": "2026-04-01",
+        "value": 3.8
+      },
+      {
+        "date": "2026-03-01",
+        "value": 3.71
+      },
+      {
+        "date": "2026-02-01",
+        "value": 3.47
+      },
+      {
+        "date": "2026-01-01",
+        "value": 3.54
+      },
+      {
+        "date": "2025-12-01",
+        "value": 3.5
+      },
+      {
+        "date": "2025-11-01",
+        "value": 3.55
+      },
+      {
+        "date": "2025-10-01",
+        "value": 3.52
+      },
+      {
+        "date": "2025-09-01",
+        "value": 3.57
+      }
+    ],
+    "DCOILWTICO": [
+      {
+        "date": "2026-10-27",
+        "value": 103.37
+      },
+      {
+        "date": "2026-10-26",
+        "value": 105.25
+      },
+      {
+        "date": "2026-10-23",
+        "value": 109.72
+      },
+      {
+        "date": "2026-10-22",
+        "value": 104.27
+      },
+      {
+        "date": "2026-10-21",
+        "value": 103.95
+      },
+      {
+        "date": "2026-10-20",
+        "value": 107.89
+      },
+      {
+        "date": "2026-10-19",
+        "value": 110.01
+      },
+      {
+        "date": "2026-10-16",
+        "value": 108.21
+      },
+      {
+        "date": "2026-10-15",
+        "value": 104.71
+      },
+      {
+        "date": "2026-10-14",
+        "value": 96.34
+      },
+      {
+        "date": "2026-10-13",
+        "value": 95.39
+      },
+      {
+        "date": "2026-10-12",
+        "value": 94.99
+      },
+      {
+        "date": "2026-10-09",
+        "value": 98.73
+      },
+      {
+        "date": "2026-10-08",
+        "value": 98.26
+      }
+    ],
+    "VIX": [
+      {
+        "date": "2026-11-03",
+        "value": 21.15
+      },
+      {
+        "date": "2026-11-02",
+        "value": 19.42
+      },
+      {
+        "date": "2026-11-01",
+        "value": 19.42
+      },
+      {
+        "date": "2026-10-31",
+        "value": 19.42
+      },
+      {
+        "date": "2026-10-30",
+        "value": 17.2
+      },
+      {
+        "date": "2026-10-29",
+        "value": 16.91
+      },
+      {
+        "date": "2026-10-28",
+        "value": 17.52
+      },
+      {
+        "date": "2026-10-27",
+        "value": 18.39
+      },
+      {
+        "date": "2026-10-26",
+        "value": 19.45
+      },
+      {
+        "date": "2026-10-25",
+        "value": 19.45
+      },
+      {
+        "date": "2026-10-24",
+        "value": 19.45
+      },
+      {
+        "date": "2026-10-23",
+        "value": 19.03
+      },
+      {
+        "date": "2026-10-21",
+        "value": 17.31
+      },
+      {
+        "date": "2026-10-20",
+        "value": 18.44
+      }
+    ],
+    "SP500": [
+      {
+        "date": "2026-11-03",
+        "value": 7541.4
+      },
+      {
+        "date": "2026-11-02",
+        "value": 7580.07
+      },
+      {
+        "date": "2026-11-01",
+        "value": 7580.07
+      },
+      {
+        "date": "2026-10-31",
+        "value": 7580.07
+      },
+      {
+        "date": "2026-10-30",
+        "value": 7720.39
+      },
+      {
+        "date": "2026-10-29",
+        "value": 7743.98
+      },
+      {
+        "date": "2026-10-28",
+        "value": 7722.6
+      },
+      {
+        "date": "2026-10-27",
+        "value": 7676.77
+      },
+      {
+        "date": "2026-10-26",
+        "value": 7623.68
+      },
+      {
+        "date": "2026-10-25",
+        "value": 7623.68
+      },
+      {
+        "date": "2026-10-24",
+        "value": 7623.68
+      },
+      {
+        "date": "2026-10-23",
+        "value": 7663.43
+      },
+      {
+        "date": "2026-10-21",
+        "value": 7712.57
+      },
+      {
+        "date": "2026-10-20",
+        "value": 7690.73
+      }
+    ]
+  },
+  "latest": {
+    "DEXJPUS": 157.91,
+    "FEDFUNDS": 3.88,
+    "UNRATE": 4.2,
+    "CPIAUCSL": 336.298,
+    "CPIFABSL": 347.262,
+    "AHETPI": 32.6,
+    "DGS10": 4.94,
+    "T10YIE": 2.29,
+    "UMCSENT": 48.1,
+    "GS2": 4.74,
+    "DCOILWTICO": 96.65,
+    "VIX": 21.15,
+    "SP500": 7541.4,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-03 12:06 JST"
+  },
+  "prev_latest": {
+    "DEXJPUS": 157.78,
+    "FEDFUNDS": 3.75,
+    "UNRATE": 4.2,
+    "CPIAUCSL": 336.298,
+    "CPIFABSL": 347.262,
+    "AHETPI": 32.6,
+    "DGS10": 4.98,
+    "T10YIE": 2.34,
+    "UMCSENT": 48.1,
+    "GS2": 4.65,
+    "DCOILWTICO": 100.52,
+    "VIX": 19.42,
+    "SP500": 7580.07,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-02 15:00 JST"
+  },
+  "deltas": {
+    "DEXJPUS": 0.13,
+    "FEDFUNDS": 0.13,
+    "UNRATE": null,
+    "CPIAUCSL": null,
+    "CPIFABSL": null,
+    "AHETPI": null,
+    "DGS10": -0.04,
+    "T10YIE": -0.05,
+    "UMCSENT": null,
+    "GS2": 0.09,
+    "DCOILWTICO": -3.87,
+    "VIX": 1.73,
+    "SP500": -38.67
+  },
+  "alerts": {
+    "DEXJPUS": "green",
+    "FEDFUNDS": "green",
+    "UNRATE": "green",
+    "CPIAUCSL": "yellow",
+    "CPIFABSL": "yellow",
+    "AHETPI": "green",
+    "DGS10": "yellow",
+    "T10YIE": "green",
+    "UMCSENT": "red",
+    "GS2": "green",
+    "DCOILWTICO": "yellow",
+    "VIX": "red",
+    "SP500": "green"
+  },
+  "scores": {
+    "DEXJPUS": 95,
+    "FEDFUNDS": 75,
+    "UNRATE": 85,
+    "CPIAUCSL": 50,
+    "CPIFABSL": 52,
+    "AHETPI": 80,
+    "DGS10": 60,
+    "T10YIE": 92,
+    "UMCSENT": 35,
+    "GS2": 70,
+    "DCOILWTICO": 45,
+    "VIX": 42,
+    "SP500": 80
+  },
+  "koya_score": 68.0,
+  "koya_signal": "GO",
+  "spread_dgs10_gs2": "+0.200%",
+  "vix_note": "VIX=21.15 市場警戒ゾーン突破（>20）",
+  "sp500_note": "S&P500=7541.4",
+  "fx_intervention_alert": null,
+  "contributions": [
+    {
+      "indicator": "DCOILWTICO",
+      "score_before": 20,
+      "score_after": 45,
+      "koya_score_contribution": 3.25,
+      "contribution_pct": 55.2
+    },
+    {
+      "indicator": "VIX",
+      "score_before": 75,
+      "score_after": 42,
+      "koya_score_contribution": -2.64,
+      "contribution_pct": 44.8
+    }
+  ],
+  "anomaly_flags": [
+    "DCOILWTICO: 20→45pt (+25pt) 要確認",
+    "VIX: 75→42pt (-33pt) 要確認"
+  ],
+  "fallback_indicators": [],
+  "decision_triggers": [
+    {
+      "level": "green",
+      "indicator": "koya総合スコア 68/100 [GO]",
+      "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
+    },
+    {
+      "level": "yellow",
+      "indicator": "急変異常値フラグ",
+      "message": "DCOILWTICO: 20→45pt (+25pt) 要確認; VIX: 75→42pt (-33pt) 要確認"
+    },
+    {
+      "level": "green",
+      "indicator": "USD/JPY ¥157.910",
+      "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
+    },
+    {
+      "level": "red",
+      "indicator": "VIX恐怖指数 21.15",
+      "message": "市場警戒ゾーン突破(>20)。本国の節約意識上昇に注意。"
+    },
+    {
+      "level": "green",
+      "indicator": "S&P500 7,541",
+      "message": "高水準維持。本国資産効果継続。SOFA家族の消費余力↑。"
+    },
+    {
+      "level": "red",
+      "indicator": "WTI原油 $96.65",
+      "message": "高値。燃料・物流コスト上昇。価格転嫁を検討。"
+    },
+    {
+      "level": "red",
+      "indicator": "消費者信頼感 48.0",
+      "message": "低水準。本国比バリュー・安心感訴求を前面に。"
+    }
+  ],
+  "data_version": "v8.0-actions",
+  "us_reality": {
+    "DRCCLACBS": {
+      "label": "クレジットカード延滞率(商業銀行・季調)",
+      "value": 2.85,
+      "date": "2026-04-01",
+      "prev": 2.91,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": -6.25
+    },
+    "A191RL1Q225SBEA": {
+      "label": "実質GDP成長率(前期比年率)",
+      "value": 3.4,
+      "date": "2026-07-01",
+      "prev": 2.2,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": -12.82
+    },
+    "TDSP": {
+      "label": "家計債務返済比率(可処分所得比)",
+      "value": 11.111439,
+      "date": "2026-04-01",
+      "prev": 11.158929,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": -0.12
+    },
+    "PAYEMS": {
+      "label": "非農業部門雇用者数(千人)",
+      "value": 159044.0,
+      "date": "2026-09-01",
+      "prev": 159015.0,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": 0.31
+    },
+    "HOUST": {
+      "label": "住宅着工(年率・千戸)",
+      "value": 1221.0,
+      "date": "2026-09-01",
+      "prev": 1288.0,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": -7.43
+    },
+    "MORTGAGE30US": {
+      "label": "30年固定住宅ローン金利(%)",
+      "value": 7.24,
+      "date": "2026-10-29",
+      "prev": 7.32,
+      "source": "FRED",
+      "status": "ok"
+    },
+    "GASDESW": {
+      "label": "軽油小売価格(全米平均・$/gal)",
+      "value": 6.352,
+      "date": "2026-10-26",
+      "prev": 6.276,
+      "source": "FRED",
+      "status": "ok"
+    },
+    "DCOILBRENTEU": {
+      "label": "ブレント原油($/bbl)",
+      "value": 123.1,
+      "date": "2026-10-27",
+      "prev": 128.12,
+      "source": "FRED",
+      "status": "ok"
+    },
+    "CPILFESL": {
+      "label": "コアCPI(指数)",
+      "value": 338.896,
+      "date": "2026-09-01",
+      "prev": 337.765,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": 2.57
+    },
+    "PCEPILFE": {
+      "label": "コアPCE(指数)",
+      "value": 130.902,
+      "date": "2026-09-01",
+      "prev": 130.489,
+      "source": "FRED",
+      "status": "ok",
+      "yoy": 3.12
+    }
+  },
+  "umich": {
+    "value": 48.0,
+    "date": "2026-10-01",
+    "source": "University of Michigan Surveys of Consumers (tbmics.csv)",
+    "status": "ok",
+    "newer_than_fred": true
+  },
+  "fetch_quality": {
+    "ok": 13,
+    "total": 13,
+    "results": {
+      "DEXJPUS": "ok(Yahoo-live)",
+      "FEDFUNDS": "ok",
+      "UNRATE": "ok",
+      "CPIAUCSL": "ok",
+      "CPIFABSL": "ok",
+      "AHETPI": "ok",
+      "DGS10": "ok",
+      "T10YIE": "ok",
+      "UMCSENT": "ok",
+      "GS2": "ok",
+      "DCOILWTICO": "ok(Yahoo)",
+      "VIX": "ok(Yahoo)",
+      "SP500": "ok(Yahoo)"
+    }
+  }
+}
