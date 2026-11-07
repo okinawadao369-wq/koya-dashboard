@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-07T01:18:37.966792Z",
+  "updated": "2026-11-07T05:57:44.043432Z",
   "series": {
     "DEXJPUS": [
       {
@@ -767,41 +767,41 @@
     "T10YIE": 2.23,
     "UMCSENT": 48.1,
     "GS2": 4.74,
+    "DCOILWTICO": 90.83,
+    "VIX": 25.64,
+    "SP500": 7376.86,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-07 14:57 JST"
+  },
+  "prev_latest": {
+    "DEXJPUS": 158.43,
+    "FEDFUNDS": 3.88,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 336.298,
+    "CPIFABSL": 347.262,
+    "AHETPI": 32.75,
+    "DGS10": 4.84,
+    "T10YIE": 2.23,
+    "UMCSENT": 48.1,
+    "GS2": 4.74,
     "DCOILWTICO": 90.34,
     "VIX": 25.64,
     "SP500": 7376.86,
     "DEXJPUS_source": "Yahoo Finance RT 2026-11-07 10:18 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 157.95,
-    "FEDFUNDS": 3.88,
-    "UNRATE": 4.2,
-    "CPIAUCSL": 336.298,
-    "CPIFABSL": 347.262,
-    "AHETPI": 32.6,
-    "DGS10": 4.9,
-    "T10YIE": 2.24,
-    "UMCSENT": 48.1,
-    "GS2": 4.74,
-    "DCOILWTICO": 91.76,
-    "VIX": 28.18,
-    "SP500": 7353.73,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-06 15:42 JST"
-  },
   "deltas": {
-    "DEXJPUS": 0.48,
+    "DEXJPUS": null,
     "FEDFUNDS": null,
-    "UNRATE": -0.1,
+    "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
-    "AHETPI": 0.15,
-    "DGS10": -0.06,
-    "T10YIE": -0.01,
+    "AHETPI": null,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -1.42,
-    "VIX": -2.54,
-    "SP500": 23.13
+    "DCOILWTICO": 0.49,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -865,7 +865,7 @@
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $90.34",
+      "indicator": "WTI原油 $90.83",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
