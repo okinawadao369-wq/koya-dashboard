@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T06:43:03.941848Z",
+  "updated": "2026-11-07T01:18:37.966792Z",
   "series": {
     "DEXJPUS": [
       {
@@ -119,6 +119,10 @@
     ],
     "UNRATE": [
       {
+        "date": "2026-10-01",
+        "value": 4.1
+      },
+      {
         "date": "2026-09-01",
         "value": 4.2
       },
@@ -168,10 +172,6 @@
       },
       {
         "date": "2025-08-01",
-        "value": 4.3
-      },
-      {
-        "date": "2025-07-01",
         "value": 4.3
       }
     ],
@@ -293,12 +293,16 @@
     ],
     "AHETPI": [
       {
+        "date": "2026-10-01",
+        "value": 32.75
+      },
+      {
         "date": "2026-09-01",
-        "value": 32.6
+        "value": 32.63
       },
       {
         "date": "2026-08-01",
-        "value": 32.53
+        "value": 32.55
       },
       {
         "date": "2026-07-01",
@@ -343,13 +347,13 @@
       {
         "date": "2025-09-01",
         "value": 31.56
-      },
-      {
-        "date": "2025-08-01",
-        "value": 31.49
       }
     ],
     "DGS10": [
+      {
+        "date": "2026-11-05",
+        "value": 4.84
+      },
       {
         "date": "2026-11-04",
         "value": 4.9
@@ -401,13 +405,13 @@
       {
         "date": "2026-10-19",
         "value": 5.15
-      },
-      {
-        "date": "2026-10-16",
-        "value": 5.09
       }
     ],
     "T10YIE": [
+      {
+        "date": "2026-11-06",
+        "value": 2.23
+      },
       {
         "date": "2026-11-05",
         "value": 2.24
@@ -458,10 +462,6 @@
       },
       {
         "date": "2026-10-20",
-        "value": 2.35
-      },
-      {
-        "date": "2026-10-19",
         "value": 2.35
       }
     ],
@@ -641,6 +641,10 @@
     ],
     "VIX": [
       {
+        "date": "2026-11-07",
+        "value": 25.64
+      },
+      {
         "date": "2026-11-06",
         "value": 28.18
       },
@@ -691,13 +695,13 @@
       {
         "date": "2026-10-25",
         "value": 19.45
-      },
-      {
-        "date": "2026-10-24",
-        "value": 19.45
       }
     ],
     "SP500": [
+      {
+        "date": "2026-11-07",
+        "value": 7376.86
+      },
       {
         "date": "2026-11-06",
         "value": 7353.73
@@ -749,14 +753,26 @@
       {
         "date": "2026-10-25",
         "value": 7623.68
-      },
-      {
-        "date": "2026-10-24",
-        "value": 7623.68
       }
     ]
   },
   "latest": {
+    "DEXJPUS": 158.43,
+    "FEDFUNDS": 3.88,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 336.298,
+    "CPIFABSL": 347.262,
+    "AHETPI": 32.75,
+    "DGS10": 4.84,
+    "T10YIE": 2.23,
+    "UMCSENT": 48.1,
+    "GS2": 4.74,
+    "DCOILWTICO": 90.34,
+    "VIX": 25.64,
+    "SP500": 7376.86,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-07 10:18 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 157.95,
     "FEDFUNDS": 3.88,
     "UNRATE": 4.2,
@@ -772,36 +788,20 @@
     "SP500": 7353.73,
     "DEXJPUS_source": "Yahoo Finance RT 2026-11-06 15:42 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 157.86,
-    "FEDFUNDS": 3.88,
-    "UNRATE": 4.2,
-    "CPIAUCSL": 336.298,
-    "CPIFABSL": 347.262,
-    "AHETPI": 32.6,
-    "DGS10": 4.9,
-    "T10YIE": 2.24,
-    "UMCSENT": 48.1,
-    "GS2": 4.74,
-    "DCOILWTICO": 91.11,
-    "VIX": 28.18,
-    "SP500": 7353.73,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-06 10:50 JST"
-  },
   "deltas": {
-    "DEXJPUS": 0.09,
+    "DEXJPUS": 0.48,
     "FEDFUNDS": null,
-    "UNRATE": null,
+    "UNRATE": -0.1,
     "CPIAUCSL": null,
     "CPIFABSL": null,
-    "AHETPI": null,
-    "DGS10": null,
-    "T10YIE": null,
+    "AHETPI": 0.15,
+    "DGS10": -0.06,
+    "T10YIE": -0.01,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 0.65,
-    "VIX": null,
-    "SP500": null
+    "DCOILWTICO": -1.42,
+    "VIX": -2.54,
+    "SP500": 23.13
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -835,9 +835,9 @@
   },
   "koya_score": 66.6,
   "koya_signal": "WATCH",
-  "spread_dgs10_gs2": "+0.160%",
-  "vix_note": "VIX=28.18 市場警戒ゾーン突破（>20）",
-  "sp500_note": "S&P500=7353.73",
+  "spread_dgs10_gs2": "+0.100%",
+  "vix_note": "VIX=25.64 市場警戒ゾーン突破（>20）",
+  "sp500_note": "S&P500=7376.86",
   "fx_intervention_alert": null,
   "contributions": [],
   "anomaly_flags": [],
@@ -850,22 +850,22 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥157.950",
+      "indicator": "USD/JPY ¥158.430",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
       "level": "red",
-      "indicator": "VIX恐怖指数 28.18",
+      "indicator": "VIX恐怖指数 25.64",
       "message": "市場警戒ゾーン突破(>20)。本国の節約意識上昇に注意。"
     },
     {
       "level": "yellow",
-      "indicator": "S&P500 7,354",
+      "indicator": "S&P500 7,377",
       "message": "良好水準。本国資産効果継続。"
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $91.76",
+      "indicator": "WTI原油 $90.34",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
@@ -905,12 +905,12 @@
     },
     "PAYEMS": {
       "label": "非農業部門雇用者数(千人)",
-      "value": 159044.0,
-      "date": "2026-09-01",
-      "prev": 159015.0,
+      "value": 159293.0,
+      "date": "2026-10-01",
+      "prev": 159128.0,
       "source": "FRED",
       "status": "ok",
-      "yoy": 0.31
+      "yoy": 0.56
     },
     "HOUST": {
       "label": "住宅着工(年率・千戸)",
