@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-08T05:59:38.152187Z",
+  "updated": "2026-11-09T01:15:54.582777Z",
   "series": {
     "DEXJPUS": [
       {
@@ -641,6 +641,10 @@
     ],
     "VIX": [
       {
+        "date": "2026-11-09",
+        "value": 25.64
+      },
+      {
         "date": "2026-11-08",
         "value": 25.64
       },
@@ -691,13 +695,13 @@
       {
         "date": "2026-10-27",
         "value": 18.39
-      },
-      {
-        "date": "2026-10-26",
-        "value": 19.45
       }
     ],
     "SP500": [
+      {
+        "date": "2026-11-09",
+        "value": 7376.86
+      },
       {
         "date": "2026-11-08",
         "value": 7376.86
@@ -749,15 +753,11 @@
       {
         "date": "2026-10-27",
         "value": 7676.77
-      },
-      {
-        "date": "2026-10-26",
-        "value": 7623.68
       }
     ]
   },
   "latest": {
-    "DEXJPUS": 158.43,
+    "DEXJPUS": 158.25,
     "FEDFUNDS": 3.88,
     "UNRATE": 4.1,
     "CPIAUCSL": 336.298,
@@ -767,10 +767,10 @@
     "T10YIE": 2.23,
     "UMCSENT": 48.1,
     "GS2": 4.74,
-    "DCOILWTICO": 90.83,
+    "DCOILWTICO": 90.59,
     "VIX": 25.64,
     "SP500": 7376.86,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-08 14:59 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-09 10:15 JST"
   },
   "prev_latest": {
     "DEXJPUS": 158.43,
@@ -786,10 +786,10 @@
     "DCOILWTICO": 90.83,
     "VIX": 25.64,
     "SP500": 7376.86,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-08 09:56 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-08 14:59 JST"
   },
   "deltas": {
-    "DEXJPUS": null,
+    "DEXJPUS": -0.18,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -799,7 +799,7 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": null,
+    "DCOILWTICO": -0.24,
     "VIX": null,
     "SP500": null
   },
@@ -850,7 +850,7 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥158.430",
+      "indicator": "USD/JPY ¥158.250",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
@@ -865,7 +865,7 @@
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $90.83",
+      "indicator": "WTI原油 $90.59",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
