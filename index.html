@@ -1076,12 +1076,12 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
       <div id="ur-mideast-body" style="font-size:12px;line-height:1.8;color:var(--text-secondary)">--</div>
     </div>
     <div class="box" style="margin-bottom:1.2rem">
-      <div class="box-title">米国経済 部門別機能診断 <span class="badge">11部門</span> <span class="verif-badge verif-est">判定=2026-10-31調査（月次見直し）・数値=FRED自動更新</span></div>
+      <div class="box-title">米国経済 部門別機能診断 <span class="badge">14部門</span> <span class="verif-badge verif-est">判定=2026-10-31調査（月次見直し）・数値=FRED自動更新</span></div>
       <div class="tbl-wrap"><table class="tbl">
         <thead><tr><th>部門</th><th>状態</th><th>根拠となる数字</th><th>観測日</th><th>証拠</th></tr></thead>
         <tbody id="ur-sector-tbody"></tbody>
       </table></div>
-      <div class="src-note">詳細レポート: <a href="https://claude.ai/artifact/Pmm8pUVx9YLiwo38tWx5MC" target="_blank" rel="noopener">米国経済の機能診断 2026年10月</a>。「自動」=fred-data.jsonから日次更新、「調査」=2026-10-31時点の報道・業界統計（stale化に注意）。状態判定は数値の自動閾値ではなく調査時点の判断（強い推論B）。</div>
+      <div class="src-note">詳細レポート: <a href="https://claude.ai/artifact/Pmm8pUVx9YLiwo38tWx5MC" target="_blank" rel="noopener">米国経済の機能診断 2026年10月</a> / <a href="https://claude.ai/artifact/95nMBJvbwraBdhyWTTMe6C" target="_blank" rel="noopener">米国経済の現状と構造問題 2026年11月</a>。「自動」=fred-data.jsonから日次更新、「調査」=2026-10-31時点の報道・業界統計（stale化に注意）。状態判定は数値の自動閾値ではなく調査時点の判断（強い推論B）。</div>
     </div>
 
     <!-- KPI Cards Row 1: 官民乖離 -->
@@ -4210,21 +4210,24 @@ function renderSectorDiag(){
     var g=function(id){ return ur[id]&&typeof ur[id].value==='number'?ur[id]:null; };
     var q=function(d){ if(!d) return '—'; return d.slice(0,10); };
     var cpiYoY=(typeof S.cpi==='number')?S.cpi:null;
-    var pay=g('PAYEMS'), hs=g('HOUST'), mg=g('MORTGAGE30US'), ds=g('GASDESW'), br=g('DCOILBRENTEU'), cc=g('CPILFESL'), cp=g('PCEPILFE'), dq=g('DRCCLACBS'), gdp=g('A191RL1Q225SBEA');
+    var pay=g('PAYEMS'), u6=g('U6RATE'), tp=g('THREEFYTP10'), hs=g('HOUST'), mg=g('MORTGAGE30US'), ds=g('GASDESW'), br=g('DCOILBRENTEU'), cc=g('CPILFESL'), cp=g('PCEPILFE'), dq=g('DRCCLACBS'), gdp=g('A191RL1Q225SBEA');
     var wti=(typeof L.DCOILWTICO==='number')?L.DCOILWTICO:null;
     var um=(S.fredVals&&typeof S.fredVals.UMCSENT==='number')?S.fredVals.UMCSENT:null;
     var COL={'良好':'#00D4AA','機能（コスト高）':'#4ADE80','横ばい':'#F4C842','鈍化':'#FF7F50','機能不全':'#FF4D6A'};
     var rows=[
       {s:'AI・データセンター投資',st:'良好',v:'4社計 約$7,300億（前年比+60%）。決算後に株価急落＝回収への疑問',d:'2026-10-29',e:'調査・B'},
-      {s:'銀行の収益',st:'良好',v:'FDIC Q2 純利益$901億、問題銀行47行',d:'2026-08-25',e:'調査・B'},
+      {s:'銀行の収益',st:'良好',v:'FDIC Q2 純利益$901億・問題銀行47行／JPM Q3 純利益約$153億（カード貸倒は横ばい）',d:'2026-10-13',e:'調査・B'},
       {s:'陸運（トラック・鉄道）',st:'機能（コスト高）',v:'Cass出荷+1.9%・運賃+10.1%、AAR鉄道+8.5%'+(ds?'／軽油 $'+ds.value.toFixed(2)+'/gal':''),d:ds?q(ds.date):'2026-10-17',e:ds?'自動+調査':'調査・B'},
       {s:'海運（コンテナ）',st:'機能（コスト高）',v:'上海→LA $7,835/FEU（ホルムズ危機後のピーク圏）',d:'2026-10-01',e:'調査・B'},
       {s:'マクロ成長',st:'横ばい',v:gdp?('実質GDP '+(gdp.value>=0?'+':'')+gdp.value.toFixed(1)+'%（前期比年率）'):'GDP --',d:gdp?q(gdp.date):'—',e:'自動・A'},
       {s:'クレジットカード返済',st:'横ばい',v:dq?('延滞率 '+dq.value.toFixed(2)+'%（前期'+(typeof dq.prev==='number'?dq.prev.toFixed(2):'--')+'%）'):'--',d:dq?q(dq.date):'—',e:'自動・A'},
-      {s:'商業不動産',st:'横ばい',v:'CMBS延滞8.02%、オフィス12.16%（Trepp 9月）',d:'2026-09-30',e:'調査・B'},
-      {s:'雇用',st:'鈍化',v:pay&&typeof pay.prev==='number'?('雇用者数 前月比 '+((pay.value-pay.prev)>=0?'+':'')+Math.round(pay.value-pay.prev).toLocaleString()+'千人'):'雇用 --',d:pay?q(pay.date):'—',e:'自動・A'},
+      {s:'商業不動産',st:'鈍化',v:'CMBS延滞7.87%（9月8.02%）、オフィス12.33%で過去最高（Trepp 10月）',d:'2026-10-31',e:'調査・B'},
+      {s:'プライベートクレジット',st:'機能不全',v:'デフォルト率6.0〜6.1%で過去最高（Fitch・4〜7月）、BDC解約申請9.8%（Q3）を5%上限で制限',d:'2026-09-30',e:'調査・B'},
+      {s:'雇用',st:'横ばい',v:(pay&&typeof pay.prev==='number'?('雇用者数 前月比 '+((pay.value-pay.prev)>=0?'+':'')+Math.round(pay.value-pay.prev).toLocaleString()+'千人'):'雇用 --')+(u6?'／U-6 '+u6.value.toFixed(1)+'%':''),d:pay?q(pay.date):'—',e:'自動・A'},
+      {s:'新卒（大卒22〜27歳）の就職',st:'鈍化',v:'失業率 約5.6%（全体を上回る反転）、不完全就業 約42%（NY連銀 Q2）',d:'2026-06-30',e:'調査・B'},
       {s:'インフレ（物価安定）',st:'鈍化',v:'CPI '+(cpiYoY!==null?cpiYoY.toFixed(1)+'%':'--')+(cc&&typeof cc.yoy==='number'?'／コアCPI '+cc.yoy.toFixed(1)+'%':'')+(cp&&typeof cp.yoy==='number'?'／コアPCE '+cp.yoy.toFixed(1)+'%':''),d:cc?q(cc.date):'—',e:'自動・A'},
       {s:'消費者心理',st:'鈍化',v:'ミシガン大 '+(um!==null?um.toFixed(1):'--'),d:S.umichDate?S.umichDate.slice(0,7):'—',e:'自動・A'},
+      {s:'米国債・利払い',st:'鈍化',v:'10年債 '+(typeof L.DGS10==='number'?L.DGS10.toFixed(2)+'%':'--')+(tp?'／タームプレミアム '+tp.value.toFixed(2)+'%':'')+'／FY2026赤字$2.0兆（CBO）、短期債比率 約22%',d:tp?q(tp.date):'—',e:'自動+調査'},
       {s:'住宅建設・取引',st:'機能不全',v:(hs?'着工 '+Math.round(hs.value).toLocaleString()+'千戸（年率）':'着工 --')+(mg?'／30年ローン '+mg.value.toFixed(2)+'%':''),d:hs?q(hs.date):'—',e:'自動・A'}
     ];
     var tb=document.getElementById('ur-sector-tbody');
