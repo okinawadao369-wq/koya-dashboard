@@ -333,6 +333,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .formula-box{display:none;background:var(--bg3);border:1px solid rgba(96,165,250,.25);border-radius:6px;padding:10px 12px;margin-top:8px;font-size:10px;line-height:1.8;color:var(--muted);font-family:ui-monospace,'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;white-space:pre-wrap}
 .formula-box.show{display:block}
 </style>
+<meta name="robots" content="noindex,nofollow">
 </head>
 <body>
 <div id="fto-gate">
@@ -347,8 +348,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 </div>
 <script>
 (function(){
-  // SHA-256("FTOstaff2026")
-  var FTO_GATE_HASH = '97aa966afd784495ddd8c6df97242cacba40a556e2c57f087a430e0677c50d44';
+  var FTO_GATE_HASH = '0e395894181d34dd05a749c0c93ea29050d92504add83a639cc912fa13ee2bf8';
   async function sha256(msg){
     var enc = new TextEncoder().encode(msg);
     var buf = await crypto.subtle.digest('SHA-256', enc);
@@ -358,7 +358,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     var pw = document.getElementById('fto-gate-pw').value;
     var h = await sha256(pw);
     if(h === FTO_GATE_HASH){
-      try{ localStorage.setItem('fto_gate_ok','1'); }catch(e){}
+      try{ localStorage.setItem('fto_gate_ok_v2','1'); }catch(e){}
       document.getElementById('fto-gate').classList.add('hidden');
     } else {
       document.getElementById('fto-gate-err').textContent = 'パスコードが違います';
@@ -368,7 +368,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     var pwInput = document.getElementById('fto-gate-pw');
     if(pwInput) pwInput.addEventListener('keydown', function(e){ if(e.key==='Enter') ftoGateCheck(); });
     try{
-      if(localStorage.getItem('fto_gate_ok')==='1'){
+      if(localStorage.getItem('fto_gate_ok_v2')==='1'){
         document.getElementById('fto-gate').classList.add('hidden');
       }
     }catch(e){}
@@ -1939,7 +1939,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v214';
+var CACHE_KEY = 'koya_v215';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
