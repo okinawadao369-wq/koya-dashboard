@@ -782,7 +782,7 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
 
     <div class="box">
       <div class="box-title">業種別 米国単価→沖縄有効価格帯 <span class="badge" id="biz-count">21業種</span> <span class="verif-badge verif-est">未検証（推計モデル）</span></div>
-      <div class="src-note">データ源: 業種別に米国公開価格調査(thervo.com/busybook.co等)＋FRED CPI補正。「価格ポジショニング指数」列は米国換算価格との比較値で、実績成約データとの照合は未実施。FamilyTreeOki固定4業種（2Dエコー/4Dエコー記念/ベビーシッター/産後・新生児ケア）は2026年8月にWebSearchで米国相場を再確認済み（事実A・observed、取得日2026-08-31）。他業種は前回調査時点のまま（stale_observed）。2026-10-31時点でFTO価格はSTORES現行メニューに整合済み。</div>
+      <div class="src-note">データ源: 業種別に米国公開価格調査(thervo.com/busybook.co等)＋FRED CPI補正。「米国比割安率」列は米国中央値（CPI心理補正後）との比較で、羅針盤と同じ式。心理的価格帯25〜55%は競合仮説C。行名にマウスを置くと米国相場の出典と調査日が出る。実績成約データとの照合は未実施。FamilyTreeOki固定4業種（2Dエコー/4Dエコー記念/ベビーシッター/産後・新生児ケア）は2026年8月にWebSearchで米国相場を再確認済み（事実A・observed、取得日2026-08-31）。他業種は前回調査時点のまま（stale_observed）。2026-10-31時点でFTO価格はSTORES現行メニューに整合済み。</div>
       <div class="tbl-wrap"><table class="tbl">
         <thead>
           <tr>
@@ -790,9 +790,9 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
             <th>米国単価 (USD)</th>
             <th>円換算アンカー</th>
             <th>FTC参考価格</th>
-            <th>推奨価格帯</th>
-            <th>価格ポジショニング指数</th>
-            <th>年間市場 (M$)</th>
+            <th>心理的価格帯（米国中央値比25〜55%割安）</th>
+            <th>米国比割安率と位置</th>
+            <th>年間市場 (M$・理論上限)</th>
           </tr>
         </thead>
         <tbody id="biz-tbody"></tbody>
@@ -1987,23 +1987,23 @@ var BTYPE = {
   ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:114,usHigh:179,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)(2026/08調査:時給$19-29.87(全米平均$23-26)・前年比+4.9%で一般物価上昇3%を上回る 出典urbansitter.com/sittercity.com)'},
   ft_med: {label:'FamilyTreeOki｜産後ケア(宿泊1泊)',  cat:'ftc',usLow:700,usHigh:1400,ftcDef:70000,monthlyPerPerson:2.0,note:'宿泊型産後リトリート1泊＝宿泊+24h新生児ケア+食事(2026/09調査:米国$700-1,400/泊。Boram NY $843・Sanu DC $1,045・Ahma&Co CA $1,740。※在宅オーバーナイトドゥーラ$250-450は宿泊・食事を含まない別カテゴリ。FTO実売価格70,000円/泊は2026-09-17に初回利用開始 出典time.com/peacockparent.com/yuzicare.com)'},
   cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:4,  usHigh:7,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当(2026調査:全米平均$4-5.60・都市部$5-7)'},
-  lunch:  {label:'飲食｜カジュアルランチ',           cat:'food',usLow:15, usHigh:25, ftcDef:1500, monthlyPerPerson:40, note:'ランチ1食'},
-  dinner: {label:'飲食｜ファミリーディナー',         cat:'food',usLow:75, usHigh:160,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分'},
+  lunch:  {label:'飲食｜カジュアルランチ',           cat:'food',usLow:12, usHigh:20, ftcDef:1500, monthlyPerPerson:40, note:'ランチ1食(2026-11-10調査: Fooda Price Index平均$14.17(2026/4)・Huel「都市部$12-15」・上限$20。推論B)'},
+  dinner: {label:'飲食｜ファミリーディナー',         cat:'food',usLow:70, usHigh:150,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分(2026-11-10調査: 控えめな着席$70-110、前菜・飲料・デザート込みで$150超(WTOP/GOBankingRates 2026)。推論B)'},
   premium:{label:'飲食｜プレミアムディナー/記念日',  cat:'food',usLow:200,usHigh:500,ftcDef:18000,monthlyPerPerson:5,  note:'2名記念日コース'},
-  house:  {label:'生活｜ハウスクリーニング',         cat:'life',usLow:150,usHigh:300,ftcDef:20000,monthlyPerPerson:2,  note:'3LDK相当'},
-  car:    {label:'生活｜車内外クリーニング',         cat:'life',usLow:150,usHigh:400,ftcDef:12000,monthlyPerPerson:3,  note:'フルディテール'},
+  house:  {label:'生活｜ハウスクリーニング',         cat:'life',usLow:130,usHigh:220,ftcDef:20000,monthlyPerPerson:2,  note:'3LDK相当・通常清掃(2026-11-10調査: Angi/Housecall Pro $130-200・Tidy平均$180。深掃除は$150-300。推論B)'},
+  car:    {label:'生活｜車内外クリーニング',         cat:'life',usLow:150,usHigh:400,ftcDef:12000,monthlyPerPerson:3,  note:'フルディテール(2026-11-10時点で未再調査・stale_observed)'},
   pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:18, usHigh:28, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問(2026調査:全米平均時給$16-22)'},
-  trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行'},
-  hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:100,usHigh:220,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー(2026調査:カット平均$69・カラー$60-150)'},
-  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:80, usHigh:165,ftcDef:10000,monthlyPerPerson:12,note:'60分全身（2026年相場$80-165・PDF確認:avg$95）'},
-  acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:75, usHigh:150,ftcDef:16000,monthlyPerPerson:8, note:'60分スタンドアロン（PDF確認:avg$110）'},
+  trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行(2026-11-10時点で未再調査・stale_observed)'},
+  hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:100,usHigh:250,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー(2026-11-10調査: カット中央値$75・カラー$70-215、高級店は$400超(Boston Globe 2026/11)。推論B)'},
+  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:70, usHigh:130,ftcDef:10000,monthlyPerPerson:12,note:'60分全身(2026-11-10調査: 全米$60-130、多くは$75-100(チップ別)、NYC $120-200。推論B)'},
+  acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:75, usHigh:150,ftcDef:16000,monthlyPerPerson:8, note:'60分スタンドアロン(2026-11-10再確認: 個別$75-150、初診$80-200、コミュニティ$40-70。推論B)'},
   acu_combo:{label:'🌟 FTO｜60分Acu-Wellnessコンボ', cat:'beauty',usLow:180,usHigh:260,ftcDef:15800,monthlyPerPerson:8, note:'鍼灸+マッサージ+PEMF 新メニュー(PDF調査:avg$220)'},
   hbeat:  {label:'小売｜Heartbeat Animal記念品',    cat:'retail',usLow:40, usHigh:80, ftcDef:5500, monthlyPerPerson:1.5,note:'ベビー胎動記念品'},
   baby:   {label:'小売｜ベビー/マタニティ用品',     cat:'retail',usLow:30, usHigh:100,ftcDef:6000, monthlyPerPerson:10, note:'消耗品含むセット'},
-  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:400,usHigh:1200,ftcDef:35000,monthlyPerPerson:1,  note:'フルセッション'},
-  mini:   {label:'体験｜ミニフォトセッション',       cat:'exp',usLow:100,usHigh:200,ftcDef:12000,monthlyPerPerson:2,  note:'30分ミニ'},
-  tour:   {label:'体験｜半日ツアー/アクティビティ', cat:'exp',usLow:80, usHigh:150,ftcDef:9000, monthlyPerPerson:3,  note:'沖縄体験'},
-  lesson: {label:'教育｜語学/子どもレッスン',       cat:'edu',usLow:50, usHigh:100,ftcDef:5000, monthlyPerPerson:6,  note:'60分レッスン'}
+  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:600,usHigh:1500,ftcDef:35000,monthlyPerPerson:1,  note:'フルセッション(2026-11-10調査: 在宅ニューボーン$600-1,095(個別スタジオ2026料金表)、パッケージ$800-1,500超。競合仮説C)'},
+  mini:   {label:'体験｜ミニフォトセッション',       cat:'exp',usLow:180,usHigh:400,ftcDef:12000,monthlyPerPerson:2,  note:'15〜60分ミニ(2026-11-10調査: ミニ$180-695、平日$250・通常$350の例。競合仮説C)'},
+  tour:   {label:'体験｜半日ツアー/アクティビティ', cat:'exp',usLow:80, usHigh:150,ftcDef:9000, monthlyPerPerson:3,  note:'沖縄体験(2026-11-10時点で未再調査・stale_observed)'},
+  lesson: {label:'教育｜語学/子どもレッスン',       cat:'edu',usLow:25, usHigh:60, ftcDef:5000, monthlyPerPerson:6,  note:'60分レッスン(2026-11-10調査: 子ども向け講師$20-50/h・地域平均$31(Care.com系)。推論B)'}
 };
 
 var CAT_LABELS = {
@@ -2794,7 +2794,7 @@ function runSim(){
 
   // 月間市場ポテンシャル (万円) = 件数/人/月 × 商圏人口 × 単価
   var marketPop=Math.round(SOFA*area.pct/100);
-  var monthlyMktJpy=Math.round(bt.monthlyPerPerson*marketPop*inputJPY/10000)/100; // 百万円
+  var monthlyMktJpy=Math.round(bt.monthlyPerPerson/1000*marketPop*inputJPY/10000)/100; // 百万円 [2026-11-10修正] 利用頻度は件/1,000人/月
 
   // OHAブースト後推奨上限
   var recHighBoosted=Math.round(recHigh*housingBoost);
@@ -2842,7 +2842,7 @@ function runSim(){
     memo+='入力価格は米国比でやや割高（'+valueRatio.toFixed(2)+'x）。';
     memo+='ターゲット層の価格感度（'+seg.sens+'）を考慮したパッケージ設計を推奨。';
   }
-  memo+='<br>月間市場ポテンシャル: <strong>'+monthlyMktJpy.toFixed(1)+'百万円</strong>（'+area.name.split('・')[0]+'商圏・利用頻度'+bt.monthlyPerPerson+'件/月基準）';
+  memo+='<br>月間市場ポテンシャル: <strong>'+monthlyMktJpy.toFixed(1)+'百万円</strong>（'+area.name.split('・')[0]+'商圏・利用頻度'+bt.monthlyPerPerson+'件/1,000人/月基準）';
   memo+='<br><strong style="color:'+actionColor+'">▶ 経営判断: '+action+'</strong>';
   document.getElementById('sim-memo').innerHTML=memo;
 
@@ -3109,31 +3109,35 @@ function renderBiz(cat){
   document.getElementById('biz-count').textContent=filtered.length+'業種';
   // Bar chart
   var bcLabels=filtered.map(function(k){return BTYPE[k].label.split('｜')[1]||BTYPE[k].label;});
-  var bcData=filtered.map(function(k){return +((BTYPE[k].monthlyPerPerson*SOFA/1000000).toFixed(2));});
+  var bcData=filtered.map(function(k){return +((BTYPE[k].monthlyPerPerson/1000*SOFA*12*(BTYPE[k].ftcDef/fx))/1000000).toFixed(2);});
   var bcColors=filtered.map(function(k){return catColors[BTYPE[k].cat]||'#8899B0';});
   mkBar('c-biz-bar',bcLabels,[{label:'年間市場規模 (USD Million)',data:bcData,backgroundColor:bcColors,borderWidth:0}],{indexAxis:'y',plugins:{legend:{display:false}}});
   // Table
   var html=filtered.map(function(k){
     var bt=BTYPE[k];
-    var cpiAdj=1+cpi/100;
-    var usLowCur=Math.round(bt.usLow*cpiAdj);
-    var usHiCur=Math.round(bt.usHigh*cpiAdj);
-    var anchorLow=Math.round(usLowCur*fx);
-    var anchorHi=Math.round(usHiCur*fx);
-    var gF=1.075;
-    var recLow=Math.round(anchorLow*0.60*gF);
-    var recHi=Math.round(anchorHi*0.85*gF);
-    var valueRatio=+((usHiCur+usLowCur)/2/(bt.ftcDef/fx)).toFixed(1);
-    var mktM=+((bt.monthlyPerPerson*SOFA/1000000).toFixed(2));
+    // [2026-11-10] 羅針盤・今週の経営判断と同じ式に統一: 心理補正 adj=1+CPI/2、心理的価格帯=米国中央値×(1−0.55)〜×(1−0.25)
+    var adj=1+cpi/100*0.5;
+    var midJ=(bt.usLow+bt.usHigh)/2*adj*fx;
+    var anchorLow=Math.round(bt.usLow*adj*fx), anchorHi=Math.round(bt.usHigh*adj*fx);
+    var recLow=Math.round(midJ*0.45/100)*100, recHi=Math.round(midJ*0.75/100)*100;
+    var gap=Math.round((1-bt.ftcDef/midJ)*100);
+    var pos=gap<25?'割高リスク（下限25%未満）':gap>55?'値上げ余地（55%超）':'帯内';
+    var pcol=gap<25?'#FF7F50':gap>55?'#60A5FA':'#00D4AA';
+    var xp=function(g){return Math.max(0,Math.min(100,(g+10)/80*100));}; // −10%〜70%を目盛りに
+    var dot='<div style="position:relative;height:8px;min-width:90px;background:rgba(255,255,255,.06);border-radius:4px;margin-top:3px">'
+      +'<div style="position:absolute;left:'+xp(25)+'%;width:'+(xp(55)-xp(25))+'%;height:8px;background:rgba(0,212,170,.18);border-radius:4px"></div>'
+      +'<div style="position:absolute;left:calc('+xp(gap)+'% - 4px);width:8px;height:8px;border-radius:50%;background:'+pcol+'"></div></div>';
+    // 年間市場(M$) = 利用頻度(件/1,000人/月) ÷1000 × SOFA人口 × 12か月 × FTO参考価格のドル換算
+    var mktM=+((bt.monthlyPerPerson/1000*SOFA*12*(bt.ftcDef/fx))/1000000).toFixed(2);
     var catLbl=CAT_LABELS[bt.cat]||bt.cat;
     return '<tr>'
-      +'<td style="font-size:10px;font-weight:600">'+bt.label+'</td>'
+      +'<td style="font-size:10px;font-weight:600" title="'+(bt.note||'').replace(/"/g,'&quot;')+'">'+bt.label+'</td>'
       +'<td><span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(0,212,170,.1);color:'+catColors[bt.cat]+'">'+catLbl+'</span></td>'
       +'<td class="mono" style="color:var(--muted)">$'+bt.usLow+'〜$'+bt.usHigh+'</td>'
-      +'<td class="mono">¥'+anchorLow.toLocaleString()+'〜¥'+anchorHi.toLocaleString()+'</td>'
+      +'<td class="mono">¥'+anchorLow.toLocaleString()+'〜¥'+anchorHi.toLocaleString()+'<div style="font-size:9px;color:var(--muted)">中央値 ¥'+Math.round(midJ).toLocaleString()+'</div></td>'
       +'<td class="mono" style="color:var(--teal)">¥'+bt.ftcDef.toLocaleString()+'</td>'
       +'<td class="mono" style="color:var(--green)">¥'+recLow.toLocaleString()+'〜¥'+recHi.toLocaleString()+'</td>'
-      +'<td class="mono" style="color:var(--gold)">'+valueRatio+'x</td>'
+      +'<td class="mono" style="color:'+pcol+'">'+gap+'%　'+pos+dot+'</td>'
       +'<td class="mono" style="color:var(--gold)">$'+mktM+'M</td>'
       +'</tr>';
   }).join('');
@@ -3193,7 +3197,7 @@ function renderMil(){
   if(e4Seg) {
     var fx=S.fx||153.36;
     var totalMkt=0;
-    AREAS.forEach(function(a){ totalMkt += 3.0 * Math.round(SOFA*a.pct/100) * 20000 / 1000000; });
+    AREAS.forEach(function(a){ totalMkt += 3.0/1000 * Math.round(SOFA*a.pct/100) * 20000 / 1000000; }); // [2026-11-10修正] 4D 3件/1,000人/月
     var e4mkt = (totalMkt * (e4Seg.prem/100)).toFixed(1);
     document.getElementById('e4-market').textContent = e4mkt + '百万円/月';
     document.getElementById('e4-income').textContent = '$' + e4Seg.monthly.toLocaleString() + '/mo';
