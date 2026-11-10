@@ -500,12 +500,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="g2-1">
       <div class="box">
         <div class="box-title">USD/JPY 日次推移 <span class="badge" id="fx-src-badge">FRED</span></div>
-        <div class="chart-wrap" style="height:200px"><canvas id="c-fx"></canvas></div>
+        <div class="chart-wrap" style="height:200px"><canvas id="c-fx" role="img" aria-label="USD/JPY 日次推移の折れ線グラフ"></canvas></div>
       </div>
       <div class="box" style="display:flex;flex-direction:column;align-items:center;justify-content:center">
         <div class="box-title" style="margin-bottom:4px">購買市場温度</div>
         <div class="gauge-wrap">
-          <canvas id="c-gauge" width="180" height="100"></canvas>
+          <canvas id="c-gauge" role="img" aria-label="購買市場温度のゲージ" width="180" height="100"></canvas>
           <div class="gauge-val">
             <div class="gauge-num" id="gauge-num">—</div>
             <div class="gauge-lbl" id="gauge-lbl">計算中</div>
@@ -522,18 +522,18 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="g2">
       <div class="box">
         <div class="box-title">FF金利推移 (12ヶ月)</div>
-        <div class="chart-wrap" style="height:160px"><canvas id="c-ff"></canvas></div>
+        <div class="chart-wrap" style="height:160px"><canvas id="c-ff" role="img" aria-label="FF金利 12ヶ月推移の折れ線グラフ"></canvas></div>
       </div>
       <div class="box">
         <div class="box-title">失業率推移 (12ヶ月)</div>
-        <div class="chart-wrap" style="height:160px"><canvas id="c-ur"></canvas></div>
+        <div class="chart-wrap" style="height:160px"><canvas id="c-ur" role="img" aria-label="米国失業率 12ヶ月推移の折れ線グラフ"></canvas></div>
       </div>
     </div>
 
     <div class="box">
       <div class="box-title">エリア別 商圏シェア — 沖縄SOFA市場</div>
       <div class="g1-2" style="align-items:center">
-        <div class="chart-wrap" style="height:200px"><canvas id="c-area-donut"></canvas></div>
+        <div class="chart-wrap" style="height:200px"><canvas id="c-area-donut" role="img" aria-label="沖縄SOFA市場のエリア別商圏シェアのドーナツグラフ"></canvas></div>
         <div class="area-grid" id="area-cards"></div>
       </div>
     </div>
@@ -599,7 +599,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
     <div class="box">
       <div class="box-title">価格比較チャート — 米国アンカー vs FTC価格 (USD換算)</div>
-      <div class="chart-wrap" style="height:240px"><canvas id="c-sim-bar"></canvas></div>
+      <div class="chart-wrap" style="height:240px"><canvas id="c-sim-bar" role="img" aria-label="米国アンカー価格とFTO価格（USD換算）の比較棒グラフ"></canvas></div>
     </div>
   </div>
 
@@ -637,7 +637,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="g2">
       <div class="box">
         <div class="box-title">地政学7指数レーダーチャート</div>
-        <div class="chart-wrap" style="height:280px"><canvas id="c-radar"></canvas></div>
+        <div class="chart-wrap" style="height:280px"><canvas id="c-radar" role="img" aria-label="地政学7指数のレーダーチャート"></canvas></div>
       </div>
       <div class="box">
         <div class="box-title">価格心理への影響経路</div>
@@ -773,7 +773,7 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
 
     <div class="box">
       <div class="box-title">業種別 年間市場規模推計 (USD Million) <span class="badge">SOFA ~47,000人</span> <span class="verif-badge verif-est">未検証（理論上限値）</span></div>
-      <div class="chart-wrap" style="height:320px"><canvas id="c-biz-bar"></canvas></div>
+      <div class="chart-wrap" style="height:320px"><canvas id="c-biz-bar" role="img" aria-label="業種別 年間市場規模推計（USD百万）の棒グラフ"></canvas></div>
       <div class="margin-note" style="margin-top:8px">※SOFA全人口(~47,000人)が対象月間頻度で購入した場合の理論上限値です。実際の商品浸透率（何%が顧客になるか）は未反映のため、現実の市場規模はこれよりかなり小さくなります。事業計画の参考値としては使用しないでください。</div>
     </div>
 
@@ -827,7 +827,7 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
     <div class="g2">
       <div class="box">
         <div class="box-title">給与等級別 月収 (USD) <span class="badge">DFAS 2026</span></div>
-        <div class="chart-wrap" style="height:280px"><canvas id="c-pay"></canvas></div>
+        <div class="chart-wrap" style="height:280px"><canvas id="c-pay" role="img" aria-label="米軍給与等級別 月収（USD）の棒グラフ"></canvas></div>
       </div>
       <div class="box">
         <div class="box-title">等級別 詳細データ</div>
@@ -879,15 +879,15 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
     <div class="g3">
       <div class="box">
         <div class="box-title">FF金利推移</div>
-        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-ff"></canvas></div>
+        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-ff" role="img" aria-label="FRED FF金利推移の折れ線グラフ"></canvas></div>
       </div>
       <div class="box">
         <div class="box-title">失業率推移</div>
-        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-ur"></canvas></div>
+        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-ur" role="img" aria-label="FRED 失業率推移の折れ線グラフ"></canvas></div>
       </div>
       <div class="box">
         <div class="box-title">CPI推移</div>
-        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-cpi"></canvas></div>
+        <div class="chart-wrap" style="height:150px"><canvas id="c-fred-cpi" role="img" aria-label="FRED CPI推移の折れ線グラフ"></canvas></div>
       </div>
     </div>
 
@@ -1006,7 +1006,7 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
       <!-- Tab: エリア別消費 -->
       <div id="htab-area" class="h-tab-panel" style="display:none">
         <div style="font-size:.78rem;color:var(--dim);margin-bottom:.5rem">選択ランク × 商圏エリア別 月間消費ポテンシャル（百万円）</div>
-        <div class="chart-wrap" style="height:220px"><canvas id="c-h-area-market"></canvas></div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-area-market" role="img" aria-label="選択ランク×商圏エリア別 月間消費ポテンシャル（百万円）の棒グラフ"></canvas></div>
       </div>
     </div>
 
@@ -1014,11 +1014,11 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
     <div class="g2" style="margin-top:1.5rem">
       <div class="box">
         <div class="box-title">家賃比較：OHA予算 vs 沖縄実勢(円)</div>
-        <div class="chart-wrap" style="height:220px"><canvas id="c-h-rent"></canvas></div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-rent" role="img" aria-label="OHA予算と沖縄実勢家賃（円）の比較棒グラフ"></canvas></div>
       </div>
       <div class="box">
         <div class="box-title">坪単価比較(円/坪)</div>
-        <div class="chart-wrap" style="height:220px"><canvas id="c-h-tsubo"></canvas></div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-tsubo" role="img" aria-label="坪単価（円/坪）の比較棒グラフ"></canvas></div>
       </div>
     </div>
 
@@ -1026,11 +1026,11 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
     <div class="g2" style="margin-top:1.5rem">
       <div class="box">
         <div class="box-title">OHA vs BAH (本土) 比較 — 主要ランク(USD)</div>
-        <div class="chart-wrap" style="height:220px"><canvas id="c-h-oha-bah"></canvas></div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-oha-bah" role="img" aria-label="主要ランクのOHAと本土BAH（USD）の比較棒グラフ"></canvas></div>
       </div>
       <div class="box">
         <div class="box-title">住宅面積適合スコア（公式151㎡比）</div>
-        <div class="chart-wrap" style="height:220px"><canvas id="c-h-size"></canvas></div>
+        <div class="chart-wrap" style="height:220px"><canvas id="c-h-size" role="img" aria-label="住宅面積適合スコア（公式151㎡比）の棒グラフ"></canvas></div>
       </div>
     </div>
 
@@ -1284,7 +1284,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   <div style="background:var(--card);border-radius:12px;padding:20px;margin-bottom:20px">
     <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">月別PCS転出入圧力指数（1月〜12月）</div>
     <div style="font-size:11px;color:var(--muted);margin-bottom:14px">赤=転出（既存客喪失リスク）/ 緑=転入（新規獲得チャンス）| 出典: DoD/TRANSCOM・在日米軍・DoDEA資料</div>
-    <div style="position:relative;height:220px"><canvas id="c-pcs-month"></canvas></div>
+    <div style="position:relative;height:220px"><canvas id="c-pcs-month" role="img" aria-label="月別PCS転出入圧力指数（1〜12月）の棒グラフ。赤は転出、緑は転入"></canvas></div>
   </div>
 
   <!-- ツアーサイクル × 2026年タイムライン -->
@@ -1390,14 +1390,14 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   </div>
 
   <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#11088; Googleクチコミ 全45件 全数分析 <span class="badge">R-15 2026-09-05 実測（原文）</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">事実A</span></div>
+    <div class="box-title">&#11088; Googleクチコミ 全数分析 <span class="badge">件数・英語本文 2026-11-11 実測（hl=en原文・51件）／分析①〜④は2026-09-05時点（45件）</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">事実A</span></div>
     <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:10px">
-      <div class="card"><div class="c-lbl">評価／件数</div><div class="c-val" style="color:var(--gold)">4.9★ / 45件</div><div class="c-sub">2026-09-05時点</div></div>
-      <div class="card"><div class="c-lbl">英語名の投稿者</div><div class="c-val" style="color:#00D4AA">38件</div><div class="c-sub">84.4%</div></div>
-      <div class="card"><div class="c-lbl">英語本文</div><div class="c-val" style="color:#00D4AA">33件</div><div class="c-sub">73.3%（日本語11件・本文なし1件）</div></div>
-      <div class="card"><div class="c-lbl">★直近1週間の投稿</div><div class="c-val" style="color:#ef4444">6件</div><div class="c-sub">その前の3ヶ月はわずか1件</div></div>
+      <div class="card"><div class="c-lbl">評価／件数</div><div class="c-val" style="color:var(--gold)">4.9★ / 51件</div><div class="c-sub">2026-11-11時点（hl=en）。5★50件・1★1件。9/05は45件</div></div>
+      <div class="card"><div class="c-lbl">英語名の投稿者</div><div class="c-val" style="color:#00D4AA">38件</div><div class="c-sub">84.4%（2026-09-05・45件中）</div></div>
+      <div class="card"><div class="c-lbl">英語本文</div><div class="c-val" style="color:#00D4AA">39件</div><div class="c-sub">76.5%（日本語12件・2026-11-11）。9/05は33件・73.3%</div></div>
+      <div class="card"><div class="c-lbl">★直近1週間の投稿</div><div class="c-val" style="color:#ef4444">6件</div><div class="c-sub">2026-09-05時点。その前の3ヶ月はわずか1件</div></div>
       <div class="card"><div class="c-lbl">従来ペース</div><div class="c-val" style="color:var(--muted)">1.9件/月</div><div class="c-sub">45件÷24ヶ月</div></div>
-      <div class="card"><div class="c-lbl">★直近ペース（月換算）</div><div class="c-val" style="color:#ef4444">26件/月</div><div class="c-sub">従来の約14倍</div></div>
+      <div class="card"><div class="c-lbl">★直近ペース（月換算）</div><div class="c-val" style="color:#ef4444">26件/月</div><div class="c-sub">2026-09-05時点。9/05→11/11は+6件（約2.7件/月）</div></div>
     </div>
     <div class="margin-note">
       <b>① 顧客層はすでに米軍軍属層へ完全に移行している。</b>2年前の投稿は日本語が中心（助産院・妊婦健診といった語が並ぶ）だが、
@@ -1434,7 +1434,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">Week Checker（無料ツール）</td><td style="padding:6px 8px">出産予定日→最適週を判定。25〜32週が最適と明示</td><td style="padding:6px 8px;color:#00D4AA">◎ 発見の入口として強い</td></tr>
       <tr><td style="padding:6px 8px">構造化データ</td><td style="padding:6px 8px">構造化データ（型の詳細は非公開文書）＋ FAQPage を実装</td><td style="padding:6px 8px;color:#f59e0b">△ 型の妥当性は要確認（下記）</td></tr>
       <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>AggregateRating / Review</b></td><td style="padding:6px 8px"><b>未実装（HTML内に該当なし）</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 最大の欠落</b></td></tr>
-      <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>Googleマップ クチコミ（原文・45件全数）</b></td><td style="padding:6px 8px"><b>4.9★・45件。英語名38件(84.4%)／英語本文33件(73.3%)。すでに英語圏＝米軍軍属層が主体</b></td><td style="padding:6px 8px;color:#00D4AA"><b>◎ 訂正：言語ミスマッチではなかった</b></td></tr>
+      <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>Googleマップ クチコミ（原文・全数）</b></td><td style="padding:6px 8px"><b>4.9★・51件（2026-11-11 hl=en）。英語本文39件(76.5%)。9/05時点は45件・英語名38件(84.4%)／英語本文33件(73.3%)。すでに英語圏＝米軍軍属層が主体</b></td><td style="padding:6px 8px;color:#00D4AA"><b>◎ 訂正：言語ミスマッチではなかった</b></td></tr>
       <tr><td style="padding:6px 8px">クチコミの話題タグ（英語UI）</td><td style="padding:6px 8px">ultrasound photos／cozy atmosphere／friendly staff／ultrasound technician／cool staff／translator／clear explanations</td><td style="padding:6px 8px">"translator" が独立タグ化＝英語対応が強みとして認知されている</td></tr>
       <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>ブランド名の分裂</b></td><td style="padding:6px 8px"><b>クチコミ本文で「Sneak Peek / Sneak Peak / sneakpeak」5件 vs 「Family Tree」3件</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 新たに判明した最大の漏れ</b></td></tr>
     </table></div>
@@ -1576,7 +1576,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
     <div class="card" style="padding:16px">
       <div style="font-size:.75rem;font-weight:700;color:var(--accent);margin-bottom:10px">&#128197; 月別 妊婦需要指数 x PCS転入圧力</div>
-      <canvas id="mat-monthly-chart" height="220"></canvas>
+      <canvas id="mat-monthly-chart" role="img" aria-label="月別 妊婦需要指数とPCS転入圧力のグラフ" height="220"></canvas>
       <div style="font-size:.62rem;color:var(--muted);margin-top:6px">月別転入妊婦推計（棒）x PCS圧力指数（折れ線）</div>
     </div>
     <div class="card" style="padding:16px">
@@ -1624,11 +1624,11 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
     <div class="card" style="padding:16px">
       <div style="font-size:.75rem;font-weight:700;color:#a78bfa;margin-bottom:10px">&#128737; TRICARE 産前産後カバレッジ内訳</div>
-      <canvas id="mat-tricare-chart" height="180"></canvas>
+      <canvas id="mat-tricare-chart" role="img" aria-label="TRICARE 産前産後カバレッジ内訳のグラフ" height="180"></canvas>
     </div>
     <div class="card" style="padding:16px">
       <div style="font-size:.75rem;font-weight:700;color:var(--gold);margin-bottom:10px">&#128202; 年間需要シナリオ（弱気/ベース/強気）</div>
-      <canvas id="mat-scenario-chart" height="180"></canvas>
+      <canvas id="mat-scenario-chart" role="img" aria-label="年間需要シナリオ（弱気・ベース・強気）のグラフ" height="180"></canvas>
     </div>
   </div>
 
@@ -1707,6 +1707,16 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       </tbody>
     </table>
     <div class="margin-note">閾値は koya-agent-os の証拠規律における「競合仮説C／未立証D」。実績の検証は<strong>月次顧客人数（新規・リピーター内訳）</strong>を基準に、GBPI・実質価格ギャップとの相関を90日実験（2026-08-20〜2026-11-18）で確認し、随時補正する。</div>
+    <div class="margin-note" id="cmp-exp90" style="margin-top:8px;border-left:3px solid #f59e0b;padding-left:10px">
+      <b>90日実験の結果（2026-11-11 集計・R-13）：検証不能。閾値は動かしていない。</b><br>
+      月次の顧客件数（STORES予約分析・実施月・新規／リピート、集計値のみ）：8月 61件（39／22）、9月 46件（32／14）、10月 59件（43／16）、11月は途中（11/7時点 26件）。<br>
+      検証不能の理由：<br>
+      ① GBPIはGEO7指数の手入力値から計算しており、GEO値は2026-08-31から変わっていない。期間中のGBPIは一定で、顧客数と相関を取れない。<br>
+      ② fred-data.json の為替履歴は直近約3週間（2026-10-20以降）しかなく、8・9月の月次の実質価格ギャップを同じ根拠から再計算できない。<br>
+      ③ 期間内で月の全体がそろうのは8〜10月の3点だけで、相関を言うには少なすぎる。8月はPCSピークで、季節の影響と区別できない。<br>
+      ④ 基準に指定されたSquareの顧客数は、この集計では接続できず取得できなかった。代わりにSTORESの予約件数を使った（予約件数は顧客人数と1対1ではない）。<br>
+      証拠区分：月次件数は事実A・observed（STORES 2026-11-08取得）。相関は未立証D・blocked_or_failed。
+    </div>
     <div class="box" id="cmp-ladder" style="margin-top:14px;font-size:12px;line-height:1.7">
       <div style="font-weight:700;margin-bottom:6px">FTO現行価格の流れ <span style="font-weight:400;color:var(--muted)">STORES予約ページ 2026-10-16確認／為替・CPIはライブ値</span></div>
       <div id="cmp-ladder-body"></div>
@@ -1828,29 +1838,30 @@ var PAY = [
 ];
 
 // GEOスコア: 2026年6月時点データを基盤に、2026年8月31日にWebSearchで裏付け再確認（一部記述更新）
+// 2026-11-11 R-13: 7指数のdesc/srcを直近の一次・報道ソースで確認・更新（valは2026-08-31の値のまま不変。変更案は報告のみ）
 // 出典: ArmyRecognition/CSIS/CFR/Military.com/Stars&Stripes/BLS/U-Michigan/AirAndSpaceForces/JapanTimes 2026年調査
 var GEO = [
   {key:'forward', label:'米軍前方展開指数',val:92,trend:'↑',color:'#00D4AA',
-   desc:'USFJ統合司令部化進行中・米特殊部隊沖縄精密降下訓練強化・島嶼空港事前集積。DoD「中国が沖縄/Guamを初撃圧倒」懸念から前方分散展開を加速中。',
-   impact:'需要安定・消費意欲維持に寄与。高付加価値サービス需要を長期下支え。',src:'ArmyRecognition/AsiaTimesReports 2026/CSIS'},
+   desc:'第12海兵沿岸連隊がNMESIS（対艦ミサイル）とMADIS（防空）を2026年6月に受領し、第一列島線上で初の前方配備の米対艦ミサイルとなった。嘉手納のF-15EXは恒久配備が2027会計年度（初号機は2026-08-28にボーイング工場を出発）。USFJ統合司令部化も継続（2026-11-11確認）。',
+   impact:'需要安定・消費意欲維持に寄与。高付加価値サービス需要を長期下支え。',src:'Military Times 2026-06-23（NMESIS/MADIS受領）/Kadena AB 2026-08（F-15EX初号機）/Air & Space Forces（FY2027配備）｜確認日 2026-11-11'},
   {key:'defense', label:'国防予算/PDI指数',val:79,trend:'↑',color:'#4ADE80',
-   desc:'2026 NDS（対中・台湾中心）・PDI予算継続・インド太平洋抑止力投資を合成。議会超党派支持で予算維持。',
-   impact:'軍人家族の雇用安定期待・長期駐留確実性が消費余力に寄与。',src:'2026 NDS/DoD公開予算+CFR'},
+   desc:'FY2027国防予算要求でPDIは約120億ドル（FY2026比+16億ドル、演習44億・インフラ30億・前方展開29億）。上院・下院のFY2027 NDAA案はどちらもPDIを延長（両院協議は未了、2026-11-11時点）。2026 NDSは本土防衛と第一列島線での拒否防衛を柱にする。',
+   impact:'軍人家族の雇用安定期待・長期駐留確実性が消費余力に寄与。',src:'DoD Comptroller FY2027 PDI資料/SASC FY2027 NDAA要旨/H.R.8800｜確認日 2026-11-11'},
   {key:'first',   label:'第一列島線地政学',val:85,trend:'↑',color:'#F4C842',
-   desc:'DoD「中国PLA能力が沖縄・Guamを圧倒するリスク」公表→島嶼分散配備・空港燃料事前集積を加速。沖縄の戦略的代替不可能性が上昇。',
-   impact:'米軍プレゼンス長期化・強化シグナル。商圏安定の最強根拠。',src:'AsiaTimesReports/DoD Reports 2026'},
+   desc:'上院FY2027 NDAA案は台湾安全保障協力イニシアチブを「第一列島線安全保障協力イニシアチブ」に改称し、フィリピンも対象に加えた。NMESISの与那国展開（Keen Sword 27）が計画と報じられる（未確認）。島嶼分散配備の流れは継続し、沖縄の戦略的な代替の難しさは変わらない。',
+   impact:'米軍プレゼンス長期化・強化シグナル。商圏安定の最強根拠。',src:'SASC FY2027 NDAA要旨/Naval News 2026-06/Defence Security Asia（与那国計画・未確認）｜確認日 2026-11-11'},
   {key:'okinawa', label:'沖縄関係安定度',val:63,trend:'↓',color:'#60A5FA',
-   desc:'OHA増額→家主が家賃引き上げ・USFJ基地交渉継続・地元との摩擦やや増加。ただし米軍・沖縄県の対話継続中。',
-   impact:'摩擦増はSOFA層の外出消費にやや抑制効果。英語対応サービスの差別化重要性が増す。',src:'Stars&Stripes 2026/5/11+沖縄メディア'},
+   desc:'2026-09-13の知事選で辺野古容認の古謝玄太氏が当選し、県と国の対立は和らぐ方向。一方、10月に海兵隊員が女性殺害の容疑で逮捕され、県議会は日米地位協定の見直しを求める決議を可決。米軍は訓練の一時停止・外出制限・飲酒禁止を実施し、11月6日に下位階級の外出制限を延長した（深夜以降の基地外飲酒は全員禁止）。',
+   impact:'摩擦増はSOFA層の外出消費にやや抑制効果。英語対応サービスの差別化重要性が増す。',src:'Al Jazeera 2026-10-07・10-09/Stars and Stripes 2026-09-30・10-05/USNI News 2026-11-06/Malay Mail 2026-09-14｜確認日 2026-11-11'},
   {key:'taiwan',  label:'台湾・東アジア緊張',val:85,trend:'↑',color:'#A78BFA',
-   desc:'中国デュアルトラック戦略（台湾・フィリピン・日本へ同時圧力）継続。PLA海空演習増加。「台湾有事」シナリオへの軍事プランニング可視化。',
-   impact:'部隊増強・ドル高・COLA増額など、短期SOFA消費を押し上げる複合効果。',src:'CFR Indo-Pacific Jan2026/HSCentre 2026 NDS'},
+   desc:'2026年のPLA航空機の台湾周辺活動は2024〜25年の約半分に減ったが、艦艇の常駐は続く。10月の日次報告は航空機2〜12機・艦艇5〜7隻程度。9月の習近平氏訪米では台湾の合意はなく、貿易休戦の延長が主な成果。台湾向け武器売却（約140億ドル）は保留のまま。11〜12月は大規模演習の季節で、台湾国防部が警戒中。',
+   impact:'部隊増強・ドル高・COLA増額など、短期SOFA消費を押し上げる複合効果。',src:'台湾国防部の日次報告（2026-10）/Taiwan Security Monitor（GMU）/Al Jazeera 2026-09-24/IBTimes（米中首脳会談）｜確認日 2026-11-11'},
   {key:'rebase',  label:'基地再編リスク',val:42,trend:'↓',color:'#FF4D6A',
-   desc:'グアム移転・12th MLR再配置一部完了。ただし沖縄の戦略的重要性上昇で大規模削減リスクは低下。',
-   impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'Military.com US-Japan Base Negotiations 2026'},
+   desc:'グアム移転は初期の約100名のみで、Camp Blazの建設指揮組織は2026-06に任務を終えた。辺野古は南側の埋め立てがほぼ完了、大浦湾側は軟弱地盤で遅れ、普天間の返還は2036年以降の見込み。新知事は辺野古容認で、県の基地対策組織を再編する方針。大規模削減のリスクは低いまま。',
+   impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'NAVFAC Atlantic 2026-06-09/Stars and Stripes 2026-02-09・09-30/Kyodo（2026-04 普天間返還見通し）｜確認日 2026-11-11'},
   {key:'usstress',label:'米国政治経済ストレス',val:72,trend:'→',color:'#FF7F50',
-   desc:'【2026-10-16 数値の固定記載を撤去】米国消費者心理・インフレ・金利・株価・原油の実測値はFRED経済データタブ／市場概況（fred-data.json・毎日更新）を参照。FRED最新: UMCSENT 7月55.2→8月51.7と低下、CPI総合YoY約3.7%（2026-09）、10年債5.19%と高水準（事実A/observed、2026-10-16照合）。このスコア(72)自体は2026-08-31の評価値で、実質賃金・クレカ延滞率等の細目は未再検証（stale_observed）。',
-   impact:'消費者信頼感は7月55.2→8月51.7へ低下し、8月末時点の「回復基調」は終了（事実A、FRED UMCSENT）。CPI・長期金利も上昇しており、本国の消費者心理は再び重い。SOFA家族はOHA・ドル収入の二重バッファで圧迫を受けにくく、沖縄サービスの相対的割安感は維持される方向（強い推論B）。',src:'BLS CPI Jun2026/FRED UMCSENT May2026+UMich Jul2026速報/NY Fed HH Debt Q1-2026/RBC Economics Jul2026/FRB Jul2026 FOMC'}
+   desc:'【2026-10-16 数値の固定記載を撤去】米国消費者心理・インフレ・金利・株価・原油の実測値はFRED経済データタブ／市場概況（fred-data.json・毎日更新）を参照。FRED最新: UMCSENT 7月55.2→8月51.7と低下、CPI総合YoY約3.7%（2026-09）、10年債5.19%と高水準（事実A/observed、2026-10-16照合）。UMich速報（2026-11-06公表）では11月51.0と10月48.0から回復（確報は11-20予定、2026-11-11確認）。このスコア(72)自体は2026-08-31の評価値で、実質賃金・クレカ延滞率等の細目は未再検証（stale_observed）。',
+   impact:'消費者信頼感は7月55.2→8月51.7へ低下し、8月末時点の「回復基調」は終了（事実A、FRED UMCSENT）。CPI・長期金利も上昇しており、本国の消費者心理は再び重い。SOFA家族はOHA・ドル収入の二重バッファで圧迫を受けにくく、沖縄サービスの相対的割安感は維持される方向（強い推論B）。',src:'FRED（fred-data.json）/UMich 2026-11速報（ABA Banking Journal・Advisor Perspectives 2026-11-06）/BLS CPI｜確認日 2026-11-11'}
 ];
 
 var FRED_SERIES = [
