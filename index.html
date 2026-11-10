@@ -433,6 +433,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <div id="tab-overview" class="tab-panel active">
     <div class="sec-title">市場概況 — リアルタイムシグナル</div>
     <div class="sec-sub">FRED経済データ・地政学スコア・購買市場温度を統合した経営判断ダッシュボード</div>
+
+    <!-- [2026-11-10 P0] 今週の経営判断カード（信号統合） -->
+    <div class="box" id="dc-box" style="border:1px solid rgba(0,212,170,.4);margin-bottom:1rem">
+      <div class="box-title">🧭 今週の経営判断 — 2D・4Dの適正単価とターゲット層 <span class="badge" id="dc-verdict">--</span> <span class="verif-badge verif-est">統合ルール=仮置き（競合仮説C）</span></div>
+      <div id="dc-body" style="font-size:12px;line-height:1.7">--</div>
+    </div>
     <div class="cards">
       <div class="card">
         <div class="c-lbl">USD/JPY (FRED Live)</div>
@@ -798,6 +804,12 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
   <div id="tab-mil" class="tab-panel">
     <div class="sec-title">軍人・軍属マーケット</div>
     <div class="sec-sub">等級別給与・消費心理・ターゲット層戦略 — DFAS 2026年公式データ</div>
+
+    <!-- [2026-11-10 P1] ターゲット層の増減パネル -->
+    <div class="box" id="tg-box" style="border:1px solid rgba(244,200,66,.35);margin-bottom:1.2rem">
+      <div class="box-title">👪 ターゲット層の増減 — 第一列島線 × SOFA人口 × PCS × 妊婦 <span class="badge" id="tg-trend">--</span></div>
+      <div id="tg-body" style="font-size:12px;line-height:1.7">--</div>
+    </div>
 
     <!-- E4 KPI Cards -->
     <div class="cards" id="e4-kpi-cards">
@@ -2522,6 +2534,112 @@ function updateOverviewCards(){
 // ════════════════════════════════════════════════
 // RENDER: OVERVIEW
 // ════════════════════════════════════════════════
+
+// ════════════════════════════════════════════════
+// [2026-11-10 P0/P1] 今週の経営判断カード & ターゲット層の増減
+// 目的: 心理的価格（2D・4Dの適正単価）とターゲット層の流れを1枚で判断する。
+// 統合ルールの閾値は仮置き（競合仮説C）。予約・売上は対象外（設計方針）。
+// ════════════════════════════════════════════════
+var TG_SEASON=[0.6,0.6,0.6,0.6,1.8,1.8,1.8,1.8,0.6,0.6,0.6,0.6]; // 転入妊婦の60%超が5〜8月（maternityタブの前提から導出）
+var TG_EVENTS=[
+  {d:'2024-12',e:'グアム移転の第1陣 約100人（兵站）がCamp Blazへ',dir:'減',ev:'B'},
+  {d:'2026-01',e:'海兵隊がグアム移転予定部隊の沖縄残留へ方針転換と報道（反基地系媒体・要確認）',dir:'増',ev:'D'},
+  {d:'2026-02',e:'専門家が沖縄からの海兵隊削減の停止を提言（Military Times）',dir:'増',ev:'C'},
+  {d:'2026-06',e:'NMESIS・MADISを第12海兵沿岸連隊（沖縄）に配備',dir:'機能強化',ev:'B'},
+  {d:'2026-10',e:'Keen Sword 27で与那国にNMESIS展開を計画',dir:'機能強化',ev:'B'}
+];
+function _oilNewest(dj){
+  var ur=(dj&&dj.us_reality)||{}, L=(dj&&dj.latest)||{};
+  var br=ur.DCOILBRENTEU, wd=((dj&&dj.series&&dj.series.DCOILWTICO)||[{}])[0].date||'';
+  if(typeof L.DCOILWTICO==='number' && (!br||!br.date||wd>=br.date)) return {v:L.DCOILWTICO,n:'WTI',d:wd||(dj.updated||'').slice(0,10)};
+  if(br&&typeof br.value==='number') return {v:br.value,n:'ブレント',d:br.date};
+  return null;
+}
+function _bar(label,val,note,col){
+  var v=Math.max(0,Math.min(100,Math.round(val)));
+  return '<div style="margin:4px 0"><div style="display:flex;justify-content:space-between;font-size:11px"><span>'+label+'</span><span class="mono" style="color:'+col+'">'+v+'</span></div>'
+    +'<div style="height:8px;background:rgba(255,255,255,.08);border-radius:4px"><div style="width:'+v+'%;height:8px;background:'+col+';border-radius:4px"></div></div>'
+    +'<div style="font-size:10px;color:var(--muted,#8899B0)">'+note+'</div></div>';
+}
+function _gapBar(name,price,gap){
+  // 割安率を 0〜70% の目盛りに置き、目安帯25〜55%を薄く表示
+  var x=function(g){return Math.max(0,Math.min(100,g/70*100));};
+  var col=gap<25?'#FF7F50':gap>55?'#60A5FA':'#00D4AA';
+  return '<div style="margin:6px 0"><div style="display:flex;justify-content:space-between;font-size:11px"><span>'+name+' ¥'+price.toLocaleString()+'</span><span class="mono" style="color:'+col+'">米国中央値比 '+gap+'%割安</span></div>'
+    +'<div style="position:relative;height:10px;background:rgba(255,255,255,.06);border-radius:5px">'
+    +'<div style="position:absolute;left:'+x(25)+'%;width:'+(x(55)-x(25))+'%;height:10px;background:rgba(0,212,170,.18);border-radius:5px"></div>'
+    +'<div style="position:absolute;left:calc('+x(gap)+'% - 5px);top:0;width:10px;height:10px;border-radius:50%;background:'+col+'"></div></div></div>';
+}
+function tgCompute(){
+  var dj=_dataJsonCache||{}, now=new Date(), m=now.getMonth();
+  var gv=function(k){ var g=(typeof GEO!=='undefined')?GEO.filter(function(x){return x.key===k;})[0]:null; return g?g.val:null; };
+  var fwd=gv('forward'), fst=gv('first'), reb=gv('rebase');
+  var presence=(fwd!==null&&fst!==null&&reb!==null)?(fwd+fst+(100-reb))/3:60;
+  var sf=TG_SEASON[m], phase=(m>=4&&m<=7)?'ピーク（5〜8月）':(m===2||m===3)?'ピーク前（3〜4月）':'閑散期';
+  var births=880, echo=440, monthlyNew=Math.round(births/12);
+  var trend=presence>=70?'横ばい〜微増':presence>=50?'横ばい':'減少リスク';
+  return {presence:presence,sf:sf,phase:phase,m:m,births:births,echo:echo,monthlyNew:monthlyNew,trend:trend,sofa:(typeof SOFA!=='undefined'?SOFA:47000)};
+}
+function renderTargetPanel(){
+  try{
+    var tg=tgCompute(), el=document.getElementById('tg-body'); if(!el) return;
+    var b=document.getElementById('tg-trend'); if(b){ b.textContent='人数 '+tg.trend+' ／ 季節 '+tg.phase; }
+    var mon=['1','2','3','4','5','6','7','8','9','10','11','12'];
+    var W=520,H=120,bw=W/12;
+    var svg='<svg viewBox="0 0 '+W+' '+(H+34)+'" role="img" aria-label="PCS転入の季節指数（月別）" style="width:100%;max-width:560px">'
+      +TG_SEASON.map(function(f,i){ var h=f/1.8*H, on=i===tg.m; return '<rect x="'+(i*bw+6)+'" y="'+(H-h+14)+'" width="'+(bw-12)+'" height="'+h+'" fill="'+(on?'#F4C842':'rgba(136,153,176,.45)')+'"><title>'+mon[i]+'月: 指数'+f+'</title></rect>'
+        +'<text x="'+(i*bw+bw/2)+'" y="'+(H+28)+'" text-anchor="middle" font-size="10" fill="'+(on?'#F4C842':'#8899B0')+'">'+mon[i]+'月</text>'; }).join('')
+      +'<line x1="0" x2="'+W+'" y1="'+(H-1/1.8*H+14)+'" y2="'+(H-1/1.8*H+14)+'" stroke="#8899B0" stroke-dasharray="3 3"/><text x="'+(W-4)+'" y="'+(H-1/1.8*H+10)+'" text-anchor="end" font-size="9" fill="#8899B0">年平均=1.0</text></svg>';
+    var rows=TG_EVENTS.slice().reverse().map(function(x){ var c=x.dir==='減'?'#FF7F50':x.dir==='増'?'#4ADE80':'#60A5FA';
+      return '<tr><td class="mono" style="font-size:11px">'+x.d+'</td><td style="font-size:11px">'+x.e+'</td><td style="color:'+c+';font-size:11px">'+x.dir+'</td><td style="font-size:11px">'+x.ev+'</td></tr>'; }).join('');
+    el.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:8px">'
+      +'<div class="card"><div class="c-lbl">SOFA総人口</div><div class="c-val">~'+tg.sofa.toLocaleString()+'</div><div class="c-sub">USNH/県公表で収束（推計B）</div></div>'
+      +'<div class="card"><div class="c-lbl">年間出産推計</div><div class="c-val">'+tg.births+'</div><div class="c-sub">新規妊娠 約'+tg.monthlyNew+'人/月（推計）</div></div>'
+      +'<div class="card"><div class="c-lbl">エコー適齢期 在籍</div><div class="c-val">約'+tg.echo+'人</div><div class="c-sub">妊娠12〜36週（推計）</div></div>'
+      +'<div class="card"><div class="c-lbl">地政学プレゼンス</div><div class="c-val">'+Math.round(tg.presence)+'</div><div class="c-sub">前方展開・第一列島線・(100−再編リスク)の平均</div></div>'
+      +'<div class="card"><div class="c-lbl">今月のPCS季節指数</div><div class="c-val">'+tg.sf.toFixed(1)+'</div><div class="c-sub">'+tg.phase+'（年平均=1.0）</div></div>'
+      +'</div>'+svg
+      +'<div style="margin-top:6px"><b>人数の流れ:</b> グアム移転は計画（約4,000〜5,000人）に対し実績約100人で停滞し、沖縄の部隊は人数横ばい・機能強化（ミサイル配備）の方向（強い推論B）。県の公式人数は2011年以降非公表のため、人数の増減は配備ニュースから読む（未立証D）。</div>'
+      +'<table class="tbl" style="margin-top:6px"><thead><tr><th>時期</th><th>第一列島線・沖縄の動き</th><th>人数への向き</th><th>証拠</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  }catch(e){ console.warn('renderTargetPanel',e); }
+}
+function renderDecisionCard(){
+  try{
+    var el=document.getElementById('dc-body'); if(!el) return;
+    var dj=_dataJsonCache||{}, fx=S.fx||153.36, cpi=(typeof S.cpi==='number')?S.cpi:3.5, adj=1+(cpi/100)*0.5;
+    var gap=function(p,mid){ return Math.round((1-p/(mid*adj*fx))*100); };
+    var g2=gap(15000,125), g4=gap(20000,200), gU=gap(23000,200);
+    var oil=_oilNewest(dj), ks=(typeof dj.koya_score==='number')?dj.koya_score:null;
+    var tg=tgCompute();
+    var hot=(oil&&oil.v>=95)||cpi>=3.5;
+    var verdict, vcol;
+    if(fx<145||tg.presence<50||(ks!==null&&ks<45)){ verdict='調整'; vcol='#FF7F50'; }
+    else if(tg.m>=4&&tg.m<=7){ verdict='拡大'; vcol='#00D4AA'; }
+    else if(tg.m===2||tg.m===3){ verdict='拡大準備'; vcol='#4ADE80'; }
+    else { verdict='維持'; vcol='#F4C842'; }
+    var vb=document.getElementById('dc-verdict'); if(vb){ vb.textContent=verdict; vb.style.background=vcol; vb.style.color='#0B1220'; }
+    var p2=g2<25?'据え置き（値上げ余地なし・下限25%を割る）':g2<30?'据え置き（下限付近・値上げ余地なし）':g2>55?'値上げ検討の余地':'据え置き（目安帯内）';
+    var p4=g4<25?'据え置き':g4>55?'値上げ検討の余地':'据え置き（目安帯内）・USBメモリー¥23,000へ誘導';
+    var act=[];
+    act.push('<b>2D:</b> '+p2);
+    act.push('<b>4D:</b> '+p4+'（USB '+gU+'%割安）');
+    act.push('<b>訴求:</b> '+(hot?'米国の体感物価が高い局面。「安さ」ではなく「本国の家族・派遣中の夫と共有できる記念」を軸に。値下げは不要':'「家族と共有できる記念」を軸に継続'));
+    act.push('<b>出稿:</b> '+((tg.m>=4&&tg.m<=7)?'PCSピーク。出稿と予約枠を最大化':(tg.m===2||tg.m===3)?'ピーク前。転入予定者向けの情報（基地内掲示・SNS）を準備':'閑散期。出稿は抑え、口コミ・紹介とピーク前の素材づくりに集中'));
+    act.push('<b>為替:</b> USD/JPY '+fx.toFixed(2)+(fx<145?' — 円高で割安感が縮む。価格は据え置き、共有訴求を強化':' — ドル建て購買力は高水準'));
+    var bars=_bar('ドル建て購買力（USD/JPY）',(fx-130)/40*100,'130円=0・170円=100','#00D4AA')
+      +_bar('米国の体感物価圧力（CPI）',(cpi-2)/3*100,'CPI '+cpi.toFixed(1)+'%（2%=0・5%=100）'+(oil?' ／ '+oil.n+' $'+oil.v.toFixed(2)+'（'+oil.d+'）':''),'#FF7F50')
+      +_bar('ターゲット層の季節（PCS）',tg.sf/1.8*100,tg.phase,'#F4C842')
+      +_bar('地政学プレゼンス（第一列島線）',tg.presence,'人数 '+tg.trend,'#60A5FA');
+    el.innerHTML='<div style="display:grid;grid-template-columns:minmax(240px,1fr) minmax(240px,1fr);gap:14px">'
+      +'<div><div style="font-size:11px;color:var(--muted,#8899B0);margin-bottom:2px">価格の位置（目安帯 25〜55%＝薄い帯、競合仮説C）</div>'
+      +_gapBar('2D 14週〜【基本】',15000,g2)+_gapBar('4D ライトメモリー【基本】',20000,g4)+_gapBar('4D USBメモリー',23000,gU)
+      +'<div style="margin-top:8px">'+act.map(function(a){return '<div>・'+a+'</div>';}).join('')+'</div></div>'
+      +'<div>'+bars+'<div style="font-size:10px;color:var(--muted,#8899B0);margin-top:6px">判定ルール: 円高(145円未満)・プレゼンス50未満・koyaスコア45未満のいずれか→調整／5〜8月→拡大／3〜4月→拡大準備／その他→維持。koyaスコア '+(ks!==null?ks.toFixed(1):'--')+'。予約・売上は対象外。</div></div>'
+      +'</div>';
+    renderTargetPanel();
+  }catch(e){ console.warn('renderDecisionCard',e); }
+}
+
 function renderOverview(){
   RD.overview=true;
   if(S.fxH.length) mkLine('c-fx',S.fxH.map(function(d){return d.date.slice(5);}),S.fxH.map(function(d){return d.value;}),'#00D4AA');
@@ -2554,6 +2672,7 @@ function renderOverview(){
   else if(sig==='WATCH') memo='<strong style="color:#F4C842">◎ WATCH シグナル</strong> — USD/JPY '+fx.toFixed(2)+'（やや高水準）。積極展開の準備フェーズ。英語対応強化、プロモーション素材整備、SOFA向けSNS運用を開始する好機。現行価格は米国比で割安帯（目安25〜55%・競合仮説C）に位置。価格は据え置き、共有訴求とUSBメモリー誘導を優先。地政学インパクト+'+geoImpactPct().toFixed(1)+'%を訴求材料に。';
   else memo='<strong style="color:#8899B0">▬ HOLD シグナル</strong> — 現状維持フェーズ。既存顧客のリテンション強化と英語対応品質向上に注力。経済指標の改善を週次モニタリング。コスト最適化を実施。';
   document.getElementById('auto-memo').innerHTML=memo;
+  renderDecisionCard();
 }
 
 // ════════════════════════════════════════════════
@@ -4234,7 +4353,7 @@ function renderSectorDiag(){
     if(tb) tb.innerHTML=rows.map(function(r){ var c=COL[r.st]||'#8899B0';
       return '<tr><td>'+r.s+'</td><td><span style="color:'+c+';font-weight:700">● '+r.st+'</span></td><td style="font-size:11px">'+r.v+'</td><td class="mono" style="font-size:11px">'+r.d+'</td><td style="font-size:11px">'+r.e+'</td></tr>'; }).join('');
     // 中東アラート: 原油・軽油の水準で警戒度を判定（閾値は仮置き・競合仮説C）
-    var oil=br?br.value:wti, lvl='WATCH', col='#F4C842';
+    var _on=_oilNewest(dj), oil=_on?_on.v:(br?br.value:wti), lvl='WATCH', col='#F4C842';
     if((oil!==null&&oil>=95)||(ds&&ds.value>=5)){ lvl='警戒'; col='#FF4D6A'; }
     else if(oil!==null&&oil<80&&(!ds||ds.value<4.2)){ lvl='平常'; col='#4ADE80'; }
     var le=document.getElementById('ur-mideast-level'); if(le){ le.textContent=lvl; le.style.background=col; le.style.color='#0B1220'; }
