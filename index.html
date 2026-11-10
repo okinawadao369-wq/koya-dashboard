@@ -1387,72 +1387,9 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
     </div>
   </div>
 
-  <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#127909; 業態転換とデジタル登録の乖離 — 発見性の最大の構造要因 <span class="badge">R-16 2026-09-05</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">実測＋経営者報告</span></div>
-    <div class="margin-note" style="margin-bottom:10px">
-      <b>前提（経営者報告 2026-09-05）：</b>前業態は<b>医師が在籍するクリニック医院</b>だったが、<b>クリニック医院は廃業</b>。
-      現在は Family Tree Oki として<b>「エンターテインメント写真撮影」へリニューアル</b>し、お客様に<b>契約書的な文章を記入していただく</b>形で、
-      感動を創るビジネスとして運営している。<br>
-      この転換自体は、これまでの分析と完全に整合している。TRICAREが産科を100%カバーしている以上、医療として競争しても勝ち目はなく、
-      <b>「体験・感動の付加」こそが唯一成立するポジション</b>だからである。転換は正しい。<b>問題は、デジタル上の登録が旧業態のまま残っていることだ。</b>
-    </div>
-    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem">
-      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">項目</th><th style="text-align:left;padding:6px 8px">実測値（2026-09-05）</th><th style="text-align:left;padding:6px 8px">現業態との整合</th></tr>
-      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>Googleマップ カテゴリ</b></td><td style="padding:6px 8px"><b>Midwife（助産師）</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 医療系カテゴリのまま</b></td></tr>
-      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>サイト構造化データ</b></td><td style="padding:6px 8px"><b>@type: MedicalBusiness</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 医療事業者として宣言している</b></td></tr>
-      <tr><td style="padding:6px 8px">マップ掲載サイト</td><td style="padding:6px 8px">coubic.com と familytreeoki.com の2本</td><td style="padding:6px 8px;color:#f59e0b">△ 導線が分散</td></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">サイト本文</td><td style="padding:6px 8px">"clinic" の語を含む</td><td style="padding:6px 8px;color:#f59e0b">△ 旧業態の名残</td></tr>
-      <tr><td style="padding:6px 8px">サイト本文</td><td style="padding:6px 8px">keepsake / non-diagnostic 系の語は既に存在</td><td style="padding:6px 8px;color:#00D4AA">◎ 方向性は正しい</td></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">同意書に関する記載</td><td style="padding:6px 8px">トップページ上に waiver / consent 等の記載なし</td><td style="padding:6px 8px;color:#f59e0b">△ 運用はあるが公開されていない</td></tr>
-      <tr><td style="padding:6px 8px">AggregateRating / Review</td><td style="padding:6px 8px">未実装</td><td style="padding:6px 8px;color:#ef4444">✕ R-14から継続</td></tr>
-    </table></div>
-    <div class="margin-note" style="margin-top:10px">
-      <b>なぜこれが「発見されない」ことに直結するのか — YMYLという仕組み：</b><br>
-      Googleは健康・医療分野を <b>YMYL（Your Money or Your Life）</b>として扱い、通常より格段に厳しい
-      E-E-A-T（経験・専門性・権威性・信頼性）を要求する。<b>医師が在籍していた頃はその土俵で戦えたが、廃業した現在は医療的な権威性を示す手段がない。</b>
-      医療カテゴリに登録し続ける限り、FTOは<b>自分が満たせない基準で評価され続ける</b>。
-      逆に写真・エンターテインメントのカテゴリであれば、<b>4.9★×45件・英語の具体的な体験談33件</b>という資産が、YMYLのハンデなしにそのまま効く。
-      <b>つまり「業態の実態に登録を合わせる」ことが、そのまま発見性の改善策になる。</b>これは表記の問題ではなく、評価される土俵を選び直す話である。
-      <br><br>
-      <b>推奨（いずれも実行前に専門家確認を）：</b><br>
-      　1. サイト構造化データ <code>MedicalBusiness</code> → <b><code>EntertainmentBusiness</code></b>（schema.orgに実在を確認済み：Thing &gt; Organization &gt; LocalBusiness &gt; EntertainmentBusiness）または <code>LocalBusiness</code>。
-      　※<code>PhotographStudio</code> はschema.orgに<b>存在しない</b>（404を確認済み）。使わないこと。<br>
-      　2. Googleビジネスプロフィールの<b>主カテゴリを写真スタジオ系へ</b>。ただし<b>産後ケアを助産師が提供しているなら「Midwife」は副カテゴリとして正当</b>。
-      　主＋副の設計は資格の実態に依存するため、ここは経営判断と専門家確認が必要（ダッシュボード側では決めない）。<br>
-      　3. サイト本文の "clinic" を "studio" に統一する。<br>
-      　4. マップの掲載URLを1本に集約する（coubic か familytreeoki.com か）。<br>
-    </div>
-  </div>
-
-  <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#128220; 米国FDAの立場と、同意書が事業の中核である理由 <span class="badge">R-16</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">事実A</span></div>
-    <div class="margin-note">
-      米国FDAは、記念目的の胎児超音波を<b>「強く推奨しない（strongly discourages）」</b>という立場を公表している。
-      keepsake用途で超音波機器を販売・リースする行為を<b>医療機器の未承認用途</b>にあたるとし、
-      医師の指示なく prescription device を用いることは州・地方の法令違反となりうるとしている。
-      一方で<b>「医学的適応のある検査の中で、追加の曝露なしに得られた画像であれば妥当」</b>とも明記している。
-      <br><br>
-      <b>これは日本の法令ではなく米国の規制上の立場であり、日本で営業するFTOに直接適用されるものではない。</b>
-      しかし<b>顧客は米国人である。</b>"is keepsake ultrasound safe" と検索すればFDAやACOGの見解に必ず行き当たり、生成AI検索も同じ情報を返す。
-      つまりこれは法務リスクである以前に、<b>購買前の最大の未解決の疑問</b>である。
-      <br><br>
-      <b>そして構造上、決定的に重要な点：</b>医師がいなくなった現在、<b>「医学的適応のある検査のついでに撮影した画像」という説明はもう使えない。</b>
-      だからこそ、いま導入されている<b>契約書的な文章＝非診断であることへの明示的な同意</b>は、単なる書類ではなく<b>事業構造そのものの中核</b>である。
-      この一枚が、業態を「医療の代替」から「体験の提供」へ法的にも説明可能な形で切り分けている。
-      <br><br>
-      <b>これを弱みではなく強みに変える方法：</b>英語で「Safety &amp; Our Policy」のページを作り、以下を明記する。<br>
-      　・これは診断ではない。妊婦健診の代わりにはならない（<b>continue your prenatal care at USNH</b> と明確に書く）<br>
-      　・施術者の訓練内容<br>
-      　・ALARA原則にもとづく走査時間の上限<br>
-      　・来院前に署名いただく同意書の内容（現に運用しているものを公開する）<br>
-      米国のkeepsakeスタジオで信頼を獲得している事業者はこれを公開している。
-      <b>生成AI検索は「引用できる明文の方針」を強く好む</b>ため、これは信頼の獲得と捕捉率の両方に直結する。
-      同時に、いま社会的証明がゼロである<b>産後ケア（¥490,000）とベビーシッターへの信頼の土台</b>にもなる。
-      <br><br>
-      <b>あわせて：</b>クチコミ本文に残っている「trained OBGYN が施術」「院長先生」「妊婦健診よりも」といった記述は、
-      日付を見るとほぼ<b>2年前＝クリニック医院時代の投稿</b>である。お客様の言葉自体は事業者の広告ではないが、
-      <b>現業態と食い違う記述が検索結果の上位に残り続けている</b>ことは認識しておく必要がある。オーナー返信でこれを追認しないこと。
-    </div>
+  <div class="box" style="margin-bottom:14px;border:1px dashed rgba(244,200,66,.45)">
+    <div class="box-title">&#128274; 業態転換とデジタル登録の乖離／米国FDAの立場と同意書（R-16） <span class="badge">社外秘・非公開文書へ移設</span></div>
+    <div class="margin-note">この項目は自社実績・売上シナリオ・法務判断を含むため、スタッフ限定の非公開文書へ移しました（2026-11-10 R-10）。<a href="https://docs.google.com/document/d/1HCWVCobcWC04Lnj_ra7h7ZxeM8wyVie6oS7v5RBUmPc/edit" target="_blank" rel="noopener">非公開文書を開く（閲覧権限のあるGoogleアカウントが必要）</a></div>
   </div>
 
   <div class="box" style="margin-bottom:14px">
@@ -1482,9 +1419,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       　・Sean &amp; Nicole hogan「38週なので…」／Margie Mayville「妊娠期間中に何度も通った」→ <b>複数回利用が起きている</b>。<br>
       　・産後ケア・ベビーシッターへの言及は本文にほぼ皆無 → <b>新サービスには社会的証明がまだ一件も蓄積していない</b>。
       <br><br>
-      <b>④ 法務上の注意：</b>クチコミ本文に「trained OBGYN が施術」「院長先生」「妊婦健診よりも」といった<b>医療を連想させる記述</b>が含まれている。
-      お客様の言葉そのものは事業者の広告ではないが、<b>オーナー返信でこれを追認する表現を使わないこと</b>。
-      サイトの構造化データが <code>MedicalBusiness</code> 型である点とあわせて、専門家確認を推奨する。
+      <b>④ 法務上の注意：</b><a href="https://docs.google.com/document/d/1HCWVCobcWC04Lnj_ra7h7ZxeM8wyVie6oS7v5RBUmPc/edit" target="_blank" rel="noopener">非公開文書</a>へ移設（2026-11-10 R-10）。
     </div>
   </div>
 
@@ -1500,7 +1435,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">meta description</td><td style="padding:6px 8px">SOFA・Kadena・Camp Foster・Camp Hansen・Torii Station を明記</td><td style="padding:6px 8px;color:#00D4AA">◎ 地理×属性の指定が的確</td></tr>
       <tr><td style="padding:6px 8px">見出し構成</td><td style="padding:6px 8px">"Meet Your Baby's Face Before They're Even Born" ／ "What Military Families in Okinawa Ask Us" 等</td><td style="padding:6px 8px;color:#00D4AA">◎ 検索意図に沿う</td></tr>
       <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">Week Checker（無料ツール）</td><td style="padding:6px 8px">出産予定日→最適週を判定。25〜32週が最適と明示</td><td style="padding:6px 8px;color:#00D4AA">◎ 発見の入口として強い</td></tr>
-      <tr><td style="padding:6px 8px">構造化データ</td><td style="padding:6px 8px">MedicalBusiness ＋ FAQPage を実装</td><td style="padding:6px 8px;color:#f59e0b">△ 型の妥当性は要確認（下記）</td></tr>
+      <tr><td style="padding:6px 8px">構造化データ</td><td style="padding:6px 8px">構造化データ（型の詳細は非公開文書）＋ FAQPage を実装</td><td style="padding:6px 8px;color:#f59e0b">△ 型の妥当性は要確認（下記）</td></tr>
       <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>AggregateRating / Review</b></td><td style="padding:6px 8px"><b>未実装（HTML内に該当なし）</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 最大の欠落</b></td></tr>
       <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>Googleマップ クチコミ（原文・45件全数）</b></td><td style="padding:6px 8px"><b>4.9★・45件。英語名38件(84.4%)／英語本文33件(73.3%)。すでに英語圏＝米軍軍属層が主体</b></td><td style="padding:6px 8px;color:#00D4AA"><b>◎ 訂正：言語ミスマッチではなかった</b></td></tr>
       <tr><td style="padding:6px 8px">クチコミの話題タグ（英語UI）</td><td style="padding:6px 8px">ultrasound photos／cozy atmosphere／friendly staff／ultrasound technician／cool staff／translator／clear explanations</td><td style="padding:6px 8px">"translator" が独立タグ化＝英語対応が強みとして認知されている</td></tr>
@@ -1520,146 +1455,17 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       　1. <b>AggregateRating（4.9／45件）とReviewをschema.orgでサイトに実装する。</b>効果が最も大きく、実装コストは最も小さい。英語の良質なレビューが33件すでにあるのだから、機械に読ませるだけでよい。<br>
       　2. <b>ブランド名を一つに集約する。</b>クチコミ本文では「Sneak Peek/Sneak Peak/sneakpeak」5件に対し「Family Tree」3件。口コミで人に伝わっている名前とサイト名（familytreeoki.com）・マップ名（4D ultrasound Family Tree Oki）が割れている。
       さらに "SneakPeek" は米国の性別判定DNA検査ブランドの名称でもあり、<b>紹介を受けた人が「Sneak Peek Okinawa」で検索しても米国企業が上位に出てFTOに到達しない</b>。これは紹介経由の獲得を直接失っている。<br>
-      　3. <b>産後ケア・ベビーシッターのページを英語で作る。</b>現在サイトは4Dエコー中心。クチコミ45件中、産後ケア・シッターへの言及は本文にほぼ皆無で、LTV¥601,226の出口が検索にも社会的証明にも存在していない。<br>
+      　3. <b>産後ケア・ベビーシッターのページを英語で作る。</b>現在サイトは4Dエコー中心。クチコミ45件中、産後ケア・シッターへの言及は本文にほぼ皆無で、フルジャーニーLTV（数値は非公開文書）の出口が検索にも社会的証明にも存在していない。<br>
       　4. これらは<b>4月までに完了させる</b>。5〜8月のPCS流入（月38人の情報ゼロ層）に間に合わせるため。<br>
-      <b>要確認（法務）：</b>構造化データの型が <code>MedicalBusiness</code> になっている。ブランド規律では医療行為・診断・性別確認を連想させる表現を避けることになっており、
-      <code>HealthAndBeautyBusiness</code> 等への変更が適切かを判断する必要がある。助産院としての実態との整合も含め、専門家確認を推奨する（この判断はダッシュボード側では行わない）。
+      <b>要確認（法務）：</b>構造化データの型に関する確認事項は<a href="https://docs.google.com/document/d/1HCWVCobcWC04Lnj_ra7h7ZxeM8wyVie6oS7v5RBUmPc/edit" target="_blank" rel="noopener">非公開文書</a>へ移設（2026-11-10 R-10）。
       <br><b>計測の欠落：</b>STORES予約（dashboard.stores.app）はログインが必要なため、本セッションでは予約データを取得できていない。
       予約フォームに「妊娠週数」と「FTOを何で知ったか」の2項目を追加すれば、捕捉率もチャネル別効果も推計から実測に変わる。
     </div>
   </div>
 
-  <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#128149; 感動リピートモデル — 顧客の14.5%が売上の30%を生んでいる <span class="badge">R-17 2026-09-05</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">Square実測</span></div>
-    <div class="margin-note" style="margin-bottom:10px">
-      経営者から<b>「2Dの初期段階で来られたお客様は2〜7回のリピーターになる」「新規が増えるとリピーターが増える仕組み」</b>との指摘があり、
-      Squareの実データで検算した。結果、この構造は数字で確認できた。
-    </div>
-    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:10px">
-      <div class="card"><div class="c-lbl">決済 / ユニーク顧客</div><div class="c-val" style="color:var(--accent)">724件 / 593名</div><div class="c-sub">17ヶ月・Square実測</div></div>
-      <div class="card"><div class="c-lbl">全顧客 平均来店回数</div><div class="c-val" style="color:#f59e0b">1.22回</div><div class="c-sub">低い＝多くが後期入口の1回客</div></div>
-      <div class="card"><div class="c-lbl">リピート率</div><div class="c-val" style="color:#60a5fa">14.5%</div><div class="c-sub">86名／593名</div></div>
-      <div class="card"><div class="c-lbl">★リピーター平均来店</div><div class="c-val" style="color:#00D4AA">2.52回</div><div class="c-sub">経営者の実感「2〜7回」と整合</div></div>
-      <div class="card"><div class="c-lbl">1回客の生涯売上</div><div class="c-val" style="color:var(--muted)">¥16,749</div><div class="c-sub">507名(85.5%)</div></div>
-      <div class="card"><div class="c-lbl">★リピーターの生涯売上</div><div class="c-val" style="color:#00D4AA">¥42,262</div><div class="c-sub">1回客の2.52倍</div></div>
-    </div>
-    <div class="margin-note">
-      <b>顧客数の14.5%が、売上の30%を生んでいる。</b>リピーター86名の売上は¥3,634,540（全体の30%）。1回客507名（85.5%）は¥8,491,760（70%）。
-      <b>リピーターを1人増やすことは、1回客を2.52人増やすことに等しい。</b>
-      <br><br>
-      <b>なぜリピートが起きるのか — 再購入理由が商品自体に内在している：</b>
-      この事業のリピートは割引やポイントで作られたものではない。<b>週数が進むと赤ちゃんの姿が変わる</b>ため、同じサービスを再び買う合理的な理由が商品そのものに埋め込まれている。
-      通常のサービス業にはない構造で、「在庫が毎週変わる」ことに等しい。そこに感動が重なる。クチコミの原文がそれを裏づけている。<br>
-      　・Amber Howard「赤ちゃんの動きをあまり感じられず心配だった」→ 来店動機は記念ではなく<b>不安の解消</b><br>
-      　・Pedro Rodriguez「初めての父親として、日本では（立ち会えないと）聞いてがっかりしていた」→ <b>父親が体験から排除される痛み</b><br>
-      　・45件中6件に "husband" が登場 → 体験者も意思決定者も<b>夫婦セット</b><br>
-      　・Margie Mayville「妊娠期間中に何度も通った」／Sean &amp; Nicole hogan「38週なので…」→ <b>複数回利用が実際に起きている</b><br>
-      赤ちゃんの顔を見るという強い情動体験が記憶を固定し「また会いたい」を生む。次に来たときには姿が変わっているので、その欲求は必ず満たされる。
-      <b>感動が次の感動を呼ぶ循環が、スタッフの接遇によって回っている。これがFTOの中核資産である。</b>
-    </div>
-  </div>
-
-  <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#9203; 入口の週数が、そのままLTVを決める <span class="badge">R-17</span></div>
-    <div class="margin-note" style="margin-bottom:10px">
-      FTOが接触できるのは妊娠12週から36週までの約24週間。初回接触が早いほど残り期間が長く、来店可能回数が増える。<br>
-      <b>来店可能回数 ≒ （36 − 初回接触週）÷ 4</b>
-    </div>
-    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem">
-      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">初回接触</th><th style="text-align:right;padding:6px 8px">残り期間</th><th style="text-align:right;padding:6px 8px">理論最大来店</th><th style="text-align:right;padding:6px 8px">想定LTV</th><th style="text-align:right;padding:6px 8px">4D単発比</th></tr>
-      <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>早期（12週・2D）</b></td><td style="padding:6px 8px;text-align:right">24週</td><td style="padding:6px 8px;text-align:right"><b>6回</b></td><td style="padding:6px 8px;text-align:right"><b>¥102,298</b><span style="color:var(--muted)">（7回時）</span></td><td style="padding:6px 8px;text-align:right;color:#00D4AA"><b>4.8倍</b></td></tr>
-      <tr><td style="padding:6px 8px">中期（20週）</td><td style="padding:6px 8px;text-align:right">16週</td><td style="padding:6px 8px;text-align:right">4回</td><td style="padding:6px 8px;text-align:right">¥61,762</td><td style="padding:6px 8px;text-align:right">2.9倍</td></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">後期（28週・4D）</td><td style="padding:6px 8px;text-align:right">8週</td><td style="padding:6px 8px;text-align:right">2回</td><td style="padding:6px 8px;text-align:right">¥34,738</td><td style="padding:6px 8px;text-align:right">1.6倍</td></tr>
-      <tr><td style="padding:6px 8px">直前（32週）</td><td style="padding:6px 8px;text-align:right">4週</td><td style="padding:6px 8px;text-align:right">1回</td><td style="padding:6px 8px;text-align:right">¥21,226</td><td style="padding:6px 8px;text-align:right">1.0倍</td></tr>
-    </table></div>
-    <div class="margin-note" style="margin-top:10px">
-      <b>平均1.22回という数字が語っていること：</b>理論上は早期入口なら6回まで可能なのに、実績が1.22回に留まっているのは、
-      <b>多くのお客様を「後期に」捕まえているから</b>である。つまり課題は発見の量だけでなく<b>発見の時期</b>にある。
-      同じ1人を12週で捕まえるか32週で捕まえるかで、売上は最大4.8倍変わる。
-      <br><b>訴求の設計：</b>「4Dは25〜32週が最適」という現在のWeek Checkerは正しい。だがそれだけだと<b>後期にしか来ない</b>。
-      「早く来るほど、何度も会える」というメッセージを併記し、<b>妊娠12週から始まる関係</b>として設計し直す余地がある。
-    </div>
-  </div>
-
-  <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#128200; 到達可能売上シナリオ — 3つのレバーの掛け算 <span class="badge">R-17</span></div>
-    <div class="box-title" style="font-size:.72rem;margin-top:4px">A. 新規を1人も増やさず、リピートだけを改善した場合</div>
-    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem;margin-bottom:12px">
-      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">条件</th><th style="text-align:right;padding:6px 8px">決済件数</th><th style="text-align:right;padding:6px 8px">売上（17ヶ月換算）</th><th style="text-align:right;padding:6px 8px">現状比</th></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">現状：リピート率14.5% × 2.52回</td><td style="padding:6px 8px;text-align:right">724件</td><td style="padding:6px 8px;text-align:right">¥12,126,300</td><td style="padding:6px 8px;text-align:right">—</td></tr>
-      <tr><td style="padding:6px 8px">リピート率20% × 2.52回</td><td style="padding:6px 8px;text-align:right">773件</td><td style="padding:6px 8px;text-align:right">¥12,951,558</td><td style="padding:6px 8px;text-align:right">+7%</td></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">リピート率30% × 2.52回</td><td style="padding:6px 8px;text-align:right">863件</td><td style="padding:6px 8px;text-align:right">¥14,461,249</td><td style="padding:6px 8px;text-align:right">+19%</td></tr>
-      <tr><td style="padding:6px 8px">リピート率30% × 3.50回</td><td style="padding:6px 8px;text-align:right">1,038件</td><td style="padding:6px 8px;text-align:right">¥17,381,309</td><td style="padding:6px 8px;text-align:right;color:#00D4AA">+43%</td></tr>
-      <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>リピート率40% × 3.50回</b></td><td style="padding:6px 8px;text-align:right"><b>1,186件</b></td><td style="padding:6px 8px;text-align:right"><b>¥19,864,353</b></td><td style="padding:6px 8px;text-align:right;color:#00D4AA"><b>+64%</b></td></tr>
-    </table></div>
-    <div class="box-title" style="font-size:.72rem">B. 捕捉率 × 入口週数の組み合わせ（エコーのみ・年額）</div>
-    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem">
-      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">条件</th><th style="text-align:right;padding:6px 8px">年間新規</th><th style="text-align:right;padding:6px 8px">顧客単価</th><th style="text-align:right;padding:6px 8px">年間売上</th></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">現状維持（捕捉率28.6%）</td><td style="padding:6px 8px;text-align:right">300人</td><td style="padding:6px 8px;text-align:right">¥20,449</td><td style="padding:6px 8px;text-align:right">¥6,129,160</td></tr>
-      <tr><td style="padding:6px 8px">捕捉率据置＋早期入口化</td><td style="padding:6px 8px;text-align:right">300人</td><td style="padding:6px 8px;text-align:right">¥32,719</td><td style="padding:6px 8px;text-align:right">¥9,806,655</td></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">捕捉率40%＋現状のLTV</td><td style="padding:6px 8px;text-align:right">419人</td><td style="padding:6px 8px;text-align:right">¥20,449</td><td style="padding:6px 8px;text-align:right">¥8,572,251</td></tr>
-      <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>捕捉率40%＋早期入口化</b></td><td style="padding:6px 8px;text-align:right"><b>419人</b></td><td style="padding:6px 8px;text-align:right"><b>¥32,719</b></td><td style="padding:6px 8px;text-align:right"><b>¥13,715,602</b></td></tr>
-      <tr><td style="padding:6px 8px">捕捉率50%＋早期入口化強化</td><td style="padding:6px 8px;text-align:right">524人</td><td style="padding:6px 8px;text-align:right">¥40,898</td><td style="padding:6px 8px;text-align:right">¥21,430,628</td></tr>
-    </table></div>
-    <div class="margin-note" style="margin-top:10px">
-      <b>第3期目標 ¥15,000,000 への現実的な道筋：</b>「捕捉率を70%まで上げる」という単独経路は極めて困難だった。
-      しかし<b>①捕捉率40% ②早期入口化によるLTV1.6倍</b>の2つを掛け算するだけで、エコー単体で<b>¥13,715,602</b>に到達する。
-      ここに<b>産後ケアが月1件（年12.1件＝¥5,929,000）</b>加われば目標を超える。
-      <b>3つのレバーはいずれも単独では届かないが、掛け算にすると届く。</b>
-      <br><br>
-      <b>感動ループの全体像：</b>発見 → 初回来店（週数が早いほど良い） → <b>感動</b> → 記憶の固定と再訪欲求 →
-      週数が進み姿が変わる（再購入理由が内在） → <b>再来店2〜7回</b> → 出産 → <b>産後ケア（信頼が既に構築済み）</b> → 紹介・次の妊娠。
-      経営者の指摘どおり<b>新規が増えるとリピーターが増える</b>。リピーターは新規のストックから生まれるため、
-      <b>新規獲得はリピート売上の先行指標</b>である。そして産後ケア¥490,000が成立するのは、妊娠中に2〜7回会って信頼が積み上がっているからである。
-      発見・リピート・高単価サービスは別々の施策ではなく<b>一本の線</b>でつながっている。
-      <br><br>
-      <b>★いま欠けている唯一の数字：初回接触週数。</b>これが計測されていないため、「早期入口ほどリピートする」は現時点では強い推論Bに留まる。
-      すでに運用している<b>契約書的な文章に「妊娠週数」と「FTOを何で知ったか」の2項目を足すだけ</b>で、この仮説は実証に変わり、
-      LTVの先行指標とチャネル別ROIが同時に手に入る。追加の手間はほぼゼロである。
-    </div>
-  </div>
-
-  <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#128176; サービス構成とLTV — 「発見」より「単価」のほうがレバーが大きい <span class="badge">R-13 2026-09-05</span> <span class="verif-badge verif-obs" style="background:rgba(0,212,170,.2);color:#00D4AA">実績値ベース</span></div>
-    <div class="margin-note" style="margin-bottom:10px">
-      2026年9月、産後ケア（1週間・1日¥70,000）とベビーシッター（¥2,500〜3,500/時間）の顧客獲得が確定した。
-      これはFTOの経済構造を根本から変える。<b>現行の顧客あたり平均売上¥20,449はエコー中心の数字であり、産後ケアを含めた本来のLTVを反映していない。</b>
-    </div>
-    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem;margin-bottom:10px">
-      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">サービス</th><th style="text-align:right;padding:6px 8px">FTO価格</th><th style="text-align:right;padding:6px 8px">米ドル換算</th><th style="text-align:left;padding:6px 8px">米国相場との位置</th></tr>
-      <tr><td style="padding:6px 8px">2Dエコー（平均単価）</td><td style="padding:6px 8px;text-align:right">¥13,512</td><td style="padding:6px 8px;text-align:right">$84</td><td style="padding:6px 8px">米国$75〜175の下限帯</td></tr>
-      <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">4Dエコー記念（平均単価）</td><td style="padding:6px 8px;text-align:right">¥21,226</td><td style="padding:6px 8px;text-align:right">$133</td><td style="padding:6px 8px">米国$100〜300(中央値$200)の約3割下</td></tr>
-      <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>産後ケア 1週間（新規）</b></td><td style="padding:6px 8px;text-align:right"><b>¥490,000</b><br><span style="color:var(--muted)">¥70,000/日×7</span></td><td style="padding:6px 8px;text-align:right"><b>$3,062</b></td><td style="padding:6px 8px"><b>米国の産後ドゥーラ フルパッケージ$2,000〜5,000の中心帯。価格として妥当</b></td></tr>
-      <tr><td style="padding:6px 8px">ベビーシッター（新規）</td><td style="padding:6px 8px;text-align:right">¥2,500〜3,500/h</td><td style="padding:6px 8px;text-align:right">$15.6〜21.9</td><td style="padding:6px 8px">米国$18〜25/h。<b>やや安い。¥4,000/h（$25）まで余地あり</b></td></tr>
-      <tr style="background:rgba(244,200,66,.12)"><td style="padding:6px 8px"><b>1妊娠あたりのフルジャーニーLTV</b></td><td style="padding:6px 8px;text-align:right;font-size:.85rem"><b>¥601,226</b></td><td style="padding:6px 8px;text-align:right"><b>$3,757</b></td><td style="padding:6px 8px"><b>4Dエコー＋産後ケア1週間＋ベビーシッター30時間。現行ARPUの29倍</b></td></tr>
-    </table></div>
-    <div class="box-title" style="margin-top:6px">第3期目標 ¥15,000,000 への3つの経路</div>
-    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.68rem">
-      <tr style="background:rgba(255,255,255,.05)"><th style="text-align:left;padding:6px 8px">経路</th><th style="text-align:left;padding:6px 8px">必要量（不足¥5,940,000を埋める）</th><th style="text-align:left;padding:6px 8px">現実性</th></tr>
-      <tr><td style="padding:6px 8px">① 発見（捕捉率）で埋める</td><td style="padding:6px 8px">捕捉率 28.6% → <b>70%</b>。新規 +434人/年 ＝ 月36人増</td><td style="padding:6px 8px;color:#ef4444">極めて困難</td></tr>
-      <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>② 産後ケアで埋める</b></td><td style="padding:6px 8px"><b>年12.1件 ＝ 月1.0件</b></td><td style="padding:6px 8px;color:#00D4AA"><b>現実的。すでに1件目が確定している</b></td></tr>
-      <tr><td style="padding:6px 8px">③ ベビーシッターで埋める</td><td style="padding:6px 8px">年1,980時間 ＝ 月165時間（¥3,000/h）</td><td style="padding:6px 8px;color:#f59e0b">単独では厳しいが補完として有効</td></tr>
-    </table></div>
-    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr));margin-top:10px">
-      <div class="card"><div class="c-lbl">産後ケア アタッチ率1%</div><div class="c-val" style="color:#00D4AA">¥5.1M</div><div class="c-sub">年10件</div></div>
-      <div class="card"><div class="c-lbl">同 3%</div><div class="c-val" style="color:#00D4AA">¥15.4M</div><div class="c-sub">年31件。これだけで第3期目標超</div></div>
-      <div class="card"><div class="c-lbl">同 5%</div><div class="c-val" style="color:#00D4AA">¥25.7M</div><div class="c-sub">年52件</div></div>
-      <div class="card"><div class="c-lbl">産後ケア1件の価値</div><div class="c-val" style="color:var(--gold)">¥490,000</div><div class="c-sub">捕捉率2.3pt分に相当</div></div>
-      <div class="card"><div class="c-lbl">捕捉率1ptの価値</div><div class="c-val" style="color:#60a5fa">¥214,349</div><div class="c-sub">エコー単価ベース</div></div>
-      <div class="card"><div class="c-lbl">産後ケア5%込みの市場総額</div><div class="c-val" style="color:var(--gold)">¥47.1M</div><div class="c-sub">エコーのみなら¥21.4M</div></div>
-    </div>
-    <div class="margin-note" style="margin-top:10px">
-      <b>ここまでの分析の結論が変わる：</b>R-12では「いま最大の制約は発見されていないこと」と書いた。それは<b>エコー単価¥20,449を前提にした場合には正しい</b>。
-      しかし産後ケアが入ると話が変わる。<b>産後ケア1件（¥490,000）は、捕捉率を2.3pt上げるのと同じ金額価値を持つ。</b>
-      月1件の産後ケアで第3期目標の不足分が埋まる一方、同じ金額を発見だけで取りに行くには月36人の新規獲得が必要になる。
-      <br><b>したがって優先順位は「発見 → 単価」ではなく、両方を別々のKPIとして並走させることになる：</b><br>
-      　・<b>発見のKPI</b>＝捕捉率（現在28.6%）。WEB／AI検索の効果測定に使う。1pt＝¥214,349。<br>
-      　・<b>単価のKPI</b>＝産後ケアのアタッチ率（現在ほぼ0%）。目標3%で年31件＝¥15.4M。<br>
-      　・両者は独立ではない。<b>発見してもエコー1回で終われば¥20,449だが、妊娠中に信頼を得ておけば産後ケアまでつながる。</b>
-      発見はLTVへの入口であり、産後ケアがそのLTVを24倍にする出口である。
-      <br><b>次に確認すべき制約：</b>産後ケア1週間は人員が7日間拘束される。<b>この供給キャパシティ（月に何件まで受けられるか）が、実際の上限を決める</b>。
-      需要側のTAMは¥25M以上あるが、供給側が月1〜2件なら年¥5.9M〜11.8Mが現実的な天井になる。ここは実務側の判断が必要。
-    </div>
+  <div class="box" style="margin-bottom:14px;border:1px dashed rgba(244,200,66,.45)">
+    <div class="box-title">&#128274; 感動リピートモデル・入口週数・到達可能売上シナリオ（R-17）／サービス構成とLTV（R-13） <span class="badge">社外秘・非公開文書へ移設</span></div>
+    <div class="margin-note">この項目は自社実績・売上シナリオ・法務判断を含むため、スタッフ限定の非公開文書へ移しました（2026-11-10 R-10）。<a href="https://docs.google.com/document/d/1HCWVCobcWC04Lnj_ra7h7ZxeM8wyVie6oS7v5RBUmPc/edit" target="_blank" rel="noopener">非公開文書を開く（閲覧権限のあるGoogleアカウントが必要）</a></div>
   </div>
 
   <div class="box" style="margin-bottom:14px">
@@ -1700,7 +1506,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       <div class="card"><div class="c-lbl">捕捉率 35%にした場合</div><div class="c-val" style="color:#00D4AA">+¥1.37M</div><div class="c-sub">+67人/年</div></div>
       <div class="card"><div class="c-lbl">捕捉率 40%にした場合</div><div class="c-val" style="color:#00D4AA">+¥2.44M</div><div class="c-sub">+119人/年</div></div>
       <div class="card"><div class="c-lbl">捕捉率 50%にした場合</div><div class="c-val" style="color:#00D4AA">+¥4.58M</div><div class="c-sub">+224人/年</div></div>
-      <div class="card"><div class="c-lbl">第3期目標に必要な捕捉率</div><div class="c-val" style="color:var(--gold)">70%</div><div class="c-sub">¥15,000,000 ÷ ¥21.4M</div></div>
+      <div class="card"><div class="c-lbl">&#128274; 売上目標との関係</div><div class="c-val" style="color:var(--gold);font-size:1rem">非公開</div><div class="c-sub"><a href="https://docs.google.com/document/d/1HCWVCobcWC04Lnj_ra7h7ZxeM8wyVie6oS7v5RBUmPc/edit" target="_blank" rel="noopener">非公開文書へ移設</a></div></div>
       <div class="card"><div class="c-lbl">PCSピーク月の新規流入</div><div class="c-val" style="color:#f59e0b">103人/月</div><div class="c-sub">うち38人が着任直後・情報ゼロ</div></div>
     </div>
     <div class="margin-note" style="margin-top:10px">
@@ -1768,23 +1574,9 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
     </div>
   </div>
 
-  <div class="box" style="margin-bottom:14px">
-    <div class="box-title">&#128200; FTO 市場浸透率と残余TAM <span class="verif-badge verif-est">推計（証拠区分B〜C）</span></div>
-    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
-      <div class="card"><div class="c-lbl">★年間 対象母数</div><div class="c-val" style="color:var(--gold)">1,048人</div><div class="c-sub">月87人。R-12フローモデル</div></div>
-      <div class="card"><div class="c-lbl">FTO年間 新規妊婦</div><div class="c-val" style="color:var(--accent)">約300人</div><div class="c-sub">経営実績値（Square全顧客は419人/年）</div></div>
-      <div class="card"><div class="c-lbl">★捕捉率</div><div class="c-val" style="color:#00D4AA">28.6%</div><div class="c-sub">300 ÷ 1,048</div></div>
-      <div class="card"><div class="c-lbl">★未発見のまま去る妊婦</div><div class="c-val" style="color:#ef4444">748人/年</div><div class="c-sub">月62人。FTOを知らずに離任</div></div>
-      <div class="card"><div class="c-lbl">★機会損失額</div><div class="c-val" style="color:#ef4444">¥15.3M/年</div><div class="c-sub">748人 × 顧客単価¥20,449</div></div>
-      <div class="card"><div class="c-lbl">捕捉率+1ptの価値</div><div class="c-val" style="color:#60a5fa">¥214,349</div><div class="c-sub">年間。WEB施策のKPI換算単位</div></div>
-    </div>
-    <div class="margin-note" style="margin-top:10px">
-      <b>経営示唆：</b>妊婦市場の理論総額は現行単価で<b>年間約¥21.4M</b>（対象母数1,048人 × 顧客あたり¥20,449）。
-      第3期目標¥15,000,000は<b>捕捉率70%</b>を要求する水準。現在28.6%であり、<b>いま最大の制約は「価格」でも「サービス内容」でもなく「発見されていないこと」</b>である。
-      毎月62人が、FTOの存在を知らないまま妊娠期間を終えて島を去っている。<b>捕捉率を1pt上げるごとに年間¥214,349</b>、40%まで上げれば<b>年間+¥2.44M</b>が積み上がる。
-      <br><b>証拠上の限界：</b>分母1,048人は推計（証拠区分B）。分子300人は経営者の実績認識であり、Squareのユニーク顧客419人/年との差119人は非妊婦・同伴家族・複数年リピートと解釈している。
-      予約時に妊娠週数と「FTOを何で知ったか」を任意入力させるだけで、捕捉率もチャネル別効果も推計から実測に変わる。<b>これは自社で今日から着手できる唯一の精度向上策である。</b>
-    </div>
+  <div class="box" style="margin-bottom:14px;border:1px dashed rgba(244,200,66,.45)">
+    <div class="box-title">&#128274; FTO 市場浸透率と残余TAM <span class="badge">社外秘・非公開文書へ移設</span></div>
+    <div class="margin-note">この項目は自社実績・売上シナリオ・法務判断を含むため、スタッフ限定の非公開文書へ移しました（2026-11-10 R-10）。<a href="https://docs.google.com/document/d/1HCWVCobcWC04Lnj_ra7h7ZxeM8wyVie6oS7v5RBUmPc/edit" target="_blank" rel="noopener">非公開文書を開く（閲覧権限のあるGoogleアカウントが必要）</a></div>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
@@ -1939,7 +1731,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v215';
+var CACHE_KEY = 'koya_v216';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
