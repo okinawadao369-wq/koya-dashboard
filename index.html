@@ -2224,6 +2224,7 @@ function getDataJson(forceRefresh){
     .then(function(d){
       if(d){
         _dataJsonCache=d;
+        setTimeout(function(){ try{ if(typeof renderDecisionCard==='function') renderDecisionCard(); }catch(e){} },0);
         _dataJsonFetchFailed=false;
         // Display fred-data.json updated timestamp in sidebar
         if(d.updated){
@@ -2546,12 +2547,14 @@ var TG_EVENTS=[
   {d:'2026-01',e:'海兵隊がグアム移転予定部隊の沖縄残留へ方針転換と報道（反基地系媒体・要確認）',dir:'増',ev:'D'},
   {d:'2026-02',e:'専門家が沖縄からの海兵隊削減の停止を提言（Military Times）',dir:'増',ev:'C'},
   {d:'2026-06',e:'NMESIS・MADISを第12海兵沿岸連隊（沖縄）に配備',dir:'機能強化',ev:'B'},
-  {d:'2026-10',e:'Keen Sword 27で与那国にNMESIS展開を計画',dir:'機能強化',ev:'B'}
+  {d:'2026-10',e:'Keen Sword 27で与那国にNMESIS展開を計画',dir:'機能強化',ev:'B'},
+  {d:'2026-10',e:'嘉手納の戦闘機部隊ローテーション継続（Stars and Stripes 10/27）',dir:'機能強化',ev:'B'},
+  {d:'2026-11',e:'在沖米軍に夜間外出禁止・飲酒規制の報道（Stars and Stripes 11/6・内容未精査）。夜間の外出・来店動線に影響し得る',dir:'消費動線',ev:'C'}
 ];
 function _oilNewest(dj){
   var ur=(dj&&dj.us_reality)||{}, L=(dj&&dj.latest)||{};
   var br=ur.DCOILBRENTEU, wd=((dj&&dj.series&&dj.series.DCOILWTICO)||[{}])[0].date||'';
-  if(typeof L.DCOILWTICO==='number' && (!br||!br.date||wd>=br.date)) return {v:L.DCOILWTICO,n:'WTI',d:wd||(dj.updated||'').slice(0,10)};
+  if(typeof L.DCOILWTICO==='number' && (!br||!br.date||wd>=br.date)) return {v:L.DCOILWTICO,n:'WTI',d:(dj.updated||wd||'').slice(0,10)};
   if(br&&typeof br.value==='number') return {v:br.value,n:'ブレント',d:br.date};
   return null;
 }
