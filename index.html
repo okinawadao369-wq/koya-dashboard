@@ -1725,7 +1725,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v218';
+var CACHE_KEY = 'koya_v219';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
@@ -2078,6 +2078,32 @@ function fredFetch(sid,limit){
 function cacheGet(){
   try{var r=localStorage.getItem(CACHE_KEY); if(!r) return null; var o=JSON.parse(r); if(Date.now()-o.ts>CACHE_TTL) return null; return o.data;}catch(e){ console.warn('[koya][F16] キャッシュ読み込み失敗(localStorage破損の可能性):',e); return null;}
 }
+// [2026-11-11 R-12/F33] 直近の成功値（取得失敗時の表示用）。MOCKは保存しない。cacheSetの世代掃除(/^koya_v\d+$/)の対象外のキー
+var LASTGOOD_KEY='koya_lastgood';
+function lgLabel(iso){ try{ var d=new Date(iso); var j=new Date(d.getTime()+9*3600*1000); return (j.getUTCMonth()+1)+'/'+j.getUTCDate()+' '+String(j.getUTCHours()).padStart(2,'0')+':'+String(j.getUTCMinutes()).padStart(2,'0'); }catch(e){ return '前回取得'; } }
+function lastGoodSave(data){ try{ if(!_dataJsonCache||!data) return; localStorage.setItem(LASTGOOD_KEY, JSON.stringify({savedAt:Date.now(), label:lgLabel(_dataJsonCache.updated), cpi:(typeof S.lastGoodCpi==='number'?S.lastGoodCpi:null), data:data, dj:_dataJsonCache})); }catch(e){} }
+function lastGoodLoad(){ try{ var r=localStorage.getItem(LASTGOOD_KEY); return r?JSON.parse(r):null; }catch(e){ return null; } }
+function staleTag(){ return S.dataState==='stale'&&S.staleLabel?'<span style="font-size:10px;color:var(--gold);font-weight:400"> （'+S.staleLabel+' 時点）</span>':''; }
+var NA_TXT='—（取得不可）';
+function applyFailure(){
+  var lg=lastGoodLoad();
+  if(lg&&lg.data){
+    S.dataState='stale'; S.staleLabel=lg.label||'前回取得';
+    _dataJsonCache=lg.dj||null;
+    if(typeof lg.cpi==='number') S.lastGoodCpi=lg.cpi;
+    applyData(lg.data,true);
+  } else {
+    S.dataState='none'; S.staleLabel=null;
+    _dataJsonCache=null;
+    var m=getMock(); m.fredVals={}; // グラフの枠のための骨組みのみ。数値としては使わない
+    S.koyaScore=null; S.koyaSignal=null; S.triggers=[]; S.deltas={}; S.alerts={};
+    applyData(m,true);
+    S.fx=null; S.ff=null; S.ur=null; S.cpi=null; S.signal=null;
+    updateSig(); updateOverviewCards();
+  }
+  renderOverview();
+  try{ if(RD.fred) renderFred(); if(RD.biz) renderBiz(); if(RD.sim) runSim(); if(typeof renderUSReality==='function'&&RD.usReality) renderUSReality(); if(typeof renderFtoLadder==='function') renderFtoLadder(); }catch(e){}
+}
 function cacheSet(d){
   try{
     // 旧世代キャッシュ(koya_v114等)の堆積を掃除する [2026-10-16]
@@ -2156,7 +2182,7 @@ function applyData(data,isMock){
   // 最終実測値」と明示した上で使う。乱数由来の値をそのまま指標として見せない。
   var _cpiYoYCalc=calcYoY(S.cpiH);
   if(isMock){
-    S.cpi=null;
+    S.cpi=(S.dataState==='stale'&&typeof S.lastGoodCpi==='number')?S.lastGoodCpi:null;
   } else {
     S.cpi=_cpiYoYCalc;
     if(_cpiYoYCalc!==null){ S.lastGoodCpi=_cpiYoYCalc; }
@@ -2218,6 +2244,8 @@ function updateSig(){
   var b=document.getElementById('sig');
   var score=typeof S.koyaScore==='number'?(' ['+Math.round(S.koyaScore)+'/100]'):'';
   // [2026-11-11 R-11/F29] 行動指示は「今週の経営判断」1箇所に集約。ここは市場環境スコアの表示のみ（計算・閾値は不変）
+  if(S.dataState==='stale') score+='（前回値・'+(S.staleLabel||'')+' 時点）';
+  if(S.dataState==='none'){ b.className='sig-hold'; b.textContent='— 市場環境 取得不可'; return; }
   if(S.signal==='GO'){b.className='sig-go';b.textContent='▶ 市場環境 良好'+score;}
   else if(S.signal==='WATCH'){b.className='sig-watch';b.textContent='◎ 市場環境 注意'+score;}
   else{b.className='sig-hold';b.textContent='▬ 市場環境 弱い'+score;}
@@ -2252,15 +2280,16 @@ function geoImpactPct(){
 
 function updateOverviewCards(){
   var fx=S.fredVals['DEXJPUS']||S.fx; var ff=S.fredVals['FEDFUNDS']||S.ff; var ur=S.fredVals['UNRATE']||S.ur;
-  document.getElementById('ov-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'¥'+(MOCK.DEXJPUS||163.77).toFixed(2);
-  document.getElementById('ov-ff').textContent=ff!==null?ff.toFixed(2)+'%':(MOCK.FEDFUNDS||3.63).toFixed(2)+'%';
-  var urDisp=ur!==null?ur:(MOCK.UNRATE||4.3);
-  document.getElementById('ov-ur').textContent=urDisp.toFixed(1)+'%'+(ur===null?' *':'');
+  // [R-12/F33] 失敗中は直近の成功値＋時点、成功値が無ければ「—（取得不可）」。MOCK値は出さない
+  if(fx===undefined) fx=null; if(ff===undefined) ff=null; if(ur===undefined) ur=null;
+  document.getElementById('ov-fx').innerHTML=(fx!==null?'¥'+fx.toFixed(2):NA_TXT)+(fx!==null?staleTag():'');
+  document.getElementById('ov-ff').innerHTML=(ff!==null?ff.toFixed(2)+'%':NA_TXT)+(ff!==null?staleTag():'');
+  document.getElementById('ov-ur').innerHTML=(ur!==null?ur.toFixed(1)+'%':NA_TXT)+(ur!==null?staleTag():'');
   document.getElementById('ov-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'$32.23';
   // WTI原油リアルタイム表示
-  var wtiVal=S.fredVals['DCOILWTICO']||(MOCK.DCOILWTICO||84.38);
+  var wtiVal=(typeof S.fredVals['DCOILWTICO']==='number')?S.fredVals['DCOILWTICO']:null;
   var wtiEl=document.getElementById('ov-wti');
-  if(wtiEl) wtiEl.textContent='$'+wtiVal.toFixed(2)+'/bbl';
+  if(wtiEl) wtiEl.innerHTML=wtiVal!==null?'$'+wtiVal.toFixed(2)+'/bbl'+staleTag():NA_TXT;
   var wtiNoteEl=document.getElementById('ov-wti-note');
   if(wtiNoteEl){
     // [R-10] 固定基準値(79.2)との比較で「前月比」と偽っていた。fred-data.jsonの系列の最古点との実変化率を表示する。
@@ -2280,13 +2309,16 @@ function updateOverviewCards(){
     }
   }
   // FTO価格インデックス（4D基本¥20,000のドル換算 vs 米国アンカー）
-  var fxLive=S.fredVals['DEXJPUS']||S.fx||(MOCK.DEXJPUS||163.39);
+  var fxLive=S.fredVals['DEXJPUS']||S.fx||null;
+  if(!fxLive){ var _fi=document.getElementById('ov-fto-idx'); if(_fi) _fi.textContent=NA_TXT; var _fd=document.getElementById('ov-fto-disc'); if(_fd) _fd.textContent='為替が取得できないため算出しません'; }
+  else {
   var comboPriceUsd=Math.round(20000/(S.fx||fxLive));
   var ftoIdxEl=document.getElementById('ov-fto-idx');
   var _ancUsd=Math.round(ftoAnchorJpy('ft_4d')/(S.fx||fxLive));
   if(ftoIdxEl) ftoIdxEl.textContent='$'+comboPriceUsd+' vs US$'+_ancUsd;
   var ftoDiscEl=document.getElementById('ov-fto-disc');
-  if(ftoDiscEl){ ftoDiscEl.textContent='米国中央値（CPI補正後）比 '+ftoGap(20000,'ft_4d')+'%割安（4D基本¥20,000）'; }
+  if(ftoDiscEl){ ftoDiscEl.textContent='米国中央値（CPI補正後）比 '+ftoGap(20000,'ft_4d')+'%割安（4D基本¥20,000）'+(S.dataState==='stale'?'・'+S.staleLabel+' 時点':''); }
+  }
   document.getElementById('ov-cpi').textContent = S.isMock
     ? (typeof S.lastGoodCpi==='number' ? S.lastGoodCpi.toFixed(1)+'%（フォールバック中・最終実測値）' : 'フォールバック中（数値なし）')
     : ((S.cpi!==null&&S.cpi!==undefined)?S.cpi.toFixed(1)+'%':'前年同月データなし');
@@ -2297,7 +2329,7 @@ function updateOverviewCards(){
   document.getElementById('f-ahe').textContent=S.ahe?'$'+S.ahe.toFixed(2):'--';
   document.getElementById('fred-live-count').textContent=S.fredLive+'/'+(FRED_SERIES.length);
   // VIX・SP500表示
-  var vix=S.fredVals['VIX']||MOCK.VIX; var sp=S.fredVals['SP500']||MOCK.SP500;
+  var vix=S.fredVals['VIX']||null; var sp=S.fredVals['SP500']||null;
   var eVix=document.getElementById('f-vix'); if(eVix) eVix.textContent=vix?vix.toFixed(2):'—';
   var eSp=document.getElementById('f-sp500'); if(eSp) eSp.textContent=sp?sp.toLocaleString('ja-JP',{maximumFractionDigits:0}):'—';
   // [R-07/F18] fred-data.jsonのdeltasを優先し、真の前日比が取れない場合のみ
@@ -2402,6 +2434,7 @@ function renderTargetPanel(){
 function renderDecisionCard(){
   try{
     var el=document.getElementById('dc-body'); if(!el) return;
+    if(S.dataState==='none'||!S.fx){ var _v=document.getElementById('dc-verdict'); if(_v){ _v.textContent='—'; _v.style.background='#8899B0'; } el.innerHTML='データを取得できず、直近の成功値もありません。判定を出しません（'+NA_TXT+'）。'; renderTargetPanel(); return; }
     var dj=_dataJsonCache||{}, fx=S.fx||153.36, cpi=(typeof S.cpi==='number')?S.cpi:3.5, adj=1+(cpi/100)*0.5;
     var g2=ftoGap(15000,'ft_2d'), g4=ftoGap(20000,'ft_4d'), gU=ftoGap(23000,'ft_4d');
     var oil=_oilNewest(dj), ks=(typeof dj.koya_score==='number')?dj.koya_score:null;
@@ -2426,7 +2459,7 @@ function renderDecisionCard(){
       +_bar('米国の体感物価圧力（CPI）',(cpi-2)/3*100,'CPI '+cpi.toFixed(1)+'%（2%=0・5%=100）'+(oil?' ／ '+oil.n+' $'+oil.v.toFixed(2)+'（'+oil.d+'）':''),'#FF7F50')
       +_bar('ターゲット層の季節（PCS）',tg.sf/1.8*100,tg.phase,'#F4C842')
       +_bar('地政学プレゼンス（第一列島線）',tg.presence,'人数 '+tg.trend,'#60A5FA');
-    el.innerHTML='<div style="display:grid;grid-template-columns:minmax(240px,1fr) minmax(240px,1fr);gap:14px">'
+    el.innerHTML=(S.dataState==='stale'?'<div style="font-size:11px;color:var(--gold);margin-bottom:6px">⚠ データ取得に失敗したため、'+S.staleLabel+' 時点の前回値で表示しています。</div>':'')+'<div style="display:grid;grid-template-columns:minmax(240px,1fr) minmax(240px,1fr);gap:14px">'
       +'<div><div style="font-size:11px;color:var(--muted,#8899B0);margin-bottom:2px">価格の位置（目安帯 25〜55%＝薄い帯、競合仮説C）</div>'
       +_gapBar('2D 14週〜【基本】',15000,g2)+_gapBar('4D ライトメモリー【基本】',20000,g4)+_gapBar('4D USBメモリー',23000,gU)
       +'<div style="margin-top:8px">'+act.map(function(a){return '<div>・'+a+'</div>';}).join('')+'</div></div>'
@@ -2729,6 +2762,7 @@ function ftoGap(price,btKey){ return Math.round((1-price/ftoAnchorJpy(btKey))*10
 function renderFtoLadder(){
   try{
     var el=document.getElementById('cmp-ladder-body'); if(!el) return;
+    if(S.dataState==='none'||!S.fx){ el.innerHTML=NA_TXT+'（為替・CPIが取得できないため算出しません）'; return; }
     var fx=S.fx||153.36, cpi=(S.cpi===null||S.cpi===undefined)?3.5:S.cpi, adj=1+(cpi/100)*0.5;
     var rows=[
       {n:'2D（妊娠0〜13週・10分）',p:12000,b:'ft_2d'},
@@ -2905,6 +2939,7 @@ function renderBiz(cat){
   var fx=S.fx||153.36; var cpi=S.cpi||3.5;  // CPI統一: runSim=4.0%と整合
   var catColors={'ftc':'#00D4AA','food':'#F4C842','life':'#4ADE80','beauty':'#A78BFA','retail':'#60A5FA','exp':'#FF7F50','edu':'#F472B6'};
   var filtered=Object.keys(BTYPE).filter(function(k){ return cat==='all'||BTYPE[k].cat===cat; });
+  if(S.dataState==='none'||!S.fx){ document.getElementById('biz-tbody').innerHTML='<tr><td colspan="9">'+NA_TXT+'（為替・CPIが取得できないため算出しません）</td></tr>'; return; }
   document.getElementById('biz-count').textContent=filtered.length+'業種';
   // Bar chart
   var bcLabels=filtered.map(function(k){return BTYPE[k].label.split('｜')[1]||BTYPE[k].label;});
@@ -3028,14 +3063,14 @@ function renderFred(){
   RD.fred=true;
   var fx=S.fx||153.36; var ff=S.ff||3.63; var ur=S.ur||4.2;
   // Sync FRED_SERIES val from S.fredVals
-  FRED_SERIES.forEach(function(f){ f.val = S.fredVals[f.id]||MOCK[f.id]||null; f.date=obsDateLabel(f.id); });
+  FRED_SERIES.forEach(function(f){ f.val = (typeof S.fredVals[f.id]==='number')?S.fredVals[f.id]:null; f.date=obsDateLabel(f.id); });
   // FRED grid
   var ALERT_COLORS={red:'rgba(255,77,106,.12)',yellow:'rgba(244,200,66,.10)',green:'rgba(74,222,128,.08)'};
   var ALERT_BORDER={red:'#FF4D6A',yellow:'#F4C842',green:'#4ADE80'};
   var html='';
   FRED_SERIES.forEach(function(f){
-    var val=f.val||S.fredVals[f.id]||MOCK[f.id];
-    var dispVal=val?+(val).toFixed(2):'—';
+    var val=f.val;
+    var dispVal=val!==null?+(val).toFixed(2):NA_TXT;
     var delta=S.deltas&&S.deltas[f.id]!==undefined?S.deltas[f.id]:null;
     var alert=S.alerts&&S.alerts[f.id]?S.alerts[f.id]:'';
     var score=S.alerts&&S.alerts[f.id+'_score']!==undefined?S.alerts[f.id+'_score']:null;
@@ -3059,7 +3094,7 @@ function renderFred(){
       +deltaHtml
       +'</div>'
       +scoreBadge
-      +'<div class="fred-src">'+(S.isMock?'mock':'live')+'</div></div>';
+      +'<div class="fred-src">'+(S.dataState==='stale'?'前回値 '+S.staleLabel:(S.isMock?'取得不可':'live'))+'</div></div>';
   });
   document.getElementById('fred-grid').innerHTML=html;
   // Charts
@@ -3070,7 +3105,7 @@ function renderFred(){
   var tbody='';
   var INVERT=['DCOILWTICO','CPIAUCSL','CPIFABSL','UNRATE'];
   FRED_SERIES.forEach(function(f){
-    var val=S.fredVals[f.id]||MOCK[f.id];
+    var val=(typeof S.fredVals[f.id]==='number')?S.fredVals[f.id]:null;
     var delta=S.deltas&&S.deltas[f.id]!==undefined?S.deltas[f.id]:null;
     var alert=S.alerts&&S.alerts[f.id]?S.alerts[f.id]:'';
     var score=S.alerts&&S.alerts[f.id+'_score']!==undefined?S.alerts[f.id+'_score']:null;
@@ -3090,12 +3125,12 @@ function renderFred(){
     tbody+='<tr>'
       +'<td class="mono" style="color:var(--muted)">'+f.id+'</td>'
       +'<td style="font-weight:600">'+f.name+'</td>'
-      +'<td class="mono" style="color:'+f.color+';font-weight:700">'+(val?+(+val).toFixed(2):'—')+'</td>'
+      +'<td class="mono" style="color:'+f.color+';font-weight:700">'+(val!==null?+(+val).toFixed(2):NA_TXT)+'</td>'
       +'<td style="font-size:9px;color:var(--muted)">'+f.unit+'</td>'
       +deltaCell
       +alertCell
       +'<td class="mono" style="font-size:9px">'+f.date+'</td>'
-      +'<td style="font-size:9px;color:'+(S.isMock?'var(--muted)':'var(--teal)')+'">'+(S.isMock?'Mock':'Live')+'</td></tr>';
+      +'<td style="font-size:9px;color:'+(S.isMock?'var(--muted)':'var(--teal)')+'">'+(S.dataState==='stale'?'前回値 '+S.staleLabel:(S.isMock?'取得不可':'Live'))+'</td></tr>';
   });
   document.getElementById('fred-tbody').innerHTML=tbody;
 }
@@ -3275,9 +3310,7 @@ function loadFresh(){
     var fredVals={};
     if(res[4]&&res[4].length){ fredVals['AHETPI']=res[4][0].value; }
     var data;
-    if(!anyReal){
-      var m=getMock(); data=m; data.fredVals=MOCK; applyData(data,true); if(!RD.overview) renderOverview(); return;
-    }
+    if(!anyReal){ applyFailure(); return; }
     // Sync live history latest values → fredVals
     // latestフィールドを最優先（series終端値より正確な当日値）
     var dj=_dataJsonCache;
@@ -3317,10 +3350,10 @@ function loadFresh(){
       }
     }
     data={fxH:fxHarr,ffH:ffHarr,urH:res[2]||[],cpiH:res[3]||[],fredVals:fredVals};
-    // Fill mock for remaining missing FRED vals
-    series.forEach(function(s){ if(!fredVals[s]) fredVals[s]=MOCK[s]; });
+    // [R-12/F33] 欠損系列をMOCKで埋めない（取得できなかった系列は「—」表示）
     data.fredVals=fredVals;
-    cacheSet(data); applyData(data,false); if(!RD.overview) renderOverview();
+    S.dataState='live'; S.staleLabel=null;
+    cacheSet(data); applyData(data,false); lastGoodSave(data); if(!RD.overview) renderOverview();
     // [R-08/F25] corsproxy.io経由のクライアント側Yahoo Financeライブ上書きは撤去した
     // （ユーザー確認済み・2026-08-27）。外部依存ゼロを優先する。USD/JPYは
     // fred-data.jsonのlatest.DEXJPUS（koya-dashboard-fred-updateタスクが
@@ -3328,7 +3361,7 @@ function loadFresh(){
     // 日中のリアルタイム更新は失われるが、日次1回のライブ値取得自体は維持される。
   }).catch(function(e){
     console.warn('[koya][F16] loadFresh()の主要フローで例外が発生しました:',e);
-    var m=getMock(); m.fredVals=MOCK; applyData(m,true); if(!RD.overview) renderOverview();
+    applyFailure();
   });
 }
 
@@ -3337,7 +3370,7 @@ document.getElementById('ref-btn').addEventListener('click',loadFresh);
 (function init(){
   var cached=cacheGet();
   if(cached){
-    applyData(cached,false); renderOverview();
+    S.dataState='live'; applyData(cached,false); renderOverview();
     // [R-08/F25] corsproxy.io経由のクライアント側Yahoo Financeライブ上書きは撤去した
     // （ユーザー確認済み・2026-08-27）。外部依存ゼロを優先する。
     // キャッシュ使用時もfred-data.jsonを非同期フェッチしてkoyaスコアを即時更新
@@ -3358,7 +3391,7 @@ document.getElementById('ref-btn').addEventListener('click',loadFresh);
     return;
   }
   loadFresh();
-  setTimeout(function(){ if(!RD.overview){ var m=getMock(); m.fredVals=MOCK; applyData(m,true); renderOverview(); }},3500);
+  setTimeout(function(){ if(!RD.overview){ applyFailure(); }},3500);
 })();
 
 // ════════════════════════════════════════════════
@@ -4176,8 +4209,17 @@ function renderSectorDiag(){
 }
 
 function renderUSReality(){
-  var fx = S.fx||MOCK.DEXJPUS||160.32;
-  var umcsent = S.fredVals&&S.fredVals['UMCSENT'] ? S.fredVals['UMCSENT'] : (MOCK.UMCSENT||44.8);
+  // [R-12/F33] 成功値が無いときは数値を出さない
+  if(S.dataState==='none'){
+    ['ur-cpi-official','ur-umcsent','ur-delinquency','ur-gdp'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=NA_TXT; });
+    var _mb=document.getElementById('ur-mideast-body'); if(_mb) _mb.textContent='データ取得不可のため、アラートを判定しません。';
+    var _ml=document.getElementById('ur-mideast-level'); if(_ml) _ml.textContent='—';
+    var _st=document.getElementById('ur-sector-tbody'); if(_st) _st.innerHTML='<tr><td colspan="5">'+NA_TXT+'</td></tr>';
+    return;
+  }
+  var fx = S.fx||153.36;
+  var umcsent = S.fredVals&&typeof S.fredVals['UMCSENT']==='number' ? S.fredVals['UMCSENT'] : null;
+  if(umcsent===null){ var _u=document.getElementById('ur-umcsent'); if(_u) _u.textContent=NA_TXT; umcsent=50; }
   var cpi = S.cpi||3.5;
 
   // センチメントバー更新
