@@ -1404,10 +1404,10 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       直近1年の投稿はほぼすべて英語で、Nicoly Maciel／Sean &amp; Nicole hogan／kenia roybal／Nathalie Corrado／Chelsea Hall といった米国名が並ぶ。
       <b>ターゲット層の転換は仮説ではなく、クチコミの原文で観測できる事実である。</b>
       <br><br>
-      <b>② 直近1週間で6件という異常な投稿速度。</b>その前の3ヶ月は1件しかない。従来ペース1.9件/月に対し、直近は月26件相当＝<b>約14倍</b>。
-      これは「WEB戦略が最近大きく動いている」という経営者の実感と一致する。
-      ただし原因は<b>(a) 検索経由の新規流入が実際に増えた (b) 施術後にレビュー依頼を始めた</b>の2通りがあり、
-      現時点のデータではどちらか断定できない（証拠区分C）。<b>予約フォームに「FTOを何で知ったか」を追加すれば、この2つを分離して測定できる。</b>
+      <b>② 9月初めの急増は一時的だった（2026-11-11訂正）。</b>2026-09-05時点では直近1週間に6件（その前の3ヶ月は1件）と、従来ペース1.9件/月の約14倍の速さに見えた。
+      しかし9/05の45件から11/11の51件までの増加は+6件で、ペースは約2.7件/月に戻っている（事実A・hl=en実測）。
+      急増は続かず、平常ペースへ戻ったと判断する。<b>課題は、施術後にレビューをお願いすることを毎回の習慣にすること。</b>
+      急増の原因（検索経由の新規流入の増加か、レビュー依頼か）は、予約フォームに「FTOを何で知ったか」を加えれば分けて測れる（証拠区分C）。
       <br><br>
       <b>③ クチコミ本文が語っているニーズ（原文より）：</b><br>
       　・Amber Howard「赤ちゃんの動きをあまり感じられず心配だった」→ <b>不安の解消</b>が来店動機。DoD IG監査が示した産科アクセス不安と符合する。<br>
@@ -1433,7 +1433,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
       <tr><td style="padding:6px 8px">見出し構成</td><td style="padding:6px 8px">"Meet Your Baby's Face Before They're Even Born" ／ "What Military Families in Okinawa Ask Us" 等</td><td style="padding:6px 8px;color:#00D4AA">◎ 検索意図に沿う</td></tr>
       <tr style="background:rgba(255,255,255,.03)"><td style="padding:6px 8px">Week Checker（無料ツール）</td><td style="padding:6px 8px">出産予定日→最適週を判定。25〜32週が最適と明示</td><td style="padding:6px 8px;color:#00D4AA">◎ 発見の入口として強い</td></tr>
       <tr><td style="padding:6px 8px">構造化データ</td><td style="padding:6px 8px">構造化データ（型の詳細は非公開文書）＋ FAQPage を実装</td><td style="padding:6px 8px;color:#f59e0b">△ 型の妥当性は要確認（下記）</td></tr>
-      <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>AggregateRating / Review</b></td><td style="padding:6px 8px"><b>未実装（HTML内に該当なし）</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 最大の欠落</b></td></tr>
+      <tr style="background:rgba(245,158,11,.12)"><td style="padding:6px 8px"><b>AggregateRating / Review</b></td><td style="padding:6px 8px"><b>訂正（2026-11-11 現物確認）：/reviews/ にAggregateRating（4.9・49件）を実装済み。トップページ・/services/・/pricing/ には無く、個別のReviewはどのページにも無い。件数はGoogleマップ（51件）より2件少ない</b></td><td style="padding:6px 8px;color:#f59e0b"><b>△ 一部実装（型の詳細は非公開文書）</b></td></tr>
       <tr style="background:rgba(0,212,170,.12)"><td style="padding:6px 8px"><b>Googleマップ クチコミ（原文・全数）</b></td><td style="padding:6px 8px"><b>4.9★・51件（2026-11-11 hl=en）。英語本文39件(76.5%)。9/05時点は45件・英語名38件(84.4%)／英語本文33件(73.3%)。すでに英語圏＝米軍軍属層が主体</b></td><td style="padding:6px 8px;color:#00D4AA"><b>◎ 訂正：言語ミスマッチではなかった</b></td></tr>
       <tr><td style="padding:6px 8px">クチコミの話題タグ（英語UI）</td><td style="padding:6px 8px">ultrasound photos／cozy atmosphere／friendly staff／ultrasound technician／cool staff／translator／clear explanations</td><td style="padding:6px 8px">"translator" が独立タグ化＝英語対応が強みとして認知されている</td></tr>
       <tr style="background:rgba(239,68,68,.12)"><td style="padding:6px 8px"><b>ブランド名の分裂</b></td><td style="padding:6px 8px"><b>クチコミ本文で「Sneak Peek / Sneak Peak / sneakpeak」5件 vs 「Family Tree」3件</b></td><td style="padding:6px 8px;color:#ef4444"><b>✕ 新たに判明した最大の漏れ</b></td></tr>
@@ -1709,13 +1709,13 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
     <div class="margin-note">閾値は koya-agent-os の証拠規律における「競合仮説C／未立証D」。実績の検証は<strong>月次顧客人数（新規・リピーター内訳）</strong>を基準に、GBPI・実質価格ギャップとの相関を90日実験（2026-08-20〜2026-11-18）で確認し、随時補正する。</div>
     <div class="margin-note" id="cmp-exp90" style="margin-top:8px;border-left:3px solid #f59e0b;padding-left:10px">
       <b>90日実験の結果（2026-11-11 集計・R-13）：検証不能。閾値は動かしていない。</b><br>
-      月次の顧客件数（STORES予約分析・実施月・新規／リピート、集計値のみ）：8月 61件（39／22）、9月 46件（32／14）、10月 59件（43／16）、11月は途中（11/7時点 26件）。<br>
+      月次の顧客件数（STORES予約分析・実施月・新規／リピート）は<a href="https://docs.google.com/document/d/1HCWVCobcWC04Lnj_ra7h7ZxeM8wyVie6oS7v5RBUmPc/edit" target="_blank" rel="noopener">非公開文書</a>へ移設（2026-11-11）。<br>
       検証不能の理由：<br>
       ① GBPIはGEO7指数の手入力値から計算しており、GEO値は2026-08-31から変わっていない。期間中のGBPIは一定で、顧客数と相関を取れない。<br>
       ② fred-data.json の為替履歴は直近約3週間（2026-10-20以降）しかなく、8・9月の月次の実質価格ギャップを同じ根拠から再計算できない。<br>
-      ③ 期間内で月の全体がそろうのは8〜10月の3点だけで、相関を言うには少なすぎる。8月はPCSピークで、季節の影響と区別できない。<br>
+      ③ 期間内で月の全体がそろうのは8〜10月の3点だけ（件数は非公開文書）で、相関を言うには少なすぎる。8月はPCSピークで、季節の影響と区別できない。<br>
       ④ 基準に指定されたSquareの顧客数は、この集計では接続できず取得できなかった。代わりにSTORESの予約件数を使った（予約件数は顧客人数と1対1ではない）。<br>
-      証拠区分：月次件数は事実A・observed（STORES 2026-11-08取得）。相関は未立証D・blocked_or_failed。
+      証拠区分：月次件数（非公開文書）は事実A・observed（STORES 2026-11-08取得）。相関は未立証D・blocked_or_failed。
     </div>
     <div class="box" id="cmp-ladder" style="margin-top:14px;font-size:12px;line-height:1.7">
       <div style="font-weight:700;margin-bottom:6px">FTO現行価格の流れ <span style="font-weight:400;color:var(--muted)">STORES予約ページ 2026-10-16確認／為替・CPIはライブ値</span></div>
@@ -1735,7 +1735,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v219';
+var CACHE_KEY = 'koya_v220';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
