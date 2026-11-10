@@ -782,13 +782,14 @@ GBPI = プレゼンス安心指数 × 0.6 + (100 − 緩和後ストレス) × 0
 
     <div class="box">
       <div class="box-title">業種別 米国単価→沖縄有効価格帯 <span class="badge" id="biz-count">21業種</span> <span class="verif-badge verif-est">未検証（推計モデル）</span></div>
-      <div class="src-note">データ源: 業種別に米国公開価格調査(thervo.com/busybook.co等)＋FRED CPI補正。「米国比割安率」列は米国中央値（CPI心理補正後）との比較で、羅針盤と同じ式。心理的価格帯25〜55%は競合仮説C。行名にマウスを置くと米国相場の出典と調査日が出る。実績成約データとの照合は未実施。FamilyTreeOki固定4業種（2Dエコー/4Dエコー記念/ベビーシッター/産後・新生児ケア）は2026年8月にWebSearchで米国相場を再確認済み（事実A・observed、取得日2026-08-31）。他業種は前回調査時点のまま（stale_observed）。2026-10-31時点でFTO価格はSTORES現行メニューに整合済み。</div>
+      <div class="src-note">データ源: 業種別に米国公開価格調査(thervo.com/busybook.co等)＋FRED CPI補正。「米国比割安率」列は米国中央値（CPI心理補正後）との比較で、羅針盤と同じ式。心理的価格帯25〜55%は競合仮説C。行名にマウスを置くと米国相場、沖縄相場セルに置くと沖縄（日本）相場の出典と確度が出る。沖縄相場は日本人向けの地元価格で、SOFA顧客は米国価格を基準に判断するため（二重アンカー）、FTO価格は沖縄相場より高くても米国比で割安なら受け入れられやすい。物価の伸びは米国CPI約3.7%に対し沖縄県CPI約1.5%（2026年、県統計課）で、沖縄の割安感は年々広がる方向。実績成約データとの照合は未実施。FamilyTreeOki固定4業種（2Dエコー/4Dエコー記念/ベビーシッター/産後・新生児ケア）は2026年8月にWebSearchで米国相場を再確認済み（事実A・observed、取得日2026-08-31）。他業種は前回調査時点のまま（stale_observed）。2026-10-31時点でFTO価格はSTORES現行メニューに整合済み。</div>
       <div class="tbl-wrap"><table class="tbl">
         <thead>
           <tr>
             <th>業種</th><th>カテゴリ</th>
             <th>米国単価 (USD)</th>
             <th>円換算アンカー</th>
+            <th>沖縄（日本）相場</th>
             <th>FTC参考価格</th>
             <th>心理的価格帯（米国中央値比25〜55%割安）</th>
             <th>米国比割安率と位置</th>
@@ -1982,28 +1983,28 @@ var SEGS = [
 ];
 
 var BTYPE = {
-  ft_2d:  {label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:75, usHigh:175,ftcDef:15000,monthlyPerPerson:2.5,note:'FTO基本価格¥15,000(14週〜20分)。0〜13週10分は¥12,000(2026-10-16 STORES予約ページ確認)。米国2Dアンカー(2026/08調査:早期エコー$50-85・標準パッケージ$150-250 出典bettercare.com/careroute.ai)'},
-  ft_4d:  {label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:100,usHigh:300,ftcDef:20000,monthlyPerPerson:3.0,note:'FTO基本価格¥20,000(ライトメモリー20分)・USBメモリー¥23,000。米国アンカーは2026/10再検索で$100-300(中央値$200)に統一: 記念撮影$60-250(coveredusa.org 2026)・ブティック基本$80-150(careroute.ai 2026/5)・旧解説サイト$150-500。一次調査は未確認のため競合仮説C'},
-  ft_sit1:{label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:114,usHigh:179,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)(2026/08調査:時給$19-29.87(全米平均$23-26)・前年比+4.9%で一般物価上昇3%を上回る 出典urbansitter.com/sittercity.com)'},
-  ft_med: {label:'FamilyTreeOki｜産後ケア(宿泊1泊)',  cat:'ftc',usLow:700,usHigh:1400,ftcDef:70000,monthlyPerPerson:2.0,note:'宿泊型産後リトリート1泊＝宿泊+24h新生児ケア+食事(2026/09調査:米国$700-1,400/泊。Boram NY $843・Sanu DC $1,045・Ahma&Co CA $1,740。※在宅オーバーナイトドゥーラ$250-450は宿泊・食事を含まない別カテゴリ。FTO実売価格70,000円/泊は2026-09-17に初回利用開始 出典time.com/peacockparent.com/yuzicare.com)'},
-  cafe:   {label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:4,  usHigh:7,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当(2026調査:全米平均$4-5.60・都市部$5-7)'},
-  lunch:  {label:'飲食｜カジュアルランチ',           cat:'food',usLow:12, usHigh:20, ftcDef:1500, monthlyPerPerson:40, note:'ランチ1食(2026-11-10調査: Fooda Price Index平均$14.17(2026/4)・Huel「都市部$12-15」・上限$20。推論B)'},
-  dinner: {label:'飲食｜ファミリーディナー',         cat:'food',usLow:70, usHigh:150,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分(2026-11-10調査: 控えめな着席$70-110、前菜・飲料・デザート込みで$150超(WTOP/GOBankingRates 2026)。推論B)'},
-  premium:{label:'飲食｜プレミアムディナー/記念日',  cat:'food',usLow:200,usHigh:500,ftcDef:18000,monthlyPerPerson:5,  note:'2名記念日コース'},
-  house:  {label:'生活｜ハウスクリーニング',         cat:'life',usLow:130,usHigh:220,ftcDef:20000,monthlyPerPerson:2,  note:'3LDK相当・通常清掃(2026-11-10調査: Angi/Housecall Pro $130-200・Tidy平均$180。深掃除は$150-300。推論B)'},
-  car:    {label:'生活｜車内外クリーニング',         cat:'life',usLow:150,usHigh:400,ftcDef:12000,monthlyPerPerson:3,  note:'フルディテール(2026-11-10時点で未再調査・stale_observed)'},
-  pet:    {label:'生活｜ペットシッター/訪問',        cat:'life',usLow:18, usHigh:28, ftcDef:3000, monthlyPerPerson:5,  note:'1時間訪問(2026調査:全米平均時給$16-22)'},
-  trans:  {label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行(2026-11-10時点で未再調査・stale_observed)'},
-  hair:   {label:'美容｜女性カット/カラー',          cat:'beauty',usLow:100,usHigh:250,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー(2026-11-10調査: カット中央値$75・カラー$70-215、高級店は$400超(Boston Globe 2026/11)。推論B)'},
-  massage:{label:'美容｜マッサージ60分',             cat:'beauty',usLow:70, usHigh:130,ftcDef:10000,monthlyPerPerson:12,note:'60分全身(2026-11-10調査: 全米$60-130、多くは$75-100(チップ別)、NYC $120-200。推論B)'},
-  acupunc:{label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:75, usHigh:150,ftcDef:16000,monthlyPerPerson:8, note:'60分スタンドアロン(2026-11-10再確認: 個別$75-150、初診$80-200、コミュニティ$40-70。推論B)'},
-  acu_combo:{label:'🌟 FTO｜60分Acu-Wellnessコンボ', cat:'beauty',usLow:180,usHigh:260,ftcDef:15800,monthlyPerPerson:8, note:'鍼灸+マッサージ+PEMF 新メニュー(PDF調査:avg$220)'},
+  ft_2d:  {okLow:3000,okHigh:8000,okEv:'C: 2D単独の自費市場は小さい。国内の思い出撮影は数千円台',label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:75, usHigh:175,ftcDef:15000,monthlyPerPerson:2.5,note:'FTO基本価格¥15,000(14週〜20分)。0〜13週10分は¥12,000(2026-10-16 STORES予約ページ確認)。米国2Dアンカー(2026/08調査:早期エコー$50-85・標準パッケージ$150-250 出典bettercare.com/careroute.ai)'},
+  ft_4d:  {okLow:4500,okHigh:10000,okEv:'B: 国内医療機関の4D撮影のみ ¥4,500〜¥7,500+税＋初再診料(広尾レディース等)。沖縄の公開料金は未確認',label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:100,usHigh:300,ftcDef:20000,monthlyPerPerson:3.0,note:'FTO基本価格¥20,000(ライトメモリー20分)・USBメモリー¥23,000。米国アンカーは2026/10再検索で$100-300(中央値$200)に統一: 記念撮影$60-250(coveredusa.org 2026)・ブティック基本$80-150(careroute.ai 2026/5)・旧解説サイト$150-500。一次調査は未確認のため競合仮説C'},
+  ft_sit1:{okLow:19800,okHigh:24000,okEv:'B: 沖縄の民間シッター ¥3,300/h(ワールドキッズ・Veltra)×6h＋交通費。公的ファミサポは¥600/h',label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:114,usHigh:179,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)(2026/08調査:時給$19-29.87(全米平均$23-26)・前年比+4.9%で一般物価上昇3%を上回る 出典urbansitter.com/sittercity.com)'},
+  ft_med: {okLow:25000,okHigh:40000,okEv:'C: 助産院の宿泊型 基本料¥25,000〜32,000/泊(岡山市2026一覧)。沖縄の自費料金は未確認',label:'FamilyTreeOki｜産後ケア(宿泊1泊)',  cat:'ftc',usLow:700,usHigh:1400,ftcDef:70000,monthlyPerPerson:2.0,note:'宿泊型産後リトリート1泊＝宿泊+24h新生児ケア+食事(2026/09調査:米国$700-1,400/泊。Boram NY $843・Sanu DC $1,045・Ahma&Co CA $1,740。※在宅オーバーナイトドゥーラ$250-450は宿泊・食事を含まない別カテゴリ。FTO実売価格70,000円/泊は2026-09-17に初回利用開始 出典time.com/peacockparent.com/yuzicare.com)'},
+  cafe:   {okLow:450,okHigh:650,okEv:'D: 国内チェーンのラテ概算',label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:4,  usHigh:7,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当(2026調査:全米平均$4-5.60・都市部$5-7)'},
+  lunch:  {okLow:900,okHigh:1500,okEv:'D: 沖縄の外食ランチ概算',label:'飲食｜カジュアルランチ',           cat:'food',usLow:12, usHigh:20, ftcDef:1500, monthlyPerPerson:40, note:'ランチ1食(2026-11-10調査: Fooda Price Index平均$14.17(2026/4)・Huel「都市部$12-15」・上限$20。推論B)'},
+  dinner: {okLow:6000,okHigh:12000,okEv:'D: 4人家族の外食概算',label:'飲食｜ファミリーディナー',         cat:'food',usLow:70, usHigh:150,ftcDef:8000, monthlyPerPerson:20, note:'ファミリー4人分(2026-11-10調査: 控えめな着席$70-110、前菜・飲料・デザート込みで$150超(WTOP/GOBankingRates 2026)。推論B)'},
+  premium:{okLow:10000,okHigh:25000,okEv:'D: 記念日2名コース概算',label:'飲食｜プレミアムディナー/記念日',  cat:'food',usLow:200,usHigh:500,ftcDef:18000,monthlyPerPerson:5,  note:'2名記念日コース'},
+  house:  {okLow:35000,okHigh:50000,okEv:'B: 沖縄3LDK ¥44,000〜49,800(ミツモア)。全体清掃で作業範囲は米国の通常清掃より広い',label:'生活｜ハウスクリーニング',         cat:'life',usLow:130,usHigh:220,ftcDef:20000,monthlyPerPerson:2,  note:'3LDK相当・通常清掃(2026-11-10調査: Angi/Housecall Pro $130-200・Tidy平均$180。深掃除は$150-300。推論B)'},
+  car:    {okLow:15000,okHigh:30000,okEv:'D: 国内の車内クリーニング概算',label:'生活｜車内外クリーニング',         cat:'life',usLow:150,usHigh:400,ftcDef:12000,monthlyPerPerson:3,  note:'フルディテール(2026-11-10再調査: 全米$150-400、セダン平均$220・SUV平均$310(costinsighthub 2026/4)。推論B)'},
+  pet:    {okLow:3000,okHigh:4400,okEv:'B: 国内ペットシッター1回 ¥3,000〜4,400(くらしのマーケット掲載、沖縄か未確認)',label:'生活｜ペットシッター/訪問',        cat:'life',usLow:20, usHigh:35, ftcDef:3000, monthlyPerPerson:5,  note:'30分訪問1回(2026-11-10再調査: Rover平均$21.80(2025/9データ)・2026相場$20-35、都市部+25〜50%。推論B)'},
+  trans:  {okLow:3000,okHigh:8000,okEv:'D: 国内の医療通訳 時間単価の概算',label:'生活｜通訳・行政/病院同行',        cat:'life',usLow:50, usHigh:100,ftcDef:6000, monthlyPerPerson:2,  note:'1時間同行(2026-11-10再調査: 通訳者への報酬は$25-30/h(Salary.com/Indeed 2026)。顧客への請求額$50-100は推計のまま・競合仮説C)'},
+  hair:   {okLow:4700,okHigh:10900,okEv:'B: 那覇の美容室 カット+カラー ¥4,700〜10,900(ホットペッパー掲載)',label:'美容｜女性カット/カラー',          cat:'beauty',usLow:100,usHigh:250,ftcDef:12000,monthlyPerPerson:8,note:'カット+カラー(2026-11-10調査: カット中央値$75・カラー$70-215、高級店は$400超(Boston Globe 2026/11)。推論B)'},
+  massage:{okLow:3200,okHigh:4300,okEv:'B: 沖縄のもみほぐし60分 ¥3,200〜4,300(ホットペッパー/エキテン掲載)',label:'美容｜マッサージ60分',             cat:'beauty',usLow:70, usHigh:130,ftcDef:10000,monthlyPerPerson:12,note:'60分全身(2026-11-10調査: 全米$60-130、多くは$75-100(チップ別)、NYC $120-200。推論B)'},
+  acupunc:{okLow:3000,okHigh:6600,okEv:'C: 沖縄の鍼灸院 平均予算¥1,980〜6,600(EPARK)。保険診療か自費かで差',label:'美容｜鍼灸・ウェルネス60分',      cat:'beauty',usLow:75, usHigh:150,ftcDef:16000,monthlyPerPerson:8, note:'60分スタンドアロン(2026-11-10再確認: 個別$75-150、初診$80-200、コミュニティ$40-70。推論B)'},
+  acu_combo:{okLow:6000,okHigh:12000,okEv:'D: 鍼灸＋マッサージの組合せ概算',label:'🌟 FTO｜60分Acu-Wellnessコンボ', cat:'beauty',usLow:180,usHigh:260,ftcDef:15800,monthlyPerPerson:8, note:'鍼灸+マッサージ+PEMF 新メニュー(PDF調査:avg$220)'},
   hbeat:  {label:'小売｜Heartbeat Animal記念品',    cat:'retail',usLow:40, usHigh:80, ftcDef:5500, monthlyPerPerson:1.5,note:'ベビー胎動記念品'},
   baby:   {label:'小売｜ベビー/マタニティ用品',     cat:'retail',usLow:30, usHigh:100,ftcDef:6000, monthlyPerPerson:10, note:'消耗品含むセット'},
-  photo:  {label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:600,usHigh:1500,ftcDef:35000,monthlyPerPerson:1,  note:'フルセッション(2026-11-10調査: 在宅ニューボーン$600-1,095(個別スタジオ2026料金表)、パッケージ$800-1,500超。競合仮説C)'},
-  mini:   {label:'体験｜ミニフォトセッション',       cat:'exp',usLow:180,usHigh:400,ftcDef:12000,monthlyPerPerson:2,  note:'15〜60分ミニ(2026-11-10調査: ミニ$180-695、平日$250・通常$350の例。競合仮説C)'},
-  tour:   {label:'体験｜半日ツアー/アクティビティ', cat:'exp',usLow:80, usHigh:150,ftcDef:9000, monthlyPerPerson:3,  note:'沖縄体験(2026-11-10時点で未再調査・stale_observed)'},
-  lesson: {label:'教育｜語学/子どもレッスン',       cat:'edu',usLow:25, usHigh:60, ftcDef:5000, monthlyPerPerson:6,  note:'60分レッスン(2026-11-10調査: 子ども向け講師$20-50/h・地域平均$31(Care.com系)。推論B)'}
+  photo:  {okLow:20000,okHigh:50000,okEv:'D: 国内ニューボーンフォト概算',label:'体験｜家族/ニューボーン写真',     cat:'exp',usLow:600,usHigh:1500,ftcDef:35000,monthlyPerPerson:1,  note:'フルセッション(2026-11-10調査: 在宅ニューボーン$600-1,095(個別スタジオ2026料金表)、パッケージ$800-1,500超。競合仮説C)'},
+  mini:   {okLow:8000,okHigh:20000,okEv:'D: 国内ミニ撮影概算',label:'体験｜ミニフォトセッション',       cat:'exp',usLow:180,usHigh:400,ftcDef:12000,monthlyPerPerson:2,  note:'15〜60分ミニ(2026-11-10調査: ミニ$180-695、平日$250・通常$350の例。競合仮説C)'},
+  tour:   {okLow:2750,okHigh:7000,okEv:'B: 沖縄半日ツアー 大人¥2,750〜、シュノーケル¥4,000〜7,000(ベルトラ掲載)',label:'体験｜半日ツアー/アクティビティ', cat:'exp',usLow:45, usHigh:100,ftcDef:9000, monthlyPerPerson:3,  note:'半日小グループ1人(2026-11-10再調査: DC/NY $45-95(Trip.com/Tours4Fun 2026)。推論B)'},
+  lesson: {okLow:2000,okHigh:4000,okEv:'D: 子ども英会話 1時間の概算',label:'教育｜語学/子どもレッスン',       cat:'edu',usLow:25, usHigh:60, ftcDef:5000, monthlyPerPerson:6,  note:'60分レッスン(2026-11-10調査: 子ども向け講師$20-50/h・地域平均$31(Care.com系)。推論B)'}
 };
 
 var CAT_LABELS = {
@@ -2626,6 +2627,7 @@ function renderDecisionCard(){
     var act=[];
     act.push('<b>2D:</b> '+p2);
     act.push('<b>4D:</b> '+p4+'（USB '+gU+'%割安）');
+    try{ var o4=BTYPE.ft_4d, om=(o4.okLow+o4.okHigh)/2; act.push('<b>二重アンカー:</b> 4D基本は沖縄（日本人向け）の思い出撮影相場 約¥'+Math.round(om).toLocaleString()+'の'+(20000/om).toFixed(1)+'倍、米国中央値より'+g4+'%安。SOFA顧客は米国価格を基準にするため割安に映る。日本人向けに同じ価格で訴求しない'); }catch(e){}
     act.push('<b>訴求:</b> '+(hot?'米国の体感物価が高い局面。「安さ」ではなく「本国の家族・派遣中の夫と共有できる記念」を軸に。値下げは不要':'「家族と共有できる記念」を軸に継続'));
     act.push('<b>出稿:</b> '+((tg.m>=4&&tg.m<=7)?'PCSピーク。出稿と予約枠を最大化':(tg.m===2||tg.m===3)?'ピーク前。転入予定者向けの情報（基地内掲示・SNS）を準備':'閑散期。出稿は抑え、口コミ・紹介とピーク前の素材づくりに集中'));
     act.push('<b>為替:</b> USD/JPY '+fx.toFixed(2)+(fx<145?' — 円高で割安感が縮む。価格は据え置き、共有訴求を強化':' — ドル建て購買力は高水準'));
@@ -3135,6 +3137,7 @@ function renderBiz(cat){
       +'<td><span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(0,212,170,.1);color:'+catColors[bt.cat]+'">'+catLbl+'</span></td>'
       +'<td class="mono" style="color:var(--muted)">$'+bt.usLow+'〜$'+bt.usHigh+'</td>'
       +'<td class="mono">¥'+anchorLow.toLocaleString()+'〜¥'+anchorHi.toLocaleString()+'<div style="font-size:9px;color:var(--muted)">中央値 ¥'+Math.round(midJ).toLocaleString()+'</div></td>'
+      +(bt.okLow?'<td class="mono" title="'+(bt.okEv||'').replace(/"/g,'&quot;')+'">¥'+bt.okLow.toLocaleString()+'〜¥'+bt.okHigh.toLocaleString()+'<div style="font-size:9px;color:var(--muted)">FTOは沖縄の'+(bt.ftcDef/((bt.okLow+bt.okHigh)/2)).toFixed(1)+'倍・'+(bt.okEv||'').slice(0,1)+'</div></td>':'<td class="mono" style="color:var(--muted)">未調査</td>')
       +'<td class="mono" style="color:var(--teal)">¥'+bt.ftcDef.toLocaleString()+'</td>'
       +'<td class="mono" style="color:var(--green)">¥'+recLow.toLocaleString()+'〜¥'+recHi.toLocaleString()+'</td>'
       +'<td class="mono" style="color:'+pcol+'">'+gap+'%　'+pos+dot+'</td>'
