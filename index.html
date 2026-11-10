@@ -515,7 +515,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     </div>
 
     <div class="box" style="border:1px solid rgba(244,200,66,.2);margin-bottom:1rem">
-      <div class="box-title" style="color:var(--gold)">⚡ 意思決定トリガー — 本日のアクション指示</div>
+      <div class="box-title" style="color:var(--gold)">⚡ 市場環境シグナル — 指標の状態（行動の指示は「今週の経営判断」）</div>
       <div id="decision-triggers" style="color:var(--muted);font-size:.78rem;padding:.5rem 0">データ読み込み中...</div>
     </div>
 
@@ -642,13 +642,10 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <div class="box">
         <div class="box-title">価格心理への影響経路</div>
         <div id="geo-impact"></div>
-        <div class="box-title" style="margin-top:14px">GDELT品質・データ状態</div>
-        <div style="font-size:10px;line-height:1.8;color:var(--muted)">
-          地政学スコアは <strong style="color:var(--teal)">GDELT cache + fallback</strong> 運用中<br>
-          記事分類合計: <strong style="color:var(--text)">598件</strong><br>
-          リスク語: <strong style="color:var(--red)">60件</strong> / ポジティブ語: <strong style="color:var(--green)">7件</strong><br>
-          地政学リスク: 75 / 東アジア緊張: 78<br>
-          米軍前方展開: 87 / 沖縄基地関連: 80
+        <div class="box-title" style="margin-top:14px">地政学スコアのデータ状態</div>
+        <div style="font-size:10px;line-height:1.8;color:var(--muted)" id="geo-state">
+          7指数はアナリスト月次手動更新（GEO配列）。<br>
+          GDELTの記事分類件数は集計日が不明のため削除（2026-11-11 R-11）。
         </div>
       </div>
     </div>
@@ -1728,7 +1725,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v217';
+var CACHE_KEY = 'koya_v218';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
@@ -2220,9 +2217,10 @@ function applyData(data,isMock){
 function updateSig(){
   var b=document.getElementById('sig');
   var score=typeof S.koyaScore==='number'?(' ['+Math.round(S.koyaScore)+'/100]'):'';
-  if(S.signal==='GO'){b.className='sig-go';b.textContent='▶ GO — 積極展開フェーズ'+score;}
-  else if(S.signal==='WATCH'){b.className='sig-watch';b.textContent='◎ WATCH — 準備・監視フェーズ'+score;}
-  else{b.className='sig-hold';b.textContent='▬ HOLD — 現状維持フェーズ'+score;}
+  // [2026-11-11 R-11/F29] 行動指示は「今週の経営判断」1箇所に集約。ここは市場環境スコアの表示のみ（計算・閾値は不変）
+  if(S.signal==='GO'){b.className='sig-go';b.textContent='▶ 市場環境 良好'+score;}
+  else if(S.signal==='WATCH'){b.className='sig-watch';b.textContent='◎ 市場環境 注意'+score;}
+  else{b.className='sig-hold';b.textContent='▬ 市場環境 弱い'+score;}
   // koyaスコアバッジを更新
   var ks=document.getElementById('koya-score-val');
   if(ks&&typeof S.koyaScore==='number'){
@@ -2233,10 +2231,14 @@ function updateSig(){
   // Decision triggersを更新
   var dt=document.getElementById('decision-triggers');
   if(dt&&S.triggers&&S.triggers.length){
+    // [2026-11-11 R-11/F29] fred-data.jsonのmessage（行動指示）は表示しない。指標と状態だけを出す
     dt.innerHTML=S.triggers.map(function(t){
       var icon=t.level==='red'?'🔴':(t.level==='yellow'?'🟡':'🟢');
-      return '<div style="padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.78rem;line-height:1.5">'+icon+' <strong style="color:var(--text)">'+t.indicator+'</strong> '+t.message+'</div>';
-    }).join('');
+      var st=t.level==='red'?'警戒':(t.level==='yellow'?'注意':'良好');
+      var ind=String(t.indicator||'');
+      if(ind.indexOf('koya総合スコア')===0){ var mm=ind.match(/(\d+)\/100/); ind='市場環境スコア '+(mm?mm[1]+'/100':''); }
+      return '<div style="padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.78rem;line-height:1.5">'+icon+' <strong style="color:var(--text)">'+ind+'</strong> <span style="color:var(--muted)">'+st+'</span></div>';
+    }).join('')+'<div style="padding:.4rem 0;font-size:.72rem;color:var(--muted)">行動の指示は上の「今週の経営判断」を参照。</div>';
   }
 }
 
@@ -2279,11 +2281,12 @@ function updateOverviewCards(){
   }
   // FTO価格インデックス（4D基本¥20,000のドル換算 vs 米国アンカー）
   var fxLive=S.fredVals['DEXJPUS']||S.fx||(MOCK.DEXJPUS||163.39);
-  var comboPriceUsd=Math.round(20000/fxLive);
+  var comboPriceUsd=Math.round(20000/(S.fx||fxLive));
   var ftoIdxEl=document.getElementById('ov-fto-idx');
-  if(ftoIdxEl) ftoIdxEl.textContent='$'+comboPriceUsd+' vs US$200';
+  var _ancUsd=Math.round(ftoAnchorJpy('ft_4d')/(S.fx||fxLive));
+  if(ftoIdxEl) ftoIdxEl.textContent='$'+comboPriceUsd+' vs US$'+_ancUsd;
   var ftoDiscEl=document.getElementById('ov-fto-disc');
-  if(ftoDiscEl){ var disc=Math.round((1-comboPriceUsd/200)*100); ftoDiscEl.textContent='米国中央値比 '+disc+'%割安（4D基本¥20,000）'; }
+  if(ftoDiscEl){ ftoDiscEl.textContent='米国中央値（CPI補正後）比 '+ftoGap(20000,'ft_4d')+'%割安（4D基本¥20,000）'; }
   document.getElementById('ov-cpi').textContent = S.isMock
     ? (typeof S.lastGoodCpi==='number' ? S.lastGoodCpi.toFixed(1)+'%（フォールバック中・最終実測値）' : 'フォールバック中（数値なし）')
     : ((S.cpi!==null&&S.cpi!==undefined)?S.cpi.toFixed(1)+'%':'前年同月データなし');
@@ -2400,8 +2403,7 @@ function renderDecisionCard(){
   try{
     var el=document.getElementById('dc-body'); if(!el) return;
     var dj=_dataJsonCache||{}, fx=S.fx||153.36, cpi=(typeof S.cpi==='number')?S.cpi:3.5, adj=1+(cpi/100)*0.5;
-    var gap=function(p,mid){ return Math.round((1-p/(mid*adj*fx))*100); };
-    var g2=gap(15000,125), g4=gap(20000,200), gU=gap(23000,200);
+    var g2=ftoGap(15000,'ft_2d'), g4=ftoGap(20000,'ft_4d'), gU=ftoGap(23000,'ft_4d');
     var oil=_oilNewest(dj), ks=(typeof dj.koya_score==='number')?dj.koya_score:null;
     var tg=tgCompute();
     var hot=(oil&&oil.v>=95)||cpi>=3.5;
@@ -2462,9 +2464,9 @@ function renderOverview(){
   document.getElementById('area-cards').innerHTML=html;
   // Auto memo
   var sig=S.signal; var memo='';
-  if(sig==='GO') memo='<strong style="color:#00D4AA">▶ GO シグナル点灯中</strong> — USD/JPY '+fx.toFixed(2)+'（高水準）×失業率'+ur.toFixed(1)+'%（低水準）により、SOFA層の購買意欲は最高水準。FamilyTreeOkiへの積極マーケティング（英語SNS・基地内広告・口コミ促進）を推奨。上位パッケージ・記念日プランの前面訴求が有効。地政学インパクト+'+geoImpactPct().toFixed(1)+'%が推奨価格帯を上乗せ中。';
-  else if(sig==='WATCH') memo='<strong style="color:#F4C842">◎ WATCH シグナル</strong> — USD/JPY '+fx.toFixed(2)+'（やや高水準）。積極展開の準備フェーズ。英語対応強化、プロモーション素材整備、SOFA向けSNS運用を開始する好機。現行価格は米国比で割安帯（目安25〜55%・競合仮説C）に位置。価格は据え置き、共有訴求とUSBメモリー誘導を優先。地政学インパクト+'+geoImpactPct().toFixed(1)+'%を訴求材料に。';
-  else memo='<strong style="color:#8899B0">▬ HOLD シグナル</strong> — 現状維持フェーズ。既存顧客のリテンション強化と英語対応品質向上に注力。経済指標の改善を週次モニタリング。コスト最適化を実施。';
+  // [2026-11-11 R-11/F29] 市場環境の記述のみ。行動の指示は「今週の経営判断」に一本化
+  var _envLbl=sig==='GO'?'<strong style="color:#00D4AA">▶ 市場環境 良好</strong>':sig==='WATCH'?'<strong style="color:#F4C842">◎ 市場環境 注意</strong>':'<strong style="color:#8899B0">▬ 市場環境 弱い</strong>';
+  memo=_envLbl+'（市場環境スコア'+(typeof S.koyaScore==='number'?' '+Math.round(S.koyaScore)+'/100':'')+'）— USD/JPY '+fx.toFixed(2)+'・米国失業率'+ur.toFixed(1)+'%。ドル建て購買力と米国景気の状態を示す点数で、価格帯や季節（PCS）は含まない。地政学インパクト+'+geoImpactPct().toFixed(1)+'%。<br><span style="color:var(--muted)">行動の指示は上の「今週の経営判断」を参照。</span>';
   document.getElementById('auto-memo').innerHTML=memo;
   renderDecisionCard();
 }
@@ -2673,6 +2675,9 @@ function renderGeo(){
   var gStrat   = ((GEO[2].val+GEO[1].val)/2)*0.165;         // first+defense  → 戦略需要寄与
   var gPremium = gImpact*0.28;                               // 価格帯上乗せ
   var gRisk    = Math.round((GEO[0].val+GEO[4].val+GEO[2].val+GEO[1].val)/4);
+  // [2026-11-11 R-11/F30] データ状態欄の数値をGEO配列から表示
+  try{ var _gv=function(k){var g=GEO.filter(function(x){return x.key===k;})[0];return g?g.val:'--';}; var _gs=document.getElementById('geo-state');
+    if(_gs) _gs.innerHTML='7指数はアナリスト月次手動更新（GEO配列）。<br>総合地政学リスク: '+gRisk+' / 台湾・東アジア緊張: '+_gv('taiwan')+'<br>米軍前方展開: '+_gv('forward')+' / 沖縄関係安定度: '+_gv('okinawa')+'<br>GDELTの記事分類件数は集計日が不明のため削除（2026-11-11 R-11）。'; }catch(e){}
   // 上部KPIカード更新
   var _e1=document.getElementById('geo-impact-pct'); if(_e1) _e1.textContent='+'+gImpact.toFixed(1)+'%';
   var _e2=document.getElementById('geo-mkt-temp');   if(_e2) _e2.textContent='+'+gMktTemp.toFixed(1)+'pt';
@@ -2718,6 +2723,9 @@ function calcGBPI(){
 // 価格データはBTYPEを単一ソースとして参照する（別配列に複製しない）
 // ════════════════════════════════════════════════
 var CMP={seg:'general'};
+// [2026-11-11 R-11/F31] FTO価格の割安率の単一計算源（羅針盤と同じCPI補正後アンカー）
+function ftoAnchorJpy(btKey){ var bt=BTYPE[btKey]; var fx=S.fx||153.36; var cpi=(typeof S.cpi==='number')?S.cpi:3.5; return ((bt.usLow+bt.usHigh)/2)*(1+cpi/100*0.5)*fx; }
+function ftoGap(price,btKey){ return Math.round((1-price/ftoAnchorJpy(btKey))*100); }
 function renderFtoLadder(){
   try{
     var el=document.getElementById('cmp-ladder-body'); if(!el) return;
@@ -2730,7 +2738,7 @@ function renderFtoLadder(){
     ];
     var h='<table style="width:100%;border-collapse:collapse;font-size:.78rem"><tr style="color:var(--muted)"><th style="text-align:left;padding:4px 6px">メニュー</th><th style="text-align:right;padding:4px 6px">価格</th><th style="text-align:right;padding:4px 6px">ドル換算</th><th style="text-align:right;padding:4px 6px">米国アンカー(円)</th><th style="text-align:right;padding:4px 6px">割安率</th><th style="text-align:left;padding:4px 6px">位置(25〜55%)</th></tr>';
     rows.forEach(function(r){
-      var bt=BTYPE[r.b]; var mid=((bt.usLow+bt.usHigh)/2)*adj*fx; var gap=Math.round((1-r.p/mid)*100);
+      var mid=ftoAnchorJpy(r.b); var gap=ftoGap(r.p,r.b);
       var pos=gap>55?'帯の下(割安すぎ・信頼面に注意)':gap>=25?'帯の中':'帯の上(値上げ余地なし)';
       h+='<tr style="border-top:1px solid rgba(255,255,255,.08)"><td style="padding:4px 6px">'+r.n+'</td><td style="text-align:right;padding:4px 6px;font-family:monospace">¥'+r.p.toLocaleString()+'</td><td style="text-align:right;padding:4px 6px;font-family:monospace">$'+Math.round(r.p/fx)+'</td><td style="text-align:right;padding:4px 6px;font-family:monospace">¥'+Math.round(mid).toLocaleString()+'</td><td style="text-align:right;padding:4px 6px;font-family:monospace">'+gap+'%</td><td style="padding:4px 6px">'+pos+'</td></tr>';
     });
@@ -2744,7 +2752,7 @@ function initCompassTab(){
   var html='';
   Object.keys(BTYPE).forEach(function(k){
     if(BTYPE[k].usLow!=null && BTYPE[k].usHigh!=null){
-      html+='<option value="'+k+'"'+(k==='acu_combo'?' selected':'')+'>'+BTYPE[k].label+'</option>';
+      html+='<option value="'+k+'"'+(k==='ft_4d'?' selected':'')+'>'+BTYPE[k].label+'</option>';
     }
   });
   sel.innerHTML=html;
@@ -2785,7 +2793,7 @@ function fmtPctCmp(v){ return (v>=0?'+':'')+v.toFixed(1)+'%'; }
 function fmtYenCmp(v){ return '¥'+Math.round(v).toLocaleString(); }
 
 function renderCompass(){
-  var cat=document.getElementById('cmp-cat').value || 'acu_combo';
+  var cat=document.getElementById('cmp-cat').value || 'ft_4d';
   var bt=BTYPE[cat]; if(!bt) return;
   var ftoPrice=bt.ftcDef!=null ? bt.ftcDef : Math.round(((bt.usLow+bt.usHigh)/2)*(S.fx||158)*0.55);
 
@@ -2911,7 +2919,7 @@ function renderBiz(cat){
     var midJ=(bt.usLow+bt.usHigh)/2*adj*fx;
     var anchorLow=Math.round(bt.usLow*adj*fx), anchorHi=Math.round(bt.usHigh*adj*fx);
     var recLow=Math.round(midJ*0.45/100)*100, recHi=Math.round(midJ*0.75/100)*100;
-    var gap=Math.round((1-bt.ftcDef/midJ)*100);
+    var gap=ftoGap(bt.ftcDef,k); // [R-11/F31] 共通関数
     var pos=gap<25?'割高リスク（下限25%未満）':gap>55?'値上げ余地（55%超）':'帯内';
     var pcol=gap<25?'#FF7F50':gap>55?'#60A5FA':'#00D4AA';
     var xp=function(g){return Math.max(0,Math.min(100,(g+10)/80*100));}; // −10%〜70%を目盛りに
@@ -4209,6 +4217,14 @@ function renderUSReality(){
         var _gs=_ge.nextElementSibling; if(_gs) _gs.textContent='実質GDP(前期比年率) BEA/FRED '+_q(_ur.A191RL1Q225SBEA.date); }
     }
   }catch(e){ console.warn('us_reality bind',e); }
+  // [2026-11-11 R-11] データソース表記をカードが使う系列と観測日に合わせる
+  try{
+    var _dj=_dataJsonCache||{}, _ser=_dj.series||{}, _u=_dj.us_reality||{};
+    var _od=function(id){ var s=_ser[id]; return (s&&s.length)?String(s.reduce(function(a,p){return p.date>a?p.date:a;},'')).slice(0,7):'--'; };
+    var _ud=function(id){ return (_u[id]&&_u[id].date)?String(_u[id].date).slice(0,7):'--'; };
+    var _nb=document.getElementById('ur-bottom-note');
+    if(_nb) _nb.textContent='データソース: FRED CPIAUCSL（観測 '+_od('CPIAUCSL')+'）／ 消費者信頼感 '+(S.umichDate?'University of Michigan 公式（'+S.umichDate.slice(0,7)+'）':'FRED UMCSENT（観測 '+_od('UMCSENT')+'）')+'／ カード延滞率 FRED DRCCLACBS（'+_ud('DRCCLACBS')+'）／ 実質GDP FRED（'+_ud('A191RL1Q225SBEA')+'）／ 家計総債務 NY Fed Household Debt Q2-2026（静的）／ 体感インフレ Reality Index（静的・推計）／ Harvard JCHS Rental Housing 2026（静的）／ UMass Amherst Shrinkflation Research 2026（静的）';
+  }catch(e){}
   renderSectorDiag();
   var gapKpi = document.getElementById('ur-cpi-gap');
   if (gapKpi) {
