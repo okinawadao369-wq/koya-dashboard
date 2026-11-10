@@ -363,7 +363,9 @@ for _sid, _label in [("DRCCLACBS", "クレジットカード延滞率(商業銀�
                      ("GASDESW", "軽油小売価格(全米平均・$/gal)"),
                      ("DCOILBRENTEU", "ブレント原油($/bbl)"),
                      ("CPILFESL", "コアCPI(指数)"),
-                     ("PCEPILFE", "コアPCE(指数)")]:
+                     ("PCEPILFE", "コアPCE(指数)"),
+                     ("U6RATE", "U-6失業率(不完全就業含む・%)"),
+                     ("THREEFYTP10", "10年債タームプレミアム(Kim-Wright・%)")]:
     time.sleep(1.5)
     _obs = fetch_fred(_sid, 14)
     if _obs:
