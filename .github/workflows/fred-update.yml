@@ -1,13 +1,13 @@
-name: fred-data daily update
+name: fred-data update (every 3 hours)
 
 # PC・Claude・Windows更新から独立して、毎日 fred-data.json を更新する。
 # 2026-09-10〜11 の欠測（Windows KB5124008 による Cowork サンドボックス障害）を受けて新設。
 
 on:
   schedule:
-    # UTC 22:37 = JST 07:37（実際はGitHubの混雑で JST 09:35〜09:55 頃に実行されている）
-      - cron: "47 21 * * *"
-      - cron: "17 0 * * *"
+    # 2026-11-12 経営者承認：為替などを最新に保つため1日2回→3時間ごとに変更。
+    # UTC 0:17,3:17,…,21:17 = JST 9:17,12:17,15:17,18:17,21:17,0:17,3:17,6:17（GitHub側の混雑で数時間遅れることがある）
+      - cron: "17 */3 * * *"
   workflow_dispatch:
 
 permissions:
