@@ -444,6 +444,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
         <div class="c-lbl">USD/JPY (FRED Live)</div>
         <div class="c-val" id="ov-fx">—</div>
         <div class="c-chg" id="ov-fxchg">読み込み中...</div>
+        <div class="c-sub" id="ov-fxpsy" style="line-height:1.5"></div>
       </div>
       <div class="card">
         <div class="c-lbl">FF金利 (FEDFUNDS)</div>
@@ -463,7 +464,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <div class="card">
         <div class="c-lbl">CPI前年比</div>
         <div class="c-val" id="ov-cpi">—</div>
-        <div class="c-sub">Consumer Price Index</div>
+        <div class="c-sub" id="ov-cpi-sub">Consumer Price Index</div>
       </div>
       <div class="card" style="border:1px solid rgba(248,160,0,.35);background:rgba(248,160,0,.04)">
         <div class="c-lbl" style="color:#E8A000">⛽ WTI原油 (DCOILWTICO)</div>
@@ -1735,7 +1736,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v223';
+var CACHE_KEY = 'koya_v224';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
@@ -2139,7 +2140,23 @@ function calcYoY(arr){
   for(var i=0;i<sorted.length;i++){
     if(sorted[i].date.slice(0,7)===targetPrefix){ prevPt=sorted[i]; break; }
   }
-  if(!prevPt || !prevPt.value) return null;
+  if(!prevPt || !prevPt.value){
+    // [2026-11-12] 最新月の前年同月が欠測（例: 2025-10のCPIは米政府閉鎖でBLS未公表）の場合、
+    // 前年同月がそろう直近の月まで遡り、その月の前年比を返す（月をまたいだ比較はしない）。
+    // どの月の値かは calcYoY.info に残し、表示側で明記する。
+    for(var j=sorted.length-2;j>=0;j--){
+      var p=sorted[j], d=new Date(p.date+'T00:00:00Z');
+      var pre=(d.getUTCFullYear()-1)+'-'+String(d.getUTCMonth()+1).padStart(2,'0');
+      for(var k=0;k<sorted.length;k++){
+        if(sorted[k].date.slice(0,7)===pre && sorted[k].value){
+          calcYoY.info={month:p.date.slice(0,7),latest:curPt.date.slice(0,7),missingBase:targetPrefix};
+          return +(((p.value-sorted[k].value)/sorted[k].value)*100).toFixed(2);
+        }
+      }
+    }
+    calcYoY.info=null; return null;
+  }
+  calcYoY.info={month:curPt.date.slice(0,7),latest:curPt.date.slice(0,7),missingBase:null};
   return +(((curPt.value-prevPt.value)/prevPt.value)*100).toFixed(2);
 }
 
@@ -2191,7 +2208,7 @@ function applyData(data,isMock){
   // 実データではないため、isMock時はS.cpiに数値として残さない。直近の実測値は
   // S.lastGoodCpiに退避しておき、表示側(updateOverviewCards)で「フォールバック中・
   // 最終実測値」と明示した上で使う。乱数由来の値をそのまま指標として見せない。
-  var _cpiYoYCalc=calcYoY(S.cpiH);
+  var _cpiYoYCalc=calcYoY(S.cpiH); S.cpiInfo=calcYoY.info||null;
   if(isMock){
     S.cpi=(S.dataState==='stale'&&typeof S.lastGoodCpi==='number')?S.lastGoodCpi:null;
   } else {
@@ -2333,6 +2350,11 @@ function updateOverviewCards(){
   document.getElementById('ov-cpi').textContent = S.isMock
     ? (typeof S.lastGoodCpi==='number' ? S.lastGoodCpi.toFixed(1)+'%（フォールバック中・最終実測値）' : 'フォールバック中（数値なし）')
     : ((S.cpi!==null&&S.cpi!==undefined)?S.cpi.toFixed(1)+'%':'前年同月データなし');
+  try{ var _cs=document.getElementById('ov-cpi-sub'); if(_cs){ var _ci=S.cpiInfo;
+    if(!S.isMock && _ci && S.cpi!==null && S.cpi!==undefined){
+      _cs.innerHTML=_ci.month.replace('-','年').replace(/年0?/,'年')+'月分・前年同月比（BLS CPI-U）'
+        +(_ci.missingBase?'<br><span style="color:var(--gold)">'+_ci.latest.replace('-','年').replace(/年0?/,'年')+'月分は前年同月（'+_ci.missingBase+'）が米政府閉鎖でBLS未公表のため前年比を出せません。前年同月がそろう直近の月を表示</span>':'');
+    } else { _cs.textContent='Consumer Price Index'; } } }catch(e){}
   document.getElementById('fx-display').textContent=fx!==null?fx.toFixed(2):'163.77';
   document.getElementById('f-fx').textContent=fx!==null?'¥'+fx.toFixed(2):'--';
   document.getElementById('f-ff').textContent=ff!==null?ff.toFixed(2)+'%':'--';
@@ -2357,9 +2379,22 @@ function updateOverviewCards(){
     fxDelta=+(curPt2.value-prevPt2.value).toFixed(2);
     fxDeltaLabel='(ライブ－FRED終値'+prevPt2.date.slice(5).replace('-','/')+')';
   }
+  // [2026-11-12] 為替→ターゲット層の体感価格（4D基本¥20,000のドル換算と、グラフ期間の始点との差）
+  try{ var _fp=document.getElementById('ov-fxpsy');
+    if(_fp){
+      var _fs=S.fxH.slice().sort(function(a,b){return a.date<b.date?-1:1;});
+      if(S.dataState!=='none' && _fs.length>=2 && S.fx){
+        var _f0=_fs[0], _usdNow=20000/S.fx, _usd0=20000/_f0.value, _dUsd=_usdNow-_usd0, _dYen=S.fx-_f0.value;
+        var _upd=(_dataJsonCache&&_dataJsonCache.updated)?lgLabel(_dataJsonCache.updated):'';
+        _fp.innerHTML='4D基本¥20,000＝<b>$'+_usdNow.toFixed(1)+'</b>（'+_f0.date.slice(5).replace('-','/')+'比 '+(_dYen>=0?'+':'')+_dYen.toFixed(2)+'円 → '
+          +(_dUsd<=0?'ドルで$'+Math.abs(_dUsd).toFixed(1)+'安く見える＝割安感↑':'ドルで$'+_dUsd.toFixed(1)+'高く見える＝割安感↓')+'）'
+          +(_upd?'<br>為替は '+_upd+' 取得（毎日の自動更新）':'');
+      } else { _fp.textContent=''; }
+    } }catch(e){}
   var fxEl=document.getElementById('ov-fxchg');
   if(fxEl){
-    if(fxDelta!==null){
+    if(S.dataState==='none'){ fxEl.textContent=NA_TXT; fxEl.className='c-chg'; }
+    else if(fxDelta!==null){
       fxEl.textContent=(fxDelta>=0?'+':'')+fxDelta.toFixed(2)+' '+fxDeltaLabel;
       fxEl.className='c-chg '+(fxDelta>=0?'up':'dn');
     } else {
