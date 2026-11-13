@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T23:39:46.697121Z",
+  "updated": "2026-11-13T06:45:35.921406Z",
   "series": {
     "DEXJPUS": [
       {
@@ -583,6 +583,30 @@
     ],
     "DCOILWTICO": [
       {
+        "date": "2026-11-11",
+        "value": 89.62
+      },
+      {
+        "date": "2026-11-10",
+        "value": 89.62
+      },
+      {
+        "date": "2026-11-09",
+        "value": 90.4
+      },
+      {
+        "date": "2026-11-06",
+        "value": 94.37
+      },
+      {
+        "date": "2026-11-05",
+        "value": 94.05
+      },
+      {
+        "date": "2026-11-04",
+        "value": 91.73
+      },
+      {
         "date": "2026-11-03",
         "value": 99.64
       },
@@ -613,33 +637,13 @@
       {
         "date": "2026-10-23",
         "value": 109.72
-      },
-      {
-        "date": "2026-10-22",
-        "value": 104.27
-      },
-      {
-        "date": "2026-10-21",
-        "value": 103.95
-      },
-      {
-        "date": "2026-10-20",
-        "value": 107.89
-      },
-      {
-        "date": "2026-10-19",
-        "value": 110.01
-      },
-      {
-        "date": "2026-10-16",
-        "value": 108.21
-      },
-      {
-        "date": "2026-10-15",
-        "value": 104.71
       }
     ],
     "VIX": [
+      {
+        "date": "2026-11-13",
+        "value": 18.7
+      },
       {
         "date": "2026-11-12",
         "value": 18.7
@@ -691,13 +695,13 @@
       {
         "date": "2026-10-31",
         "value": 19.42
-      },
-      {
-        "date": "2026-10-30",
-        "value": 17.2
       }
     ],
     "SP500": [
+      {
+        "date": "2026-11-13",
+        "value": 7592.4
+      },
       {
         "date": "2026-11-12",
         "value": 7592.4
@@ -749,14 +753,26 @@
       {
         "date": "2026-10-31",
         "value": 7580.07
-      },
-      {
-        "date": "2026-10-30",
-        "value": 7720.39
       }
     ]
   },
   "latest": {
+    "DEXJPUS": 159.81,
+    "FEDFUNDS": 3.88,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 337.476,
+    "CPIFABSL": 348.815,
+    "AHETPI": 32.75,
+    "DGS10": 4.98,
+    "T10YIE": 2.24,
+    "UMCSENT": 48.1,
+    "GS2": 4.74,
+    "DCOILWTICO": 88.78,
+    "VIX": 18.7,
+    "SP500": 7592.4,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-13 15:45 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 159.87,
     "FEDFUNDS": 3.88,
     "UNRATE": 4.1,
@@ -772,36 +788,20 @@
     "SP500": 7592.4,
     "DEXJPUS_source": "Yahoo Finance RT 2026-11-13 08:39 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 159.72,
-    "FEDFUNDS": 3.88,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 337.476,
-    "CPIFABSL": 348.815,
-    "AHETPI": 32.75,
-    "DGS10": 4.88,
-    "T10YIE": 2.2,
-    "UMCSENT": 48.1,
-    "GS2": 4.74,
-    "DCOILWTICO": 87.6,
-    "VIX": 17.73,
-    "SP500": 7634.66,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-13 02:36 JST"
-  },
   "deltas": {
-    "DEXJPUS": 0.15,
+    "DEXJPUS": -0.06,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": 0.1,
-    "T10YIE": 0.04,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 1.19,
-    "VIX": 0.97,
-    "SP500": -42.26
+    "DCOILWTICO": -0.01,
+    "VIX": null,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -850,7 +850,7 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥159.870",
+      "indicator": "USD/JPY ¥159.810",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
@@ -865,7 +865,7 @@
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $88.79",
+      "indicator": "WTI原油 $88.78",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
@@ -939,9 +939,9 @@
     },
     "DCOILBRENTEU": {
       "label": "ブレント原油($/bbl)",
-      "value": 107.03,
-      "date": "2026-11-03",
-      "prev": 107.39,
+      "value": 92.14,
+      "date": "2026-11-11",
+      "prev": 90.16,
       "source": "FRED",
       "status": "ok"
     },
