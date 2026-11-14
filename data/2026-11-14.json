@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-14T15:49:58.459079Z",
+  "updated": "2026-11-14T22:24:45.780226Z",
   "series": {
     "DEXJPUS": [
       {
@@ -770,7 +770,7 @@
     "DCOILWTICO": 88.56,
     "VIX": 19.3,
     "SP500": 7561.67,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-15 00:49 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-15 07:24 JST"
   },
   "prev_latest": {
     "DEXJPUS": 159.69,
@@ -786,7 +786,7 @@
     "DCOILWTICO": 88.56,
     "VIX": 19.3,
     "SP500": 7561.67,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-14 15:22 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-15 00:49 JST"
   },
   "deltas": {
     "DEXJPUS": null,
