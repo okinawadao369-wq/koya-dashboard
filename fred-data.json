@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-15T16:22:08.153807Z",
+  "updated": "2026-11-15T22:49:07.455115Z",
   "series": {
     "DEXJPUS": [
       {
@@ -757,7 +757,7 @@
     ]
   },
   "latest": {
-    "DEXJPUS": 159.69,
+    "DEXJPUS": 159.59,
     "FEDFUNDS": 3.88,
     "UNRATE": 4.1,
     "CPIAUCSL": 337.476,
@@ -770,7 +770,7 @@
     "DCOILWTICO": 88.56,
     "VIX": 19.3,
     "SP500": 7561.67,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-16 01:21 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-16 07:48 JST"
   },
   "prev_latest": {
     "DEXJPUS": 159.69,
@@ -786,10 +786,10 @@
     "DCOILWTICO": 88.56,
     "VIX": 19.3,
     "SP500": 7561.67,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-15 15:30 JST"
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-16 01:21 JST"
   },
   "deltas": {
-    "DEXJPUS": null,
+    "DEXJPUS": -0.1,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -850,7 +850,7 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥159.690",
+      "indicator": "USD/JPY ¥159.590",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
