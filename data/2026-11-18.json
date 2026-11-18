@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T11:41:11.262205Z",
+  "updated": "2026-11-18T20:30:54.328283Z",
   "series": {
     "DEXJPUS": [
       {
@@ -583,6 +583,22 @@
     ],
     "DCOILWTICO": [
       {
+        "date": "2026-11-17",
+        "value": 89.53
+      },
+      {
+        "date": "2026-11-16",
+        "value": 89.24
+      },
+      {
+        "date": "2026-11-13",
+        "value": 91.96
+      },
+      {
+        "date": "2026-11-12",
+        "value": 92.3
+      },
+      {
         "date": "2026-11-11",
         "value": 89.62
       },
@@ -621,28 +637,12 @@
       {
         "date": "2026-10-29",
         "value": 105.51
-      },
-      {
-        "date": "2026-10-28",
-        "value": 106.25
-      },
-      {
-        "date": "2026-10-27",
-        "value": 103.37
-      },
-      {
-        "date": "2026-10-26",
-        "value": 105.25
-      },
-      {
-        "date": "2026-10-23",
-        "value": 109.72
       }
     ],
     "VIX": [
       {
         "date": "2026-11-18",
-        "value": 23.98
+        "value": 24.52
       },
       {
         "date": "2026-11-17",
@@ -700,7 +700,7 @@
     "SP500": [
       {
         "date": "2026-11-18",
-        "value": 7340.53
+        "value": 7315.84
       },
       {
         "date": "2026-11-17",
@@ -757,6 +757,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 159.27,
+    "FEDFUNDS": 3.88,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 337.476,
+    "CPIFABSL": 348.815,
+    "AHETPI": 32.75,
+    "DGS10": 5.12,
+    "T10YIE": 2.21,
+    "UMCSENT": 48.1,
+    "GS2": 4.74,
+    "DCOILWTICO": 82.17,
+    "VIX": 24.52,
+    "SP500": 7315.84,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-19 05:30 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 159.3,
     "FEDFUNDS": 3.88,
     "UNRATE": 4.1,
@@ -772,24 +788,8 @@
     "SP500": 7340.53,
     "DEXJPUS_source": "Yahoo Finance RT 2026-11-18 20:40 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 159.54,
-    "FEDFUNDS": 3.88,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 337.476,
-    "CPIFABSL": 348.815,
-    "AHETPI": 32.75,
-    "DGS10": 5.12,
-    "T10YIE": 2.21,
-    "UMCSENT": 48.1,
-    "GS2": 4.74,
-    "DCOILWTICO": 85.52,
-    "VIX": 25.46,
-    "SP500": 7340.53,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-18 09:57 JST"
-  },
   "deltas": {
-    "DEXJPUS": -0.24,
+    "DEXJPUS": -0.03,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -799,9 +799,9 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -1.68,
-    "VIX": -1.48,
-    "SP500": null
+    "DCOILWTICO": -1.67,
+    "VIX": 0.54,
+    "SP500": -24.69
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -836,21 +836,11 @@
   "koya_score": 71.2,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.380%",
-  "vix_note": "VIX=23.98 市場警戒ゾーン突破（>20）",
-  "sp500_note": "S&P500=7340.53",
+  "vix_note": "VIX=24.52 市場警戒ゾーン突破（>20）",
+  "sp500_note": "S&P500=7315.84",
   "fx_intervention_alert": null,
-  "contributions": [
-    {
-      "indicator": "VIX",
-      "score_before": 25,
-      "score_after": 42,
-      "koya_score_contribution": 1.36,
-      "contribution_pct": 100.0
-    }
-  ],
-  "anomaly_flags": [
-    "VIX: 25→42pt (+17pt) 要確認"
-  ],
+  "contributions": [],
+  "anomaly_flags": [],
   "fallback_indicators": [],
   "decision_triggers": [
     {
@@ -859,28 +849,23 @@
       "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
-      "level": "yellow",
-      "indicator": "急変異常値フラグ",
-      "message": "VIX: 25→42pt (+17pt) 要確認"
-    },
-    {
       "level": "green",
-      "indicator": "USD/JPY ¥159.300",
+      "indicator": "USD/JPY ¥159.270",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
       "level": "red",
-      "indicator": "VIX恐怖指数 23.98",
+      "indicator": "VIX恐怖指数 24.52",
       "message": "市場警戒ゾーン突破(>20)。本国の節約意識上昇に注意。"
     },
     {
       "level": "yellow",
-      "indicator": "S&P500 7,341",
+      "indicator": "S&P500 7,316",
       "message": "良好水準。本国資産効果継続。"
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $83.84",
+      "indicator": "WTI原油 $82.17",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
@@ -929,12 +914,12 @@
     },
     "HOUST": {
       "label": "住宅着工(年率・千戸)",
-      "value": 1221.0,
-      "date": "2026-09-01",
-      "prev": 1288.0,
+      "value": 1309.0,
+      "date": "2026-10-01",
+      "prev": 1191.0,
       "source": "FRED",
       "status": "ok",
-      "yoy": -7.43
+      "yoy": 2.83
     },
     "MORTGAGE30US": {
       "label": "30年固定住宅ローン金利(%)",
@@ -954,9 +939,9 @@
     },
     "DCOILBRENTEU": {
       "label": "ブレント原油($/bbl)",
-      "value": 92.14,
-      "date": "2026-11-11",
-      "prev": 90.16,
+      "value": 92.94,
+      "date": "2026-11-17",
+      "prev": 92.9,
       "source": "FRED",
       "status": "ok"
     },
