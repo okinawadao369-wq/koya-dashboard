@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-19T11:39:57.394306Z",
+  "updated": "2026-11-19T20:36:58.104038Z",
   "series": {
     "DEXJPUS": [
       {
@@ -642,7 +642,7 @@
     "VIX": [
       {
         "date": "2026-11-19",
-        "value": 22.1
+        "value": 28.03
       },
       {
         "date": "2026-11-18",
@@ -700,7 +700,7 @@
     "SP500": [
       {
         "date": "2026-11-19",
-        "value": 7323.63
+        "value": 7184.64
       },
       {
         "date": "2026-11-18",
@@ -757,6 +757,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 159.69,
+    "FEDFUNDS": 3.88,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 337.476,
+    "CPIFABSL": 348.815,
+    "AHETPI": 32.75,
+    "DGS10": 5.1,
+    "T10YIE": 2.19,
+    "UMCSENT": 48.1,
+    "GS2": 4.74,
+    "DCOILWTICO": 82.87,
+    "VIX": 28.03,
+    "SP500": 7184.64,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-20 05:36 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 159.85,
     "FEDFUNDS": 3.88,
     "UNRATE": 4.1,
@@ -772,24 +788,8 @@
     "SP500": 7323.63,
     "DEXJPUS_source": "Yahoo Finance RT 2026-11-19 20:39 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 159.41,
-    "FEDFUNDS": 3.88,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 337.476,
-    "CPIFABSL": 348.815,
-    "AHETPI": 32.75,
-    "DGS10": 5.1,
-    "T10YIE": 2.19,
-    "UMCSENT": 48.1,
-    "GS2": 4.74,
-    "DCOILWTICO": 82.31,
-    "VIX": 24.56,
-    "SP500": 7323.63,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-19 11:34 JST"
-  },
   "deltas": {
-    "DEXJPUS": 0.44,
+    "DEXJPUS": -0.16,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
@@ -799,9 +799,9 @@
     "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": -0.35,
-    "VIX": -2.46,
-    "SP500": null
+    "DCOILWTICO": 0.91,
+    "VIX": 5.93,
+    "SP500": -138.99
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -830,42 +830,57 @@
     "UMCSENT": 35,
     "GS2": 70,
     "DCOILWTICO": 70,
-    "VIX": 42,
+    "VIX": 25,
     "SP500": 65
   },
-  "koya_score": 71.2,
+  "koya_score": 69.9,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.360%",
-  "vix_note": "VIX=22.1 市場警戒ゾーン突破（>20）",
-  "sp500_note": "S&P500=7323.63",
+  "vix_note": "VIX=28.03 市場警戒ゾーン突破（>20）",
+  "sp500_note": "S&P500=7184.64",
   "fx_intervention_alert": null,
-  "contributions": [],
-  "anomaly_flags": [],
+  "contributions": [
+    {
+      "indicator": "VIX",
+      "score_before": 42,
+      "score_after": 25,
+      "koya_score_contribution": -1.36,
+      "contribution_pct": 100.0
+    }
+  ],
+  "anomaly_flags": [
+    "VIX: 42→25pt (-17pt) 要確認"
+  ],
   "fallback_indicators": [],
   "decision_triggers": [
     {
       "level": "green",
-      "indicator": "koya総合スコア 71/100 [GO]",
+      "indicator": "koya総合スコア 70/100 [GO]",
       "message": "積極展開フェーズ。高単価・新メニュー投入に最適タイミング。"
     },
     {
+      "level": "yellow",
+      "indicator": "急変異常値フラグ",
+      "message": "VIX: 42→25pt (-17pt) 要確認"
+    },
+    {
       "level": "green",
-      "indicator": "USD/JPY ¥159.850",
+      "indicator": "USD/JPY ¥159.690",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
       "level": "red",
-      "indicator": "VIX恐怖指数 22.10",
+      "indicator": "VIX恐怖指数 28.03",
       "message": "市場警戒ゾーン突破(>20)。本国の節約意識上昇に注意。"
     },
     {
       "level": "yellow",
-      "indicator": "S&P500 7,324",
-      "message": "良好水準。本国資産効果継続。"
+      "indicator": "S&P500 7,185",
+      "message": "下落傾向(-139pt)。本国消費マインドに影響可能性。"
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $81.96",
+      "indicator": "WTI原油 $82.87",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
@@ -923,9 +938,9 @@
     },
     "MORTGAGE30US": {
       "label": "30年固定住宅ローン金利(%)",
-      "value": 7.11,
-      "date": "2026-11-12",
-      "prev": 7.18,
+      "value": 7.28,
+      "date": "2026-11-19",
+      "prev": 7.11,
       "source": "FRED",
       "status": "ok"
     },
