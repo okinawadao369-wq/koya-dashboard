@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T02:20:03.989897Z",
+  "updated": "2026-11-20T11:39:30.817877Z",
   "series": {
     "DEXJPUS": [
       {
@@ -642,7 +642,7 @@
     "VIX": [
       {
         "date": "2026-11-20",
-        "value": 28.44
+        "value": 29.61
       },
       {
         "date": "2026-11-19",
@@ -757,6 +757,22 @@
     ]
   },
   "latest": {
+    "DEXJPUS": 158.81,
+    "FEDFUNDS": 3.88,
+    "UNRATE": 4.1,
+    "CPIAUCSL": 337.476,
+    "CPIFABSL": 348.815,
+    "AHETPI": 32.75,
+    "DGS10": 5.07,
+    "T10YIE": 2.16,
+    "UMCSENT": 48.1,
+    "GS2": 4.74,
+    "DCOILWTICO": 82.39,
+    "VIX": 29.61,
+    "SP500": 7175.83,
+    "DEXJPUS_source": "Yahoo Finance RT 2026-11-20 20:39 JST"
+  },
+  "prev_latest": {
     "DEXJPUS": 159.24,
     "FEDFUNDS": 3.88,
     "UNRATE": 4.1,
@@ -772,36 +788,20 @@
     "SP500": 7175.83,
     "DEXJPUS_source": "Yahoo Finance RT 2026-11-20 11:19 JST"
   },
-  "prev_latest": {
-    "DEXJPUS": 159.69,
-    "FEDFUNDS": 3.88,
-    "UNRATE": 4.1,
-    "CPIAUCSL": 337.476,
-    "CPIFABSL": 348.815,
-    "AHETPI": 32.75,
-    "DGS10": 5.1,
-    "T10YIE": 2.19,
-    "UMCSENT": 48.1,
-    "GS2": 4.74,
-    "DCOILWTICO": 82.87,
-    "VIX": 28.03,
-    "SP500": 7184.64,
-    "DEXJPUS_source": "Yahoo Finance RT 2026-11-20 05:36 JST"
-  },
   "deltas": {
-    "DEXJPUS": -0.45,
+    "DEXJPUS": -0.43,
     "FEDFUNDS": null,
     "UNRATE": null,
     "CPIAUCSL": null,
     "CPIFABSL": null,
     "AHETPI": null,
-    "DGS10": -0.03,
-    "T10YIE": -0.03,
+    "DGS10": null,
+    "T10YIE": null,
     "UMCSENT": null,
     "GS2": null,
-    "DCOILWTICO": 0.04,
-    "VIX": 0.41,
-    "SP500": -8.81
+    "DCOILWTICO": -0.52,
+    "VIX": 1.17,
+    "SP500": null
   },
   "alerts": {
     "DEXJPUS": "green",
@@ -836,7 +836,7 @@
   "koya_score": 69.9,
   "koya_signal": "GO",
   "spread_dgs10_gs2": "+0.330%",
-  "vix_note": "VIX=28.44 市場警戒ゾーン突破（>20）",
+  "vix_note": "VIX=29.61 市場警戒ゾーン突破（>20）",
   "sp500_note": "S&P500=7175.83",
   "fx_intervention_alert": null,
   "contributions": [],
@@ -850,12 +850,12 @@
     },
     {
       "level": "green",
-      "indicator": "USD/JPY ¥159.240",
+      "indicator": "USD/JPY ¥158.810",
       "message": "軍属購買力MAX水準。高単価メニュー投入好機。"
     },
     {
       "level": "red",
-      "indicator": "VIX恐怖指数 28.44",
+      "indicator": "VIX恐怖指数 29.61",
       "message": "市場警戒ゾーン突破(>20)。本国の節約意識上昇に注意。"
     },
     {
@@ -865,7 +865,7 @@
     },
     {
       "level": "yellow",
-      "indicator": "WTI原油 $82.91",
+      "indicator": "WTI原油 $82.39",
       "message": "やや高め。生活費上昇分を価格説明に活用。"
     },
     {
