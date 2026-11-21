@@ -1758,7 +1758,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v253';
+var CACHE_KEY = 'koya_v254';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
@@ -1803,7 +1803,7 @@ var SEGS = [
 
 var BTYPE = {
   ft_2d:  {okLow:3000,okHigh:8000,okEv:'C: 2D単独の自費市場は小さい。国内の思い出撮影は数千円台',label:'FamilyTreeOki｜2Dエコー',          cat:'ftc',usLow:75, usHigh:175,ftcDef:15000,monthlyPerPerson:2.5,note:'FTO基本価格¥15,000(14週〜20分)。0〜13週10分は¥12,000(2026-10-16 STORES予約ページ確認)。米国2Dアンカー(2026/08調査:早期エコー$50-85・標準パッケージ$150-250 出典bettercare.com/careroute.ai)。2026-11-21 実店舗メニュー調査（2D性別判定パッケージ6例）: 中央値約$85・幅$67〜135。30分・無料redoつきの上位性別判定は$109〜135'},
-  ft_4d:  {okLow:4500,okHigh:10000,okEv:'B: 国内医療機関の4D撮影のみ ¥4,500〜¥7,500+税＋初再診料(広尾レディース等)。沖縄の公開料金は未確認',label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:100,usHigh:300,ftcDef:20000,monthlyPerPerson:3.0,note:'FTO基本価格¥20,000(ライトメモリー20分)・USBメモリー¥23,000。米国アンカーは2026/10再検索で$100-300(中央値$200)に統一: 記念撮影$60-250(coveredusa.org 2026)・ブティック基本$80-150(careroute.ai 2026/5)・旧解説サイト$150-500。一次調査は未確認のため競合仮説C。2026-11-21 実店舗メニュー調査（米国7店・17パッケージ、単回の3D/4D）: 中央値$150・幅$87〜225。ただしスキャン10〜25分・再撮影は有料か上位のみ。FTOの1時間枠＋割引再予約と同じ条件（45〜60分枠・無料再撮影）の米国4Dは$190〜220で、現行アンカー中央$200と整合'},
+  ft_4d:  {okLow:4500,okHigh:10000,okEv:'B: 国内医療機関の4D撮影のみ ¥4,500〜¥7,500+税＋初再診料(広尾レディース等)。沖縄の公開料金は未確認',label:'FamilyTreeOki｜4Dエコー記念',      cat:'ftc',usLow:100,usHigh:300,ftcDef:20000,monthlyPerPerson:3.0,note:'FTO基本価格¥20,000(ライトメモリー20分)・USBメモリー¥23,000。米国アンカーは2026/10再検索で$100-300(中央値$200)に統一: 記念撮影$60-250(coveredusa.org 2026)・ブティック基本$80-150(careroute.ai 2026/5)・旧解説サイト$150-500。一次調査は未確認のため競合仮説C。2026-11-21 実店舗メニュー調査（米国7店・17パッケージ、単回の3D/4D）: 中央値$150・幅$87〜225。ただしスキャン10〜25分・再撮影は有料か上位のみ。FTOのスキャン約20分（予約1時間）＋割引再予約と同じ条件（45〜60分枠・無料再撮影）の米国4Dは$190〜220で、現行アンカー中央$200と整合'},
   ft_sit1:{okLow:19800,okHigh:24000,okEv:'B: 沖縄の民間シッター ¥3,300/h(ワールドキッズ・Veltra)×6h＋交通費。公的ファミサポは¥600/h',label:'FamilyTreeOki｜ベビーシッター',    cat:'ftc',usLow:114,usHigh:179,ftcDef:18000,monthlyPerPerson:4.0,note:'一般ベビーシッター (6h相当)(2026/08調査:時給$19-29.87(全米平均$23-26)・前年比+4.9%で一般物価上昇3%を上回る 出典urbansitter.com/sittercity.com)'},
   ft_med: {okLow:25000,okHigh:40000,okEv:'C: 助産院の宿泊型 基本料¥25,000〜32,000/泊(岡山市2026一覧)。沖縄の自費料金は未確認',label:'FamilyTreeOki｜産後ケア(宿泊1泊)',  cat:'ftc',usLow:700,usHigh:1400,ftcDef:70000,monthlyPerPerson:2.0,note:'宿泊型産後リトリート1泊＝宿泊+24h新生児ケア+食事(2026/09調査:米国$700-1,400/泊。Boram NY $843・Sanu DC $1,045・Ahma&Co CA $1,740。※在宅オーバーナイトドゥーラ$250-450は宿泊・食事を含まない別カテゴリ。FTO実売価格70,000円/泊は2026-09-17に初回利用開始 出典time.com/peacockparent.com/yuzicare.com)'},
   cafe:   {okLow:450,okHigh:650,okEv:'D: 国内チェーンのラテ概算',label:'飲食｜カフェ/ラテ・ドリンク',     cat:'food',usLow:4,  usHigh:7,  ftcDef:700,  monthlyPerPerson:80, note:'カフェラテ1杯相当(2026調査:全米平均$4-5.60・都市部$5-7)'},
@@ -2463,7 +2463,7 @@ function marketShock(){
 // [2026-11-21] 米国の実店舗メニュー中央値（第2アンカー・表示のみ。BTYPEのアンカーは変えていない）
 // 2D: 性別判定2Dパッケージ6例（$67/79/80/85/109/135）中央値 約$85。4D: 単回3D/4Dパッケージ17例 中央値$150（$87〜225）
 // 出典: jellyonmybelly.com(MA)・mommyandme4d.com(CA)・sneakapeekultrasound.com(AR)・babyblessingultrasoundstudio.com(KY)・affordableultrasoundhouston.com(TX)・thepricer.org掲載のEarly View/A New Conception（2026-11-21確認）
-var STUDIO_MEDIAN={ft_2d:85, ft_4d:150, date:'2026-11-21'};
+var STUDIO_MEDIAN={ft_2d:85, ft_4d:159, date:'2026-11-21'}; // 4Dは同じスキャン時間（20〜25分）のプラン中央値（$123〜179）
 // 同等条件アンカー: FTOは1時間枠・見えなければ割引で再予約。米国で同じ条件（45〜60分枠・無料再撮影つき）の4Dは$190〜220（例 Ultimate 5D $220/45分・無料redo、60分$189.99、45分$169〜220）→中央$205。
 // 2Dは30分・無料redoつきの上位性別判定 $109〜135 →中央$120（FTO 2Dの枠の長さはSTORES表記20分、要確認）
 var STUDIO_EQUIV={ft_2d:120, ft_4d:205};
@@ -2551,8 +2551,8 @@ function renderDecisionCard(){
     try{ var s2=studioGap(15000,'ft_2d'), s4=studioGap(20000,'ft_4d'), sU=studioGap(23000,'ft_4d');
       var _f=function(v){return v>=0?v+'%割安':Math.abs(v)+'%割高';};
       var e2=equivGap(15000,'ft_2d'), e4=equivGap(20000,'ft_4d'), eU=equivGap(23000,'ft_4d');
-      act.push('<b>米国の実店舗価格と時間・保証をそろえた比較（'+STUDIO_MEDIAN.date+'調査）:</b> 米国はスキャン10〜25分の基本パッケージ（中央値 4D $'+STUDIO_MEDIAN.ft_4d+'・2D $'+STUDIO_MEDIAN.ft_2d+'）が多く、見えなくても料金がかかり再撮影は有料か上位プランのみ。FTOは1時間枠・見えなければ割引で再予約。'
-        +'同じ条件（45〜60分枠・無料再撮影つき、4D $'+STUDIO_EQUIV.ft_4d+'）と比べると 4D '+_f(e4)+'・USB '+_f(eU)+'。基本パッケージと比べると 4D '+_f(s4)+'・2D '+_f(s2)+'。時間と保証の価値を予約ページで見える形にすると、割安感が伝わる'); }catch(e){}
+      act.push('<b>米国の実店舗価格と時間・保証をそろえた比較（'+STUDIO_MEDIAN.date+'調査）:</b> 米国は見る時間（スキャン）で値段が決まり、見えなくても料金がかかり、再撮影は有料か上位プランのみ。FTOはスキャン約20分の目安＋予約1時間・見えなければ割引で再予約。'
+        +'同じスキャン時間（20〜25分）の米国プラン（中央値 4D $'+STUDIO_MEDIAN.ft_4d+'）と比べると 4D '+_f(s4)+'・USB '+_f(sU)+'。同じ保証（無料再撮影つきの上位プラン、4D $'+STUDIO_EQUIV.ft_4d+'）と比べると 4D '+_f(e4)+'・USB '+_f(eU)+'。実際の割安感はこの間。2Dは米国の性別判定2D（中央値 $'+STUDIO_MEDIAN.ft_2d+'）比 '+_f(s2)+'、上位（$'+STUDIO_EQUIV.ft_2d+'）比 '+_f(e2)); }catch(e){}
     act.push('<b>4D:</b> '+p4+'（USB '+gU+'%割安）');
     try{ var o4=BTYPE.ft_4d, om=(o4.okLow+o4.okHigh)/2; act.push('<b>二重アンカー:</b> 4D基本は沖縄（日本人向け）の思い出撮影相場 約¥'+Math.round(om).toLocaleString()+'の'+(20000/om).toFixed(1)+'倍、米国中央値より'+g4+'%安。SOFA顧客は米国価格を基準にするため割安に映る。日本人向けに同じ価格で訴求しない'); }catch(e){}
     act.push('<b>訴求:</b> '+(hot?'米国の体感物価が高い局面。「安さ」ではなく「本国の家族・派遣中の夫と共有できる記念」を軸に。値下げは不要':'「家族と共有できる記念」を軸に継続'));
