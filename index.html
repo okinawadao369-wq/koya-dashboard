@@ -542,7 +542,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="box">
       <div class="box-title">本日の自動分析メモ <span class="badge">AI Rule-Based</span></div>
       <div id="auto-memo" style="font-size:11px;line-height:1.8;color:var(--text)">分析中...</div>
-      <div class="note">本ダッシュボードはFRED経済データ・推計モデルを用いたマーケティング意思決定支援ツールです。地政学スコアはGDELT統計・報道・公開情報にもとづく推計値です。</div>
+      <div class="note">本ダッシュボードはFRED経済データ・推計モデルを用いたマーケティング意思決定支援ツールです。地政学スコアは報道・公開情報にもとづくアナリスト月次評価（GDELTは2026-11-11に不使用化）で、もとづく推計値です。</div>
     </div>
   </div>
 
@@ -1736,7 +1736,7 @@ sentimentAdj = 1 + (CPI前年比/100) × 0.5   ※体感インフレは公式CPI
 // ════════════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════════════
-var CACHE_KEY = 'koya_v250';
+var CACHE_KEY = 'koya_v251';
 var CACHE_TTL = 4 * 60 * 60 * 1000;
 var SOFA = 47000; /* R-10 2026-09-05: 一次ソース2件が収束 — USNH沖縄公表の受給者数47,000（okinawa.tricare.mil/About-Us）と沖縄県基地対策課の最終公表値47,300（2011-06末、以降米側非提供）。旧値80,000は出典不明のため差し替え。詳細は『【KOYA】FTOターゲット層人口インテリジェンスDB 2026-09』を参照 */
 
@@ -1852,11 +1852,11 @@ var GEO = [
    desc:'上院FY2027 NDAA案は台湾安全保障協力イニシアチブを「第一列島線安全保障協力イニシアチブ」に改称し、フィリピンも対象に加えた。NMESISの与那国展開（Keen Sword 27）が計画と報じられる（未確認）。島嶼分散配備の流れは継続し、沖縄の戦略的な代替の難しさは変わらない。',
    impact:'米軍プレゼンス長期化・強化シグナル。商圏安定の最強根拠。',src:'SASC FY2027 NDAA要旨/Naval News 2026-06/Defence Security Asia（与那国計画・未確認）｜確認日 2026-11-11'},
   {key:'okinawa', label:'沖縄関係安定度',val:58,trend:'↓',color:'#60A5FA',
-   desc:'2026-09-13の知事選で辺野古容認の古謝玄太氏が当選し、県と国の対立は和らぐ方向。一方、10月に海兵隊員が女性殺害の容疑で逮捕され、県議会は日米地位協定の見直しを求める決議を可決。米軍は訓練の一時停止・外出制限・飲酒禁止を実施し、11月6日に下位階級の外出制限を延長した（深夜以降の基地外飲酒は全員禁止）。',
-   impact:'摩擦増はSOFA層の外出消費にやや抑制効果。英語対応サービスの差別化重要性が増す。',src:'Al Jazeera 2026-10-07・10-09/Stars and Stripes 2026-09-30・10-05/USNI News 2026-11-06/Malay Mail 2026-09-14｜確認日 2026-11-11'},
+   desc:'2026-09-13の知事選で辺野古容認の古謝玄太氏が当選し、県と国の対立は和らぐ方向。一方、10月に海兵隊員が女性殺害の容疑で逮捕され、県議会は日米地位協定の見直しを求める決議を可決。米軍は訓練の一時停止・外出制限・飲酒禁止を実施し、11月6日に下位階級の外出制限を延長した（深夜以降の基地外飲酒は全員禁止）。11月9日には知事も東京で地位協定の抜本的見直しと、容疑者の身柄引き渡しの改善を求めた。',
+   impact:'摩擦増はSOFA層の外出消費にやや抑制効果。英語対応サービスの差別化重要性が増す。',src:'Al Jazeera 2026-10-07・10-09/Stars and Stripes 2026-09-30・10-05・11-09/USNI News 2026-11-06/The Star 2026-11-09/Malay Mail 2026-09-14｜確認日 2026-11-21'},
   {key:'taiwan',  label:'台湾・東アジア緊張',val:80,trend:'↑',color:'#A78BFA',
-   desc:'2026年のPLA航空機の台湾周辺活動は2024〜25年の約半分に減ったが、艦艇の常駐は続く。10月の日次報告は航空機2〜12機・艦艇5〜7隻程度。9月の習近平氏訪米では台湾の合意はなく、貿易休戦の延長が主な成果。台湾向け武器売却（約140億ドル）は保留のまま。11〜12月は大規模演習の季節で、台湾国防部が警戒中。',
-   impact:'部隊増強・ドル高・COLA増額など、短期SOFA消費を押し上げる複合効果。',src:'台湾国防部の日次報告（2026-10）/Taiwan Security Monitor（GMU）/Al Jazeera 2026-09-24/IBTimes（米中首脳会談）｜確認日 2026-11-11'},
+   desc:'2026年のPLA航空機の台湾周辺活動は2024〜25年の約半分に減ったが、艦艇の常駐は続く。10月の日次報告は航空機2〜12機・艦艇5〜10隻程度。9月の習近平氏訪米では台湾の合意はなく、貿易休戦の延長が主な成果。台湾向け武器売却（約140億ドル）は保留のまま。11〜12月は大規模演習の季節で、台湾国防部が警戒中。',
+   impact:'部隊増強・ドル高・COLA増額など、短期SOFA消費を押し上げる複合効果。',src:'台湾国防部の日次報告（2026-10〜11）/Taiwan Security Monitor（GMU）/Al Jazeera 2026-09-24/IBTimes（米中首脳会談）/Tribune India 2026-11｜確認日 2026-11-21'},
   {key:'rebase',  label:'基地再編リスク',val:42,trend:'↓',color:'#FF4D6A',
    desc:'グアム移転は初期の約100名のみで、Camp Blazの建設指揮組織は2026-06に任務を終えた。辺野古は南側の埋め立てがほぼ完了、大浦湾側は軟弱地盤で遅れ、普天間の返還は2036年以降の見込み。新知事は辺野古容認で、県の基地対策組織を再編する方針。大規模削減のリスクは低いまま。',
    impact:'再編リスクは低下傾向。中長期の商圏維持に有利。',src:'NAVFAC Atlantic 2026-06-09/Stars and Stripes 2026-02-09・09-30/Kyodo（2026-04 普天間返還見通し）｜確認日 2026-11-11'},
@@ -2274,6 +2274,7 @@ function updateSig(){
   // [2026-11-11 R-11/F29] 行動指示は「今週の経営判断」1箇所に集約。ここは市場環境スコアの表示のみ（計算・閾値は不変）
   if(S.dataState==='stale') score+='（前回値・'+(S.staleLabel||'')+' 時点）';
   if(S.dataState==='none'){ b.className='sig-hold'; b.textContent='— 市場環境 取得不可'; return; }
+  try{ var _ms=marketShock(); if(_ms.lvl>=1) score+=' ⚠ VIX'+(_ms.vix!==null?Math.round(_ms.vix):'')+(_ms.dd!==null&&_ms.dd<=-5?'・株安'+Math.round(_ms.dd)+'%':''); }catch(e){}
   if(S.signal==='GO'){b.className='sig-go';b.textContent='▶ 市場環境 良好'+score;}
   else if(S.signal==='WATCH'){b.className='sig-watch';b.textContent='◎ 市場環境 注意'+score;}
   else{b.className='sig-hold';b.textContent='▬ 市場環境 弱い'+score;}
@@ -2388,7 +2389,7 @@ function updateOverviewCards(){
         var _upd=(_dataJsonCache&&_dataJsonCache.updated)?lgLabel(_dataJsonCache.updated):'';
         _fp.innerHTML='4D基本¥20,000＝<b>$'+_usdNow.toFixed(1)+'</b>（'+_f0.date.slice(5).replace('-','/')+'比 '+(_dYen>=0?'+':'')+_dYen.toFixed(2)+'円 → '
           +(_dUsd<=0?'ドルで$'+Math.abs(_dUsd).toFixed(1)+'安く見える＝割安感↑':'ドルで$'+_dUsd.toFixed(1)+'高く見える＝割安感↓')+'）'
-          +(_upd?'<br>為替は '+_upd+' 取得（毎日の自動更新）':'');
+          +(_upd?'<br>為替は '+_upd+' 取得（約3時間ごとの自動更新・GitHub側の混雑で遅れることあり）':'');
       } else { _fp.textContent=''; }
     } }catch(e){}
   var fxEl=document.getElementById('ov-fxchg');
@@ -2422,6 +2423,20 @@ var TG_EVENTS=[
   {d:'2026-10',e:'嘉手納の戦闘機部隊ローテーション継続（Stars and Stripes 10/27）',dir:'機能強化',ev:'B'},
   {d:'2026-11',e:'在沖米軍に夜間外出禁止・飲酒規制の報道（Stars and Stripes 11/6・内容未精査）。夜間の外出・来店動線に影響し得る',dir:'消費動線',ev:'C'}
 ];
+// [2026-11-21] 市場ショック検知：VIX（恐怖指数）とS&P500の直近高値からの下落率。
+// koya_scoreは為替の比重が大きく、株価急落・VIX急騰を反映しにくいため、経営判断カードと市場環境表示に別枠で警告を出す。
+// 閾値（仮置き・競合仮説C）: VIX≥30 または 直近高値比−7%以下＝危機、VIX≥25 または −5%以下＝注意
+function marketShock(){
+  try{
+    if(S.dataState==='none') return {lvl:0};
+    var dj=_dataJsonCache||{}, L=dj.latest||{}, vix=Number(L.VIX), sp=Number(L.SP500);
+    var arr=((dj.series&&dj.series.SP500)||[]).map(function(x){return Number(x.value);}).filter(function(v){return v>0;});
+    if(sp>0) arr.push(sp);
+    var mx=arr.length?Math.max.apply(null,arr):null, dd=(sp>0&&mx)?(sp/mx-1)*100:null;
+    var lvl=((vix>=30)||(dd!==null&&dd<=-7))?2:(((vix>=25)||(dd!==null&&dd<=-5))?1:0);
+    return {lvl:lvl,vix:isFinite(vix)?vix:null,dd:dd,days:arr.length};
+  }catch(e){ return {lvl:0}; }
+}
 function _oilNewest(dj){
   var ur=(dj&&dj.us_reality)||{}, L=(dj&&dj.latest)||{};
   var br=ur.DCOILBRENTEU, wd=((dj&&dj.series&&dj.series.DCOILWTICO)||[{}])[0].date||'';
@@ -2495,6 +2510,11 @@ function renderDecisionCard(){
     var p2=g2<25?'据え置き（値上げ余地なし・下限25%を割る）':g2<30?'据え置き（下限付近・値上げ余地なし）':g2>55?'値上げ検討の余地':'据え置き（目安帯内）';
     var p4=g4<25?'据え置き':g4>55?'値上げ検討の余地':'据え置き（目安帯内）・USBメモリー¥23,000へ誘導';
     var act=[];
+    var _ms=marketShock();
+    if(_ms.lvl>=1){
+      act.push('<b style="color:'+(_ms.lvl>=2?'#FF4D6A':'#F4C842')+'">市場ショック（'+(_ms.lvl>=2?'危機':'注意')+'）:</b> VIX '+(_ms.vix!==null?_ms.vix.toFixed(1):'—')+'（30超=危機ゾーン）・S&P500 直近高値比 '+(_ms.dd!==null?_ms.dd.toFixed(1)+'%':'—')
+        +'。本国の資産不安で、記念撮影のような裁量支出が慎重になりやすい。今週は値上げ・新価格の投入を見送り、既存価格のまま「家族と共有できる記念」の訴求を続ける。判定（'+verdict+'）のルールは変えていない');
+    }
     act.push('<b>2D:</b> '+p2);
     act.push('<b>4D:</b> '+p4+'（USB '+gU+'%割安）');
     try{ var o4=BTYPE.ft_4d, om=(o4.okLow+o4.okHigh)/2; act.push('<b>二重アンカー:</b> 4D基本は沖縄（日本人向け）の思い出撮影相場 約¥'+Math.round(om).toLocaleString()+'の'+(20000/om).toFixed(1)+'倍、米国中央値より'+g4+'%安。SOFA顧客は米国価格を基準にするため割安に映る。日本人向けに同じ価格で訴求しない'); }catch(e){}
@@ -2528,6 +2548,7 @@ function renderOverview(){
   if(ff>4) score+=5;
   var vixB=S.fredVals&&S.fredVals['VIX']?S.fredVals['VIX']:20;
   if(vixB<15) score+=8; else if(vixB<20) score+=5; else if(vixB<25) score+=2;
+  else if(vixB>=30) score-=10; else if(vixB>=25) score-=5; // [2026-11-21] VIX高騰時は購買市場温度を下げる
   var geoBase=Math.round(geoImpactPct());
   score+=geoBase; // geo impact (動的)
   score=Math.min(100,Math.round(score));
@@ -4387,7 +4408,7 @@ function renderUSReality(){
     {svc:'産後ケア（4週間）', usLow:5000,usHigh:10000,okinawa:280000,biz:'postpartum'},
     {svc:'産後ケア宿泊/1泊', usLow:700, usHigh:1400, okinawa:70000, biz:'ft_med'},
     {svc:'マタニティヨガ/月', usLow:180, usHigh:480, okinawa:15000, biz:'ft_med'},
-    {svc:'ベビーシッター/時', usLow:20,  usHigh:35,  okinawa:1500,  biz:'ft_sit1'},
+    {svc:'ベビーシッター/時（¥18,000/6時間）', usLow:19,  usHigh:30,  okinawa:3000,  biz:'ft_sit1'}, // 業種別価格分析(BTYPE ft_sit1 $114-179/6h)と同じアンカー
     {svc:'ファミリー4D撮影', usLow:100, usHigh:300, okinawa:20000, biz:'ft_4d'},
     {svc:'プレミアムディナー', usLow:200, usHigh:500, okinawa:18000, biz:'premium'},
     {svc:'ファミリーディナー', usLow:75,  usHigh:160, okinawa:10000, biz:'dinner'},
@@ -4408,10 +4429,14 @@ function renderUSReality(){
       var usAvgUSD=(usLowAdj+usHighAdj)/2;
       var usAvgJPY=Math.round(usAvgUSD*fx);
       var discount=Math.round((1-d.okinawa/usAvgJPY)*100);
-      var isPremium=discount>=35;
-      var discColor=isPremium?'var(--teal)':'var(--gold)';
+      // [2026-11-21] 判断列を「今週の経営判断」と同じ目安帯（25〜55%・仮説C）にそろえた（旧: 35%以上は一律「今すぐ値上げ余地あり」）
+      var isPremium=discount>55;
+      var discColor=isPremium?'var(--teal)':(discount<25?'#FF7F50':'var(--gold)');
       var psych=discount>=50?'🔥 超高プレミアム':discount>=35?'⭐ 高プレミアム':'✅ プレミアム';
-      var action=isPremium?'<span style="color:var(--teal);font-weight:600">今すぐ値上げ余地あり</span>':'<span style="color:var(--gold)">現行維持・継続訴求</span>';
+      var action=discount>55?'<span style="color:var(--teal);font-weight:600">値上げ検討の余地（55%超）</span>'
+        :discount>=30?'<span style="color:var(--gold)">帯の中・据え置き</span>'
+        :discount>=25?'<span style="color:var(--gold)">下限付近・据え置き</span>'
+        :'<span style="color:#FF7F50">値上げ余地なし（25%未満）</span>';
       return '<tr>'
         +'<td>'+d.svc+'</td>'
         +'<td style="font-family:monospace">$'+usLowAdj.toLocaleString()+'〜$'+usHighAdj.toLocaleString()+'<br><span style="font-size:.68rem;color:var(--muted)">(体感値換算)</span></td>'
@@ -4424,12 +4449,13 @@ function renderUSReality(){
   }
 
   // 経営シグナルカード
+  var _msU=marketShock(); var _g4U=ftoGap(20000,'ft_4d');
   var signals=[
     {
       icon:'📈', title:'価格改定ウィンドウ',
-      status: discount>40?'GO':'WATCH',
+      status: (_msU.lvl>=1)?'WATCH':(_g4U>55?'GO':'WATCH'),
       color:'var(--teal)',
-      body:'米国体感インフレ上昇により沖縄サービスの相対価値が高まっています。価格調整は割安帯（25〜55%・仮説C）の範囲内で、実績を見て慎重に判断してください。'
+      body:(_msU.lvl>=1?'市場ショック中（VIX '+(_msU.vix!==null?_msU.vix.toFixed(1):'—')+'・S&P500 直近高値比 '+(_msU.dd!==null?_msU.dd.toFixed(1)+'%':'—')+'）。値上げは見送り、既存価格で訴求を続ける局面。':'')+'主力の4D基本は米国中央値比 '+_g4U+'%割安（目安帯25〜55%・仮説C）。'+(_g4U>55?'帯の上限を超えており値上げ検討の余地あり。':'帯の中なので据え置きが基本。')+'価格改定は「今週の経営判断」と自社実績を確認してから。'
     },
     {
       icon:'💡', title:'マーケティング訴求軸',
@@ -4445,17 +4471,17 @@ function renderUSReality(){
     },
     {
       icon:'⚠️', title:'感情的緊縮リスク',
-      status: umcsent<50?'WATCH':'LOW',
-      color: umcsent<50?'var(--gold)':'var(--muted)',
-      body:'UMCSENT='+umcsent.toFixed(1)+'（'+(umcsent<50?'史上最低圏':'低水準')+'）。経済的余裕があっても「本国が大変なのに贅沢できない」という社会的罪悪感が潜在的に存在。「バリュー投資」「思い出・家族」の文脈での訴求が重要。'
+      status: (_msU.lvl>=2)?'HIGH':((_msU.lvl>=1||umcsent<55)?'WATCH':'LOW'),
+      color: (_msU.lvl>=2)?'#FF4D6A':((_msU.lvl>=1||umcsent<55)?'var(--gold)':'var(--muted)'),
+      body:'UMCSENT='+umcsent.toFixed(1)+'（'+(umcsent<50?'史上最低圏':'低水準')+'）'+(_msU.lvl>=1?'・VIX '+(_msU.vix!==null?_msU.vix.toFixed(1):'—')+'・S&P500 直近高値比 '+(_msU.dd!==null?_msU.dd.toFixed(1)+'%':'—'):'')+'。経済的余裕があっても「本国が大変なのに贅沢できない」という社会的罪悪感が潜在的に存在。「バリュー投資」「思い出・家族」の文脈での訴求が重要。'
     },
   ];
 
   var sigCards=document.getElementById('ur-signal-cards');
   if(sigCards){
     sigCards.innerHTML=signals.map(function(sg){
-      var bgColor=sg.status==='GO'?'rgba(0,212,170,.1)':sg.status==='WATCH'?'rgba(244,200,66,.1)':sg.status==='STRONG'?'rgba(74,222,128,.1)':sg.status==='INSIGHT'?'rgba(244,200,66,.08)':'rgba(136,153,176,.08)';
-      var bColor=sg.status==='GO'?sg.color:sg.status==='WATCH'?'var(--gold)':sg.status==='STRONG'?'var(--green)':sg.status==='INSIGHT'?'var(--gold)':'var(--muted)';
+      var bgColor=sg.status==='HIGH'?'rgba(255,77,106,.12)':sg.status==='GO'?'rgba(0,212,170,.1)':sg.status==='WATCH'?'rgba(244,200,66,.1)':sg.status==='STRONG'?'rgba(74,222,128,.1)':sg.status==='INSIGHT'?'rgba(244,200,66,.08)':'rgba(136,153,176,.08)';
+      var bColor=sg.status==='HIGH'?'#FF4D6A':sg.status==='GO'?sg.color:sg.status==='WATCH'?'var(--gold)':sg.status==='STRONG'?'var(--green)':sg.status==='INSIGHT'?'var(--gold)':'var(--muted)';
       return '<div style="background:'+bgColor+';border:1px solid '+bColor.replace('var','').replace('(','').replace(')','')+'33;border-radius:8px;padding:.8rem 1rem">'
         +'<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">'
         +'<span>'+sg.icon+'</span>'
